@@ -26,10 +26,15 @@ rule daner_ukb:
               
 rule daner_finn:
 	input: "sumstats/Depressio_FinnGen_R5_18032020.txt.gz"
-        output: "daner/daner_mdd_FinnGen_R5.gz"
+        output: "liftover/daner_mdd_FinnGen_R5.gz"
 	shell: "echo \"CHR SNP BP A1 A2 FRQ_A_23424 FRQ_U_192220 INFO OR SE P\" > daner/daner_mdd_FinnGen_R5;"
                "zcat {input} | tail -n +2 | awk '{{print $1, $5, $2, $4, $3, $11, $12, $18, exp($8), $9, $7}}' >> daner/daner_mdd_FinnGen_R5;"
                "gzip --verbose daner/daner_mdd_FinnGen_R5"
+
+rule liftover_finn:
+	input: "liftover/daner_mdd_FinnGen_R5.gz"
+        output: "daner/daner_mdd_FinnGen_R5.gz"
+        script: "scripts/lifeover.R"
 
 rule daner:
 	input: "daner/daner_MDD29.0515a_mds6.0316.gz",
@@ -47,14 +52,10 @@ rule refdir:
 	output: "reference_info"
 	shell: "impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
 
-rule dataset_eur:
-	input: "aligned/daner_MDD29.0515a_mds6.0316.aligned.gz",
-               "aligned/daner_GERA.euro.depress.0915a_mds5.id.aligned.gz",
-	       "aligned/daner_mdd_decode_160211.aligned.gz",
-               "aligned/daner_mdd_genscot_1215a.aligned.gz",
-               "aligned/daner_mddGWAS_new_ipsych_170220.meta.aligned.gz",
-               "aligned/daner_mdd_23andMe_eur_v7.2.aligned.gz",
-	       "aligned/daner_mdd_UKBB_MD.eur.glm.aligned.gz"
+rule results_eur:
+	input: "aligned/daner_MDD29.0515a_mds6.0316.aligned.gz", "aligned/daner_GERA.euro.depress.0915a_mds5.id.aligned.gz", "aligned/daner_mdd_decode_160211.aligned.gz", "aligned/daner_mdd_genscot_1215a.aligned.gz", "aligned/daner_mddGWAS_new_ipsych_170220.meta.aligned.gz", "aligned/daner_mdd_23andMe_eur_v7.2.aligned.gz"
+        output: "dataset_eur"
+	shell: "for daner in {input}; do echo $daner >> {output}; done"
 
 rule postimp_eur:
 	input: dataset="dataset_eur", ref="reference_info"

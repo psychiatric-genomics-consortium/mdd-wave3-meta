@@ -1,6 +1,7 @@
 # Data
 daner/
 sumstats/
+aligned/
 *.gz
 config.yaml
 
