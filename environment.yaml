@@ -1,0 +1,9 @@
+name: mdd3
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python =3.7
+  - bioconda::snakemake-minimal =5.4.5
+  - r-base =4.0.2
+  - r-essentials 
