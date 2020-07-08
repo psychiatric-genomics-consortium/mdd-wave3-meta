@@ -88,7 +88,7 @@ Configure the analysis workflow. Make a copy of the configuration file
 cp config.yaml-template config.yaml
 ```
 
-Then edit and fill in ```config.yaml``. Under the `daner` entry, fill in the `PATH` to each daner file.
+Then edit and fill in `config.yaml`. Under the `daner` entry, fill in the `PATH` to each daner file.
 
 ### Step 4
 
@@ -111,7 +111,7 @@ Run the meta analysis
 * **Fabian Strait** - *analyst* - [CIMH](https://www.zi-mannheim.de/)
 * **Olga Giannakopoulou** - *analyst* [UCL](http://www.bristol.ac.uk/alspac/)
 * **David Howard** - *analyst* - [KCL](https://www.kcl.ac.uk/)
-* **Karoline Kuchenbaecker** - *group lead* [UCL](http://www.bristol.ac.uk/alspac/)
+* **Karoline Kuchenbaecker** - *analytical group lead* - [UCL](http://www.bristol.ac.uk/alspac/)
 * **Naomi Wray** - *analytical group director* - [Queensland](https://cnsgenomics.com/)
 * **Stephan Ripke** - *analytical group director* - [Broad](https://www.broadinstitute.org/)
 * **Cathryn Lewis** - *workgroup chair* - [KCL](https://www.kcl.ac.uk/)
