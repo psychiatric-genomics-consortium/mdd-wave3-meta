@@ -26,36 +26,77 @@ and the following new cohorts:
 
 …plus more as they are incorporated into the analysis.
 
+Analysis conducted on [LISA](https://geneticcluster.org).
 
 ### Step 1
 
-Describe this step
+Clone the repository
 
 ```
-Code used 1
+git clone git@github.com:psychiatric-genomics-consortium/mdd-meta.git
+cd mdd-meta
 ```
+
 
 ### Step 2
 
-Describe this step
+
+Download [RICOPILI](https://sites.google.com/a/broadinstitute.org/ricopili/), decompress the archive, and move the files to your home directory
 
 ```
-Code used 2
+wget https://sites.google.com/a/broadinstitute.org/ricopili/download/rp_bin.2019_Oct_15.001.tar.gz
+tar -xvzf rp_bin.2019_Oct_15.001.tar.gz
+mv rp_bin ~/rp_bin
 ```
+
+Customize RICOPILI installation
+
+```
+~/rp_bin/rp_config
+```
+
+Customize the file `rp_config.custom.txt` [for LISA](https://docs.google.com/spreadsheets/d/1LhNYIXhFi7yXBC17UkjI1KMzHhKYz0j2hwnJECBGZk4/edit#gid=255132922) and then run 
+
+```
+~/rp_bin/rp_config
+```
+
+again.
 
 ### Step 3
 
-Describe this step
+Install [Anaconda](https://www.anaconda.com).
 
 ```
-Code used 3
+srun -n 16 -t 1:00:00 --pty bash -il
+wget https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
+sh Anaconda3-2020.02-Linux-x86_64.sh
 ```
 
-And repeat
+Install dependencies and load the environment
 
 ```
-until finished
+conda env create --file environment.yaml
+conda activate mdd3
 ```
+
+### Step 4
+
+Configure the analysis workflow. Make a copy of the configuration file
+
+```
+cp config.yaml-template config.yaml
+```
+
+Then edit and fill in ```config.yaml``. Under the `daner` entry, fill in the `PATH` to each daner file.
+
+### Step 4
+
+Run the meta analysis
+
+```
+```
+
 
 ## Checking the results
 
