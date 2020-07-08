@@ -16,7 +16,7 @@ impute_frq2_files <- list.files(reference_dir, '*.EUR.frq2.gz', full.names=T)
 
 impute_frq2 <-
 bind_rows(
-lapply(impute_eur_frq2_files,
+lapply(impute_frq2_files,
        function(frq2_file)
          read_table2(frq2_file,
                      col_types=cols(SNP = col_character(),
@@ -28,6 +28,8 @@ lapply(impute_eur_frq2_files,
                                     NCHROBS = col_integer()
 )))) %>%
 select(-FA1, -NCHROBS)
+
+gc()
 
 # merge on chromosome and position
 daner_aligned <- 

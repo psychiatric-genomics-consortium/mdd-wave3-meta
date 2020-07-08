@@ -47,5 +47,15 @@ rule refdir:
 	output: "reference_info"
 	shell: "impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
 
-rule meta:
-	input: "aligned/{cohort}.aligned.gz",
+rule dataset_eur:
+	input: "aligned/daner_MDD29.0515a_mds6.0316.aligned.gz",
+               "aligned/daner_GERA.euro.depress.0915a_mds5.id.aligned.gz",
+	       "aligned/daner_mdd_decode_160211.aligned.gz",
+               "aligned/daner_mdd_genscot_1215a.aligned.gz",
+               "aligned/daner_mddGWAS_new_ipsych_170220.meta.aligned.gz",
+               "aligned/daner_mdd_23andMe_eur_v7.2.aligned.gz",
+	       "aligned/daner_mdd_UKBB_MD.eur.glm.aligned.gz"
+
+rule postimp_eur:
+	input: dataset="dataset_eur", ref="reference_info"
+        shell: "postimp_navi --result {input.dataset} --out pgc_mdd3_meta_eur"
