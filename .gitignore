@@ -1,5 +1,6 @@
 # Data
 daner/
+sumstats/
 *.gz
 config.yaml
 
@@ -44,6 +45,8 @@ rsconnect/
 rp_bin.*
 rp_bin/
 rp_config.*
+reference_info
+refiex_templ
 
 # Conda
 Anaconda*.sh
