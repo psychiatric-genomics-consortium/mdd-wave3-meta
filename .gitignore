@@ -2,6 +2,7 @@
 daner/
 sumstats/
 aligned/
+meta/
 *.gz
 config.yaml
 

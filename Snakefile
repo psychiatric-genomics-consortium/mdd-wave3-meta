@@ -35,7 +35,7 @@ rule daner_finn:
 rule liftover_finn:
 	input: "liftover/daner_mdd_FinnGen_R5.gz"
         output: "daner/daner_mdd_FinnGen_R5.gz"
-        script: "scripts/lifeover.R"
+        script: "scripts/liftover.R"
 
 rule daner:
 	input: "daner/daner_MDD29.0120a.rmUKBB.gz",
@@ -45,20 +45,25 @@ rule daner:
                "daner/daner_mddGWAS_new_ipsych_170220.meta.gz",
                "daner/daner_mdd_23andMe_eur_v7.2.gz"
 rule align:
-	input: daner="daner/{cohort}.gz", ref="reference_info"
+	input: daner="daner/{cohort}.gz", ref="meta/reference_info"
 	output: "aligned/{cohort}.aligned.gz"
         script: "scripts/align.R"
 
 rule refdir:
-	output: "reference_info"
-	shell: "impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
+	output: "meta/reference_info"
+	shell: "cd meta; impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
 
-rule results_eur:
-	input: "aligned/daner_MDD29.0120a.rmUKBB.aligned.gz", "aligned/daner_GERA.euro.depress.0915a_mds5.id.aligned.gz", "aligned/daner_mdd_decode_160211.aligned.gz", "aligned/daner_mdd_genscot_1215a.aligned.gz", "aligned/daner_mddGWAS_new_ipsych_170220.meta.aligned.gz", "aligned/daner_mdd_23andMe_eur_v7.2.aligned.gz"
-        output: "dataset_eur"
-	shell: "for daner in {input}; do echo $daner >> {output}; done"
+rule meta:
+	input: "aligned/{cohort}.gz"
+	output: "meta/{cohort}.gz"
+	shell: "ln -sf $(readlink -f {input}) {output}"
+
+rule dataset_eur:
+	input: "meta/daner_MDD29.0120a.rmUKBB.aligned.gz", "meta/daner_GERA.euro.depress.0915a_mds5.id.aligned.gz", "meta/daner_mdd_decode_160211.aligned.gz", "meta/daner_mdd_genscot_1215a.aligned.gz", "meta/daner_mddGWAS_new_ipsych_170220.meta.aligned.gz", "meta/daner_mdd_23andMe_eur_v7.2.aligned.gz"
+        output: "meta/dataset_eur"
+	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
 
 rule postimp_eur:
-	input: dataset="dataset_eur", ref="reference_info"
-        output: "j._pi_pgc_mdd3_meta_eur.id"
-        shell: "postimp_navi --result {input.dataset} --popname eur --out pgc_mdd3_meta_eur"
+	input: dataset="meta/dataset_eur", ref="meta/reference_info"
+        output: "meta/j._pi_pgc_mdd_meta_eur_v3.00_2020.07.id"
+        shell: "cd meta; postimp_navi --result {input.dataset} --popname eur --out pgc_mdd3_meta_eur_v3.00_2020.07"
