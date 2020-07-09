@@ -13,7 +13,8 @@ rule sumstats_link:
 
 rule sumstats:
 	input: "sumstats/ukb_mdd.md.eur.glm.logistic.gz",
-               "sumstats/Depressio_FinnGen_R5_18032020.txt.gz"
+               "sumstats/Depressio_FinnGen_R5_18032020.txt.gz",
+               "sumstats/ALSPAC_FILTERED_ALL_12082019.gz"
 
 rule daner_ukb:
 	input: "sumstats/ukb_mdd.md.eur.glm.logistic.gz"
@@ -37,7 +38,7 @@ rule liftover_finn:
         script: "scripts/lifeover.R"
 
 rule daner:
-	input: "daner/daner_MDD29.0515a_mds6.0316.gz",
+	input: "daner/daner_MDD29.0120a.rmUKBB.gz",
                "daner/daner_GERA.euro.depress.0915a_mds5.id.gz",
 	       "daner/daner_mdd_decode_160211.gz",
                "daner/daner_mdd_genscot_1215a.gz",
@@ -53,10 +54,11 @@ rule refdir:
 	shell: "impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
 
 rule results_eur:
-	input: "aligned/daner_MDD29.0515a_mds6.0316.aligned.gz", "aligned/daner_GERA.euro.depress.0915a_mds5.id.aligned.gz", "aligned/daner_mdd_decode_160211.aligned.gz", "aligned/daner_mdd_genscot_1215a.aligned.gz", "aligned/daner_mddGWAS_new_ipsych_170220.meta.aligned.gz", "aligned/daner_mdd_23andMe_eur_v7.2.aligned.gz"
+	input: "aligned/daner_MDD29.0120a.rmUKBB.aligned.gz", "aligned/daner_GERA.euro.depress.0915a_mds5.id.aligned.gz", "aligned/daner_mdd_decode_160211.aligned.gz", "aligned/daner_mdd_genscot_1215a.aligned.gz", "aligned/daner_mddGWAS_new_ipsych_170220.meta.aligned.gz", "aligned/daner_mdd_23andMe_eur_v7.2.aligned.gz"
         output: "dataset_eur"
 	shell: "for daner in {input}; do echo $daner >> {output}; done"
 
 rule postimp_eur:
 	input: dataset="dataset_eur", ref="reference_info"
-        shell: "postimp_navi --result {input.dataset} --out pgc_mdd3_meta_eur"
+        output: "j._pi_pgc_mdd3_meta_eur.id"
+        shell: "postimp_navi --result {input.dataset} --popname eur --out pgc_mdd3_meta_eur"
