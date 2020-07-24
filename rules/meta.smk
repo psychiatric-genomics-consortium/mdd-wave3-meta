@@ -17,20 +17,20 @@ rule daner:
 	
 # Convert text sumstats to daner
 rule text2daner:
-	input: sumstats="resources/sumstats/text_{cohort}.{ancestries}.{build}.{version}.gz", sh="scripts/sumstats/{cohort}.sh"
-	output: "results/sumstats/daner/daner_{cohort}.{ancestries}.{build}.{version}.gz"
+	input: sumstats="resources/sumstats/text_mdd_{cohort}.{ancestries}.{build}.{version}.gz", sh="scripts/sumstats/{cohort}.sh"
+	output: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{version}.gz"
 	shell: "sh {input.sh} {input.sumstats} {output}"
 	
 # for daner files on genome build hg19
 rule hg19:
-	input: "results/sumstats/daner/daner_{cohort}.{ancestries}.hg19.{version}.gz"
-	output: "results/sumstats/hg19/daner_{cohort}.{ancestries}.hg19.{version}.gz"
+	input: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg19.{version}.gz"
+	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{version}.gz"
 	shell: "ln {input} {output}"
 
 # align to imputation panel
 rule align:
-	input: daner="results/sumstats/hg19/daner_{cohort}.{ancestries}.{build}.{version}.gz", ref="results/meta/reference_info"
-	output: "results/sumstats/aligned/daner_{cohort}.{ancestries}.{build}.{version}.aligned.gz"
+	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{version}.gz", ref="results/meta/reference_info"
+	output: "results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{version}.aligned.gz"
 	script: "../scripts/align.R"
 
 # create reference into file linking to imputation panel
@@ -44,15 +44,15 @@ rule meta:
 	output: "results/meta/{cohort}.gz"
 	shell: "ln {input} {output}"
 
-# Ricopili results dataset list for EUR ancestries
+# Ricopili results dataset list for eur ancestries
 rule dataset_eur:
-	input: "results/meta/daner_MDD29.EUR.hg19.0120a_rmUKBB.aligned.gz",
-	 "results/meta/daner_23andMe.EUR.hg19.v7_2.aligned.gz",
-	 "results/meta/daner_deCODE.EUR.hg19.160211.aligned.gz",
-	 "results/meta/daner_GenScot.EUR.hg19.1215a.aligned.gz",
-	 "results/meta/daner_GERA.EUR.hg19.0915a_mds5.aligned.gz",
-	 "results/meta/daner_UKBB.EUR.hg19.MD_glm.aligned.gz",
-	 "results/meta/daner_iPSYCH.EUR.hg19.170220.aligned.gz"
+	input: "results/meta/daner_mdd_MDD29.eur.hg19.0120a_rmUKBB.aligned.gz",
+	 "results/meta/daner_mdd_23andMe.eur.hg19.v7_2.aligned.gz",
+	 "results/meta/daner_mdd_deCODE.eur.hg19.160211.aligned.gz",
+	 "results/meta/daner_mdd_GenScot.eur.hg19.1215a.aligned.gz",
+	 "results/meta/daner_mdd_GERA.eur.hg19.0915a_mds5.aligned.gz",
+	 "results/meta/daner_mdd_UKBB.eur.hg19.MD_glm.aligned.gz",
+	 "results/meta/daner_mdd_iPSYCH.eur.hg19.170220.aligned.gz"
 	output: "results/meta/dataset_eur"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
 
