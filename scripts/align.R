@@ -10,9 +10,11 @@ daner <- read_table2(daner_gz)
 reference_info <- snakemake@input$ref
 reference_dir <- readLines(reference_info)[[1]]
 
+# get ancestries superpopulation
+pop <- snakemake@wildcards$ancestries
+
 # list reference files for given ancestries group
-# this needs to be made into a parameter
-impute_frq2_files <- list.files(reference_dir, '*.EUR.frq2.gz', full.names=T)
+impute_frq2_files <- list.files(reference_dir, pattern=paste('*', pop, 'frq2.gz', sep='.'), full.names=T)
 
 impute_frq2 <-
 bind_rows(

@@ -29,8 +29,8 @@ rule hg19:
 
 # align to imputation panel
 rule align:
-	input: daner="results/sumstats/hg19/{cohort}.gz", ref="results/meta/reference_info"
-	output: "results/sumstats/aligned/{cohort}.aligned.gz"
+	input: daner="results/sumstats/hg19/daner_{cohort}.{ancestries}.{build}.{version}.gz", ref="results/meta/reference_info"
+	output: "results/sumstats/aligned/daner_{cohort}.{ancestries}.{build}.{version}.aligned.gz"
 	script: "../scripts/align.R"
 
 # create reference into file linking to imputation panel
