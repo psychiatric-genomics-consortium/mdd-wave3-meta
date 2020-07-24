@@ -1,8 +1,6 @@
 # Data
-daner/
-sumstats/
-aligned/
-meta/
+resources/
+results/
 *.gz
 config.yaml
 
