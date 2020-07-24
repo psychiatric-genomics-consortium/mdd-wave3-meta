@@ -11,7 +11,7 @@ reference_info <- snakemake@input$ref
 reference_dir <- readLines(reference_info)[[1]]
 
 # get ancestries superpopulation
-pop <- snakemake@wildcards$ancestries
+pop <- toupper(snakemake@wildcards$ancestries)
 
 # list reference files for given ancestries group
 impute_frq2_files <- list.files(reference_dir, pattern=paste('*', pop, 'frq2.gz', sep='.'), full.names=T)
