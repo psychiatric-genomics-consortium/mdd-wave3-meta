@@ -72,11 +72,11 @@ daner=$(dirname $daner_gz)/$(basename $daner_gz .gz)
 Nca=$(zcat $sumstats | sed -n '2p' | awk '{{print $6/2}}')
 Nco=$(zcat $sumstats | sed -n '2p' | awk '{{print $7/2}}')
 
-# write out daner header line
-echo "CHR SNP BP A1 A2 FRQ_A_${Nca} FRQ_U_${Nco} INFO OR SE P" > $daner
+# write out daner header line (tab-separated)
+echo -e "CHR\tSNP\tBP\tA1\tA2\tFRQ_A_23424\tFRQ_U_192220\tINFO\tOR\tSE\tP" > $daner
 
 # example: rearrange columns to match daner format
-zcat $sumstats | tail -n +2 | awk '{print $1, $3, $2, $4, $5, $8, $9, $10, $13, $14, $15}' >> $daner
+zcat $sumstats | tail -n +2 | awk -v OFS='\t' '{print $1, $3, $2, $4, $5, $8, $9, $10, $13, $14, $15}' >> $daner
 
 # compress daner file
 gzip --verbose $daner
