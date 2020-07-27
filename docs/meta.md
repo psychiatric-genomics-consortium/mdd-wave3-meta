@@ -87,3 +87,17 @@ The workflow will handle the naming of the `INPUT` and `OUTPUT` parameters. Run 
 ```
 snakemake -j1 results/sumstats/daner/daner_mdd_COHORT.POP.hgNN.VERSION.gz
 ```
+
+## Liftover
+
+The meta-analysis is conducted against genome assembly [GRCh37](https://www.ncbi.nlm.nih.gov/assembly/GCF_000001405.13/) (hg19). Summary statistics on build `hg38` are automatically lifted over to `hg19` as part of the workflow. Assuming that the sumstats file
+
+```
+resources/sumstats/FORMAT_mdd_COHORT.POP.hg38.VERSION.gz
+```
+
+exists then it can be converted separately to `hg19` by running
+
+```
+snakemake -j1 results/sumstats/hg19/daner_mdd_COHORT.POP.hg19.VERSION.gz
+```

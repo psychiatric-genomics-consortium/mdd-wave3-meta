@@ -6,4 +6,5 @@ dependencies:
   - python =3.7
   - bioconda::snakemake-minimal =5.20.1
   - r-base =4.0.2
-  - r-essentials 
+  - r-essentials
+  - bioconductor-rtracklayer =1.48.0

@@ -1,6 +1,11 @@
+import os
+from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
+
+HTTP = HTTPRemoteProvider()
+
 # Copy summary statistics listed in config.yaml under sumstats
 # with key FORMAT_COHORT.POP.hgNN.VERSION
-rule link_sumstats:
+rule stage_sumstats:
 	input: lambda wildcards: config["sumstats"][wildcards.cohort]
 	output: "resources/sumstats/{cohort}.gz"
 	shell: "cp {input} {output}"
@@ -26,6 +31,20 @@ rule hg19:
 	input: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg19.{version}.gz"
 	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{version}.gz"
 	shell: "ln {input} {output}"
+
+# download hgIN to hgOUT chain
+rule hg_chain:
+    input: HTTP.remote("hgdownload.soe.ucsc.edu/goldenPath/hg{from}/liftOver/hg{from}ToHg{to}.over.chain.gz", keep_local=True)
+	output: "resources/liftOver/hg{from}ToHg{to}.over.chain"
+	run:
+		 outputName = os.path.basename(input[0])
+		 shell("gunzip -c {input} > {output}")
+	
+# liftover hg38 to hg19	
+rule hg38to19:
+	input: daner="results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg38.{version}.gz", chain="resources/liftOver/hg38ToHg19.over.chain"
+	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{version}.gz"
+	script: "../scripts/liftover.R"
 
 # align to imputation panel
 rule align:
