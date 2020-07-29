@@ -37,10 +37,10 @@ gc()
 daner_aligned <- 
 daner %>%
 left_join(impute_frq2, by=c('CHR'='CHR', 'BP'='POS'), suffix=c('', '.imp')) %>%
-# keep rows where alleles match or where variant is not in the panel
-filter(is.na(SNP.imp) | ((A1 == A1.imp & A2 == A2.imp ) | (A1 == A2.imp & A2 == A1.imp))) %>%
-# select imputed SNP name, or original if no match
-mutate(SNP=coalesce(SNP.imp, SNP)) %>%
+# keep rows where alleles match
+filter((A1 == A1.imp & A2 == A2.imp ) | (A1 == A2.imp & A2 == A1.imp)) %>%
+# select imputed SNP name
+mutate(SNP=SNP.imp, SNP) %>%
 select(-ends_with('.imp'))
 
 aligned_gz <- snakemake@output[[1]]
