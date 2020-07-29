@@ -71,12 +71,18 @@ rule dataset_eur:
 	 "results/meta/daner_mdd_GenScot.eur.hg19.1215a.aligned.gz",
 	 "results/meta/daner_mdd_GERA.eur.hg19.0915a_mds5.aligned.gz",
 	 "results/meta/daner_mdd_UKBB.eur.hg19.MD_glm.aligned.gz",
-	 "results/meta/daner_mdd_iPSYCH.eur.hg19.170220.aligned.gz"
-	output: "results/meta/dataset_eur"
+	 "results/meta/daner_mdd_iPSYCH.eur.hg19.170220.aligned.gz",
+	 "results/meta/daner_mdd_FinnGen.eur.hg19.R5_18032020.aligned.gz",
+	 "results/meta/daner_mdd_ALSPAC.eur.hg19.12082019.aligned.gz"
+	output: "results/meta/dataset_eur_v{version}"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
 
-# Ricopili submission for EUR ancestries
+# Ricopili submission
+rule postimp:
+	input: dataset="results/meta/dataset_{ancestries}_v{version}", ref="results/meta/reference_info"
+	output: touch("results/meta/{ancestries}_v{version}.done")
+	shell: "cd results/meta; postimp_navi --result $(basename {input.dataset}) --nolahunt --out pgc_mdd_meta_{wildcards.ancestries}_hg19_v{wildcards.version}"
+
+# current European ancestries version
 rule postimp_eur:
-	input: dataset="results/meta/dataset_eur", ref="results/meta/reference_info"
-	output: "results/meta/j._pi_pgc_mdd_meta_eur_v3.00_2020.07.id"
-	shell: "cd meta; postimp_navi --result {input.dataset} --popname eur --out pgc_mdd3_meta_eur_v3.00_2020.07"
+	input: "results/meta/eur_v3.29.08.2020-07-29.done"
