@@ -4,6 +4,9 @@ results/
 *.gz
 config.yaml
 
+# Logs
+logs/
+
 # History files
 .Rhistory
 .Rapp.history

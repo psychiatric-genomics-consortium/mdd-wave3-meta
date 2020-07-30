@@ -8,7 +8,7 @@ HTTP = HTTPRemoteProvider()
 rule stage_sumstats:
 	input: lambda wildcards: config["sumstats"][wildcards.cohort]
 	output: "resources/sumstats/{cohort}.gz"
-	log: "log/sumstats/stage/{cohort}.log" 
+	log: "logs/sumstats/stage/{cohort}.log" 
 	shell: "cp -v {input} {output}"
 
 # Harmonize names of all summary statistics listed under sumstats in config.yaml
@@ -19,14 +19,14 @@ rule sumstats:
 rule daner:
 	input: "resources/sumstats/daner_{cohort}.gz"
 	output: "results/sumstats/daner/daner_{cohort}.gz"
-	log: "log/sumstas/daner/daner_{cohort}.gz"
+	log: "logs/sumstas/daner/daner_{cohort}.gz"
 	shell: "cp -v {input} {output}"
 	
 # Convert text sumstats to daner
 rule text2daner:
 	input: sumstats="resources/sumstats/text_mdd_{cohort}.{ancestries}.{build}.{version}.gz", sh="scripts/sumstats/{cohort}.sh"
 	output: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{version}.gz"
-	log: "log/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{version}.log"
+	log: "logs/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{version}.log"
 	shell: "sh {input.sh} {input.sumstats} {output}"
 	
 # for daner files on genome build hg19
@@ -94,15 +94,15 @@ rule postimp:
 		dataset=lambda wildcards, input: os.path.basename(input.dataset)
 	output: touch("results/meta/{ancestries}_v{analysis}.done")
 	log: "logs/meta/pgc_mdd_meta_{ancestries}_hg19_v{analysis}.postimp_navi.log"
-	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_meta_{wildcards.ancestries}_hg19_v{wildcards.analysis}"
+	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_full_{wildcards.ancestries}_hg19_v{wildcards.analysis}"
 
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]_YYYY-MM-DD
 rule postimp_eur:
-	input: "results/meta/eur_v3.29.08_2020-07-29.done"
+	input: "results/meta/eur_v3.29.08.done"
 	
 # distribute results
 rule distribute_xls:
-	input: "results/meta/distribution/pgc_mdd_meta_{ancestries}_hg19_v{analysis}/daner_pgc_mdd_meta_{ancestries}_hg19_v{analysis}.gz.p4.clump.areator.sorted.1mhc.xls"
-	output: DBox.remote("distribution/pgc_mdd_meta_{ancestries}_hg19_v{analysis}/daner_pgc_mdd_meta_{ancestries}_hg19_v{analysis}.gz.p4.clump.areator.sorted.1mhc.xls")
+	input: "results/meta/report_pgc_mdd_full_eur_hg19_v3.29.08/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz.p4.clump.areator.sorted.1mhc.xls"
+	output: DBox.remote("distribution/pgc_mdd_full_eur_hg19_v3.29.08/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz.p4.clump.areator.sorted.1mhc.xls")
 	shell: "cp {input} {output}"
