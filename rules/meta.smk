@@ -9,7 +9,7 @@ rule stage_sumstats:
 	input: lambda wildcards: config["sumstats"][wildcards.cohort]
 	output: "resources/sumstats/{cohort}.gz"
 	log: "logs/sumstats/stage/{cohort}.log" 
-	shell: "cp -v {input} {output}"
+	shell: "cp -v {input} {output} > {log}"
 
 # Harmonize names of all summary statistics listed under sumstats in config.yaml
 rule sumstats:
@@ -19,22 +19,22 @@ rule sumstats:
 rule daner:
 	input: "resources/sumstats/daner_{cohort}.gz"
 	output: "results/sumstats/daner/daner_{cohort}.gz"
-	log: "logs/sumstas/daner/daner_{cohort}.gz"
-	shell: "cp -v {input} {output}"
+	log: "logs/sumstats/daner/daner_{cohort}.log"
+	shell: "cp -v {input} {output} > {log}"
 	
 # Convert text sumstats to daner
 rule text2daner:
 	input: sumstats="resources/sumstats/text_mdd_{cohort}.{ancestries}.{build}.{version}.gz", sh="scripts/sumstats/{cohort}.sh"
 	output: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{version}.gz"
 	log: "logs/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{version}.log"
-	shell: "sh {input.sh} {input.sumstats} {output}"
+	shell: "sh {input.sh} {input.sumstats} {output} {log}"
 	
 # for daner files on genome build hg19
 rule hg19:
 	input: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg19.{version}.gz"
 	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{version}.gz"
 	log: "logs/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{version}.log"
-	shell: "cp -v {input} {output}"
+	shell: "cp -v {input} {output} > {log}"
 
 # download hgIN to hgOUT chain
 rule hg_chain:
@@ -69,7 +69,7 @@ rule meta:
 	input: "results/sumstats/aligned/{cohort}.gz"
 	output: "results/meta/{cohort}.gz"
 	log: "logs/meta/{cohort}.log"
-	shell: "cp -v {input} {output}"
+	shell: "cp -v {input} {output} > {log}"
 
 # Ricopili results dataset list for eur ancestries
 rule dataset_eur:
