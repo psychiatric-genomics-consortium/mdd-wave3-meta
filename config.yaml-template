@@ -9,3 +9,5 @@ sumstats:
   text_mdd_UKBB.eur.hg19.MD_glm: PATH/ukb_mdd.md.eur.glm.logistic.gz
   text_mdd_ALSPAC.eur.hg19.12082019: PATH/ALSPAC/MDD/ALSPAC_FILTERED_ALL_12082019.gz
 refdir: /home/pgcdac/imputation_references/pgc-samples/hapmap_ref/impute2_ref/1000GP_Phase3_sr_0517d
+remote:
+  dropbox: TOKEN

@@ -91,3 +91,8 @@ rule postimp:
 rule postimp_eur:
 	input: "results/meta/eur_v3.29.08_2020-07-29.done"
 	
+# distribute results
+rule distribute_xls:
+	input: "results/meta/distribution/pgc_mdd_meta_{ancestries}_hg19_v{analysis}/daner_pgc_mdd_meta_{ancestries}_hg19_v{analysis}.gz.p4.clump.areator.sorted.1mhc.xls"
+	output: DBox.remote("distribution/pgc_mdd_meta_{ancestries}_hg19_v{analysis}/daner_pgc_mdd_meta_{ancestries}_hg19_v{analysis}.gz.p4.clump.areator.sorted.1mhc.xls")
+	shell: "cp {input} {output}"
