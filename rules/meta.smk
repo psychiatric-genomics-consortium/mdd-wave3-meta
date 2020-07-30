@@ -18,7 +18,7 @@ rule sumstats:
 rule daner:
 	input: "resources/sumstats/daner_{cohort}.gz"
 	output: "results/sumstats/daner/daner_{cohort}.gz"
-	shell: "ln {input} {output}"
+	shell: "cp {input} {output}"
 	
 # Convert text sumstats to daner
 rule text2daner:
@@ -30,7 +30,7 @@ rule text2daner:
 rule hg19:
 	input: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg19.{version}.gz"
 	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{version}.gz"
-	shell: "ln {input} {output}"
+	shell: "cp {input} {output}"
 
 # download hgIN to hgOUT chain
 rule hg_chain:
@@ -61,7 +61,7 @@ rule refdir:
 rule meta:
 	input: "results/sumstats/aligned/{cohort}.gz"
 	output: "results/meta/{cohort}.gz"
-	shell: "ln {input} {output}"
+	shell: "cp {input} {output}"
 
 # Ricopili results dataset list for eur ancestries
 rule dataset_eur:
@@ -74,15 +74,20 @@ rule dataset_eur:
 	 "results/meta/daner_mdd_iPSYCH.eur.hg19.170220.aligned.gz",
 	 "results/meta/daner_mdd_FinnGen.eur.hg19.R5_18032020.aligned.gz",
 	 "results/meta/daner_mdd_ALSPAC.eur.hg19.12082019.aligned.gz"
-	output: "results/meta/dataset_eur_v{version}"
+	output: "results/meta/dataset_eur_v{analysis}"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
 
 # Ricopili submission
 rule postimp:
-	input: dataset="results/meta/dataset_{ancestries}_v{version}", ref="results/meta/reference_info"
-	output: touch("results/meta/{ancestries}_v{version}.done")
-	shell: "cd results/meta; postimp_navi --result $(basename {input.dataset}) --nolahunt --out pgc_mdd_meta_{wildcards.ancestries}_hg19_v{wildcards.version}"
+	input: dataset="results/meta/dataset_{ancestries}_v{analysis}", ref="results/meta/reference_info"
+	params:
+		popname=lambda wildcards: wildcards.ancestries.upper(),
+		dataset=lambda wildcards, input: os.path.basename(input.dataset)
+	output: touch("results/meta/{ancestries}_v{analysis}.done")
+	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_meta_{wildcards.ancestries}_hg19_v{wildcards.analysis}"
 
-# current European ancestries version
+# current European ancestries analysis
+# analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]_YYYY-MM-DD
 rule postimp_eur:
-	input: "results/meta/eur_v3.29.08.2020-07-29.done"
+	input: "results/meta/eur_v3.29.08_2020-07-29.done"
+	
