@@ -82,27 +82,35 @@ rule dataset_eur:
 	 "results/meta/daner_mdd_iPSYCH.eur.hg19.170220.aligned.gz",
 	 "results/meta/daner_mdd_FinnGen.eur.hg19.R5_18032020.aligned.gz",
 	 "results/meta/daner_mdd_ALSPAC.eur.hg19.12082019.aligned.gz"
-	output: "results/meta/dataset_eur_v{analysis}"
-	log: "logs/meta/dataset_eur_v{analysis}.log"
+	output: "results/meta/dataset_full_eur_v{analysis}"
+	log: "logs/meta/dataset_full_eur_v{analysis}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
+	
+# Dataset list that exclude a particular cohort
+rule dataset_nocCOHORT_eur:
+	input: "results/meta/dataset_full_eur_v{analysis}"
+	log: "logs/meta/dataset_no{cohort}_eur_v{analysis}"
+	output: "results/meta/dataset_no{cohort}_eur_v{analysis}"
+	shell: "cat {input} | grep --invert {wildcards.cohort} > {output}"
+	
 
 # Ricopili submission
 rule postimp:
-	input: dataset="results/meta/dataset_{ancestries}_v{analysis}", ref="results/meta/reference_info"
+	input: dataset="results/meta/dataset_{cohorts}_{ancestries}_v{analysis}", ref="results/meta/reference_info"
 	params:
 		popname=lambda wildcards: wildcards.ancestries.upper(),
 		dataset=lambda wildcards, input: os.path.basename(input.dataset)
-	output: touch("results/meta/{ancestries}_v{analysis}.done")
-	log: "logs/meta/pgc_mdd_meta_{ancestries}_hg19_v{analysis}.postimp_navi.log"
-	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_full_{wildcards.ancestries}_hg19_v{wildcards.analysis}"
+	output: touch("results/meta/{cohorts}_{ancestries}_v{analysis}.done")
+	log: "logs/meta/pgc_mdd_meta_{cohorts}_{ancestries}_hg19_v{analysis}.postimp_navi.log"
+	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_{cohorts}_{wildcards.ancestries}_hg19_v{wildcards.analysis}"
 
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]_YYYY-MM-DD
 rule postimp_eur:
-	input: "results/meta/eur_v3.29.08.done"
+	input: "results/meta/full_eur_v3.29.08.done"
 	
 # distribute results
 rule distribute_xls:
 	input: "results/meta/report_pgc_mdd_full_eur_hg19_v3.29.08/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz.p4.clump.areator.sorted.1mhc.xls"
-	output: DBox.remote("distribution/pgc_mdd_full_eur_hg19_v3.29.08/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz.p4.clump.areator.sorted.1mhc.xls")
+	output: DBox.remote("sumstats/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz.p4.clump.areator.sorted.1mhc.xls")
 	shell: "cp {input} {output}"
