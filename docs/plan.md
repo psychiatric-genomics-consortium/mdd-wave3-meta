@@ -6,14 +6,14 @@ Plans for analyses to include in primary:
 
 - GWAS of genotyped cohorts + meta-analysis of same
 - Meta-analysis GWAS of genotyped + summary statistics cohorts
-- - Inverse-variance weighted ([Ricopili](https://sites.google.com/a/broadinstitute.org/ricopili/))
-- - Structural meta analysis based on phenotyping (eHR – self declared – interview based) ([MTAG](https://github.com/omeed-maghzian/mtag)/[GenomicSEM](https://github.com/MichelNivard/GenomicSEM))
-- - Final primary versions:
-- - - Full meta (PGC only)
-- - - noUKBB (PGC only)
-- - - top 10k (Public)
-- - - no23am (Public)
-- - - noUKBB / no23am (Public)
+  - Inverse-variance weighted ([Ricopili](https://sites.google.com/a/broadinstitute.org/ricopili/))
+  - Structural meta analysis based on phenotyping (eHR – self declared – interview based) ([MTAG](https://github.com/omeed-maghzian/mtag)/[GenomicSEM](https://github.com/MichelNivard/GenomicSEM))
+  - Final primary versions:
+    - Full meta (PGC only)
+    - noUKBB (PGC only)
+    - top 10k (Public)
+    - no23am (Public)
+    - noUKBB / no23am (Public)
 - Gene based analysis
  
 # Omics
