@@ -16,7 +16,7 @@ Plans for analyses to include in primary:
     - noUKBB / no23am (Public)
 - Gene based analysis
  
-# Omics
+## Omics
  
 - Positional-mapping
 - Expression based mapping
