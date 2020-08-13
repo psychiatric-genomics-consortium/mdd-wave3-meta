@@ -8,7 +8,41 @@ The primary meta-analysis workflow has the following steps
 4. Setup inputs for Ricopili meta-analysis.
 5. Submit Ricopili pipeline.
 
-## Adding a new cohort
+# Setup
+
+The meta-analyis is run on [LISA](https://geneticcluster.org)
+
+Download [RICOPILI](https://sites.google.com/a/broadinstitute.org/ricopili/), decompress the archive, and move the files to your home directory
+
+```
+wget https://sites.google.com/a/broadinstitute.org/ricopili/download/rp_bin.2019_Oct_15.001.tar.gz
+tar -xvzf rp_bin.2019_Oct_15.001.tar.gz
+mv rp_bin ~/rp_bin
+```
+
+Customize RICOPILI installation
+
+```
+~/rp_bin/rp_config
+```
+
+Customize the file `rp_config.custom.txt` [for LISA](https://docs.google.com/spreadsheets/d/1LhNYIXhFi7yXBC17UkjI1KMzHhKYz0j2hwnJECBGZk4/edit#gid=255132922) and then run 
+
+```
+~/rp_bin/rp_config
+```
+
+again.
+
+# Interactive node
+
+When running Snakemake rules on LISA, start an interactive node rather than running programs on the login node
+
+```
+srun -n 16 -t 1:00:00 --pty bash -il
+```
+
+# Adding a new cohort
 
 Cohorts are added to the workflow by creating an entry in under `sumstats` `config.yaml` file with the harmonized key and path to the summary statistics file:
 
@@ -73,7 +107,7 @@ Nca=$(zcat $sumstats | sed -n '2p' | awk '{{print $6/2}}')
 Nco=$(zcat $sumstats | sed -n '2p' | awk '{{print $7/2}}')
 
 # write out daner header line (tab-separated)
-echo -e "CHR\tSNP\tBP\tA1\tA2\tFRQ_A_23424\tFRQ_U_192220\tINFO\tOR\tSE\tP" > $daner
+echo -e "CHR\tSNP\tBP\tA1\tA2\tFRQ_A_${Nca}\tFRQ_U_${Nco}\tINFO\tOR\tSE\tP" > $daner
 
 # example: rearrange columns to match daner format
 zcat $sumstats | tail -n +2 | awk -v OFS='\t' '{print $1, $3, $2, $4, $5, $8, $9, $10, $13, $14, $15}' >> $daner
@@ -101,3 +135,42 @@ exists then it can be converted separately to `hg19` by running
 ```
 snakemake -j1 results/sumstats/hg19/daner_mdd_COHORT.POP.hg19.VERSION.gz
 ```
+
+## Add cohort to the meta-analysis rule
+
+The meta-analysis rule for each ancestries group is in the [`rules/meta.smk`](../rules/meta.smk) Snakemake file. The rule for which cohorts to include is called `dataset_POP` where `POP` is the name ancestries superopulation group name (lowercase). The name of the final aligned sumstats file for a cohort is called `results/meta/daner_mdd_COHORT.POP.hg19.VERSION.aligned.gz`. Add this file as an input to the `postimp_POP` rule. For example, if the current meta-analysis datasets for `eur` were listed as 
+
+```
+# Ricopili results dataset list for eur ancestries
+rule dataset_eur:
+	input: "results/meta/daner_mdd_MDD29.eur.hg19.0120a_rmUKBB.aligned.gz",
+	 "results/meta/daner_mdd_23andMe.eur.hg19.v7_2.aligned.gz",
+	 "results/meta/daner_mdd_deCODE.eur.hg19.160211.aligned.gz"
+	output: "results/meta/dataset_full_eur_v{analysis}"
+	log: "logs/meta/dataset_full_eur_v{analysis}.log"
+	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
+```
+
+and the summary statitics we want to add are for the `GenScot` cohort version `1215a`, then the updated rule would be:
+
+```
+# Ricopili results dataset list for eur ancestries
+rule dataset_eur:
+	input: "results/meta/daner_mdd_MDD29.eur.hg19.0120a_rmUKBB.aligned.gz",
+	 "results/meta/daner_mdd_23andMe.eur.hg19.v7_2.aligned.gz",
+	 "results/meta/daner_mdd_deCODE.eur.hg19.160211.aligned.gz",
+	 "results/meta/daner_mdd_GenScot.eur.hg19.1215a.aligned.gz"
+	output: "results/meta/dataset_full_eur_v{analysis}"
+	log: "logs/meta/dataset_full_eur_v{analysis}.log"
+	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
+```
+
+# Run the meta-analysis
+
+The meta-analysis can be submitted to Ricopili with
+
+```
+snakemake -j1 results/meta/full_POP_v3.N.M.done 
+```
+
+where `POP` is the ancestries group and `v3.N.M` is a version number specifiying the number of cohorts included, where `N` is the number of PGC cohorts (analysed from genotype data) and `M` is the number of additional cohorts analysed from summary statitics. For example, the above meta analysis with 29 PGC MDD cohorts and three additional cohorts (23andMe, deCode, and GenScot) would be `v3.29.03`.
