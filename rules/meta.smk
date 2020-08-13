@@ -97,21 +97,43 @@ rule dataset_nocCOHORT_eur:
 
 # Ricopili submission
 rule postimp:
-	input: dataset="results/meta/dataset_{cohorts}_{ancestries}_v{analysis}", ref="results/meta/reference_info"
+	input: dataset="results/meta/dataset_{cohorts}_{ancestries}_v{version}", ref="results/meta/reference_info"
 	params:
 		popname=lambda wildcards: wildcards.ancestries.upper(),
 		dataset=lambda wildcards, input: os.path.basename(input.dataset)
-	output: touch("results/meta/{cohorts}_{ancestries}_v{analysis}.done")
-	log: "logs/meta/pgc_mdd_meta_{cohorts}_{ancestries}_hg19_v{analysis}.postimp_navi.log"
-	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_{cohorts}_{wildcards.ancestries}_hg19_v{wildcards.analysis}"
+	output: touch("results/meta/{cohorts}_{ancestries}_v{version}.done")
+	log: "logs/meta/pgc_mdd_meta_{cohorts}_{ancestries}_hg19_v{version}.postimp_navi.log"
+	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_{cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
 
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]_YYYY-MM-DD
 rule postimp_eur:
 	input: "results/meta/full_eur_v3.29.09.done"
 	
+
 # distribute results
-rule distribute_xls:
-	input: "results/meta/report_pgc_mdd_full_eur_hg19_v3.29.08/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz.p4.clump.areator.sorted.1mhc.xls"
-	output: DBox.remote("sumstats/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz.p4.clump.areator.sorted.1mhc.xls")
+
+# glob of all files in the distribution directory
+distribution_full_gz, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.gz")
+distribution_full_xls, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.xls")
+distribution_full_pdf, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.pdf")
+
+rule distribute_full:
+	input: "results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}"
+	output: DBox.remote("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}")
 	shell: "cp {input} {output}"
+
+# list all files to be uploaded to Dropbox
+rule dbox_full:
+	input: DBox.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.gz", file=distribution_full_gz)), \
+	       DBox.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.xls", file=distribution_full_xls)), \
+		   DBox.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.pdf", file=distribution_full_pdf))
+
+# Download full sumstats for downstream analysis
+rule redistribute_full:
+	input: DBox.remote("distribution/{analysis}/daner_{analysis}.gz")
+	output: "results/distribution/daner_{analysis}.gz"
+	shell: "cp {input} {output}"
+
+rule downstream_full:
+	input: "results/distribution/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz"
