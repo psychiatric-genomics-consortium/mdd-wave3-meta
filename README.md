@@ -53,7 +53,7 @@ conda env create --file environment.yaml
 conda activate mdd3
 ```
 
-### Step 5
+### Step 3
 
 Configure the analysis workflow. Make a copy of the configuration file
 
@@ -61,7 +61,7 @@ Configure the analysis workflow. Make a copy of the configuration file
 cp config.yaml-template config.yaml
 ```
 
-Then edit and fill in `config.yaml` with the required parameters.
+Then edit and fill in `config.yaml` with the required parameters for the analysis to be conducted.
 
 ### Step 4
 
@@ -77,12 +77,31 @@ See more about [adding additional cohorts to the meta-analysis](docs/meta.md). T
 
 ### Step 5
 
-Run downstream analysis. Fetch the most recent version of the meta-analysis:
+Prepare for running downstream analysis.
+
+#### For PGC analysts
+
+Fetch the most recent version of the meta-analysis. An authentication token is required in the `config.yaml` file under the `remote : dropbox :` entry. For the full meta-analysis sumstats:
 
 ```
-snakemake -j1 ...
+snakemake -j1 downstream_full
 ```
 
+For sumstats excluding a given `COHORT`:
+
+```
+snakemake -j1 downstream_noCOHORT
+```
+
+#### For external analysts
+
+Download the required summary statistics "MDD3 202X excluding 23andMe (European Ancestries)" from the [PGC website](https://www.med.unc.edu/pgc/download-results/mdd/). Move the file into the location
+
+```
+results/distribution/daner_pgc_mdd_no23andMe_eur_hg19_v3.TBD.TBD.gz
+```
+
+### Run downstream analysis
 
 Check the [`rules`](rules/) directory for the analyses to be run. See more on [how to contribute](docs/contrib.md).
 
