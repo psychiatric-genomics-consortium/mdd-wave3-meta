@@ -117,6 +117,12 @@ rule postimp_eur:
 distribution_full_gz, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.gz")
 distribution_full_xls, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.xls")
 distribution_full_pdf, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.pdf")
+# check if glob doesn't return anything, and assign nonsense values
+# this allows the expand() statement in the dbox_full fule to not fail even though
+# the rule won't actually be run
+distribution_full_gz = distribution_full_gz if distribution_full_gz else ['spurious']
+distribution_full_xls = distribution_full_xls if distribution_full_xls else ['spurious']
+distribution_full_pdf = distribution_full_pdf if distribution_full_pdf else ['spurious']
 
 rule distribute_full:
 	input: "results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}"
