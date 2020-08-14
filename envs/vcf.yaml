@@ -1,0 +1,31 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-base =4.0.2
+  - r-essentials
+  - r-devtools
+  - r-BiocManager
+  - bioconductor-BiocGenerics
+  - bioconductor-Biostrings
+  - bioconductor-S4Vectors
+  - bioconductor-snpStats
+  - bioconductor-IRanges
+  - bioconductor-GenomicRanges
+  - bioconductor-SummarizedExperiment
+  - bioconductor-VariantAnnotation
+  - bioconductor-GenomeInfoDb
+  - bioconductor-Rhtslib
+  - bioconductor-Rsamtools
+  - r-tidyr
+  - r-stringr
+  - r-magrittr
+  - r-dplyr
+  - r-jsonlite
+  - r-coloc
+  - r-testthat
+  - r-RSQLite
+  - r-rlang
+  - r-data.table
+  - r-cpp11
+  - r-coloc
