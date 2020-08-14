@@ -53,6 +53,7 @@ refiex_templ
 
 # Conda
 Anaconda*.sh
+Miniconda*.sh
 
 # Snakemake
 .snakemake/

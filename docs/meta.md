@@ -66,7 +66,7 @@ The `COHORT` and `VERSION` strings should only contain the characters `[A-Za-z0-
 To link a single cohort: 
 
 ```
-snakemake -j1 resources/sumstats/FORMAT_mdd_COHORT.POP.hgNN.VERSION.gz
+snakemake -j1 --use-conda resources/sumstats/FORMAT_mdd_COHORT.POP.hgNN.VERSION.gz
 ```
 
 To link all cohort summary statistics listed in `config.yaml`:
@@ -133,7 +133,7 @@ resources/sumstats/FORMAT_mdd_COHORT.POP.hg38.VERSION.gz
 exists then it can be converted separately to `hg19` by running
 
 ```
-snakemake -j1 results/sumstats/hg19/daner_mdd_COHORT.POP.hg19.VERSION.gz
+snakemake -j1 --use-conda results/sumstats/hg19/daner_mdd_COHORT.POP.hg19.VERSION.gz
 ```
 
 ## Add cohort to the meta-analysis rule
@@ -170,7 +170,7 @@ rule dataset_eur:
 The meta-analysis can be submitted to Ricopili with
 
 ```
-snakemake -j1 results/meta/full_POP_v3.N.M.done 
+snakemake -j1 --use-conda results/meta/full_POP_v3.N.M.done 
 ```
 
 where `POP` is the ancestries group and `v3.N.M` is a version number specifiying the number of cohorts included, where `N` is the number of PGC cohorts (analysed from genotype data) and `M` is the number of additional cohorts analysed from summary statitics. For example, the above meta analysis with 29 PGC MDD cohorts and three additional cohorts (23andMe, deCode, and GenScot) would be `v3.29.03`.
