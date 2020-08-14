@@ -2,6 +2,9 @@ library(dplyr)
 library(readr)
 library(stringr)
 
+# log
+log_path <- snakemake@log[[1]]
+
 # read daner file
 daner_gz <- snakemake@input$daner
 daner <- read_table2(daner_gz)
@@ -46,3 +49,17 @@ select(-ends_with('.imp'))
 aligned_gz <- snakemake@output[[1]]
 
 write_tsv(daner_aligned, aligned_gz)
+
+# write log
+N_snps <- nrow(daner)
+mean_or <- mean(daner$OR)
+N_snps_aligned <- nrow(daner_aligned)
+sumstats_cohort <- snakemake@wildcards$cohort
+sumstats_ancestries <- snakemake@wildcards$ancestries
+sumstats_version <- snakemake@wildcards$version
+
+log_table <- data.frame(cohort=sumstats_cohort, ancestries=sumstats_ancestries, version=sumstats_version,
+           N_snps=N_snps, N_snps_aligned=N_snps_aligned, mean_OR=signif(mean_or, 5))
+
+write_tsv(log_table, path=log_path)
+
