@@ -39,14 +39,92 @@ Other important directories that you will use:
 - `resources/analysis`: Store any downloaded resources that your analysis relies on here (note, it is possible that some resources will be shared with other analyses, so coordinate with other analysts to determine the best path to store everything)
 - `results/analysis`: Directory to store the output of your analysis. Depending on how things are put together, it likely that some of your rules will depend on outputs from other workflows that are stored here. 
 - `scripts`: Directory to store scripts used by your rules. Depending on the number of scripts you need, you might make a subdirectory here too.
-- `logs/analysis`: A place to store log files.
+- `logs/analysis`: A place to store [log files(https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files).
 
 Importantly, the `resources` and `results` directories are excluded from the version control system, so any outputs that need to be version controlled, such as tables, figures, or reports, will need to be stored elsewhere (for example, perhaps under `docs/reports`).
 
 ## Your first rule
 
+See the [basic Snakemake tutorial](https://snakemake.readthedocs.io/en/stable/tutorial/basics.html) before continuing to understand the rule syntax
+
+Your first rule will most likely build off of the summary statistics file. Rather than hardcoding the name of the file, we can use [wildcards](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#wildcards) to generalise the rule and to extract important information from the sumstats filename. We'll call our rule `part1`
+
+```
+rule part1:
+    input: "results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
+    output: "results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out"
+    shell: "command {input} {output}"
+```
+
+If this rule were run with an input called `results/distribution/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz` then during rule execution, the variable `cohorts` would have the value `full`, `ancestries` would have the value `eur`, and `version` would have the value `3.29.08`. The `output` variable would have the value `results/analysis/part1_full_eur_hg19_v3.29.08.out` and the shell command
+
+```
+command results/distribution/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz results/analysis/part1_full_eur_hg19_v3.29.08.out
+```
+
+would get executed. Instead of running the shell command, we ask Snakemake the execute the rule just by asking for the full path of the requried output file
+
+```
+snakemake -j1 results/analysis/part1_full_eur_hg19_v3.29.08.out
+```
+
+(where the `-j1` is a required flag to specify the number of precessor cores to use to run the rule).
+ 
+## Linking your workflow into the main Snakefile
+
+Before your first rule is run, your Snakefile needs to be imported by the [`Snakefile`](../Snakefile) in the main directory. Add a line to the main Snakefile:
+
+```
+include: "rules/analysis.smk"
+```
+
 ## Your second rule
+
+A second can be constructed by making the output of the first rule into an input
+
+```
+rule part2:
+    input: "results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out"
+    output: "results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out"
+    script: "Rscript ../scripts/analysis.R"
+```
+
+This time, the rule calls an [R script](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#external-scripts). When this happens, an object called `snakemake` will automatically be loaded into the R session and available to use (the path of the input file will be available as the variable `snakemake@input[[1]]`). Note that the path of the script is *relative* to the location of your Snakemake file in `rules/analysis.smk`. 
+
+## Have your rules automatically discover when a new sumstats file is available
 
 ## Setting up an environment
 
-## Linking your workflow into the main Snakefile
+Create an [environment](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#create-env-file-manually) file using YAML syntax in `envs/analysis.yaml`. You can search for packages available on conda with the command
+
+```
+conda search --channel CHANNEL PACKAGE
+```
+
+Most bioinformatics packages are available on the `bioconda` channel while others, such as R and CRAN libraries, are the default chanel and the `conda-forge` channel. For example, our `part2` rule requires R, so we might make an environment file `envs/analysis.yaml` with the contents
+
+```
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-base =4.0.2
+  - r-essentials
+```
+
+to request R version 4.0.2. The rule would be updated to [use the environment](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html#integrated-package-management) as
+
+
+```
+rule part2:
+    input: "results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out"
+    output: "results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out"
+    conda: "../envs/analysis.yaml"
+    script: "Rscript ../scripts/analysis.R"
+```
+
+(Note again the relative path to `analysis.yaml`).
+
+## Rules to download resources
+
+## Rules to share results
