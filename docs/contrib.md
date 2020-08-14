@@ -85,13 +85,11 @@ A second can be constructed by making the output of the first rule into an input
 ```
 rule part2:
     input: "results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out"
-    output: "results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out"
-    script: "Rscript ../scripts/analysis.R"
+    output: "results/analysis/part2_{cohorts}_{ancestries}_hg19_v{version}.out"
+    script: "../scripts/analysis.R"
 ```
 
 This time, the rule calls an [R script](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#external-scripts). When this happens, an object called `snakemake` will automatically be loaded into the R session and available to use (the path of the input file will be available as the variable `snakemake@input[[1]]`). Note that the path of the script is *relative* to the location of your Snakemake file in `rules/analysis.smk`. 
-
-## Have your rules automatically discover when a new sumstats file is available
 
 ## Setting up an environment
 
@@ -118,12 +116,18 @@ to request R version 4.0.2. The rule would be updated to [use the environment](h
 ```
 rule part2:
     input: "results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out"
-    output: "results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out"
+    output: "results/analysis/part2_{cohorts}_{ancestries}_hg19_v{version}.out"
     conda: "../envs/analysis.yaml"
-    script: "Rscript ../scripts/analysis.R"
+    script: "../scripts/analysis.R"
 ```
 
-(Note again the relative path to `analysis.yaml`).
+(Note again the relative path to `analysis.yaml`). Once the environment is set up, it can be used with the rule by adding the `--use-conda` flag when running Snakemake
+
+```
+snakemake -j1 --use-conda results/analysis/part2_full_eur_hg19_v3.29.08.out
+```
+
+## Have your rules automatically discover when a new sumstats file is available
 
 ## Rules to download resources
 
