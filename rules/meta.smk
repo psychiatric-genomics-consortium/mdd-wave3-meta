@@ -8,7 +8,7 @@ HTTP = HTTPRemoteProvider()
 rule stage_sumstats:
 	input: lambda wildcards: config["sumstats"][wildcards.cohort]
 	output: "resources/sumstats/{cohort}.gz"
-	log: "logs/sumstats/stage/{cohort}.log" 
+	log: "logs/sumstats/stage/{cohort}.log"
 	shell: "cp -v {input} {output} > {log}"
 
 # Harmonize names of all summary statistics listed under sumstats in config.yaml
@@ -27,6 +27,7 @@ rule text2daner:
 	input: sumstats="resources/sumstats/text_mdd_{cohort}.{ancestries}.{build}.{version}.gz", sh="scripts/sumstats/{cohort}.sh"
 	output: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{version}.gz"
 	log: "logs/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{version}.log"
+	conda: "../envs/meta.yaml" 
 	shell: "sh {input.sh} {input.sumstats} {output} {log}"
 	
 # for daner files on genome build hg19
@@ -49,6 +50,7 @@ rule hg38to19:
 	input: daner="results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg38.{version}.gz", chain="resources/liftOver/hg38ToHg19.over.chain"
 	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{version}.gz"
 	log: "logs/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{version}.log"
+	conda: "../envs/meta.yaml" 
 	script: "../scripts/liftover.R"
 
 # align to imputation panel
@@ -56,6 +58,7 @@ rule align:
 	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{version}.gz", ref="results/meta/reference_info"
 	output: "results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{version}.aligned.gz"
 	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{version}.aligned.log"
+	conda: "../envs/meta.yaml" 
 	script: "../scripts/align.R"
 
 # create reference into file linking to imputation panel

@@ -39,18 +39,27 @@ cd mdd-meta
 
 ### Step 2
 
-Install [Anaconda](https://www.anaconda.com).
+Install [Anaconda](https://conda.io/en/latest/miniconda.html).
+
+**Linux:**
+```
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+sh Miniconda3-latest-Linux-x86_64.sh
+```
+
+**MacOS:**
+```
+bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+brew install anaconda
+```
+
+Install Snakemake and its dependencies
 
 ```
-wget https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
-sh Anaconda3-2020.02-Linux-x86_64.sh
-```
-
-Install dependencies and load the environment
-
-```
-conda env create --file environment.yaml
-conda activate mdd3
+conda activate base
+conda install -c conda-forge mamba
+mamba install -c bioconda -c conda-forge snakemake-minimal
+mamba install dropbox
 ```
 
 ### Step 3
@@ -65,12 +74,12 @@ Then edit and fill in `config.yaml` with the required parameters for the analysi
 
 ### Step 4
 
-Run the meta analysis for the required population. If you are only doing downstream analysis on meta-analysed sumstats, go to Step 5.
+Run the meta analysis for the required population. If you are only doing downstream analysis on meta-analysed sumstats, go to *Step 5*.
 
 A meta-analysis can be run for each ancestries group. For example, the European ancestries meta analysis can be run with:
 
 ```
-snakemake -j1 postimp_eur
+snakemake -j1 --use-conda postimp_eur
 ```
 
 See more about [adding additional cohorts to the meta-analysis](docs/meta.md). The meta analysis workflow is stored in [`rules/meta.smk`](rules/meta.smk).
