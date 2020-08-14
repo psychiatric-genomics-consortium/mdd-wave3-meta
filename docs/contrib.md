@@ -10,6 +10,28 @@ This project uses the [Snakemake](https://snakemake.readthedocs.io) build system
 4. [Snakemake integrates with scripts](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#external-scripts) in the three main open data science languages: [R](https://www.r-project.org), [Python](https://www.r-project.org), and [Julia](https://julialang.org).
 5. As an integrated, scalable platform, [Hail](https://hail.is/) are another good choice for reproducible results, but for this project with contributers from many different groups, Snakemake facilitates workflows running on institutional [clusters](https://snakemake.readthedocs.io/en/stable/executing/cluster.html) in addition to [cloud platforms](https://snakemake.readthedocs.io/en/stable/executing/cloud.html). Some of the workflows need to be run on systems were Spark is not available. 
 
+## Version control
+
+Start by making a new [branch](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches) for your analysis. This makes it easier to make changes across the whole project without interfering in other work. 
+
+```
+git branch analysis
+git checkout analysis
+```
+
+Keep your branch up-to-date with the main branch:
+
+```
+git merge master
+```
+
+Finally, when you are ready to merge your changes back into the main branch
+
+```
+git checkout master
+git merge analysis
+```
+
 ## New analysis workflow
 
 Each workflow is build around a set of [rules](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html) for generating the output files from all of the input files (resources, data, scripts, and outputs of other rules).
@@ -125,6 +147,19 @@ rule part2:
 
 ```
 snakemake -j1 --use-conda results/analysis/part2_full_eur_hg19_v3.29.08.out
+```
+
+To test your rule's environment during development:
+
+```
+conda env create --name analysis --file envs/analysis.yaml
+conda activate analysis
+```
+
+To update the environment during development
+
+```
+conda env update --name analysis --file envs/analysis.yaml
 ```
 
 ## Have your rules automatically discover when a new sumstats file is available
