@@ -1,7 +1,7 @@
 configfile: "config.yaml"
 
 from snakemake.remote.dropbox import RemoteProvider as DropboxRemoteProvider
-DBox = DropboxRemoteProvider(oauth2_access_token=config["remote"]["dropbox"]["full"])
-DBox_no23am = DropboxRemoteProvider(oauth2_access_token=config["remote"]["dropbox"]["no23am"])
+DBox_dist = DropboxRemoteProvider(oauth2_access_token=config["remote"]["distribution"]["full"])
+DBox_dist_no23am = DropboxRemoteProvider(oauth2_access_token=config["remote"]["distribution"]["no23am"])
 
 include: "rules/meta.smk"

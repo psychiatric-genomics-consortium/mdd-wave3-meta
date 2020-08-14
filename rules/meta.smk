@@ -121,7 +121,7 @@ distribution_full_gz, = glob_wildcards("results/meta/distribution/pgc_mdd_full_e
 distribution_full_xls, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.xls")
 distribution_full_pdf, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.pdf")
 # check if glob doesn't return anything, and assign nonsense values
-# this allows the expand() statement in the dbox_full fule to not fail even though
+# this allows the expand() statement in the DBox_dist_full fule to not fail even though
 # the rule won't actually be run
 distribution_full_gz = distribution_full_gz if distribution_full_gz else ['spurious']
 distribution_full_xls = distribution_full_xls if distribution_full_xls else ['spurious']
@@ -129,18 +129,18 @@ distribution_full_pdf = distribution_full_pdf if distribution_full_pdf else ['sp
 
 rule distribute_full:
 	input: "results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}"
-	output: DBox.remote("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}")
+	output: DBox_dist.remote("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}")
 	shell: "cp {input} {output}"
 
 # list all files to be uploaded to Dropbox
-rule dbox_full:
-	input: DBox.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.gz", file=distribution_full_gz)), \
-	       DBox.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.xls", file=distribution_full_xls)), \
-		   DBox.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.pdf", file=distribution_full_pdf))
+rule DBox_dist_full:
+	input: DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.gz", file=distribution_full_gz)), \
+	       DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.xls", file=distribution_full_xls)), \
+		   DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.pdf", file=distribution_full_pdf))
 
 # Download full sumstats for downstream analysis
 rule redistribute_full:
-	input: DBox.remote("distribution/{analysis}/daner_{analysis}.gz")
+	input: DBox_dist.remote("distribution/{analysis}/daner_{analysis}.gz")
 	output: "results/distribution/daner_{analysis}.gz"
 	shell: "cp {input} {output}"
 
