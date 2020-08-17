@@ -1,9 +1,4 @@
-import os
-from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
-
 # Conduct meta-analysis in Ricopili
-
-HTTP = HTTPRemoteProvider()
 
 # Copy summary statistics listed in config.yaml under sumstats
 # with key FORMAT_COHORT.POP.hgNN.VERSION
