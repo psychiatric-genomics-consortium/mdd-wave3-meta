@@ -8,11 +8,11 @@ This project uses the [Snakemake](https://snakemake.readthedocs.io) build system
 2. Compared with [Make](https://www.gnu.org/software/make), Snakemake offers the flexibility of a scripting language and, as an extension of Python, is easy to read and write. 
 3. Workflow tools like [bpipe](http://docs.bpipe.org) are more structured for defining how input files map on to output files. Bpipe is good for projects where you have a lot of input files that all need to be processed the same way. With Snakemake, the conceptual focus is more heavily on telling the system what *output* files we want, and the workflow automatically determines the dependencies necessary to create those files. While both systems are very flexible, Snakemake's conceptual scope is a better fit for a project where we are primarily concern are the results for a particular analysis (GWAS of MDD). 
 4. [Snakemake integrates with scripts](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#external-scripts) in the three main open data science languages: [R](https://www.r-project.org), [Python](https://www.r-project.org), and [Julia](https://julialang.org).
-5. As an integrated, scalable platform, [Hail](https://hail.is/) are another good choice for reproducible results, but for this project with contributers from many different groups, Snakemake facilitates workflows running on institutional [clusters](https://snakemake.readthedocs.io/en/stable/executing/cluster.html) in addition to [cloud platforms](https://snakemake.readthedocs.io/en/stable/executing/cloud.html). Some of the workflows need to be run on systems were Spark is not available. 
+5. As an integrated, scalable platform, [Hail](https://hail.is/) is another good choice for reproducible results, but for this project with contributers from many different groups, Snakemake facilitates workflows running on institutional [clusters](https://snakemake.readthedocs.io/en/stable/executing/cluster.html) in addition to [cloud platforms](https://snakemake.readthedocs.io/en/stable/executing/cloud.html). Some of the workflows need to be run on systems were Spark is not available. 
 
 ## Version control
 
-Start by making a new [branch](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches) for your analysis. This makes it easier to make changes across the whole project without interfering in other work. 
+Start by making a new [branch](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches) for your `analysis`. This makes it easier to make changes across the whole project without interfering in other work. 
 
 ```
 git branch analysis
@@ -22,6 +22,9 @@ git checkout analysis
 Keep your branch up-to-date with the main branch:
 
 ```
+git pull
+git push origin analysis
+git push --set-upstream origin analysis
 git merge master
 ```
 
@@ -69,10 +72,10 @@ Importantly, the `resources` and `results` directories are excluded from the ver
 
 See the [basic Snakemake tutorial](https://snakemake.readthedocs.io/en/stable/tutorial/basics.html) before continuing to understand the rule syntax
 
-Your first rule will most likely build off of the summary statistics file. Rather than hardcoding the name of the file, we can use [wildcards](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#wildcards) to generalise the rule and to extract important information from the sumstats filename. We'll call our rule `part1`
+Your first rule will most likely build off of the summary statistics file. Rather than hardcoding the name of the file, we can use [wildcards](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#wildcards) to generalise the rule and to extract important information from the sumstats filename. We'll call our rule `analysis_part1`
 
 ```
-rule part1:
+rule analysis_part1:
     input: "results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
     output: "results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out"
     shell: "command {input} {output}"
@@ -105,7 +108,7 @@ include: "rules/analysis.smk"
 A second can be constructed by making the output of the first rule into an input
 
 ```
-rule part2:
+rule analysis_part2:
     input: "results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out"
     output: "results/analysis/part2_{cohorts}_{ancestries}_hg19_v{version}.out"
     script: "../scripts/analysis.R"
@@ -136,7 +139,7 @@ to request R version 4.0.2. The rule would be updated to [use the environment](h
 
 
 ```
-rule part2:
+rule analysis_part2:
     input: "results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out"
     output: "results/analysis/part2_{cohorts}_{ancestries}_hg19_v{version}.out"
     conda: "../envs/analysis.yaml"
@@ -162,8 +165,33 @@ To update the environment during development
 conda env update --name analysis --file envs/analysis.yaml
 ```
 
-## Have your rules automatically discover when a new sumstats file is available
+## Have your rules automatically run without specifying the exact name of the output file
+
+The [`expand()`](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#the-expand-function) function combined with global substitution can be used to automatically run rules on matched set of files. First, `glob_wildcards()` is used to find every file that matches a downloaded sumstats file with the pattern `results/distribution/daner_pgc_mdd_*.gz`, with the matched pattern being stored in the wildcard `sumstats`. We then add another rule, which we simply call `analysis`, that will `expand()` the matched pattern to ask for all files called `results/analysis/part2_*.out`. This will automatically match the output pattern of rule `part2`, and will result in `part1` being run followed by `part2`. 
+
+```
+analysis_sumstats_gz, = glob_wildcards("results/distribution/daner_pgc_mdd_{sumstats}.gz")
+
+rule analysis:
+    input: expand("results/analysis/part2_{sumstats}.out", sumstats=analysis_sumstats_gz)
+```
+
+Once these rules are set up, the whole workflow can by run just by asking for `analysis` by name:
+
+```
+snakemake -j1 --use-conda analysis
+```
+
 
 ## Rules to download resources
+
+Use the [HTTP(S) remote provider](https://snakemake.readthedocs.io/en/stable/snakefiles/remote_files.html#read-only-web-http-s). The main `Snakemake` file already creates a provider called `HTTP`:
+
+```
+rule analysis_download:
+  input: HTTP.remote("https://example.com/file.txt")
+	output: "resources/analysis/file.txt"
+	shell: "cp {input} {output}"
+```
 
 ## Rules to share results
