@@ -4,4 +4,7 @@
 rule install_github_vcfgwas:
     output: "logs/vcf/install_github.log"
     conda: "../envs/vcf.yaml"
-    shell: "Rscript -e 'devtools::install_github(\"mrcieu/gwasvcf\")' > {output}"
+    shell: "Rscript -e 'devtools::install_github(\"mrcieu/gwasvcf\", upgrade=\"never\")' 2>&1 > {output}"
+
+rule vcf:
+    input: "logs/vcf/install_github.log"

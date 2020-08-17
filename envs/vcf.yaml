@@ -5,18 +5,18 @@ dependencies:
   - r-base =4.0.2
   - r-essentials
   - r-devtools
-  - r-BiocManager
-  - bioconductor-BiocGenerics
-  - bioconductor-Biostrings
-  - bioconductor-S4Vectors
-  - bioconductor-snpStats
-  - bioconductor-IRanges
-  - bioconductor-GenomicRanges
-  - bioconductor-SummarizedExperiment
-  - bioconductor-VariantAnnotation
-  - bioconductor-GenomeInfoDb
-  - bioconductor-Rhtslib
-  - bioconductor-Rsamtools
+  - r-biocmanager
+  - bioconductor-biocgenerics
+  - bioconductor-biostrings
+  - bioconductor-s4vectors
+  - bioconductor-snpstats
+  - bioconductor-iranges
+  - bioconductor-genomicranges
+  - bioconductor-summarizedexperiment
+  - bioconductor-variantannotation
+  - bioconductor-genomeinfodb
+  - bioconductor-rhtslib
+  - bioconductor-rsamtools
   - r-tidyr
   - r-stringr
   - r-magrittr
@@ -24,7 +24,7 @@ dependencies:
   - r-jsonlite
   - r-coloc
   - r-testthat
-  - r-RSQLite
+  - r-rsqlite
   - r-rlang
   - r-data.table
   - r-cpp11
