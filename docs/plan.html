@@ -11,19 +11,17 @@
 
 
 
-<title>PGC MDD3 Meta-analysis</title>
+<title>plan.utf8</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -104,33 +102,33 @@ summary {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 52px;
+  padding-top: 51px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 57px;
-  margin-top: -57px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h2 {
-  padding-top: 57px;
-  margin-top: -57px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h3 {
-  padding-top: 57px;
-  margin-top: -57px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h4 {
-  padding-top: 57px;
-  margin-top: -57px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h5 {
-  padding-top: 57px;
-  margin-top: -57px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h6 {
-  padding-top: 57px;
-  margin-top: -57px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .dropdown-submenu {
   position: relative;
@@ -291,27 +289,56 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">PGC MDD3 Meta-analysis</h1>
 
 </div>
 
 
-<hr />
-<p>Welcome!</p>
-<div id="information-for-collaborators" class="section level3">
-<h3>Information for collaborators</h3>
+<div id="analysis-plans" class="section level1">
+<h1>Analysis Plans</h1>
+<p>Plans for analyses to include in primary:</p>
+<div id="meta-analysis" class="section level2">
+<h2>Meta-analysis</h2>
 <ul>
-<li><a href="plan.html">Plan</a></li>
-<li><a href="contrib.html">Contributors</a></li>
-<li><a href="meta.html">Meta-GWAS</a></li>
+<li>GWAS of genotyped cohorts + meta-analysis of same</li>
+<li>Meta-analysis GWAS of genotyped + summary statistics cohorts
+<ul>
+<li>Inverse-variance weighted (<a href="https://sites.google.com/a/broadinstitute.org/ricopili/">Ricopili</a>)</li>
+<li>Structural meta analysis based on phenotyping (eHR – self declared – interview based) (<a href="https://github.com/omeed-maghzian/mtag">MTAG</a>/<a href="https://github.com/MichelNivard/GenomicSEM">GenomicSEM</a>)</li>
+<li>Final primary versions:
+<ul>
+<li>Full meta (PGC only)</li>
+<li>noUKBB (PGC only)</li>
+<li>top 10k (Public)</li>
+<li>no23am (Public)</li>
+<li>noUKBB / no23am (Public)</li>
+</ul></li>
+</ul></li>
+<li>Gene based analysis</li>
 </ul>
 </div>
-<div id="post-gwas-analyses" class="section level3">
-<h3>Post-GWAS Analyses</h3>
+<div id="omics" class="section level2">
+<h2>Omics</h2>
 <ul>
-<li><a href="twas.html">TWAS</a></li>
+<li>Positional-mapping</li>
+<li>Expression based mapping</li>
+<li>Hi-C (chromosome conformation) (<a href="https://github.com/thewonlab/H-MAGMA">H-MAGMA</a>)</li>
+<li>Other partitioned heritability / gene set enrichment testing</li>
+<li>cell type analysis</li>
+<li>eQTL</li>
+<li><a href="https://github.com/hakyimlab/MetaXcan">S-PrediXcan</a></li>
+<li><a href="https://cnsgenomics.com/software/smr/#Overview">SMR</a> (summary-data-based Mendelian Randomization)</li>
 </ul>
-<hr />
+</div>
+<div id="prediction" class="section level2">
+<h2>Prediction</h2>
+<ul>
+<li>SBayesR - estimate joint effect of SNPs / single threshold PRS (<a href="https://cnsgenomics.com/software/gctb/#SummaryBayesianAlphabet">GCTB</a>)</li>
+<li>Replication (or possible meta) in other cohorts</li>
+<li>Leave one out PRS – to be provided to each group</li>
+<li>PheWAS (GenScot and UKB Imaging [or all UKB])</li>
+<li>Predict into other UKB ancestries</li>
+</ul>
+</div>
 </div>
 
 
