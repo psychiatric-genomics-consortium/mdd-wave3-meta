@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>contrib.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/psychiatric-genomics-consortium/mdd-meta">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="contributing-downstream-analyses" class="section level1">
+<h1>Contributing downstream analyses</h1>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This project uses the <a href="https://snakemake.readthedocs.io">Snakemake</a> build system to generate reproducible results. See the <a href="../README.md">README</a> for installation instructions. <a href="https://vincebuffalo.com/blog/2020/03/04/understanding-snakemake.html">Why Snakemake</a>?</p>
+<ol style="list-style-type: decimal">
+<li>A build system is an explicit way to represent the dependencies between data, code, and results.</li>
+<li>Compared with <a href="https://www.gnu.org/software/make">Make</a>, Snakemake offers the flexibility of a scripting language and, as an extension of Python, is easy to read and write.</li>
+<li>Workflow tools like <a href="http://docs.bpipe.org">bpipe</a> are more structured for defining how input files map on to output files. Bpipe is good for projects where you have a lot of input files that all need to be processed the same way. With Snakemake, the conceptual focus is more heavily on telling the system what <em>output</em> files we want, and the workflow automatically determines the dependencies necessary to create those files. While both systems are very flexible, Snakemake’s conceptual scope is a better fit for a project where we are primarily concern are the results for a particular analysis (GWAS of MDD).</li>
+<li><a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#external-scripts">Snakemake integrates with scripts</a> in the three main open data science languages: <a href="https://www.r-project.org">R</a>, <a href="https://www.r-project.org">Python</a>, and <a href="https://julialang.org">Julia</a>.</li>
+<li>As an integrated, scalable platform, <a href="https://hail.is/">Hail</a> is another good choice for reproducible results, but for this project with contributers from many different groups, Snakemake facilitates workflows running on institutional <a href="https://snakemake.readthedocs.io/en/stable/executing/cluster.html">clusters</a> in addition to <a href="https://snakemake.readthedocs.io/en/stable/executing/cloud.html">cloud platforms</a>. Some of the workflows need to be run on systems were Spark is not available.</li>
+</ol>
+</div>
+<div id="version-control" class="section level2">
+<h2>Version control</h2>
+<p>Start by making a new <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-branches">branch</a> for your <code>analysis</code>. This makes it easier to make changes across the whole project without interfering in other work.</p>
+<pre><code>git branch analysis
+git checkout analysis</code></pre>
+<p>Keep your branch up-to-date with the main branch:</p>
+<pre><code>git pull
+git push origin analysis
+git push --set-upstream origin analysis
+git merge master</code></pre>
+<p>Finally, when you are ready to merge your changes back into the main branch</p>
+<pre><code>git checkout master
+git merge analysis</code></pre>
+</div>
+<div id="new-analysis-workflow" class="section level2">
+<h2>New analysis workflow</h2>
+<p>Each workflow is build around a set of <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html">rules</a> for generating the output files from all of the input files (resources, data, scripts, and outputs of other rules).</p>
+<p>Most downstream analyses will start from the final meta-analysed summary statistics which can be found:</p>
+<pre><code>results/distribution/daner_pgc_mdd_COHORTS_POP_hg19_v3.NN.MM.gz</code></pre>
+<p>where</p>
+<ul>
+<li><code>COHORTS</code> identifies which cohorts are included. The <code>COHORTS</code> will most likely be called <code>full</code>, meaning that it includes all cohorts that are part of the analysis, or <code>no23andMe</code>, meaning all cohorts except for 23andMe.</li>
+<li><code>POP</code> is the ancestries superpopulation (e.g., <code>eur</code> for European ancestries)</li>
+<li><code>NN</code> is the number of PGC clinical cohorts included in the meta-analysis</li>
+<li><code>MM</code> is the number of additional cohorts included in the meta-analysis.</li>
+<li>together <code>v3.NN.MM</code> is a verion for this analysis that can be used to track each summary statistics file as more cohorts are added to the eventual data freeze.</li>
+</ul>
+<p>For each analysis, create the following three files (replace <code>analysis</code> with a meaningful name for your workflow)</p>
+<ul>
+<li><code>rules/analysis.smk</code>: a Snakemake file of rules for your workflow</li>
+<li><code>envs/analysis.yaml</code>: a Conda environment file listing software dependencies that need to be installed to run your rules</li>
+<li><code>docs/analysis.md</code>: a <a href="https://guides.github.com/features/mastering-markdown/">Markdown</a> with basic documentation about your workflow.</li>
+</ul>
+<p>Other important directories that you will use:</p>
+<ul>
+<li><code>resources/analysis</code>: Store any downloaded resources that your analysis relies on here (note, it is possible that some resources will be shared with other analyses, so coordinate with other analysts to determine the best path to store everything)</li>
+<li><code>results/analysis</code>: Directory to store the output of your analysis. Depending on how things are put together, it likely that some of your rules will depend on outputs from other workflows that are stored here.</li>
+<li><code>scripts</code>: Directory to store scripts used by your rules. Depending on the number of scripts you need, you might make a subdirectory here too.</li>
+<li><code>logs/analysis</code>: A place to store [log files(<a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files" class="uri">https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files</a>).</li>
+</ul>
+<p>Importantly, the <code>resources</code> and <code>results</code> directories are excluded from the version control system, so any outputs that need to be version controlled, such as tables, figures, or reports, will need to be stored elsewhere (for example, perhaps under <code>docs/reports</code>).</p>
+</div>
+<div id="planning-out-your-analysis-workflow" class="section level2">
+<h2>Planning out your analysis workflow</h2>
+<p>Each step in your analysis should be broken down into a “<a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html">rule</a>” that maps one or more input files on to one or more output files. Each rule represents a discrete step in your analysis and should be based around running a single command line program or script.</p>
+</div>
+<div id="your-first-rule" class="section level2">
+<h2>Your first rule</h2>
+<p>See the <a href="https://snakemake.readthedocs.io/en/stable/tutorial/basics.html">basic Snakemake tutorial</a> before continuing to understand the rule syntax</p>
+<p>Your first rule will most likely build off of the summary statistics file. Rather than hardcoding the name of the file, we can use <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#wildcards">wildcards</a> to generalise the rule and to extract important information from the sumstats filename. We’ll call our rule <code>analysis_part1</code></p>
+<pre><code>rule analysis_part1:
+    input: &quot;results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz&quot;
+    output: &quot;results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out&quot;
+    shell: &quot;command {input} {output}&quot;</code></pre>
+<p>If this rule were run with an input called <code>results/distribution/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz</code> then during rule execution, the variable <code>cohorts</code> would have the value <code>full</code>, <code>ancestries</code> would have the value <code>eur</code>, and <code>version</code> would have the value <code>3.29.08</code>. The <code>output</code> variable would have the value <code>results/analysis/part1_full_eur_hg19_v3.29.08.out</code> and the shell command</p>
+<pre><code>command results/distribution/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz results/analysis/part1_full_eur_hg19_v3.29.08.out</code></pre>
+<p>would get executed. Instead of running the shell command, we ask Snakemake the execute the rule just by asking for the full path of the requried output file</p>
+<pre><code>snakemake -j1 results/analysis/part1_full_eur_hg19_v3.29.08.out</code></pre>
+<p>(where the <code>-j1</code> is a required flag to specify the number of precessor cores to use to run the rule).</p>
+</div>
+<div id="linking-your-workflow-into-the-main-snakefile" class="section level2">
+<h2>Linking your workflow into the main Snakefile</h2>
+<p>Before your first rule is run, your Snakefile needs to be imported by the <a href="../Snakefile"><code>Snakefile</code></a> in the main directory. Add a line to the main Snakefile:</p>
+<pre><code>include: &quot;rules/analysis.smk&quot;</code></pre>
+</div>
+<div id="your-second-rule" class="section level2">
+<h2>Your second rule</h2>
+<p>A second can be constructed by making the output of the first rule into an input</p>
+<pre><code>rule analysis_part2:
+    input: &quot;results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out&quot;
+    output: &quot;results/analysis/part2_{cohorts}_{ancestries}_hg19_v{version}.out&quot;
+    script: &quot;../scripts/analysis.R&quot;</code></pre>
+<p>This time, the rule calls an <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#external-scripts">R script</a>. When this happens, an object called <code>snakemake</code> will automatically be loaded into the R session and available to use (the path of the input file will be available as the variable <code>snakemake@input[[1]]</code>). Note that the path of the script is <em>relative</em> to the location of your Snakemake file in <code>rules/analysis.smk</code>.</p>
+</div>
+<div id="setting-up-an-environment" class="section level2">
+<h2>Setting up an environment</h2>
+<p>Create an <a href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#create-env-file-manually">environment</a> file using YAML syntax in <code>envs/analysis.yaml</code>. You can search for packages available on conda with the command</p>
+<pre><code>conda search --channel CHANNEL PACKAGE</code></pre>
+<p>Most bioinformatics packages are available on the <code>bioconda</code> channel while others, such as R and CRAN libraries, are the default chanel and the <code>conda-forge</code> channel. For example, our <code>part2</code> rule requires R, so we might make an environment file <code>envs/analysis.yaml</code> with the contents</p>
+<pre><code>channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-base =4.0.2
+  - r-essentials</code></pre>
+<p>to request R version 4.0.2. The rule would be updated to <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html#integrated-package-management">use the environment</a> as</p>
+<pre><code>rule analysis_part2:
+    input: &quot;results/analysis/part1_{cohorts}_{ancestries}_hg19_v{version}.out&quot;
+    output: &quot;results/analysis/part2_{cohorts}_{ancestries}_hg19_v{version}.out&quot;
+    conda: &quot;../envs/analysis.yaml&quot;
+    script: &quot;../scripts/analysis.R&quot;</code></pre>
+<p>(Note again the relative path to <code>analysis.yaml</code>). Once the environment is set up, it can be used with the rule by adding the <code>--use-conda</code> flag when running Snakemake</p>
+<pre><code>snakemake -j1 --use-conda results/analysis/part2_full_eur_hg19_v3.29.08.out</code></pre>
+<p>To test your rule’s environment during development:</p>
+<pre><code>conda env create --name analysis --file envs/analysis.yaml
+conda activate analysis</code></pre>
+<p>To update the environment during development</p>
+<pre><code>conda env update --name analysis --file envs/analysis.yaml</code></pre>
+</div>
+<div id="have-your-rules-automatically-run-without-specifying-the-exact-name-of-the-output-file" class="section level2">
+<h2>Have your rules automatically run without specifying the exact name of the output file</h2>
+<p>The <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#the-expand-function"><code>expand()</code></a> function combined with global substitution can be used to automatically run rules on matched set of files. First, <code>glob_wildcards()</code> is used to find every file that matches a downloaded sumstats file with the pattern <code>results/distribution/daner_pgc_mdd_*.gz</code>, with the matched pattern being stored in the wildcard <code>sumstats</code>. We then add another rule, which we simply call <code>analysis</code>, that will <code>expand()</code> the matched pattern to ask for all files called <code>results/analysis/part2_*.out</code>. This will automatically match the output pattern of rule <code>part2</code>, and will result in <code>part1</code> being run followed by <code>part2</code>.</p>
+<pre><code>analysis_sumstats_gz, = glob_wildcards(&quot;results/distribution/daner_pgc_mdd_{sumstats}.gz&quot;)
+
+rule analysis:
+    input: expand(&quot;results/analysis/part2_{sumstats}.out&quot;, sumstats=analysis_sumstats_gz)</code></pre>
+<p>Once these rules are set up, the whole workflow can by run just by asking for <code>analysis</code> by name:</p>
+<pre><code>snakemake -j1 --use-conda analysis</code></pre>
+</div>
+<div id="rules-to-download-resources" class="section level2">
+<h2>Rules to download resources</h2>
+<p>Use the <a href="https://snakemake.readthedocs.io/en/stable/snakefiles/remote_files.html#read-only-web-http-s">HTTP(S) remote provider</a>. The main <code>Snakemake</code> file already creates a provider called <code>HTTP</code>:</p>
+<pre><code>rule analysis_download:
+  input: HTTP.remote(&quot;https://example.com/file.txt&quot;)
+    output: &quot;resources/analysis/file.txt&quot;
+    shell: &quot;cp {input} {output}&quot;</code></pre>
+</div>
+<div id="rules-to-share-results" class="section level2">
+<h2>Rules to share results</h2>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

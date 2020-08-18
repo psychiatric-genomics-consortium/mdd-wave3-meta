@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>meta.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/psychiatric-genomics-consortium/mdd-meta">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="meta-analysis" class="section level1">
+<h1>Meta-analysis</h1>
+<p>The primary meta-analysis workflow has the following steps</p>
+<ol style="list-style-type: decimal">
+<li>Pull cohorts’ summary statistics in using harmonised filenames.</li>
+<li>Liftover from HG38 to HG19 when necessary</li>
+<li>Align summary statistics with a target imputation panel.</li>
+<li>Setup inputs for Ricopili meta-analysis.</li>
+<li>Submit Ricopili pipeline.</li>
+</ol>
+</div>
+<div id="setup" class="section level1">
+<h1>Setup</h1>
+<p>The meta-analyis is run on <a href="https://geneticcluster.org">LISA</a></p>
+<p>Download <a href="https://sites.google.com/a/broadinstitute.org/ricopili/">RICOPILI</a>, decompress the archive, and move the files to your home directory</p>
+<pre><code>wget https://sites.google.com/a/broadinstitute.org/ricopili/download/rp_bin.2019_Oct_15.001.tar.gz
+tar -xvzf rp_bin.2019_Oct_15.001.tar.gz
+mv rp_bin ~/rp_bin</code></pre>
+<p>Customize RICOPILI installation</p>
+<pre><code>~/rp_bin/rp_config</code></pre>
+<p>Customize the file <code>rp_config.custom.txt</code> <a href="https://docs.google.com/spreadsheets/d/1LhNYIXhFi7yXBC17UkjI1KMzHhKYz0j2hwnJECBGZk4/edit#gid=255132922">for LISA</a> and then run</p>
+<pre><code>~/rp_bin/rp_config</code></pre>
+<p>again.</p>
+</div>
+<div id="interactive-node" class="section level1">
+<h1>Interactive node</h1>
+<p>When running Snakemake rules on LISA, start an interactive node rather than running programs on the login node</p>
+<pre><code>srun -n 16 -t 1:00:00 --pty bash -il</code></pre>
+</div>
+<div id="adding-a-new-cohort" class="section level1">
+<h1>Adding a new cohort</h1>
+<p>Cohorts are added to the workflow by creating an entry in under <code>sumstats</code> <code>config.yaml</code> file with the harmonized key and path to the summary statistics file:</p>
+<pre><code>sumstats:
+    FORMAT_COHORT.POP.hgNN.VERSION: PATH/TO/SUMSTATS.gz</code></pre>
+<p>where <code>FORMAT_mdd_COHORT.POP.hgNN.VERSION</code> is a key encoding:</p>
+<ul>
+<li><code>FORMAT</code>: format of the summary statistics, one of <code>daner</code> or <code>text</code>. <a href="https://docs.google.com/document/d/1TWIhr8-qpCXB13WCXcU1_HDio8lC_MeWoAg2jlggrtU/edit">daner</a> files are left-as-is where as <code>text</code> summary statistics will be transformed to daner in another workflow step.</li>
+<li><code>COHORT</code>: short, unique name of the cohort (e.g., <code>UKBB</code> for “UK Biobank”)</li>
+<li><code>POP</code>: ancestries population for meta-analysis. Should match the ancestries superpopulations used by the Ricopili imputation panel (<code>afr</code>, <code>amr</code>, <code>eas</code>, <code>eur</code>, <code>sas</code>)</li>
+<li><code>hgNN</code>: Genome build, one of <code>hg19</code> or <code>hg38</code>.</li>
+<li><code>VERSION</code>: a version specifier for the sumstats from this cohort (usually a version number or date string).</li>
+</ul>
+<p>The <code>COHORT</code> and <code>VERSION</code> strings should only contain the characters <code>[A-Za-z0-9_]</code> (specifically, the period character <code>.</code> should be avoided as it is used to demarcate the different parts of the key).</p>
+<div id="linking-a-cohorts-into-the-workflow" class="section level2">
+<h2>Linking a cohorts into the workflow</h2>
+<p>To link a single cohort:</p>
+<pre><code>snakemake -j1 --use-conda resources/sumstats/FORMAT_mdd_COHORT.POP.hgNN.VERSION.gz</code></pre>
+<p>To link all cohort summary statistics listed in <code>config.yaml</code>:</p>
+<pre><code>snakemake -j1 sumstats</code></pre>
+</div>
+<div id="formatting-sumstats-to-daner" class="section level2">
+<h2>Formatting sumstats to daner</h2>
+<p>For summary statistics that are not already in daner format, create a script called</p>
+<pre><code>scripts/sumstats/COHORT.sh</code></pre>
+<p>that matches the cohort name <code>COHORT</code> of the summary stats file (<code>resources/sumstats/text_mdd_COHORT.POP.hgNN.VERSION.gz</code>). The script WILL be executed as</p>
+<pre><code>sh scripts/sumstats/COHORT.sh INPUT OUTPUT</code></pre>
+<p>where the script takes the first argument <code>INPUT</code> as the name of the gzip-compressed summary statistics text file and write out a gzip-compressed, daner-formatted file to <code>OUTPUT</code>. A general pattern for such scripts is:</p>
+<pre><code>#!/bin/bash
+
+# first argument is text.gz sumstats input file
+text_gz=$1
+# second argument is daner.gz output file
+daner_gz=$2
+
+# location of output file without the .gz extension
+daner=$(dirname $daner_gz)/$(basename $daner_gz .gz)
+
+# example: determine number of cases and controls from columns 6 and 7
+Nca=$(zcat $sumstats | sed -n &#39;2p&#39; | awk &#39;{{print $6/2}}&#39;)
+Nco=$(zcat $sumstats | sed -n &#39;2p&#39; | awk &#39;{{print $7/2}}&#39;)
+
+# write out daner header line (tab-separated)
+echo -e &quot;CHR\tSNP\tBP\tA1\tA2\tFRQ_A_${Nca}\tFRQ_U_${Nco}\tINFO\tOR\tSE\tP&quot; &gt; $daner
+
+# example: rearrange columns to match daner format
+zcat $sumstats | tail -n +2 | awk -v OFS=&#39;\t&#39; &#39;{print $1, $3, $2, $4, $5, $8, $9, $10, $13, $14, $15}&#39; &gt;&gt; $daner
+
+# compress daner file
+gzip --verbose $daner</code></pre>
+<p>The workflow will handle the naming of the <code>INPUT</code> and <code>OUTPUT</code> parameters. Run the rule with</p>
+<pre><code>snakemake -j1 results/sumstats/daner/daner_mdd_COHORT.POP.hgNN.VERSION.gz</code></pre>
+</div>
+<div id="liftover" class="section level2">
+<h2>Liftover</h2>
+<p>The meta-analysis is conducted against genome assembly <a href="https://www.ncbi.nlm.nih.gov/assembly/GCF_000001405.13/">GRCh37</a> (hg19). Summary statistics on build <code>hg38</code> are automatically lifted over to <code>hg19</code> as part of the workflow. Assuming that the sumstats file</p>
+<pre><code>resources/sumstats/FORMAT_mdd_COHORT.POP.hg38.VERSION.gz</code></pre>
+<p>exists then it can be converted separately to <code>hg19</code> by running</p>
+<pre><code>snakemake -j1 --use-conda results/sumstats/hg19/daner_mdd_COHORT.POP.hg19.VERSION.gz</code></pre>
+</div>
+<div id="add-cohort-to-the-meta-analysis-rule" class="section level2">
+<h2>Add cohort to the meta-analysis rule</h2>
+<p>The meta-analysis rule for each ancestries group is in the <a href="../rules/meta.smk"><code>rules/meta.smk</code></a> Snakemake file. The rule for which cohorts to include is called <code>dataset_POP</code> where <code>POP</code> is the name ancestries superopulation group name (lowercase). The name of the final aligned sumstats file for a cohort is called <code>results/meta/daner_mdd_COHORT.POP.hg19.VERSION.aligned.gz</code>. Add this file as an input to the <code>postimp_POP</code> rule. For example, if the current meta-analysis datasets for <code>eur</code> were listed as</p>
+<pre><code># Ricopili results dataset list for eur ancestries
+rule dataset_eur:
+    input: &quot;results/meta/daner_mdd_MDD29.eur.hg19.0120a_rmUKBB.aligned.gz&quot;,
+     &quot;results/meta/daner_mdd_23andMe.eur.hg19.v7_2.aligned.gz&quot;,
+     &quot;results/meta/daner_mdd_deCODE.eur.hg19.160211.aligned.gz&quot;
+    output: &quot;results/meta/dataset_full_eur_v{analysis}&quot;
+    log: &quot;logs/meta/dataset_full_eur_v{analysis}.log&quot;
+    shell: &quot;for daner in {input}; do echo $(basename $daner) &gt;&gt; {output}; done&quot;</code></pre>
+<p>and the summary statitics we want to add are for the <code>GenScot</code> cohort version <code>1215a</code>, then the updated rule would be:</p>
+<pre><code># Ricopili results dataset list for eur ancestries
+rule dataset_eur:
+    input: &quot;results/meta/daner_mdd_MDD29.eur.hg19.0120a_rmUKBB.aligned.gz&quot;,
+     &quot;results/meta/daner_mdd_23andMe.eur.hg19.v7_2.aligned.gz&quot;,
+     &quot;results/meta/daner_mdd_deCODE.eur.hg19.160211.aligned.gz&quot;,
+     &quot;results/meta/daner_mdd_GenScot.eur.hg19.1215a.aligned.gz&quot;
+    output: &quot;results/meta/dataset_full_eur_v{analysis}&quot;
+    log: &quot;logs/meta/dataset_full_eur_v{analysis}.log&quot;
+    shell: &quot;for daner in {input}; do echo $(basename $daner) &gt;&gt; {output}; done&quot;</code></pre>
+</div>
+</div>
+<div id="run-the-meta-analysis" class="section level1">
+<h1>Run the meta-analysis</h1>
+<p>The meta-analysis can be submitted to Ricopili with</p>
+<pre><code>snakemake -j1 --use-conda results/meta/full_POP_v3.N.M.done </code></pre>
+<p>where <code>POP</code> is the ancestries group and <code>v3.N.M</code> is a version number specifiying the number of cohorts included, where <code>N</code> is the number of PGC cohorts (analysed from genotype data) and <code>M</code> is the number of additional cohorts analysed from summary statitics. For example, the above meta analysis with 29 PGC MDD cohorts and three additional cohorts (23andMe, deCode, and GenScot) would be <code>v3.29.03</code>.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

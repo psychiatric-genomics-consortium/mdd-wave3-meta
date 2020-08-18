@@ -9,17 +9,14 @@ output:
 
 Welcome!
 
-This website will provide details of the PGC MDD3 Meta-analysis.
+### Information for collaborators
 
-### Samples
+* [Plan](plan.html)
+* [Contributors](contrib.html)
+* [Meta-GWAS](meta.html)
 
-* PGC29
-* ...
+### Post-GWAS Analyses
 
-### Analyses
-
-* Meta-GWAS
-* Post-GWAS
-  * TWAS
+* [TWAS](twas.html)
 
 ***
