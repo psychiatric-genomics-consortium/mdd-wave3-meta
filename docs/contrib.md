@@ -68,6 +68,10 @@ Other important directories that you will use:
 
 Importantly, the `resources` and `results` directories are excluded from the version control system, so any outputs that need to be version controlled, such as tables, figures, or reports, will need to be stored elsewhere (for example, perhaps under `docs/reports`).
 
+## Planning out your analysis workflow
+
+Each step in your analysis should be broken down into a "[rule](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html)" that maps one or more input files on to one or more output files. Each rule represents a discrete step in your analysis and should be based around running a single command line program or script.
+
 ## Your first rule
 
 See the [basic Snakemake tutorial](https://snakemake.readthedocs.io/en/stable/tutorial/basics.html) before continuing to understand the rule syntax
