@@ -107,33 +107,34 @@ rule postimp:
 
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]_YYYY-MM-DD
+analysis_version = ["3.29.09"]
 rule postimp_eur:
-	input: "results/meta/full_eur_v3.29.09.done"
+	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	
 
-# distribute results
 
-# glob of all files in the distribution directory
-distribution_full_gz, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.gz")
-distribution_full_xls, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.xls")
-distribution_full_pdf, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.pdf")
-# check if glob doesn't return anything, and assign nonsense values
-# this allows the expand() statement in the DBox_dist_full fule to not fail even though
-# the rule won't actually be run
-distribution_full_gz = distribution_full_gz if distribution_full_gz else ['spurious']
-distribution_full_xls = distribution_full_xls if distribution_full_xls else ['spurious']
-distribution_full_pdf = distribution_full_pdf if distribution_full_pdf else ['spurious']
+# Distribute results
+# extensions and prefixes of Ricopili distribution output files
+# daner_pgc_mdd_full_eur_hg19_v{version}.EXT
+distribution_daner_ext = ["gz", "gz.ldsc.sumstats.gz", "gz.p3.gz", "gz.p4.clump.areator.sorted.1mhc", "gz.p4.clump.areator.sorted.1mhc.pvsorted", "gz.p4.clump.areator.sorted.1mhc.pvsorted.regs.txt", "gz.p4.clump.areator.sorted.1mhc.summary", "gz.p4.clump.areator.sorted.1mhc.xls", "het.gz.p4.clump.areator.sorted.1mhc", "het.gz.p4.clump.areator.sorted.1mhc.xls"]
+
+# PREFIX.pgc_mdd_full_eur_hg19_v{version}.pdf
+distribution_pdf_prefix = ["areas.fo", "areas", "manhattan.nog2", "manhattan.nog", "manhattan.v2", "qq"]
+
+# PREFIX.pgc_mdd_full_eur_hg19_v{version}.het.pdf
+distribution_het_pdf_prefix = ["manhattan.v2", "qq"]
+
+# basic.pgc_mdd_full_eur_hg19_v{version}.EXT
+distribution_basic_ext = ["num.xls"]
 
 rule distribute_full:
-	input: "results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}"
-	output: DBox_dist.remote("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}")
+	input: "results/meta/distribution/pgc_mdd_full_eur_hg19_v{version}/{file}"
+	output: DBox_dist.remote("distribution/pgc_mdd_full_eur_hg19_v{version}/{file}")
 	shell: "cp {input} {output}"
 
 # list all files to be uploaded to Dropbox
 rule DBox_dist_full:
-	input: DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.gz", file=distribution_full_gz)), \
-	       DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.xls", file=distribution_full_xls)), \
-		   DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.pdf", file=distribution_full_pdf))
+	input: DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v{version}/daner_pgc_mdd_full_eur_hg19_v{version}.{ext}", version=analysis_version, ext=distribution_daner_ext)), DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v{version}/{prefix}.pgc_mdd_full_eur_hg19_v{version}.pdf", version=analysis_version, prefix=distribution_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v{version}/{prefix}.pgc_mdd_full_eur_hg19_v{version}.het.pdf", version=analysis_version, prefix=distribution_het_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v{version}/basic.pgc_mdd_full_eur_hg19_v{version}.num.xls", version=analysis_version, ext=distribution_basic_ext))
 
 # Download full sumstats for downstream analysis
 rule redistribute_full:
@@ -142,4 +143,4 @@ rule redistribute_full:
 	shell: "cp {input} {output}"
 
 rule downstream_full:
-	input: "results/distribution/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz"
+	input: expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz", version=analysis_version)
