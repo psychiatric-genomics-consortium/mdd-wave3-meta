@@ -92,7 +92,7 @@ rule dataset_nocCOHORT_eur:
 	input: "results/meta/dataset_full_eur_v{analysis}"
 	log: "logs/meta/dataset_no{cohort}_eur_v{analysis}"
 	output: "results/meta/dataset_no{cohort}_eur_v{analysis}"
-	shell: "cat {input} | grep --invert {wildcards.cohort} > {output}"
+	shell: "cat {input} | grep --invert daner_mdd_{wildcards.cohort} > {output}"
 	
 
 # Ricopili submission
@@ -103,7 +103,7 @@ rule postimp:
 		dataset=lambda wildcards, input: os.path.basename(input.dataset)
 	output: touch("results/meta/{cohorts}_{ancestries}_v{version}.done")
 	log: "logs/meta/pgc_mdd_meta_{cohorts}_{ancestries}_hg19_v{version}.postimp_navi.log"
-	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_{cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
+	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
 
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]_YYYY-MM-DD
