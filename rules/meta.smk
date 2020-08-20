@@ -118,10 +118,10 @@ analysis_version = ["3.29.09"]
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	
-# primary cohort sets
-cohorts_full = ["full", "noUKBB"]
+# cohort sets for analysts
+cohorts_analyst = ["full", "noUKBB", "no23andMe"]
 
-# secondary cohort sets
+# cohort sets for public
 cohorts_public = ["no23andMe"]
 
 
@@ -158,7 +158,7 @@ rule distribute_full:
 
 # list all files to be uploaded to Dropbox
 rule DBox_dist_full:
-	input: DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_full, ext=distribution_daner_ext)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_full, prefix=distribution_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_full, prefix=distribution_het_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_full, ext=distribution_basic_ext))
+	input: DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_analyst, ext=distribution_daner_ext)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_het_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_analyst, ext=distribution_basic_ext))
 
 # Download full sumstats for downstream analysis
 rule redistribute_full:
@@ -191,11 +191,11 @@ ruleorder: distribute_public > distribute_full
 
 rule distribute_public:
 	input: "results/meta/distribution/pgc_mdd_no23andMe_eur_hg19_v{version}/{file}"
-	output: DBox_dist_no23am.remote("distribution/pgc_mdd_no23andMe_eur_hg19_v{version}/{file}")
+	output: DBox_dist_public.remote("distribution/pgc_mdd_no23andMe_eur_hg19_v{version}/{file}")
 	shell: "cp {input} {output}"
 
 # list all files to be uploaded to Dropbox
-rule DBox_dist_no23am_public:
-	input: DBox_dist_no23am.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_public, ext=distribution_daner_ext)), DBox_dist_no23am.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_public, prefix=distribution_pdf_prefix)), DBox_dist_no23am.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_public, prefix=distribution_het_pdf_prefix)), DBox_dist_no23am.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_public, ext=distribution_basic_ext))
+rule DBox_dist_public:
+	input: DBox_dist_public.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_public, ext=distribution_daner_ext)), DBox_dist_public.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_public, prefix=distribution_pdf_prefix)), DBox_dist_public.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_public, prefix=distribution_het_pdf_prefix)), DBox_dist_public.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_public, ext=distribution_basic_ext))
 
 
