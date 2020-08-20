@@ -3,6 +3,10 @@
 # 20 Aug 2020
 
 - `analysis_version` variables defined as another way to refer to the most recent version of the analysis in Snakemake rules.
+- `noUKBB` sumstats available for downstream analysis. Run rule
+  ```
+  snakemake -j1 downstream_noUKBB
+  ```
 
 # 19 Aug 2020
 
