@@ -1,0 +1,12 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-base =4.0.2
+  - r-essentials
+  - r-data.table
+  - r-optparse
+  - r-RColorBrewer
+  - r-devtools
+  - r-Rcpp
+  
