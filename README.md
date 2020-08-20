@@ -2,31 +2,31 @@
 
 Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium.
 
+![MDD Manhattan plot](docs/figures/manhattan.nog2.eur.png)
+
 ## Embargo date
 
-These data are private to MDD Working Group. All results found here cannot be share, discussed, or presented in any way without explicit permission from the Working Group chairs. 
+These data are private to MDD Working Group. All results found here cannot be shared, discussed, or presented in any way without explicit permission from the Working Group chairs. 
 
 ## Project overview
 
 Meta-analysis of cohorts from the [MDD2](https://doi.org/10.1038/s41588-018-0090-3) and [follow-up and replication](https://doi.org/10.1038/s41593-018-0326-7) genome-wide association studies of Major Depressive Disorder:
 
-- PGC clinical cohorts ("MDD29")
-- [deCODE](http://www.decode.com)
-- [Generation Scotland](https://www.ed.ac.uk/generation-scotland/)
-- [GERA](https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs000674.v1.p1)
-- [iPsych](https://ipsych.dk)
-- [UK Biobank](https://www.ukbiobank.ac.uk)
+- PGC clinical cohorts ("MDD29"), [deCODE](http://www.decode.com), [Generation Scotland](https://www.ed.ac.uk/generation-scotland/), [GERA](https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs000674.v1.p1), [iPsych](https://ipsych.dk), [UK Biobank](https://www.ukbiobank.ac.uk)
 
 and the following new cohorts:
 
-- [ALSPAC](http://www.bristol.ac.uk/alspac/)
-- [FinnGen](https://www.finngen.fi/en)
-- [23andMe](https://www.23andme.com/) (v7.2)
-- [Airwave](https://police-health.org.uk)
+- [ALSPAC](http://www.bristol.ac.uk/alspac/), [FinnGen](https://www.finngen.fi/en), [23andMe](https://www.23andme.com/) (v7.2), [Airwave](https://police-health.org.uk)
 
 …plus more as they are incorporated into the analysis.
 
 Analysis conducted on [LISA](https://geneticcluster.org).
+
+## Getting started
+
+- [Project updates](docs/updates.md)
+- [Contributing](docs/contrib.md)
+- [Analysis plan](docs/plan.md)
 
 ### Step 1
 
@@ -114,11 +114,11 @@ results/distribution/daner_pgc_mdd_no23andMe_eur_hg19_v3.TBD.TBD.gz
 
 Check the [`rules`](rules/) directory for the analyses to be run. See more on [how to contribute](docs/contrib.md).
 
-## Checking the results
-
 ## Built With
 
 - [RICOPILI](https://sites.google.com/a/broadinstitute.org/ricopili)
+- [Snakemake](https://snakemake.readthedocs.io)
+- [GWAS-VCF](https://github.com/MRCIEU/gwas-vcf-specification)
 
 ## Analysts
 

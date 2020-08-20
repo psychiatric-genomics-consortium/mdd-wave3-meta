@@ -92,7 +92,7 @@ rule dataset_nocCOHORT_eur:
 	input: "results/meta/dataset_full_eur_v{analysis}"
 	log: "logs/meta/dataset_no{cohort}_eur_v{analysis}"
 	output: "results/meta/dataset_no{cohort}_eur_v{analysis}"
-	shell: "cat {input} | grep --invert {wildcards.cohort} > {output}"
+	shell: "cat {input} | grep --invert daner_mdd_{wildcards.cohort} > {output}"
 	
 
 # Ricopili submission
@@ -103,37 +103,42 @@ rule postimp:
 		dataset=lambda wildcards, input: os.path.basename(input.dataset)
 	output: touch("results/meta/{cohorts}_{ancestries}_v{version}.done")
 	log: "logs/meta/pgc_mdd_meta_{cohorts}_{ancestries}_hg19_v{version}.postimp_navi.log"
-	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_{cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
+	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
 
 # current European ancestries analysis
-# analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]_YYYY-MM-DD
+# analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]
+analysis_version = ["3.29.09"]
 rule postimp_eur:
-	input: "results/meta/full_eur_v3.29.09.done"
+	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	
+# primary cohort sets
+cohorts_full = ["full", "noUKBB"]
 
-# distribute results
+# secondary cohort sets
+cohorts_public = ["no23andMe"]
 
-# glob of all files in the distribution directory
-distribution_full_gz, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.gz")
-distribution_full_xls, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.xls")
-distribution_full_pdf, = glob_wildcards("results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.pdf")
-# check if glob doesn't return anything, and assign nonsense values
-# this allows the expand() statement in the DBox_dist_full fule to not fail even though
-# the rule won't actually be run
-distribution_full_gz = distribution_full_gz if distribution_full_gz else ['spurious']
-distribution_full_xls = distribution_full_xls if distribution_full_xls else ['spurious']
-distribution_full_pdf = distribution_full_pdf if distribution_full_pdf else ['spurious']
+# Distribute results
+# extensions and prefixes of Ricopili distribution output files
+# daner_pgc_mdd_full_eur_hg19_v{version}.EXT
+distribution_daner_ext = ["gz", "gz.ldsc.sumstats.gz", "gz.p3.gz", "gz.p4.clump.areator.sorted.1mhc", "gz.p4.clump.areator.sorted.1mhc.pvsorted", "gz.p4.clump.areator.sorted.1mhc.pvsorted.regs.txt", "gz.p4.clump.areator.sorted.1mhc.summary", "gz.p4.clump.areator.sorted.1mhc.xls", "het.gz.p4.clump.areator.sorted.1mhc", "het.gz.p4.clump.areator.sorted.1mhc.xls"]
+
+# PREFIX.pgc_mdd_full_eur_hg19_v{version}.pdf
+distribution_pdf_prefix = ["areas.fo", "areas", "manhattan.nog2", "manhattan.nog", "manhattan.v2", "qq"]
+
+# PREFIX.pgc_mdd_full_eur_hg19_v{version}.het.pdf
+distribution_het_pdf_prefix = ["manhattan.v2", "qq"]
+
+# basic.pgc_mdd_full_eur_hg19_v{version}.EXT
+distribution_basic_ext = ["num.xls"]
 
 rule distribute_full:
-	input: "results/meta/distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}"
-	output: DBox_dist.remote("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}")
+	input: "results/meta/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{file}"
+	output: DBox_dist.remote("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{file}")
 	shell: "cp {input} {output}"
 
 # list all files to be uploaded to Dropbox
 rule DBox_dist_full:
-	input: DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.gz", file=distribution_full_gz)), \
-	       DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.xls", file=distribution_full_xls)), \
-		   DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v3.29.08/{file}.pdf", file=distribution_full_pdf))
+	input: DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_full, ext=distribution_daner_ext)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_full, prefix=distribution_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_full, prefix=distribution_het_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_full, ext=distribution_basic_ext))
 
 # Download full sumstats for downstream analysis
 rule redistribute_full:
@@ -142,4 +147,17 @@ rule redistribute_full:
 	shell: "cp {input} {output}"
 
 rule downstream_full:
-	input: "results/distribution/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz"
+	input: expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz", version=analysis_version)
+
+rule downstream_noUKBB:
+	input: expand("results/distribution/daner_pgc_mdd_noUKBB_eur_hg19_v{version}.gz", version=analysis_version)
+
+# Download tables and figures
+rule redistribute_figtabs_full:
+	input: DBox_dist.remote("distribution/{analysis}_v{version}/{prefix}.{analysis}_v{version}.{ext}")
+	output: "results/distribution/{prefix}.{analysis}_v{version}.{ext}"
+	shell: "cp {input} {output}"
+
+# download most recent manhattan plot
+rule manhattan_full:
+	input: expand("results/distribution/manhattan.nog2.pgc_mdd_full_eur_hg19_v{version}.pdf", version=analysis_version)

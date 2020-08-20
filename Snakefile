@@ -11,4 +11,8 @@ DBox_dist_no23am = DropboxRemoteProvider(oauth2_access_token=config["remote"]["d
 
 include: "rules/meta.smk"
 include: "rules/vcf.smk"
+<<<<<<< HEAD
 include: "rules/twas.smk"
+=======
+include: "rules/reports.smk"
+>>>>>>> master
