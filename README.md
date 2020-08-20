@@ -2,6 +2,8 @@
 
 Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium.
 
+![MDD Manhattan plot](docs/figures/manhattan.nog2.eur.png)
+
 ## Embargo date
 
 These data are private to MDD Working Group. All results found here cannot be share, discussed, or presented in any way without explicit permission from the Working Group chairs. 
