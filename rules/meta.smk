@@ -1,5 +1,12 @@
 # Conduct meta-analysis in Ricopili
 
+
+#################
+#               #
+# Meta analyses #
+#               #
+#################
+
 # Copy summary statistics listed in config.yaml under sumstats
 # with key FORMAT_COHORT.POP.hgNN.VERSION
 rule stage_sumstats:
@@ -117,6 +124,15 @@ cohorts_full = ["full", "noUKBB"]
 # secondary cohort sets
 cohorts_public = ["no23andMe"]
 
+
+
+###################################
+#                                 #
+# Summary statistics distribution #
+#                                 #
+###################################
+
+
 # Distribute results
 # extensions and prefixes of Ricopili distribution output files
 # daner_pgc_mdd_full_eur_hg19_v{version}.EXT
@@ -130,6 +146,10 @@ distribution_het_pdf_prefix = ["manhattan.v2", "qq"]
 
 # basic.pgc_mdd_full_eur_hg19_v{version}.EXT
 distribution_basic_ext = ["num.xls"]
+
+##
+## Distribution for PGC analysts
+##
 
 rule distribute_full:
 	input: "results/meta/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{file}"
@@ -158,3 +178,21 @@ rule redistribute_figtabs_full:
 # download most recent manhattan plot
 rule manhattan_full:
 	input: expand("results/distribution/manhattan.nog2.pgc_mdd_full_eur_hg19_v{version}.pdf", version=analysis_version)
+
+
+##
+## Distribution for public
+##
+
+ruleorder: distribute_public > distribute_full
+
+rule distribute_public:
+	input: "results/meta/distribution/pgc_mdd_no23andMe_eur_hg19_v{version}/{file}"
+	output: DBox_dist_no23am.remote("distribution/pgc_mdd_no23andMe_eur_hg19_v{version}/{file}")
+	shell: "cp {input} {output}"
+
+# list all files to be uploaded to Dropbox
+rule DBox_dist_no23am_public:
+	input: DBox_dist_no23am.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_public, ext=distribution_daner_ext)), DBox_dist_no23am.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_public, prefix=distribution_pdf_prefix)), DBox_dist_no23am.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_public, prefix=distribution_het_pdf_prefix)), DBox_dist_no23am.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_public, ext=distribution_basic_ext))
+
+
