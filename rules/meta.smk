@@ -148,3 +148,13 @@ rule redistribute_full:
 
 rule downstream_full:
 	input: expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz", version=analysis_version)
+
+# Download tables and figures
+rule redistribute_figtabs_full:
+	input: DBox_dist.remote("distribution/{analysis}_v{version}/{prefix}.{analysis}_v{version}.{ext}")
+	output: "results/distribution/{prefix}.{analysis}_v{version}.{ext}"
+	shell: "cp {input} {output}"
+
+# download most recent manhattan plot
+rule manhattan_full:
+	input: expand("results/distribution/manhattan.nog2.pgc_mdd_full_eur_hg19_v{version}.pdf", version=analysis_version)
