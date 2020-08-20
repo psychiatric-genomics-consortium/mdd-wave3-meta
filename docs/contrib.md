@@ -201,8 +201,12 @@ Use the [HTTP(S) remote provider](https://snakemake.readthedocs.io/en/stable/sna
 ```
 rule analysis_download:
   input: HTTP.remote("https://example.com/file.txt")
-	output: "resources/analysis/file.txt"
-	shell: "cp {input} {output}"
+  output: "resources/analysis/file.txt"
+  shell: "cp {input} {output}"
 ```
 
 ## Rules to share results
+
+# Analyses based on cohort-level summary statistics
+
+If your analysis requires individual cohort summary statistics (as opposed to the final meta-analysis summary statistics) then the analysis must be conducted on [LISA](https://geneticcluster.org). 
