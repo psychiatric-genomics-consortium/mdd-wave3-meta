@@ -186,6 +186,13 @@ Once these rules are set up, the whole workflow can by run just by asking for `a
 snakemake -j1 --use-conda analysis
 ```
 
+It's also possible to write a rule that will run on only the most recent version of the summary statistics, rather than all of the versions that have been downloaded. This relies on the `analysis_version` variable defined in the `rules/meta.smk` file. `analysis_version` is a list with the value `["3.N.M"]` and can be used in `expand()` statements:
+
+```
+rule analysis:
+  input: expand("results/analysis/part2_full_eur_hg19_v{version}.out", version=analysis_version)
+```
+
 
 ## Rules to download resources
 
