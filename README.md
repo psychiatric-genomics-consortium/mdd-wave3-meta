@@ -30,6 +30,12 @@ and the following new cohorts:
 
 Analysis conducted on [LISA](https://geneticcluster.org).
 
+## Getting started
+
+- [Project updates](docs/updates.md)
+- [Contributing](docs/contrib.md)
+- [Analysis plan](docs/plan.md)
+
 ### Step 1
 
 Clone the repository
