@@ -106,12 +106,16 @@ rule postimp:
 	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
 
 # current European ancestries analysis
-# analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]_YYYY-MM-DD
+# analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]
 analysis_version = ["3.29.09"]
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	
+# primary cohort sets
+cohorts_full = ["full", "noUKBB"]
 
+# secondary cohort sets
+cohorts_public = ["no23andMe"]
 
 # Distribute results
 # extensions and prefixes of Ricopili distribution output files
@@ -128,13 +132,13 @@ distribution_het_pdf_prefix = ["manhattan.v2", "qq"]
 distribution_basic_ext = ["num.xls"]
 
 rule distribute_full:
-	input: "results/meta/distribution/pgc_mdd_full_eur_hg19_v{version}/{file}"
-	output: DBox_dist.remote("distribution/pgc_mdd_full_eur_hg19_v{version}/{file}")
+	input: "results/meta/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{file}"
+	output: DBox_dist.remote("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{file}")
 	shell: "cp {input} {output}"
 
 # list all files to be uploaded to Dropbox
 rule DBox_dist_full:
-	input: DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v{version}/daner_pgc_mdd_full_eur_hg19_v{version}.{ext}", version=analysis_version, ext=distribution_daner_ext)), DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v{version}/{prefix}.pgc_mdd_full_eur_hg19_v{version}.pdf", version=analysis_version, prefix=distribution_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v{version}/{prefix}.pgc_mdd_full_eur_hg19_v{version}.het.pdf", version=analysis_version, prefix=distribution_het_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_full_eur_hg19_v{version}/basic.pgc_mdd_full_eur_hg19_v{version}.num.xls", version=analysis_version, ext=distribution_basic_ext))
+	input: DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_full, ext=distribution_daner_ext)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_full, prefix=distribution_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_full, prefix=distribution_het_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_full, ext=distribution_basic_ext))
 
 # Download full sumstats for downstream analysis
 rule redistribute_full:
