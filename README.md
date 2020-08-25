@@ -129,6 +129,7 @@ Check the [`rules`](rules/) directory for the analyses to be run. See more on [h
 * **David Howard** - *analyst* - [KCL](https://www.kcl.ac.uk/)
 * **Oliver Pain** - *analyst* - [KCL](https://www.kcl.ac.uk/)
 * **Xueyi Shen** - *analyst* - [Edinburgh](https://www.ed.ac.uk)
+* **Alex Kwong** - *analyst* - [Edinburgh](https://www.ed.ac.uk)
 * **Karoline Kuchenbaecker** - *analytical group lead* - [UCL](http://www.bristol.ac.uk/alspac/)
 * **Naomi Wray** - *analytical group director* - [Queensland](https://cnsgenomics.com/)
 * **Stephan Ripke** - *analytical group director* - [Broad](https://www.broadinstitute.org/)
