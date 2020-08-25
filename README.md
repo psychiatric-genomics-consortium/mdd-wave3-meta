@@ -36,6 +36,7 @@ Clone the repository
 git clone git@github.com:psychiatric-genomics-consortium/mdd-meta.git
 cd mdd-meta
 ```
+You will need to ensure you have generated and added SSH keys between your machine (OS/Windows/Linux) and your github account. This [video](https://www.youtube.com/watch?v=H5qNpRGB7Qw) gives instructions for how to do this. 
 
 ### Step 2
 
@@ -108,6 +109,12 @@ Download the required summary statistics "MDD3 202X excluding 23andMe (European 
 
 ```
 results/distribution/daner_pgc_mdd_no23andMe_eur_hg19_v3.TBD.TBD.gz
+```
+
+Depending on the version of conda you have installed on your machine, you may need to use a package called 'pulp'. This can be installed using pip
+
+```
+pip install pulp
 ```
 
 ### Run downstream analysis
