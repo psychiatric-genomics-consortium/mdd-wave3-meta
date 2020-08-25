@@ -119,7 +119,7 @@ rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	
 # primary cohort sets
-cohorts_full = ["full", "noUKBB"]
+cohorts_full = ["full", "noUKBB", "noALSPAC"]
 
 # secondary cohort sets
 cohorts_public = ["no23andMe"]
