@@ -2,6 +2,8 @@
 
 Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium.
 
+**Current version**: v3.29.10
+
 ![MDD Manhattan plot](docs/figures/manhattan.nog2.eur.png)
 
 ## Embargo date
@@ -16,7 +18,7 @@ Meta-analysis of cohorts from the [MDD2](https://doi.org/10.1038/s41588-018-0090
 
 and the following new cohorts:
 
-- [ALSPAC](http://www.bristol.ac.uk/alspac/), [FinnGen](https://www.finngen.fi/en), [23andMe](https://www.23andme.com/) (v7.2), [Airwave](https://police-health.org.uk)
+- [ALSPAC](http://www.bristol.ac.uk/alspac/), [FinnGen](https://www.finngen.fi/en), [23andMe](https://www.23andme.com/) (v7.2), [Airwave](https://police-health.org.uk), [Partners Biobank](https://biobank.partners.org)
 
 …plus more as they are incorporated into the analysis.
 
