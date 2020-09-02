@@ -1,5 +1,10 @@
 # Project updates
 
+# 2 Sep 2020
+
+- **v3.29.10** Add Partners Biobank cohort
+- available LOO cohorts for downstream analysis: `noUKBB`, `no23andMe`, `noALSPAC`
+
 # 20 Aug 2020
 
 - `analysis_version` variables defined as another way to refer to the most recent version of the analysis in Snakemake rules.
