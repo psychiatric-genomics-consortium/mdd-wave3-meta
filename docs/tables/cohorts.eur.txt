@@ -1,0 +1,13 @@
+                             Dataset  N_cases  N_controls  LAMBDA-GC   N-SNPs  N_eff_half
+0    mdd_MDD29.eur.hg19.0120a_rmUKBB    16674       25452      1.063  8625622       20148
+1          mdd_23andMe.eur.hg19.v7_2   104959     1755598      1.636  6705792      198075
+2         mdd_deCODE.eur.hg19.160211     1980        9536      1.014  7952957        3279
+3         mdd_GenScot.eur.hg19.1215a      997        6358      1.011  7185152        1723
+4       mdd_GERA.eur.hg19.0915a_mds5     7162       38307      1.021  8409830       12067
+5           mdd_UKBB.eur.hg19.MD_glm    37531      327445      1.154  8028470       67343
+6         mdd_iPSYCH.eur.hg19.170220    18629       17841      1.064  8162094       18226
+7   mdd_FinnGen.eur.hg19.R5_18032020    23424      192220      1.127  7871087       41759
+8       mdd_ALSPAC.eur.hg19.12082019      472        3475      1.008  7931168         831
+9          mdd_Airwave.eur.hg19.0820     2100       15713      0.993  7470278        3704
+10             mdd_PBK.eur.hg19.2020     5607       16080      1.006  7299516        8314
+11                               SUM   219535     2408025      1.819  6813050      375474
