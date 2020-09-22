@@ -183,6 +183,11 @@ rule redistribute_figtabs:
 	output: "results/distribution/{prefix}.{analysis}_v{version}.{ext}"
 	shell: "cp {input} {output}"
 
+rule redistribute_danertabs:
+	input: DBox_dist.remote("distribution/{analysis}_v{version}/daner_{analysis}_v{version}.{ext}")
+	output: "results/distribution/daner_{analysis}_v{version}.{ext}"
+	shell: "cp {input} {output}"
+
 # download most recent manhattan plot
 rule manhattan_full:
 	input: expand("results/distribution/manhattan.nog2.pgc_mdd_full_eur_hg19_v{version}.pdf", version=analysis_version)

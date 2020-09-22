@@ -6,3 +6,5 @@ dependencies:
   - r-essentials
   - r-markdown
   - imagemagick
+  - pandas
+  - xlrd
