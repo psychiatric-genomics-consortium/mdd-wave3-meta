@@ -26,17 +26,19 @@ rule download_plink2R:
 
 # install plink2R
 rule install_plink2R:
+  input: rules.download_plink2R.output
   output:
-    directory(".snakemake/conda/6960bedf/lib/R/library/plink2R/")
+    touch("resources/twas/install_plink2R")
   conda:
     "../envs/twas.yaml"
   shell:
-    "Rscript -e 'install.packages(\"resources/twas/plink2R/plink2R-master/plink2R/\",repos=NULL, lib=\".snakemake/conda/6960bedf/lib/R/library/\")'"
+    "Rscript -e 'install.packages(\"resources/twas/plink2R/plink2R-master/plink2R/\",repos=NULL)'"
 
 # install focus
 rule install_focus:
   conda:
     "../envs/twas.yaml"
+  output: touch("resources/twas/pyfocus")
   shell:
     "pip install pyfocus==0.6.10 --user"
 
@@ -58,13 +60,13 @@ rule pre_munge:
 # munge sumstats using FOCUS munge function
 rule focus_munge:
   input:
-    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_premunged.gz"
+    premunged="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_premunged.gz", focus="resources/twas/pyfocus"
   output:
     "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz"
   conda:
     "../envs/twas.yaml"
   shell:
-    "focus munge {input} --output results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged"
+    "focus munge {input.premunged} --output results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged"
 
 ###
 # Run TWAS
@@ -81,11 +83,6 @@ rule retrieve_Neff:
   shell:
     "Rscript scripts/twas/median_neff.R --daner {input} --out {output}"
 
-# Read in the median Neff
-Neff_file = open("results/twas/median_Neff.txt", "r")
-Neff_char=Neff_file.read()
-Neff_num=float(Neff_char)
-
 # Create list of FUSION SNP-weight sets to be used in the TWAS
 weights=["Adrenal_Gland","Brain_Amygdala","Brain_Anterior_cingulate_cortex_BA24","Brain_Caudate_basal_ganglia","Brain_Cerebellar_Hemisphere","Brain_Cerebellum","Brain_Cortex","Brain_Frontal_Cortex_BA9","Brain_Hippocampus","Brain_Hypothalamus","Brain_Nucleus_accumbens_basal_ganglia","Brain_Putamen_basal_ganglia","Brain_Substantia_nigra","CMC.BRAIN.RNASEQ","CMC.BRAIN.RNASEQ_SPLICING","NTR.BLOOD.RNAARR","Pituitary","Thyroid","Whole_Blood","YFS.BLOOD.RNAARR"]
 
@@ -95,21 +92,23 @@ chr=range(1, 22)
 # run twas
 rule run_twas:
   input:
-    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz"
+    sumstats="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz", neff_txt="results/twas/median_Neff.txt", fusion=rules.install_fusion.output, plink2R=rules.install_plink2R.output
+  params:
+    Neff_num=lambda wildcards, input: float(open(input.neff_txt, "r").read()) 
   output:
     "results/twas/PGC_MDD3_twas_{weight}_chr{chr}"
   conda: 
     "../envs/twas.yaml"
   shell:
     "Rscript resources/twas/fusion/FUSION.assoc_test.R "
-    "--sumstats {input} "
+    "--sumstats {input.sumstats} "
     "--weights /mnt/lustre/groups/biomarkers-brc-mh/TWAS_resource/FUSION/SNP-weights/{wildcards.weight}/{wildcards.weight}.pos "
     "--weights_dir /mnt/lustre/groups/biomarkers-brc-mh/TWAS_resource/FUSION/SNP-weights/{wildcards.weight} "
     "--ref_ld_chr /scratch/groups/biomarkers-brc-mh/Reference_data/1KG_Phase3/PLINK/EUR/EUR_phase3.MAF_001.chr "
     "--out {output} "
     "--chr {wildcards.chr} "
     "--coloc_P 1e-3 "
-    "--GWASN {Neff_num}"
+    "--GWASN {params.Neff_num}"
 
 rule fusion_twas:
-    input: expand("results/twas/PGC_MDD3_twas_{weight}_chr{chr}", weight=weights, chr=chrs)
+    input: expand("results/twas/PGC_MDD3_twas_{weight}_chr{chr}", weight=weights, chr=chr)

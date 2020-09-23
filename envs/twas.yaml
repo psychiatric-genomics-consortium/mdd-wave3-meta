@@ -9,4 +9,13 @@ dependencies:
   - r-RColorBrewer
   - r-devtools
   - r-Rcpp
+  - r-RcppEigen
+  - opencv
+  - sqlalchemy
+  - matplotlib >=3.1.0
+  - seaborn
+  - numpy
+  - scipy
+  - pandas >=0.23.0
+  - pandas-plink
   
