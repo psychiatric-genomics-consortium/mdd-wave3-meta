@@ -26,12 +26,13 @@ rule download_plink2R:
 
 # install plink2R
 rule install_plink2R:
+  input: rules.download_plink2R.output
   output:
-    directory(".snakemake/conda/6960bedf/lib/R/library/plink2R/")
+    touch("resources/twas/install_plink2R")
   conda:
     "../envs/twas.yaml"
   shell:
-    "Rscript -e 'install.packages(\"resources/twas/plink2R/plink2R-master/plink2R/\",repos=NULL, lib=\".snakemake/conda/6960bedf/lib/R/library/\")'"
+    "Rscript -e 'install.packages(\"resources/twas/plink2R/plink2R-master/plink2R/\",repos=NULL)'"
 
 # install focus
 rule install_focus:
@@ -91,7 +92,7 @@ chr=range(1, 22)
 # run twas
 rule run_twas:
   input:
-    sumstats="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz", neff_txt="results/twas/median_Neff.txt"
+    sumstats="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz", neff_txt="results/twas/median_Neff.txt", fusion=rules.install_fusion.output, plink2R=rules.install_plink2R.output
   params:
     Neff_num=lambda wildcards, input: float(open(input.neff_txt, "r").read()) 
   output:
