@@ -37,6 +37,7 @@ rule install_plink2R:
 rule install_focus:
   conda:
     "../envs/twas.yaml"
+  output: touch("resources/twas/pyfocus")
   shell:
     "pip install pyfocus==0.6.10 --user"
 
@@ -58,13 +59,13 @@ rule pre_munge:
 # munge sumstats using FOCUS munge function
 rule focus_munge:
   input:
-    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_premunged.gz"
+    premunged="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_premunged.gz", focus="resources/twas/pyfocus"
   output:
     "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz"
   conda:
     "../envs/twas.yaml"
   shell:
-    "focus munge {input} --output results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged"
+    "focus munge {input.premunged} --output results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged"
 
 ###
 # Run TWAS
@@ -82,9 +83,9 @@ rule retrieve_Neff:
     "Rscript scripts/twas/median_neff.R --daner {input} --out {output}"
 
 # Read in the median Neff
-Neff_file = open("results/twas/median_Neff.txt", "r")
-Neff_char=Neff_file.read()
-Neff_num=float(Neff_char)
+# Neff_file = open("results/twas/median_Neff.txt", "r")
+# Neff_char=Neff_file.read()
+# Neff_num=float(Neff_char)
 
 # Create list of FUSION SNP-weight sets to be used in the TWAS
 weights=["Adrenal_Gland","Brain_Amygdala","Brain_Anterior_cingulate_cortex_BA24","Brain_Caudate_basal_ganglia","Brain_Cerebellar_Hemisphere","Brain_Cerebellum","Brain_Cortex","Brain_Frontal_Cortex_BA9","Brain_Hippocampus","Brain_Hypothalamus","Brain_Nucleus_accumbens_basal_ganglia","Brain_Putamen_basal_ganglia","Brain_Substantia_nigra","CMC.BRAIN.RNASEQ","CMC.BRAIN.RNASEQ_SPLICING","NTR.BLOOD.RNAARR","Pituitary","Thyroid","Whole_Blood","YFS.BLOOD.RNAARR"]
@@ -112,4 +113,4 @@ rule run_twas:
     "--GWASN {Neff_num}"
 
 rule fusion_twas:
-    input: expand("results/twas/PGC_MDD3_twas_{weight}_chr{chr}", weight=weights, chr=chrs)
+    input: expand("results/twas/PGC_MDD3_twas_{weight}_chr{chr}", weight=weights, chr=chr)
