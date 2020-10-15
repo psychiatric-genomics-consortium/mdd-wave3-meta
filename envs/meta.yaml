@@ -6,3 +6,6 @@ dependencies:
   - r-base =4.0.2
   - r-essentials
   - bioconductor-rtracklayer =1.48.0
+  - r-dplyr
+  - r-tidyr
+  - r-stringr
