@@ -2,13 +2,14 @@
 
 # install the vcfgwas library
 rule vcf_install_github_vcfgwas:
-    output: "logs/vcf/install_github.log"
+    output: "resources/vcf/vendor/r-gwasvcf"
+    log: "logs/vcf/install_github.log"
     conda: "../envs/vcf.yaml"
     shell: "Rscript -e 'devtools::install_github(\"mrcieu/gwasvcf\", upgrade=\"never\")' 2>&1 > {output}"
 
 # install gwas2vcf
 rule vcf_install_gwas2vcf:
-    output: directory("resources/vendor/gwas2vcf")
+    output: directory("resources/vcf/vendor/gwas2vcf")
     conda: "../envs/vcf.yaml"
     shell: "pip install git+git://github.com/bioinformed/vgraph@v1.4.0#egg=vgraph; git clone git@github.com:MRCIEU/gwas2vcf.git {output}"
 
