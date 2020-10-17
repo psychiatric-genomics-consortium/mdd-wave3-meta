@@ -34,4 +34,4 @@ echo -e "CHR\tSNP\tBP\tA1\tA2\tFRQ_A_${Nca}\tFRQ_U_${Nco}\tINFO\tOR\tSE\tP" > $d
 
 zcat $text_gz | tail -n +2 | awk -v OFS='\t' '{print $2+0, $1, $3, $4, $5, $13, $14, $15, exp($7), $8, $9}' >> $daner
 
-gzip --verbose $daner 2>> $log
+gzip -f --verbose $daner 2>> $log
