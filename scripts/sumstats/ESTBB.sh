@@ -6,6 +6,8 @@ log=$3
 
 echo "Converting ESTBB to daner from $(basename $text_gz)" > $log
 
+# Effect is with respect to Allele2
+
 #  1	CHR
 #  2	POS
 #  3	SNPID
@@ -36,6 +38,6 @@ echo "Nco: ${Nco}" >> $log
 
 echo -e "CHR\tSNP\tBP\tA1\tA2\tFRQ_A_${Nca}\tFRQ_U_${Nco}\tINFO\tOR\tSE\tP" > $daner
 
-zcat $text_gz | tail -n +2 | awk -v OFS='\t' '{print $1, $3, $2, $4, $5, $18, $19, $8, exp($10), $1, $13}' >> $daner
+zcat $text_gz | tail -n +2 | awk -v OFS='\t' '{print $1, $3, $2, $5, $4, $18, $19, $8, exp($10), $11, $13}' >> $daner
 
-gzip --verbose $daner 2>> $log
+gzip -f --verbose $daner 2>> $log
