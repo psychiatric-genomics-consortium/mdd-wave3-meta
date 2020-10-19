@@ -2,6 +2,7 @@ library(dplyr)
 library(readr)
 library(tidyr)
 library(stringr)
+library(parallel)
 
 args <- commandArgs(TRUE)
 
@@ -9,8 +10,12 @@ text_gz=args[1]
 daner_gz=args[2]
 logfile=args[3]
 
-cat(paste('Opening', text_gz, '\n'))
-sumstats <- read_table2(text_gz, comment='##', col_types='cicccccc')
+cat(paste('Counting SNPs', '\n'))
+snp_count <- length(count.fields(text_gz, comment.char='#'))
+
+chunk_size <- 500000
+
+chunk_starts <- seq(0, snp_count, by=chunk_size)
 
 # data that needs to be converted to numeric
 sumstats_nums <- c("BETA", "SE", "PVAL",
@@ -35,40 +40,48 @@ cat(paste('Parsing INFO', '\n'))
 # sumstats_info <- bind_rows(lapply(sumstats$INFO, assign_key_values))
 # pre-allocate the final matrix and use a loop instead
 
-sumstats_info <- matrix(NA, nrow=nrow(sumstats), ncol=length(sumstats_nums), dimnames=list(NULL, sumstats_nums))
-
-M <- nrow(sumstats)
-for(i in seq.int(M)) {
-	sumstats_info[i,] <- as.numeric(assign_key_values(sumstats$INFO[i])[sumstats_nums])
-	if(i %% 100000 == 1) {
-		cat(paste0(i, '/', M, '\n'))
+parse_info <- function(skip, chunk_size, n_total) {
+		
+	cat(paste('Opening', text_gz, 'at line', skip+1, '\n'))
+	sumstats <- read_table2(text_gz, comment='#', skip=skip, n_max=chunk_size,
+				col_types='cicccccc', col_names=c('#CHROM', 'POS','ID','REF','ALT','QUAL','FILTER','INFO'))
+	
+	sumstats_info <- matrix(NA, nrow=nrow(sumstats), ncol=length(sumstats_nums), dimnames=list(NULL, sumstats_nums))
+	
+	M <- nrow(sumstats)
+	for(i in seq.int(M)) {
+		if(i %% 100000 == 1) {
+			cat(paste0(i+skip, '/', n_total, '\n'))
+		}
+		sumstats_info[i,] <- as.numeric(assign_key_values(sumstats$INFO[i])[sumstats_nums])
 	}
+	
+	# merge sumstats with the SNP columns
+	# convert stats columns to numeric
+	sumstats_stats <-
+	sumstats %>%
+	select(-QUAL, -FILTER, -INFO) %>%
+	bind_cols(as_tibble(sumstats_info)) %>%
+	filter(between(FCAS, 0.01, .99) | between(FCON, 0.01, 0.99))
+	
+	return(sumstats_stats)
 }
 
-# merge sumstats with the SNP columns
-# convert stats columns to numeric
-cat(paste('Merging SNP info', '\n'))
-sumstats_stats <-
-sumstats %>%
-select(-QUAL, -FILTER, -INFO) %>%
-bind_cols(sumstats_info)
+sumstats <- bind_rows(mclapply(chunk_starts, parse_info, chunk_size=chunk_size, n_total=snp_count, mc.cores=16))
 
-rm(sumstats); rm(sumstats_info); gc()
-
-Ncases <- max(sumstats_stats$NCAS)
-Ncontrols <- max(sumstats_stats$NCON)
+Ncases <- max(sumstats$NCAS)
+Ncontrols <- max(sumstats$NCON)
 
 FRQ_A_col <- paste0('FRQ_A_', Ncases)
 FRQ_U_col <- paste0('FRQ_U_', Ncontrols)
 
 cat(paste('Formatting daner', '\n'))
 daner <-
-sumstats_stats %>%
+sumstats %>%
 mutate(CHR=if_else(`#CHROM` == 'X', true=23, false=as.numeric(`#CHROM`)),
-       OR=exp(BETA)) %>%
-filter(between(FCAS, 0.01, 0.99) & between(FCON, 0.01, 0.99)) %>%
+	   OR=exp(BETA)) %>%
 select(CHR, SNP=ID, BP=POS, A1=ALT, A2=REF,
-  	   !!FRQ_A_col:=FCAS, !!FRQ_U_col:=FCON, INFO=R2,
+		 !!FRQ_A_col:=FCAS, !!FRQ_U_col:=FCON, INFO=R2,
 	   OR, SE, P=PVAL, ngt=NGT)
 
 cat(paste('Writing daner', '\n'))   
