@@ -7,7 +7,7 @@ log_path <- snakemake@log[[1]]
 
 # read daner file
 daner_gz <- snakemake@input$daner
-daner <- read_table2(daner_gz)
+daner <- read_table2(daner_gz, col_types=cols("SNP"=col_character()))
 
 # read imputation reference files
 reference_info <- snakemake@input$ref
