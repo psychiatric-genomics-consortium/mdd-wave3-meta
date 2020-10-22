@@ -9,7 +9,8 @@ HTTP = HTTPRemoteProvider()
 DBox_dist = DropboxRemoteProvider(oauth2_access_token=config["remote"]["distribution"]["analyst"])
 DBox_dist_public = DropboxRemoteProvider(oauth2_access_token=config["remote"]["distribution"]["public"])
 
-
+wildcard_constraints:
+    version="[\d.]+"
 
 include: "rules/meta.smk"
 include: "rules/vcf.smk"
