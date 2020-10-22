@@ -109,6 +109,15 @@ rule dataset_eur:
 	log: "logs/meta/dataset_full_eur_v{analysis}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
 	
+# Ricopili results dataset list for eas ancestries
+rule dataset_eas:
+	input: 
+	 "results/meta/daner_mdd_23andMe.eas.hg19.v7_2.aligned.gz",
+	 "results/meta/daner_mdd_Taiwan.eas.hg19.20200327.aligned.gz"
+	output: "results/meta/dataset_full_eas_v{analysis}"
+	log: "logs/meta/dataset_full_eas_v{analysis}.log"
+	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
+	
 # Dataset list that exclude a particular cohort
 rule dataset_nocCOHORT_eur:
 	input: "results/meta/dataset_full_eur_v{analysis}"
@@ -132,6 +141,9 @@ rule postimp:
 analysis_version = ["3.29.13"]
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
+	
+rule postimp_eas:
+	input: expand("results/meta/full_eas_v{version}.done", version=["3.00.02"])
 	
 # cohort sets for analysts
 cohorts_analyst = ["full", "noUKBB", "no23andMe", "noALSPAC"]
