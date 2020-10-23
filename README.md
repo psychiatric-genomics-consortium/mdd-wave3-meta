@@ -129,7 +129,7 @@ Check the [`rules`](rules/) directory for the analyses to be run. See more on [h
 - [Snakemake](https://snakemake.readthedocs.io)
 - [GWAS-VCF](https://github.com/MRCIEU/gwas-vcf-specification)
 
-## Analysts
+## Lead Analysts
 
 * **Mark James Adams** - *analyst* - [Edinburgh](https://www.ed.ac.uk)
 * **Swapnil Awasthi** - *analyst* - [Broad](https://www.broadinstitute.org/)
@@ -139,11 +139,15 @@ Check the [`rules`](rules/) directory for the analyses to be run. See more on [h
 * **Oliver Pain** - *analyst* - [KCL](https://www.kcl.ac.uk/)
 * **Xueyi Shen** - *analyst* - [Edinburgh](https://www.ed.ac.uk)
 * **Alex Kwong** - *analyst* - [Edinburgh](https://www.ed.ac.uk)
+* **Shuyang Yao** - *analyst* [Karolinska](https://ki.se)
+* **Karmel Choi** - *analyst* [Harvard/MGH](https://www.hsph.harvard.edu)
 * **Karoline Kuchenbaecker** - *analytical group lead* - [UCL](http://www.bristol.ac.uk/alspac/)
 * **Naomi Wray** - *analytical group director* - [Queensland](https://cnsgenomics.com/)
 * **Stephan Ripke** - *analytical group director* - [Broad](https://www.broadinstitute.org/)
 * **Cathryn Lewis** - *workgroup chair* - [KCL](https://www.kcl.ac.uk/)
 * **Andrew McIntosh** - *workgroup chair* - [Edinburgh](https://www.ed.ac.uk)
+
+See the [analysis plan](docs/plan.md) for full list of analysts and contributors. 
 
 ## License
 
