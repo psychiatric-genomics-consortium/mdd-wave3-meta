@@ -209,9 +209,14 @@ rule redistribute_figtabs:
 	output: "results/distribution/{prefix}.{analysis}_v{version}.{ext}"
 	shell: "cp {input} {output}"
 
-rule redistribute_danertabs:
-	input: DBox_dist.remote("distribution/{analysis}_v{version}/daner_{analysis}_v{version}.{ext}")
-	output: "results/distribution/daner_{analysis}_v{version}.{ext}"
+rule redistribute_danerxls:
+	input: DBox_dist.remote("distribution/{analysis}_v{version}/daner_{analysis}_v{version}.xls")
+	output: "results/distribution/daner_{analysis}_v{version}.xls"
+	shell: "cp {input} {output}"
+	
+rule redistribute_danerext:
+	input: DBox_dist.remote("distribution/{analysis}_v{version}/daner_{analysis}_v{version}.gz.{ext}")
+	output: "results/distribution/daner_{analysis}_v{version}.gz.{ext}"
 	shell: "cp {input} {output}"
 
 # download most recent manhattan plot
