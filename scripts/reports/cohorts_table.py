@@ -8,4 +8,4 @@ casecontrol['Dataset'] = casecontrol['Dataset'].map(lambda dataset: dataset.repl
 
 # write out as a plain table
 with open(snakemake.output[0], 'w') as out:
-    print(casecontrol, file=out)
+    casecontrol.to_string(out)

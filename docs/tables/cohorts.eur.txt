@@ -1,21 +1,19 @@
-                                    Dataset  N_cases  ...   N-SNPs  N_eff_half
-0           mdd_MDD29.eur.hg19.0120a_rmUKBB    16674  ...  8256418       20148
-1                 mdd_23andMe.eur.hg19.v7_2   104959  ...  6620376      198075
-2    mdd_deCODE.eur.hg19.DEPALL_FINAL_WHEAD    20000  ...  7264468       23333
-3                mdd_GenScot.eur.hg19.1215a      997  ...  7002519        1723
-4              mdd_GERA.eur.hg19.0915a_mds5     7162  ...  8098645       12067
-5                  mdd_UKBB.eur.hg19.MD_glm    37531  ...  7836381       67343
-6                mdd_iPSYCH.eur.hg19.170220    18629  ...  7651027       18226
-7          mdd_FinnGen.eur.hg19.R5_18032020    23424  ...  7317555       41759
-8              mdd_ALSPAC.eur.hg19.12082019      472  ...  7705742         831
-9                 mdd_Airwave.eur.hg19.0820     2100  ...  7272644        3704
-10                    mdd_PBK.eur.hg19.2020     5607  ...  7126082        8314
-11                 mdd_ESTBB.eur.hg19.EstBB    35473  ...  7380209       51094
-12              mdd_MoBa.eur.hg19.harvest12      603  ...  6350514        1138
-13              mdd_MoBa.eur.hg19.harvest24      367  ...  6350234         692
-14             mdd_MoBa.eur.hg19.rotterdam1      553  ...  6350452        1041
-15        mdd_HUNT.eur.hg19.gp_all_20190625     7018  ...  7739458       11008
-16  mdd_HUNT.eur.hg19.hospital_all_20190625     4640  ...  7736887        7291
-17                                      SUM   286209  ...  7600494      467795
-
-[18 rows x 6 columns]
+                                    Dataset  N_cases  N_controls  LAMBDA-GC   N-SNPs  N_eff_half
+0           mdd_MDD29.eur.hg19.0120a_rmUKBB    16674       25452      1.070  8256418       20148
+1                 mdd_23andMe.eur.hg19.v7_2   104959     1755598      1.642  6620376      198075
+2    mdd_deCODE.eur.hg19.DEPALL_FINAL_WHEAD    20000       28000      1.078  7264468       23333
+3                mdd_GenScot.eur.hg19.1215a      997        6358      1.012  7002519        1723
+4              mdd_GERA.eur.hg19.0915a_mds5     7162       38307      1.022  8098645       12067
+5                  mdd_UKBB.eur.hg19.MD_glm    37531      327445      1.157  7836381       67343
+6                mdd_iPSYCH.eur.hg19.170220    18629       17841      1.083  7651027       18226
+7          mdd_FinnGen.eur.hg19.R5_18032020    23424      192220      1.129  7317555       41759
+8              mdd_ALSPAC.eur.hg19.12082019      472        3475      1.010  7705742         831
+9                 mdd_Airwave.eur.hg19.0820     2100       15713      0.999  7272644        3704
+10                    mdd_PBK.eur.hg19.2020     5607       16080      1.007  7126082        8314
+11                 mdd_ESTBB.eur.hg19.EstBB    35473       91301      1.005  7380209       51094
+12              mdd_MoBa.eur.hg19.harvest12      603       10213      1.019  6350514        1138
+13              mdd_MoBa.eur.hg19.harvest24      367        6122      0.999  6350234         692
+14             mdd_MoBa.eur.hg19.rotterdam1      553        8860      1.011  6350452        1041
+15        mdd_HUNT.eur.hg19.gp_all_20190625     7018       25521      1.039  7739458       11008
+16  mdd_HUNT.eur.hg19.hospital_all_20190625     4640       17014      1.031  7736887        7291
+17                                      SUM   286209     2585520      1.798  7600494      467795
