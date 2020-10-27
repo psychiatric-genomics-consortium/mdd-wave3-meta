@@ -142,6 +142,7 @@ Check the [`rules`](rules/) directory for the analyses to be run. See more on [h
 * **Alex Kwong** - *analyst* - [Edinburgh](https://www.ed.ac.uk)
 * **Shuyang Yao** - *analyst* – [Karolinska](https://ki.se)
 * **Karmel Choi** - *analyst* – [Harvard/MGH](https://www.hsph.harvard.edu)
+* **Eske Derks** - *analytical group lead* - [QIMR](https://www.qimrberghofer.edu.au)
 * **Karoline Kuchenbaecker** - *analytical group lead* - [UCL](http://www.bristol.ac.uk/alspac/)
 * **Naomi Wray** - *analytical group director* - [Queensland](https://cnsgenomics.com/)
 * **Stephan Ripke** - *analytical group director* - [Broad](https://www.broadinstitute.org/)
