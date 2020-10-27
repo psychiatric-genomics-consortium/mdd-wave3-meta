@@ -2,7 +2,7 @@
 
 Plans for analyses to include in primary and who is involved:
 
-**Analysts:** Mark Adams, Swapnil Awasthi, Fabian Strait, Oliver Pain, Xueyi Shen, Olga Giannakopoulou, Alex Kwong, Shuyang Yao, Jackson Thorp, Bochao Lin, Gita Pathak, Abigail ter Kuile, Alish Palmos, Karmel Choi, Jonathan Coleman, David Howard, Na Cai, Zac Gerring, Eske Derks   
+**Analysts:** Mark Adams, Swapnil Awasthi, Fabian Strait, Oliver Pain, Xueyi Shen, Olga Giannakopoulou, Alex Kwong, Shuyang Yao, Jackson Thorp, Bochao Lin, Gita Pathak, Abigail ter Kuile, Alish Palmos, Qinqin Huang, Kartik Chundru, Karmel Choi, Zac Gerring, Jonathan Coleman, David Howard, Na Cai, Hilary Martin, Eske Derks, Karoline Kuchenbäcker, Naomi Wray 
 
 ## Meta-analysis
 
@@ -38,4 +38,4 @@ Plans for analyses to include in primary and who is involved:
 - - latent-causal analysis ([gLVC](https://github.com/lukejoconnor/LCV)) _(Pathak)_
 - - MR-PRESSO _(Lin)_
 - - [SMR](https://cnsgenomics.com/software/smr/#Overview) (summary-data-based Mendelian Randomization) _(Pathak, Wray)_
-- Cross-ancestries prediction _(Giannakopoulou)_
+- Cross-ancestries prediction _(Giannakopoulou, Huang, Chundru)_
