@@ -34,8 +34,8 @@ Plans for analyses to include in primary and who is involved:
 - Leave one out PRS – to be provided to each group _(Awasthi)_
 - PheWAS of brain and behavior _(Shen, Choi)_
 - Mendelian Randomization
-- - Two-sample MR of brain and behavior _(Shen, Choi)_
-- - latent-causal analysis ([gLVC](https://github.com/lukejoconnor/LCV)) _(Pathak)_
-- - MR-PRESSO _(Lin)_
-- - [SMR](https://cnsgenomics.com/software/smr/#Overview) (summary-data-based Mendelian Randomization) _(Pathak, Wray)_
+  - Two-sample MR of brain and behavior _(Shen, Choi)_
+  - latent-causal analysis ([gLVC](https://github.com/lukejoconnor/LCV)) _(Pathak)_
+  - MR-PRESSO _(Lin)_
+  - [SMR](https://cnsgenomics.com/software/smr/#Overview) (summary-data-based Mendelian Randomization) _(Pathak, Wray)_
 - Cross-ancestries prediction _(Giannakopoulou, Huang, Chundru)_
