@@ -1,5 +1,10 @@
 # Project updates
 
+# 27 Oct 2020
+
+- **v3.29.13** Add ESTBB, MoBa, Hunt. Update deCODE. _[EUR]_
+- **v3.00.02** Add 23andMe, Taiwan. _[EAS]_
+
 # 2 Sep 2020
 
 - **v3.29.10** Add Partners Biobank cohort
