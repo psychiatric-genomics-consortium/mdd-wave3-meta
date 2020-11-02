@@ -1,0 +1,15 @@
+sumstats:
+  daner_mdd_MDD29.eur.hg19.0120a_rmUKBB: PATH/daner_MDD29.0120a.rmUKBB.gz
+  daner_mdd_GERA.eur.hg19.0915a_mds5: PATH/daner_GERA.euro.depress.0915a_mds5.id.gz
+  daner_mdd_deCODE.eur.hg19.160211: PATH/daner_mdd_decode_160211.gz
+  daner_mdd_GenScot.eur.hg19.1215a: PATH/daner_mdd_genscot_1215a.gz
+  daner_mdd_iPSYCH.eur.hg19.170220: PATH/daner_mddGWAS_new_ipsych_170220.meta.gz
+  daner_mdd_23andMe.eur.hg19.v7_2: PATH/daner_mdd_23andMe_eur_v7.2.gz
+  text_mdd_FinnGen.eur.hg38.R5_18032020: PATH/Depressio_FinnGen_R5_18032020.txt.gz
+  text_mdd_UKBB.eur.hg19.MD_glm: PATH/ukb_mdd.md.eur.glm.logistic.gz
+  text_mdd_ALSPAC.eur.hg19.12082019: PATH/ALSPAC/MDD/ALSPAC_FILTERED_ALL_12082019.gz
+refdir: /home/pgcdac/imputation_references/pgc-samples/hapmap_ref/impute2_ref/1000GP_Phase3_sr_0517d
+remote:
+  distribution:
+    analyst: h9lkd0l4q7AAAAAAAAAAAZUvOFZudgRvAnA6LAqzMg5mAb6H8mT_vzdgzupfI72m
+    public: DCywWdILhfAAAAAAAAAAAZoo96tcI7nDchBgRrb9EBDD10NFzhyZdVKKgsyMVA0Y
