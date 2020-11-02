@@ -15,3 +15,4 @@ wildcard_constraints:
 include: "rules/meta.smk"
 include: "rules/vcf.smk"
 include: "rules/reports.smk"
+include: "rules/finemapping.smk"
