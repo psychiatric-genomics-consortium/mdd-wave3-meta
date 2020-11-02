@@ -1,0 +1,24 @@
+
+inputs=("${@:1:22}")
+n=$23
+output=$24
+
+## Create finemapping jobs
+
+for input in inputs
+do
+    chr=$(echo $input | sed 's|".*\.[1-22].snpvar_ridge_constrained.gz|[1-22].snpvar_ridge_constrained.gz|g' | sed 's/.snpvar_ridge_constrained.gz//g') 
+    
+    python3 resources/finemapping/polyfun/create_finemapper_jobs.py \
+        --sumstats $input \
+        --n $n \
+        --method susie \
+        --max-num-causal 1 \
+        --out-prefix FM_Output/daner_MDD29_noPharma_Intersection_Clean_For_PolyFun \
+        --jobs-file daner_MDD29_noPharma_Intersection_Clean_For_PolyFun_all_jobs_chr$i.txt \
+        --chr $i \
+        --regions-file $POLYFUN/ukb_regions.tsv.gz \
+        --allow-missing
+done
+
+results/finemapping/jobs_{cohorts}_{ancestries}_hg19_v{version}
