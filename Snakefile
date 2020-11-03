@@ -1,4 +1,4 @@
-configfile: "config.yaml"
+configfile: "config_23andMe.yaml"
 import os
 import json
 import gzip
