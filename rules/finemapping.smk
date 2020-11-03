@@ -27,12 +27,19 @@ rule l2reg_sldsc:
         --w-ld-chr resources/finemapping/baselineLF2.2.UKB/weights.UKB. \
         --allow-missing"
 
-### NOTE TO FUTURE JONI - AUTOMATE N BELOW
+rule define_n
+    input: "results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
+    output: "results/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.gz"
+    shell:
+        "declare -i cases controls n
+        cases=$(gunzip -c {input} | head -1 | awk '{print $6}' | sed 's/FRQ_A_//g')
+        controls=$(gunzip -c {input} | head -1 | awk '{print $7}' | sed 's/FRQ_U_//g')
+        n=$cases+$controls
+        echo $n > {output}"
 
 rule create_and_run_jobs:
     input:
         snpvar=expand("results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}_chr{chr}.snpvar_ridge_constrained.gz", chr=range(1, 22)),
-        n=12345
+        n="results/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.gz
     output: "results/finemapping/results_{cohorts}_{ancestries}_hg19_v{version}"
     script: "../scripts/finemapping/create.sh {input.snpvar} {input.n} {output}"
-

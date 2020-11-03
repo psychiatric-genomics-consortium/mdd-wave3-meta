@@ -1,7 +1,9 @@
 
 inputs=("${@:1:22}")
-n=$23
+nfile=$23
 output=$24
+
+n=$(cat nfile)
 
 ## Create finemapping jobs
 
