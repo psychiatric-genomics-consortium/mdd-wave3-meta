@@ -179,6 +179,14 @@ rule distribute_meta:
 	input: "results/meta/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{file}"
 	output: DBox_dist.remote("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{file}")
 	shell: "cp {input} {output}"
+	
+	
+# share files locally
+distribute_local_path=config["remote"]["distribution"]["local"] if "local" in config["remote"]["distribution"] else os.path.expanduser('~')
+rule distribute_local:
+	input: "results/meta/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{file}"
+	output: expand("{local_path}/mdd3/distribution/pgc_mdd_{{cohorts}}_eur_hg19_v{{version}}/{{file}}", local_path=distribute_local_path)
+	shell: "cp {input} {output}"
 
 ##
 ## Distribution for PGC analysts
@@ -187,6 +195,10 @@ rule distribute_meta:
 # list all files to be uploaded to Dropbox
 rule DBox_dist_analyst:
 	input: DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_analyst, ext=distribution_daner_ext)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_het_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_analyst, ext=distribution_basic_ext))
+	
+# list all files to be shared locally (e.g., on LISA)
+rule local_dist_analyst:
+	input: expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, ext=distribution_daner_ext), expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_pdf_prefix), expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_het_pdf_prefix), expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, ext=distribution_basic_ext)
 
 # Download daner sumstats for downstream analysis
 rule redistribute_daner:
