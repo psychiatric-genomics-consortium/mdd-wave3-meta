@@ -75,6 +75,23 @@ rule align:
 	conda: "../envs/meta.yaml" 
 	script: "../scripts/meta/align.R"
 
+# munge sumstats for ldsc regression
+rule meta_ldsc_munge:
+	input: sumstats="results/sumstats/aligned/{cohort}.gz", hm3="resources/ldsc/w_hm3.snplist", ldsc=rules.ldsc_install.output
+	params:
+		prefix="results/ldsc/munged/{cohort}"
+	conda: "../envs/ldsc.yaml"
+	output: "results/ldsc/munged/{cohort}.sumstats.gz"
+	shell: "resources/ldsc/ldsc/munge_sumstats.py --sumstats {input.sumstats} --daner --out {params.prefix} --merge-alleles {input.hm3} --chunksize 500000"
+	
+# calculate genetic correlation with MDD2
+rule meta_ldsc_mdd2:
+	input: sumstats="results/ldsc/munged/{cohort}.sumstats.gz", mdd="results/ldsc/munged/daner_mdd_PGC2.eur.hg19.wray2018.aligned.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
+	params:
+		prefix="results/ldsc/rg_mdd/{cohort}"
+	conda: "../envs/ldsc.yaml"
+	output: "results/ldsc/rg_mdd/{cohort}.log"
+	shell: "resources/ldsc/lsc/ldsc.py --rg {input.sumstats},{input.mdd} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
 # create reference info file linking to imputation panel
 rule refdir:
 	output: "results/meta/reference_info"
