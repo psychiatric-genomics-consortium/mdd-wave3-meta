@@ -1,5 +1,20 @@
 # Project updates
 
+# 6 Nov 2020
+
+- Meta-analyzed sumstats available directly on Lisa. Set-up config file with an entry for `lisa` under the `distribution` settings that contains the path for the distribution files.
+  ```
+  remote:
+    distribution:
+      analyst: 
+      public: 
+      lisa: /path/to/pgcmdd
+    ```
+  Then run the normal downstream full for the full results
+  ```
+  snakemake -j1 downstream_full
+  ```
+
 # 27 Oct 2020
 
 - **v3.29.13** Add ESTBB, MoBa, Hunt. Update deCODE. _[EUR]_
