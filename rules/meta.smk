@@ -92,6 +92,7 @@ rule meta_ldsc_mdd2:
 	conda: "../envs/ldsc.yaml"
 	output: "results/ldsc/rg_mdd/{cohort}.log"
 	shell: "resources/ldsc/lsc/ldsc.py --rg {input.sumstats},{input.mdd} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
+	
 # create reference info file linking to imputation panel
 rule refdir:
 	output: "results/meta/reference_info"
