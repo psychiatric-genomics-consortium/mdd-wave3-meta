@@ -86,12 +86,12 @@ rule meta_ldsc_munge:
 	
 # calculate genetic correlation with MDD2
 rule meta_ldsc_mdd2:
-	input: sumstats="results/ldsc/munged/{cohort}.sumstats.gz", mdd="results/ldsc/munged/daner_mdd_PGC2.eur.hg19.wray2018.aligned.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
+	input: sumstats="results/ldsc/munged/{cohort}.sumstats.gz", mdd="results/ldsc/munged/daner_mdd_PGC.eur.hg19.wray2018.aligned.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
 	params:
 		prefix="results/ldsc/rg_mdd/{cohort}"
 	conda: "../envs/ldsc.yaml"
 	output: "results/ldsc/rg_mdd/{cohort}.log"
-	shell: "resources/ldsc/lsc/ldsc.py --rg {input.sumstats},{input.mdd} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
+	shell: "resources/ldsc/ldsc/ldsc.py --rg {input.sumstats},{input.mdd} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
 	
 # create reference info file linking to imputation panel
 rule refdir:
@@ -99,12 +99,13 @@ rule refdir:
 	log: "logs/meta/reference_info.log"
 	shell: "cd results/meta; impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
 
-# link sumstats files into meta-analysis directory
+# link sumstats files into meta-analysis directory, but also run
+# LDSC rg with MDD2
 rule meta:
-	input: "results/sumstats/aligned/{cohort}.gz"
+	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/ldsc/rg_mdd/{cohort}.log"
 	output: "results/meta/{cohort}.gz"
 	log: "logs/meta/{cohort}.log"
-	shell: "cp -v {input} {output} > {log}"
+	shell: "cp -v {input.sumstats} {output} > {log}"
 
 # Ricopili results dataset list for eur ancestries
 rule dataset_eur:
