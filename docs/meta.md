@@ -51,22 +51,22 @@ sumstats:
 	FORMAT_COHORT.POP.hgNN.VERSION: PATH/TO/SUMSTATS.gz
 ```
 
-where `FORMAT_mdd_COHORT.POP.hgNN.VERSION` is a key encoding:
+where `FORMAT_mdd_COHORT.POP.hgNN.RELEASE` is a key encoding:
 
 - `FORMAT`: format of the summary statistics, one of `daner` or `text`. [daner](https://docs.google.com/document/d/1TWIhr8-qpCXB13WCXcU1_HDio8lC_MeWoAg2jlggrtU/edit) files are left-as-is where as `text` summary statistics will be transformed to daner in another workflow step.
 - `COHORT`: short, unique name of the cohort (e.g., `UKBB` for "UK Biobank")
 - `POP`: ancestries population for meta-analysis. Should match the ancestries superpopulations used by the Ricopili imputation panel (`afr`, `amr`, `eas`, `eur`, `sas`)
 - `hgNN`: Genome build, one of `hg19` or `hg38`.
-- `VERSION`: a version specifier for the sumstats from this cohort (usually a version number or date string).
+- `RELEASE`: a release or version specifier for the sumstats from this cohort (usually a sub-cohort, descriptor, or date string).
 
-The `COHORT` and `VERSION` strings should only contain the characters `[A-Za-z0-9_]` (specifically, the period character `.` should be avoided as it is used to demarcate the different parts of the key).
+The `COHORT` and `RELEASE` strings should only contain the characters `[A-Za-z0-9_]` (specifically, the period character `.` should be avoided as it is used to demarcate the different parts of the key).
 
 ## Linking a cohorts into the workflow
 
 To link a single cohort: 
 
 ```
-snakemake -j1 --use-conda resources/sumstats/FORMAT_mdd_COHORT.POP.hgNN.VERSION.gz
+snakemake -j1 --use-conda resources/sumstats/FORMAT_mdd_COHORT.POP.hgNN.RELEASE.gz
 ```
 
 To link all cohort summary statistics listed in `config.yaml`:
@@ -83,7 +83,7 @@ For summary statistics that are not already in daner format, create a script cal
 scripts/sumstats/COHORT.sh
 ```
 
-that matches the cohort name `COHORT` of the summary stats file (`resources/sumstats/text_mdd_COHORT.POP.hgNN.VERSION.gz`). The script WILL be executed as
+that matches the cohort name `COHORT` of the summary stats file (`resources/sumstats/text_mdd_COHORT.POP.hgNN.RELEASE.gz`). The script WILL be executed as
 
 ```
 sh scripts/sumstats/COHORT.sh INPUT OUTPUT
@@ -119,7 +119,7 @@ gzip --verbose $daner
 The workflow will handle the naming of the `INPUT` and `OUTPUT` parameters. Run the rule with
 
 ```
-snakemake -j1 results/sumstats/daner/daner_mdd_COHORT.POP.hgNN.VERSION.gz
+snakemake -j1 results/sumstats/daner/daner_mdd_COHORT.POP.hgNN.RELEASE.gz
 ```
 
 ## Liftover
@@ -127,18 +127,18 @@ snakemake -j1 results/sumstats/daner/daner_mdd_COHORT.POP.hgNN.VERSION.gz
 The meta-analysis is conducted against genome assembly [GRCh37](https://www.ncbi.nlm.nih.gov/assembly/GCF_000001405.13/) (hg19). Summary statistics on build `hg38` are automatically lifted over to `hg19` as part of the workflow. Assuming that the sumstats file
 
 ```
-resources/sumstats/FORMAT_mdd_COHORT.POP.hg38.VERSION.gz
+resources/sumstats/FORMAT_mdd_COHORT.POP.hg38.RELEASE.gz
 ```
 
 exists then it can be converted separately to `hg19` by running
 
 ```
-snakemake -j1 --use-conda results/sumstats/hg19/daner_mdd_COHORT.POP.hg19.VERSION.gz
+snakemake -j1 --use-conda results/sumstats/hg19/daner_mdd_COHORT.POP.hg19.RELEASE.gz
 ```
 
 ## Add cohort to the meta-analysis rule
 
-The meta-analysis rule for each ancestries group is in the [`rules/meta.smk`](../rules/meta.smk) Snakemake file. The rule for which cohorts to include is called `dataset_POP` where `POP` is the name ancestries superopulation group name (lowercase). The name of the final aligned sumstats file for a cohort is called `results/meta/daner_mdd_COHORT.POP.hg19.VERSION.aligned.gz`. Add this file as an input to the `postimp_POP` rule. For example, if the current meta-analysis datasets for `eur` were listed as 
+The meta-analysis rule for each ancestries group is in the [`rules/meta.smk`](../rules/meta.smk) Snakemake file. The rule for which cohorts to include is called `dataset_POP` where `POP` is the name ancestries superopulation group name (lowercase). The name of the final aligned sumstats file for a cohort is called `results/meta/daner_mdd_COHORT.POP.hg19.RELEASE.aligned.gz`. Add this file as an input to the `postimp_POP` rule. For example, if the current meta-analysis datasets for `eur` were listed as 
 
 ```
 # Ricopili results dataset list for eur ancestries
@@ -151,7 +151,7 @@ rule dataset_eur:
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
 ```
 
-and the summary statitics we want to add are for the `GenScot` cohort version `1215a`, then the updated rule would be:
+and the summary statistics we want to add are for the `GenScot` cohort release version `1215a`, then the updated rule would be:
 
 ```
 # Ricopili results dataset list for eur ancestries
@@ -160,8 +160,8 @@ rule dataset_eur:
 	 "results/meta/daner_mdd_23andMe.eur.hg19.v7_2.aligned.gz",
 	 "results/meta/daner_mdd_deCODE.eur.hg19.160211.aligned.gz",
 	 "results/meta/daner_mdd_GenScot.eur.hg19.1215a.aligned.gz"
-	output: "results/meta/dataset_full_eur_v{analysis}"
-	log: "logs/meta/dataset_full_eur_v{analysis}.log"
+	output: "results/meta/dataset_full_eur_v{version}"
+	log: "logs/meta/dataset_full_eur_v{version}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
 ```
 
@@ -173,4 +173,4 @@ The meta-analysis can be submitted to Ricopili with
 snakemake -j1 --use-conda results/meta/full_POP_v3.N.M.done 
 ```
 
-where `POP` is the ancestries group and `v3.N.M` is a version number specifiying the number of cohorts included, where `N` is the number of PGC cohorts (analysed from genotype data) and `M` is the number of additional cohorts analysed from summary statitics. For example, the above meta analysis with 29 PGC MDD cohorts and three additional cohorts (23andMe, deCode, and GenScot) would be `v3.29.03`.
+where `POP` is the ancestries group and `v3.N.M` is a version number specifying the number of cohorts included, where `N` is the number of PGC cohorts (analysed from genotype data) and `M` is the number of additional cohorts analysed from summary statitics. For example, the above meta analysis with 29 PGC MDD cohorts and three additional cohorts (23andMe, deCode, and GenScot) would be `v3.29.03`.
