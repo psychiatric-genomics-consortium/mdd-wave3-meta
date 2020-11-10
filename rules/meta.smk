@@ -93,6 +93,23 @@ rule meta_ldsc_mdd2:
 	output: "results/ldsc/rg_mdd/{cohort}.log"
 	shell: "resources/ldsc/ldsc/ldsc.py --rg {input.sumstats},{input.mdd} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
 	
+rg_mdd_logs, = glob_wildcards("results/ldsc/rg_mdd/{cohort}.log")
+rule meta_ldsc_mdd2_table:
+	input: expand("results/ldsc/rg_mdd/{cohort}.log", cohort=rg_mdd_logs)
+	output: "docs/tables/ldsc_mdd_rg.txt"
+	shell: """tmp=$(mktemp)
+	echo -e cohort release gencov rg se > $tmp
+	for log in {input}; do 
+	sumstats=$(basename $log .log);
+	cohort=$(echo $sumstats | awk -F. '{{print $1}}' | awk -F_ '{{print $3}}')
+	release=$(echo $sumstats | awk -F. '{{print $4}}')
+	gencov=$(cat $log | grep 'Total Observed scale gencov:' | awk '{{print $5}}');
+	rg=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $3}}');
+	se=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $4}}');
+	echo -e $cohort [$release] $gencov $rg $se >> $tmp;
+	done;
+	column -t -s' ' $tmp > {output}"""
+	
 # create reference info file linking to imputation panel
 rule refdir:
 	output: "results/meta/reference_info"
