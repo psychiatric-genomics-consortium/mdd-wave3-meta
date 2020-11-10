@@ -47,8 +47,11 @@ rule local_dist_analyst:
 	input: expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, ext=distribution_daner_ext), expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_pdf_prefix), expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_het_pdf_prefix), expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, ext=distribution_basic_ext)
 
 # Download daner sumstats for downstream analysis
+# Look at config file to determine whether to fetch locally on LISA or remotely
+# from Dropbox share
 rule redistribute_daner:
-	input: DBox_dist.remote("distribution/{analysis}/daner_{analysis}.gz")
+	input: lambda wildcards: expand("{local_path}/mdd3/distribution/{analysis}/daner_{analysis}.gz", local_path=distribute_local_path, analysis=wildcards.analysis) if "lisa" in config["remote"]["distribution"] else
+		DBox_dist.remote(expand("distribution/{analysis}/daner_{analysis}.gz", analysis=wildcards.analysis))
 	output: "results/distribution/daner_{analysis}.gz"
 	shell: "cp {input} {output}"
 
