@@ -8,7 +8,7 @@
 #################
 
 # Copy summary statistics listed in config.yaml under sumstats
-# with key FORMAT_COHORT.POP.hgNN.VERSION
+# with key FORMAT_COHORT.POP.hgNN.RELEASE
 rule stage_sumstats:
 	input: lambda wildcards: config["sumstats"][wildcards.cohort]
 	output: "resources/sumstats/{cohort}.gz"
@@ -28,25 +28,25 @@ rule daner:
 	
 # Convert text sumstats to daner
 rule text2daner:
-	input: sumstats="resources/sumstats/text_mdd_{cohort}.{ancestries}.{build}.{version}.gz", sh="scripts/sumstats/{cohort}.sh"
-	output: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{version}.gz"
-	log: "logs/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{version}.log"
+	input: sumstats="resources/sumstats/text_mdd_{cohort}.{ancestries}.{build}.{release}.gz", sh="scripts/sumstats/{cohort}.sh"
+	output: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz"
+	log: "logs/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{release}.log"
 	conda: "../envs/meta.yaml" 
 	shell: "sh {input.sh} {input.sumstats} {output} {log}"
 	
 # Convert vcf sumstats to daner
 rule vcf2daner:
-	input: sumstats="resources/sumstats/vcf_mdd_{cohort}.{ancestries}.{build}.{version}.gz", vcfgwas="resources/vcf/vendor/r-gwasvcf"
-	output: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{version}.gz"
-	log: "logs/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{version}.log"
+	input: sumstats="resources/sumstats/vcf_mdd_{cohort}.{ancestries}.{build}.{release}.gz", vcfgwas="resources/vcf/vendor/r-gwasvcf"
+	output: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz"
+	log: "logs/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{release}.log"
 	conda: "../envs/vcf.yaml"
 	script: "../scripts/meta/vcf2daner.R"
 	
 # for daner files on genome build hg19
 rule hg19:
-	input: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg19.{version}.gz"
-	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{version}.gz"
-	log: "logs/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{version}.log"
+	input: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg19.{release}.gz"
+	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{release}.gz"
+	log: "logs/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{release}.log"
 	shell: "cp -v {input} {output} > {log}"
 
 # download hgIN to hgOUT chain
@@ -59,32 +59,70 @@ rule hg_chain:
 	
 # liftover hg38 to hg19	
 rule hg38to19:
-	input: daner="results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg38.{version}.gz", chain="resources/liftOver/hg38ToHg19.over.chain"
-	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{version}.gz"
-	log: "logs/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{version}.log"
+	input: daner="results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg38.{release}.gz", chain="resources/liftOver/hg38ToHg19.over.chain"
+	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{release}.gz"
+	log: "logs/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{release}.log"
 	conda: "../envs/meta.yaml" 
 	script: "../scripts/meta/liftover.R"
+	
+ruleorder: hg19 > hg38to19
 
 # align to imputation panel
 rule align:
-	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{version}.gz", ref="results/meta/reference_info"
-	output: "results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{version}.aligned.gz"
-	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{version}.aligned.log"
+	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz", ref="results/meta/reference_info"
+	output: "results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz"
+	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
 	conda: "../envs/meta.yaml" 
 	script: "../scripts/meta/align.R"
 
-# create reference into file linking to imputation panel
+# munge sumstats for ldsc regression
+rule meta_ldsc_munge:
+	input: sumstats="results/sumstats/aligned/{cohort}.gz", hm3="resources/ldsc/w_hm3.snplist", ldsc=rules.ldsc_install.output
+	params:
+		prefix="results/ldsc/munged/{cohort}"
+	conda: "../envs/ldsc.yaml"
+	output: "results/ldsc/munged/{cohort}.sumstats.gz"
+	shell: "resources/ldsc/ldsc/munge_sumstats.py --sumstats {input.sumstats} --daner --out {params.prefix} --merge-alleles {input.hm3} --chunksize 500000"
+	
+# calculate genetic correlation with MDD2
+rule meta_ldsc_mdd2:
+	input: sumstats="results/ldsc/munged/{cohort}.sumstats.gz", mdd="results/ldsc/munged/daner_mdd_PGC.eur.hg19.wray2018.aligned.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
+	params:
+		prefix="results/ldsc/rg_mdd/{cohort}"
+	conda: "../envs/ldsc.yaml"
+	output: "results/ldsc/rg_mdd/{cohort}.log"
+	shell: "resources/ldsc/ldsc/ldsc.py --rg {input.sumstats},{input.mdd} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
+	
+rg_mdd_logs, = glob_wildcards("results/ldsc/rg_mdd/{cohort}.log")
+rule meta_ldsc_mdd2_table:
+	input: expand("results/ldsc/rg_mdd/{cohort}.log", cohort=rg_mdd_logs)
+	output: "docs/tables/ldsc_mdd_rg.txt"
+	shell: """tmp=$(mktemp)
+	echo -e cohort release gencov rg se > $tmp
+	for log in {input}; do 
+	sumstats=$(basename $log .log);
+	cohort=$(echo $sumstats | awk -F. '{{print $1}}' | awk -F_ '{{print $3}}')
+	release=$(echo $sumstats | awk -F. '{{print $4}}')
+	gencov=$(cat $log | grep 'Total Observed scale gencov:' | awk '{{print $5}}');
+	rg=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $3}}');
+	se=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $4}}');
+	echo -e $cohort [$release] $gencov $rg $se >> $tmp;
+	done;
+	column -t -s' ' $tmp > {output}"""
+	
+# create reference info file linking to imputation panel
 rule refdir:
 	output: "results/meta/reference_info"
 	log: "logs/meta/reference_info.log"
 	shell: "cd results/meta; impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
 
-# link sumstats files into meta-analysis directory
+# link sumstats files into meta-analysis directory, but also run
+# LDSC rg with MDD2
 rule meta:
-	input: "results/sumstats/aligned/{cohort}.gz"
+	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/ldsc/rg_mdd/{cohort}.log"
 	output: "results/meta/{cohort}.gz"
 	log: "logs/meta/{cohort}.log"
-	shell: "cp -v {input} {output} > {log}"
+	shell: "cp -v {input.sumstats} {output} > {log}"
 
 # Ricopili results dataset list for eur ancestries
 rule dataset_eur:
@@ -150,93 +188,4 @@ cohorts_analyst = ["full", "noUKBB", "no23andMe", "noALSPAC"]
 
 # cohort sets for public
 cohorts_public = ["no23andMe"]
-
-
-
-###################################
-#                                 #
-# Summary statistics distribution #
-#                                 #
-###################################
-
-
-# Distribute results
-# extensions and prefixes of Ricopili distribution output files
-# daner_pgc_mdd_full_eur_hg19_v{version}.EXT
-distribution_daner_ext = ["gz", "gz.ldsc.sumstats.gz", "gz.p3.gz", "gz.p4.clump.areator.sorted.1mhc", "gz.p4.clump.areator.sorted.1mhc.pvsorted", "gz.p4.clump.areator.sorted.1mhc.pvsorted.regs.txt", "gz.p4.clump.areator.sorted.1mhc.summary", "gz.p4.clump.areator.sorted.1mhc.xls", "het.gz.p4.clump.areator.sorted.1mhc", "het.gz.p4.clump.areator.sorted.1mhc.xls"]
-
-# PREFIX.pgc_mdd_full_eur_hg19_v{version}.pdf
-distribution_pdf_prefix = ["areas.fo", "areas", "manhattan.nog2", "manhattan.nog", "manhattan.v2", "qq"]
-
-# PREFIX.pgc_mdd_full_eur_hg19_v{version}.het.pdf
-distribution_het_pdf_prefix = ["manhattan.v2", "qq"]
-
-# basic.pgc_mdd_full_eur_hg19_v{version}.EXT
-distribution_basic_ext = ["num.xls"]
-
-# Distribute meta analysis files
-rule distribute_meta:
-	input: "results/meta/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{file}"
-	output: DBox_dist.remote("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{file}")
-	shell: "cp {input} {output}"
-
-##
-## Distribution for PGC analysts
-##
-
-# list all files to be uploaded to Dropbox
-rule DBox_dist_analyst:
-	input: DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_analyst, ext=distribution_daner_ext)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_het_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_analyst, ext=distribution_basic_ext))
-
-# Download daner sumstats for downstream analysis
-rule redistribute_daner:
-	input: DBox_dist.remote("distribution/{analysis}/daner_{analysis}.gz")
-	output: "results/distribution/daner_{analysis}.gz"
-	shell: "cp {input} {output}"
-
-rule downstream_full:
-	input: expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz", version=analysis_version)
-
-rule downstream_noUKBB:
-	input: expand("results/distribution/daner_pgc_mdd_noUKBB_eur_hg19_v{version}.gz", version=analysis_version)
-
-rule downstream_no23andMe:
-	input: expand("results/distribution/daner_pgc_mdd_no23andMe_eur_hg19_v{version}.gz", version=analysis_version)
-
-# Download tables and figures
-rule redistribute_figtabs:
-	input: DBox_dist.remote("distribution/{analysis}_v{version}/{prefix}.{analysis}_v{version}.{ext}")
-	output: "results/distribution/{prefix}.{analysis}_v{version}.{ext}"
-	shell: "cp {input} {output}"
-
-rule redistribute_danerxls:
-	input: DBox_dist.remote("distribution/{analysis}_v{version}/daner_{analysis}_v{version}.xls")
-	output: "results/distribution/daner_{analysis}_v{version}.xls"
-	shell: "cp {input} {output}"
-	
-rule redistribute_danerext:
-	input: DBox_dist.remote("distribution/{analysis}_v{version}/daner_{analysis}_v{version}.gz.{ext}")
-	output: "results/distribution/daner_{analysis}_v{version}.gz.{ext}"
-	shell: "cp {input} {output}"
-
-# download most recent manhattan plot
-rule manhattan_full:
-	input: expand("results/distribution/manhattan.nog2.pgc_mdd_full_eur_hg19_v{version}.pdf", version=analysis_version)
-
-
-##
-## Distribution for public
-##
-
-ruleorder: distribute_public > distribute_meta
-
-rule distribute_public:
-	input: "results/meta/distribution/pgc_mdd_no23andMe_eur_hg19_v{version}/{file}"
-	output: DBox_dist_public.remote("distribution/pgc_mdd_no23andMe_eur_hg19_v{version}/{file}")
-	shell: "cp {input} {output}"
-
-# list all files to be uploaded to Dropbox
-rule DBox_dist_public:
-	input: DBox_dist_public.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_public, ext=distribution_daner_ext)), DBox_dist_public.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_public, prefix=distribution_pdf_prefix)), DBox_dist_public.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_public, prefix=distribution_het_pdf_prefix)), DBox_dist_public.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_public, ext=distribution_basic_ext))
-
 
