@@ -61,9 +61,9 @@ mean_se <- mean(daner_aligned$SE)
 N_snps_aligned <- nrow(daner_aligned)
 sumstats_cohort <- snakemake@wildcards$cohort
 sumstats_ancestries <- snakemake@wildcards$ancestries
-sumstats_version <- snakemake@wildcards$version
+sumstats_release <- snakemake@wildcards$release
 
-log_table <- data.frame(cohort=sumstats_cohort, ancestries=sumstats_ancestries, version=sumstats_version,
+log_table <- data.frame(cohort=sumstats_cohort, ancestries=sumstats_ancestries, release=sumstats_release,
            N_snps=N_snps, N_snps_aligned=N_snps_aligned, mean_OR=signif(mean_or, 5), mean_SE=signif(mean_se, 5))
 
 write_tsv(log_table, path=log_path)
