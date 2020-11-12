@@ -1,4 +1,14 @@
 
+rule install_polyfun: 
+    output: directory("resources/finemapping/polyfun") 
+    conda: "../envs/finemapping.yaml" 
+    shell: "git clone git@github.com:omerwe/polyfun.git {output}" 
+
+rule get_baseline
+  input: HTTP.remote("//data.broadinstitute.org/alkesgroup/LDSCORE/baselineLF_v2.2.UKB.polyfun.tar.gz")
+  output: "resources/finemapping/baselineLF2.2.UKB.polyfun.tar.gz"
+  shell: "cp {input} {output}; tar -xzvf {output}"
+
 rule format_sumstat:
     input: "results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
     output: "results/finemapping/for_munge_{cohorts}_{ancestries}_hg19_v{version}.gz
