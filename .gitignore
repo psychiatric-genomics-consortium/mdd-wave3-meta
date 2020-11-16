@@ -3,6 +3,7 @@ resources/
 results/
 *.gz
 config.yaml
+config_23andMe.yaml
 
 # Logs
 logs/

@@ -1,18 +1,18 @@
 
-inputs=("${@:1:22}")
-nfile=$23
-output=$24
+results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}_chr
+
+inputprefix=$1
+nfile=$2
+output=$3
 
 n=$(cat nfile)
 
 ## Create finemapping jobs
 
-for input in inputs
+for chr in {1..22}
 do
-    chr=$(echo $input | grep -Eo 'chr.[0-9]{1,2}' | sed 's/chr.//g')
-    
     python3 resources/finemapping/polyfun/create_finemapper_jobs.py \
-        --sumstats $input \
+        --sumstats ${inputprefix}.${chr}.snpvar_ridge_constrained.gz \
         --n $n \
         --method susie \
         --max-num-causal 1 \
