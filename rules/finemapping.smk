@@ -13,7 +13,6 @@ rule get_baseline:
     input: HTTP.remote("data.broadinstitute.org/alkesgroup/LDSCORE/baselineLF_v2.2.UKB.polyfun.tar.gz", keep_local=False)
     log: "logs/finemapping/get_baseline.log"
     conda: "../envs/finemapping.yaml" 
-    output: "resources/finemapping/baselineLF_v2.2.UKB.polyfun.tar.gz"
     shell: "tar -xzvf {input}; mv baselineLF2.2.UKB resources/finemapping/"
 
 rule format_sumstat:
