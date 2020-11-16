@@ -7,14 +7,14 @@ rule install_polyfun:
 rule install_susie:
     conda: "../envs/finemapping.yaml"
     log: "logs/finemapping/install_susie.log"
-    script: "scripts/finemapping/install_susie.R"
+    script: "../scripts/finemapping/install_susie.R"
 
 rule get_baseline:
-    input: HTTP.remote("data.broadinstitute.org/alkesgroup/LDSCORE/baselineLF_v2.2.UKB.polyfun.tar.gz")
-    output: "resources/finemapping/baselineLF2.2.UKB.polyfun.tar.gz"
+    input: HTTP.remote("data.broadinstitute.org/alkesgroup/LDSCORE/baselineLF_v2.2.UKB.polyfun.tar.gz", keep_local=False)
     log: "logs/finemapping/get_baseline.log"
     conda: "../envs/finemapping.yaml" 
-    shell: "cp {input} {output}; cd resources/finemapping; tar -xzvf {output}; cd ../.."
+    output: "resources/finemapping/baselineLF_v2.2.UKB.polyfun.tar.gz"
+    shell: "tar -xzvf {input}; mv baselineLF2.2.UKB resources/finemapping/"
 
 rule format_sumstat:
     input: "results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
@@ -44,7 +44,7 @@ rule l2reg_sldsc:
     log: "logs/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.log"
     conda: "../envs/finemapping.yaml" 
     shell:
-        "python3 {input.polyfun}/munge_polyfun_sumstats.py \
+        "python3 {input.polyfun}/polyfun.py \
         --compute-h2-L2 \
         --no-partitions \
         --output-prefix {output} \
