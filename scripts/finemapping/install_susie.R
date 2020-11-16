@@ -1,0 +1,1 @@
+remotes::install_github("stephenslab/susieR@0.8.0",build_vignettes=FALSE)

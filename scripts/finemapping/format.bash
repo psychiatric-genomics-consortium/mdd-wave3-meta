@@ -20,16 +20,15 @@ cat \
 
 # Identify multiallelics for drop
 
-LANG=C fgrep -wf <(awk '{print $2}' $outputroot | sort | uniq -d) \
+LANG=C grep -wf <(awk '{print $2}' $outputroot | sort | uniq -d) \
 <(awk '{print $2}' $outputroot) > Duplicate_Names_To_Drop.txt
 
 echo "Duplicate variant names dropped:"
 wc -l Duplicate_Names_To_Drop.txt
 
-
-LANG=C fgrep -wf <(awk '{print $1"_"$3}' $outputroot | sort | uniq -d) \
-<(awk '{print $0, $1"_"$3}' $outputroot) | \
-awk '{print $2}' > Duplicate_Positions_To_Drop.txt
+LANG=C grep -wf <(awk '{print $1"_"$3}' $outputroot | sort | uniq -d) \
+<(awk '{print $2, $1"_"$3}' $outputroot) | \
+awk '{print $1}' > Duplicate_Positions_To_Drop.txt
 
 echo "Duplicate variant positions dropped:"
 wc -l Duplicate_Positions_To_Drop.txt
