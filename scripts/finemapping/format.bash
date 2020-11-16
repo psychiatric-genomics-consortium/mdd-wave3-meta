@@ -15,7 +15,7 @@ gunzip -c $input | awk '{print $1"_"$3}' | sort | uniq -d | wc -l
 
 cat \
 <(echo "CHR SNP BP A1 A2 FREQ INFO OR SE P N") \
-<(gunzip -c $input | awk 'NR > 1 {print $1, $2, $3, $4, $5, $7, $8, $9, $10, $11, $12}') \
+<(gunzip -c $input | awk 'NR > 1 {print $1, $2, $3, $4, $5, $7, $8, $9, $10, $11, $17 + $18}') \
 > $outputroot
 
 # Identify multiallelics for drop
@@ -46,9 +46,3 @@ mv $outputroot.noduplicates $outputroot
 
 gzip $outputroot
 
-# Tidy up
-
-rm results/finemapping/Duplicate_Names_To_Drop.txt \
-   results/finemapping/Duplicate_Positions_To_Drop.txt \
-   results/finemapping/Total_Duplicates_To_Drop.txt \
-   $outputroot.noduplicates
