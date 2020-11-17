@@ -45,8 +45,13 @@ inner_join(impute_frq2 %>% filter(between(FA1, 0.01, 0.99)),
 filter((A1 == A1.imp & A2 == A2.imp ) | (A1 == A2.imp & A2 == A1.imp)) %>%
 filter(!is.na(OR) & !is.na(SE) & !is.na(P)) %>%
 # select imputed SNP name
-mutate(SNP=SNP.imp, SNP) %>%
-select(-ends_with('.imp'), -FA1) %>%
+mutate(SNP=SNP.imp) %>%
+# remove duplicate SNPs
+group_by(SNP) %>%
+mutate(count=n()) %>%
+ungroup() %>%
+filter(count == 1) %>%
+select(-ends_with('.imp'), -FA1, -count) %>%
 arrange(CHR, BP) %>%
 select(CHR, SNP, BP, A1, A2, starts_with('FRQ_A'), starts_with('FRQ_U'), INFO, OR, SE, P, everything())
 
