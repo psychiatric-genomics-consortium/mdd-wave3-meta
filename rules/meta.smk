@@ -75,6 +75,14 @@ rule align:
 	conda: "../envs/meta.yaml" 
 	script: "../scripts/meta/align.R"
 
+# table of alignment checks
+align_logs, = glob_wildcards("logs/sumstats/aligned//{cohort}.log")
+rule meta_align_qc:
+	input: expand("logs/sumstats/aligned/{cohort}.log", cohort=align_logs)
+	output: "docs/tables/meta_qc_align.txt"
+	conda: "../envs/meta.yaml"
+	script: "../scripts/meta/align_qc_table.R"
+
 # munge sumstats for ldsc regression
 rule meta_ldsc_munge:
 	input: sumstats="results/sumstats/aligned/{cohort}.gz", hm3="resources/ldsc/w_hm3.snplist", ldsc=rules.ldsc_install.output
@@ -167,7 +175,6 @@ rule dataset_nocCOHORT_eur:
 	log: "logs/meta/dataset_no{cohort}_eur_v{analysis}"
 	output: "results/meta/dataset_no{cohort}_eur_v{analysis}"
 	shell: "cat {input} | grep --invert daner_mdd_{wildcards.cohort} > {output}"
-	
 
 # Ricopili submission
 rule postimp:
@@ -194,3 +201,8 @@ cohorts_analyst = ["full", "noUKBB", "no23andMe", "noALSPAC"]
 # cohort sets for public
 cohorts_public = ["no23andMe"]
 
+# QC checks
+rule meta_qc:
+	input: expand("results/meta/dataset_full_eur_v{version}", version=analysis_version),
+		"docs/tables/meta_qc_align.txt",
+		"docs/tables/meta_qc_ldsc.txt"	
