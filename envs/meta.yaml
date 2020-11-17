@@ -9,3 +9,4 @@ dependencies:
   - r-dplyr
   - r-tidyr
   - r-stringr
+  - r-gdata
