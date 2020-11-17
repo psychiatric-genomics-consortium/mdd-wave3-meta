@@ -131,8 +131,9 @@ rule dataset_eur:
 	 "results/meta/daner_mdd_deCODE.eur.hg19.DEPALL_FINAL_WHEAD.aligned.gz",
 	 "results/meta/daner_mdd_GenScot.eur.hg19.1215a.aligned.gz",
 	 "results/meta/daner_mdd_GERA.eur.hg19.0915a_mds5.aligned.gz",
-	 "results/meta/daner_mdd_UKBB.eur.hg19.MD_glm.aligned.gz",
-	 "results/meta/daner_mdd_iPSYCH.eur.hg19.170220.aligned.gz",
+	 "results/meta/daner_mdd_UKBB.eur.hg19.MD_glm_202010.aligned.gz",
+	 "results/meta/daner_mdd_iPSYCH.eur.hg19.2012_HRC.aligned.gz",
+	 "results/meta/daner_mdd_iPSYCH.eur.hg19.2015i_HRC.aligned.gz",
 	 "results/meta/daner_mdd_FinnGen.eur.hg19.R5_18032020.aligned.gz",
 	 "results/meta/daner_mdd_ALSPAC.eur.hg19.12082019.aligned.gz",
 	 "results/meta/daner_mdd_Airwave.eur.hg19.0820.aligned.gz",
@@ -142,7 +143,9 @@ rule dataset_eur:
 	 "results/meta/daner_mdd_MoBa.eur.hg19.harvest24.aligned.gz",
 	 "results/meta/daner_mdd_MoBa.eur.hg19.rotterdam1.aligned.gz",
 	 "results/meta/daner_mdd_HUNT.eur.hg19.gp_all_20190625.aligned.gz",
-	 "results/meta/daner_mdd_HUNT.eur.hg19.hospital_all_20190625.aligned.gz"
+	 "results/meta/daner_mdd_HUNT.eur.hg19.hospital_all_20190625.aligned.gz",
+	 "results/meta/daner_mdd_STAGE.eur.hg19.MDDdx_fastGWAS.aligned.gz",
+	 "results/meta/daner_mdd_PREFECT.eur.hg19.run1.aligned.gz"
 	output: "results/meta/dataset_full_eur_v{analysis}"
 	log: "logs/meta/dataset_full_eur_v{analysis}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
@@ -176,7 +179,7 @@ rule postimp:
 
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]
-analysis_version = ["3.29.13"]
+analysis_version = ["3.29.15"]
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	
