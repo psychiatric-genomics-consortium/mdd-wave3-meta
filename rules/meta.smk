@@ -96,9 +96,9 @@ rule meta_ldsc_mdd2:
 rg_mdd_logs, = glob_wildcards("results/ldsc/rg_mdd/{cohort}.log")
 rule meta_ldsc_mdd2_table:
 	input: expand("results/ldsc/rg_mdd/{cohort}.log", cohort=rg_mdd_logs)
-	output: "docs/tables/ldsc_mdd_rg.txt"
+	output: "docs/tables/meta_qc_ldsc.txt"
 	shell: """tmp=$(mktemp)
-	echo -e cohort release gencov rg se > $tmp
+	echo -e cohort release rg.mdd2 se gencov > ${{tmp}}.header
 	for log in {input}; do 
 	sumstats=$(basename $log .log);
 	cohort=$(echo $sumstats | awk -F. '{{print $1}}' | awk -F_ '{{print $3}}')
@@ -106,8 +106,10 @@ rule meta_ldsc_mdd2_table:
 	gencov=$(cat $log | grep 'Total Observed scale gencov:' | awk '{{print $5}}');
 	rg=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $3}}');
 	se=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $4}}');
-	echo -e $cohort [$release] $gencov $rg $se >> $tmp;
+	echo -e $cohort [$release] $rg $se $gencov >> ${{tmp}}.body;
 	done;
+	cat ${{tmp}}.header > $tmp
+	cat ${{tmp}}.body | sort -k 1,2 >> $tmp
 	column -t -s' ' $tmp > {output}"""
 	
 # create reference info file linking to imputation panel
