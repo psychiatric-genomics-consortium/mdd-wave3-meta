@@ -2,7 +2,7 @@
 
 Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium.
 
-**Current version**: v3.29.13 [EUR]
+**Current version**: v3.29.15 [EUR]
 
 ![MDD Manhattan plot](docs/figures/manhattan.nog2.eur.png)
 
