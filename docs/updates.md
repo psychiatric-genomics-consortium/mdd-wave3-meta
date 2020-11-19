@@ -1,5 +1,9 @@
 # Project updates
 
+# 19 Nov 2020
+
+- **v3.29.15** Add PREFECT, STAGE. Update iPSYCH, UKBB _[EUR]_
+
 # 6 Nov 2020
 
 - Meta-analyzed sumstats available directly on Lisa. Set-up config file with an entry for `lisa` under the `distribution` settings that contains the path for the distribution files.
