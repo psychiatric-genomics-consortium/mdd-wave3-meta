@@ -1,6 +1,6 @@
 # PGC MDD3 Meta-analysis
 
-Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium.
+Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium. See table of included studies [here](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts.eur.txt)
 
 **Current version**: v3.29.15 [EUR]
 
