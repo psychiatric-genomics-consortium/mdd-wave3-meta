@@ -1,6 +1,7 @@
 cohort	ancestries	release	N_snps	N_snps_aligned	mean_OR	mean_SE
 23andMe	eas	v7_2                 	5667504 	5126767	1.0013	0.044889 
 23andMe	eur	v7_2                 	7254804 	6600858	1.0001	0.0079771
+AGDS   	eur	202011               	7615320 	7359885	1.0011	0.0378   
 Airwave	eur	0820                 	7494792 	7258874	1.0035	0.064096 
 ALSPAC 	eur	12082019             	9051669 	7872678	1.0063	0.1391   
 deCODE 	eur	DEPALL_FINAL_WHEAD   	8835741 	7264468	1.0003	0.025642 

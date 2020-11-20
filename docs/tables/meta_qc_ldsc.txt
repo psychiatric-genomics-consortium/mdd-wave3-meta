@@ -1,5 +1,6 @@
 cohort   release                  rg.mdd2  se        gencov
 23andMe  [v7_2]                   0.8923   (0.0158)  0.0331
+AGDS     [202011]                 1.1389   (0.0934)  0.0893
 Airwave  [0820]                   0.4331   (0.1041)  0.0292
 ALSPAC   [12082019]               nan      (nan)     0.0377
 deCODE   [DEPALL_FINAL_WHEAD]     0.8174   (0.0557)  0.0558
