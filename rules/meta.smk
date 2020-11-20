@@ -87,23 +87,23 @@ rule meta_align_qc:
 rule meta_ldsc_munge:
 	input: sumstats="results/sumstats/aligned/{cohort}.gz", hm3="resources/ldsc/w_hm3.snplist", ldsc=rules.ldsc_install.output
 	params:
-		prefix="results/ldsc/munged/{cohort}"
+		prefix="results/sumstats/munged/{cohort}"
 	conda: "../envs/ldsc.yaml"
-	output: "results/ldsc/munged/{cohort}.sumstats.gz"
+	output: "results/sumstats/munged/{cohort}.sumstats.gz"
 	shell: "resources/ldsc/ldsc/munge_sumstats.py --sumstats {input.sumstats} --daner --out {params.prefix} --merge-alleles {input.hm3} --chunksize 500000"
 	
 # calculate genetic correlation with MDD2
 rule meta_ldsc_mdd2:
-	input: sumstats="results/ldsc/munged/{cohort}.sumstats.gz", mdd="results/ldsc/munged/daner_mdd_PGC.eur.hg19.wray2018.aligned.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
+	input: sumstats="results/sumstats/munged/{cohort}.sumstats.gz", mdd="results/sumstats/munged/daner_mdd_PGC.eur.hg19.wray2018.aligned.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
 	params:
-		prefix="results/ldsc/rg_mdd/{cohort}"
+		prefix="results/sumstats/rg_mdd/{cohort}"
 	conda: "../envs/ldsc.yaml"
-	output: "results/ldsc/rg_mdd/{cohort}.log"
+	output: "results/sumstats/rg_mdd/{cohort}.log"
 	shell: "resources/ldsc/ldsc/ldsc.py --rg {input.sumstats},{input.mdd} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
 	
-rg_mdd_logs, = glob_wildcards("results/ldsc/rg_mdd/{cohort}.log")
+rg_mdd_logs, = glob_wildcards("results/sumstats/rg_mdd/{cohort}.log")
 rule meta_ldsc_mdd2_table:
-	input: expand("results/ldsc/rg_mdd/{cohort}.log", cohort=rg_mdd_logs)
+	input: expand("results/sumstats/rg_mdd/{cohort}.log", cohort=rg_mdd_logs)
 	output: "docs/tables/meta_qc_ldsc.txt"
 	shell: """tmp=$(mktemp)
 	echo -e cohort release rg.mdd2 se gencov > ${{tmp}}.header
@@ -129,7 +129,7 @@ rule refdir:
 # link sumstats files into meta-analysis directory, but also run
 # LDSC rg with MDD2
 rule meta:
-	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/ldsc/rg_mdd/{cohort}.log"
+	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/sumstats/rg_mdd/{cohort}.log"
 	output: "results/meta/{cohort}.gz"
 	log: "logs/meta/{cohort}.log"
 	shell: "cp -v {input.sumstats} {output} > {log}"
@@ -155,7 +155,8 @@ rule dataset_eur:
 	 "results/meta/daner_mdd_HUNT.eur.hg19.gp_all_20190625.aligned.gz",
 	 "results/meta/daner_mdd_HUNT.eur.hg19.hospital_all_20190625.aligned.gz",
 	 "results/meta/daner_mdd_STAGE.eur.hg19.MDDdx_fastGWAS.aligned.gz",
-	 "results/meta/daner_mdd_PREFECT.eur.hg19.run1.aligned.gz"
+	 "results/meta/daner_mdd_PREFECT.eur.hg19.run1.aligned.gz",
+	 "results/meta/daner_mdd_AGDS.eur.hg19.202011.aligned.gz"
 	output: "results/meta/dataset_full_eur_v{analysis}"
 	log: "logs/meta/dataset_full_eur_v{analysis}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
@@ -188,7 +189,7 @@ rule postimp:
 
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]
-analysis_version = ["3.29.15"]
+analysis_version = ["3.29.16"]
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	
