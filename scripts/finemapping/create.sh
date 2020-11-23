@@ -1,11 +1,11 @@
 
-results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}_chr
+python3 -m rpy2.situation
 
 inputprefix=$1
 nfile=$2
 output=$3
 
-n=$(cat nfile)
+n=$(cat $nfile)
 
 ## Create finemapping jobs
 
@@ -32,7 +32,8 @@ done
 
 ## Run jobs
 
-for chr in {22..1}
+#for chr in {22..1}
+for chr in 21
 do
     sh ${output}_jobs_chr$chr.sh
 done
