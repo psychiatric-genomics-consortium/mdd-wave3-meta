@@ -13,7 +13,7 @@ dependencies:
   - r-ckmeans.1d.dp
   - r-stringi
   - bitarray
-  - r-base =3.6.3
+  - r-base
   - r
   - r-matrixstats
   - networkx

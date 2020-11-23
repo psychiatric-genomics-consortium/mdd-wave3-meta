@@ -40,14 +40,14 @@ rule l2reg_sldsc:
     input: sumstats="results/finemapping/munged_{cohorts}_{ancestries}_hg19_v{version}.parquet",
         polyfun="resources/finemapping/polyfun",
 	baseline="logs/finemapping/get_baseline.log"
-    output: "results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}_chr"
+    params: out="results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}_chr"
     log: "logs/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.log"
     conda: "../envs/finemapping.yaml" 
     shell:
         "python3 {input.polyfun}/polyfun.py \
         --compute-h2-L2 \
         --no-partitions \
-        --output-prefix {output} \
+        --output-prefix {params.out} \
         --sumstats {input.sumstats} \
         --ref-ld-chr resources/finemapping/baselineLF2.2.UKB/baselineLF2.2.UKB. \
         --w-ld-chr resources/finemapping/baselineLF2.2.UKB/weights.UKB. \
@@ -61,10 +61,11 @@ rule define_n:
     shell: "scripts/finemapping/define_n.bash {input} {output}"
 
 rule create_and_run_jobs:
-    input: snpvar="results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}_chr",
+    input: snpvar="logs/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.log",
         n="results/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.out",
 	susie="logs/finemapping/install_susie.log"
+    params: snpvar="results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}_chr"
     output: "results/finemapping/results_{cohorts}_{ancestries}_hg19_v{version}"
     log: "logs/finemapping/results_{cohorts}_{ancestries}_hg19_v{version}.log"
     conda: "../envs/finemapping.yaml"
-    shell: "scripts/finemapping/create.sh {input.snpvar} {input.n} {output}"
+    shell: "scripts/finemapping/create.sh {params.snpvar} {input.n} {output}"
