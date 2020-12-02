@@ -28,7 +28,7 @@ rule distribute_meta:
 	
 	
 # share files locally
-distribute_local_path=config["remote"]["distribution"]["local"] if "local" in config["remote"]["distribution"] else os.path.expanduser('~')
+distribute_local_path=config["remote"]["distribution"]["lisa"] if "lisa" in config["remote"]["distribution"] else os.path.expanduser('~')
 rule distribute_local:
 	input: "results/meta/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{file}"
 	output: expand("{local_path}/mdd3/distribution/pgc_mdd_{{cohorts}}_eur_hg19_v{{version}}/{{file}}", local_path=distribute_local_path)
@@ -50,7 +50,7 @@ rule local_dist_analyst:
 # Look at config file to determine whether to fetch locally on LISA or remotely
 # from Dropbox share
 rule redistribute_daner:
-	input: lambda wildcards: expand("{local_path}/mdd3/distribution/{analysis}/daner_{analysis}.gz", local_path=distribute_local_path, analysis=wildcards.analysis) if "local" in config["remote"]["distribution"] else
+	input: lambda wildcards: expand("{local_path}/mdd3/distribution/{analysis}/daner_{analysis}.gz", local_path=distribute_local_path, analysis=wildcards.analysis) if "lisa" in config["remote"]["distribution"] else
 		DBox_dist.remote(expand("distribution/{analysis}/daner_{analysis}.gz", analysis=wildcards.analysis))
 	output: "results/distribution/daner_{analysis}.gz"
 	shell: "cp {input} {output}"
