@@ -1,8 +1,8 @@
 # PGC MDD3 Meta-analysis
 
-Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium.
+Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium. See table of included studies [here](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts.eur.txt)
 
-**Current version**: v3.29.16 [EUR]
+**Current version**: v3.29.18 [EUR]
 
 ![MDD Manhattan plot](docs/figures/manhattan.nog2.eur.png)
 
@@ -18,7 +18,7 @@ Meta-analysis of cohorts from the [MDD2](https://doi.org/10.1038/s41588-018-0090
 
 and the following new cohorts:
 
-- [ALSPAC](http://www.bristol.ac.uk/alspac/), [FinnGen](https://www.finngen.fi/en), [23andMe](https://www.23andme.com/) (v7.2), [Airwave](https://police-health.org.uk), [Partners Biobank](https://biobank.partners.org)
+- [ALSPAC](http://www.bristol.ac.uk/alspac/), [FinnGen](https://www.finngen.fi/en), [23andMe](https://www.23andme.com/) (v7.2), [Airwave](https://police-health.org.uk), [Partners Biobank](https://biobank.partners.org), [MoBa](https://www.fhi.no/en/studies/moba/), [HUNT](https://www.ntnu.edu/hunt/databank), [Estonian Biobank](https://genomics.ut.ee/en/access-biobank), [AGDS](https://www.geneticsofdepression.org.au), Swedish studies (PREFECT, STAGE, iCBT, Basic).
 
 …plus more as they are incorporated into the analysis.
 

@@ -210,3 +210,32 @@ rule analysis_download:
 # Analyses based on cohort-level summary statistics
 
 If your analysis requires individual cohort summary statistics (as opposed to the final meta-analysis summary statistics) then the analysis must be conducted on [LISA](https://geneticcluster.org). 
+
+# Running workflows on a cluster
+
+Snakemake has features for [cluster execution](https://snakemake.readthedocs.io/en/stable/executing/cluster.html). On LISA, workflow stages can be submitted to the batch system with
+
+```
+snakemake -jNN --use-conda --cluster 'sbatch -t MM' OUTPUT_FILE_NAME
+```
+
+where _`NN`_ is the number of stages that will be submitted to the queue in parallel and _`MM`_ is the runtime allocation for each stage. Other flags can be passed to the cluster as part of the `sbatch` command. 
+
+One common issue on clusters for running Snakemake is that the conda environment is not activated on each worker node. In this case it is necessary to make a custom job script that will setup conda. Create a file such as `resources/jobscript.sh` with the contents like:
+
+```
+#!/bin/sh
+# properties = {properties}
+
+source ~/.bashrc
+conda activate base
+
+{exec_job}
+```
+
+Then envoke it using the `--jobscript` flag
+
+```
+snakemake -j32 --use-conda --cluster 'qsub' --jobscript resources/jobscript.sh OUTPUT_FILE_NAME
+```
+
