@@ -28,7 +28,7 @@ rule distribute_meta:
 	
 	
 # share files locally
-distribute_local_path=config["remote"]["distribution"]["local"] if "local" in config["remote"]["distribution"] else os.path.expanduser('~')
+distribute_local_path=config["remote"]["distribution"]["lisa"] if "lisa" in config["remote"]["distribution"] else os.path.expanduser('~')
 rule distribute_local:
 	input: "results/meta/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{file}"
 	output: expand("{local_path}/mdd3/distribution/pgc_mdd_{{cohorts}}_eur_hg19_v{{version}}/{{file}}", local_path=distribute_local_path)
