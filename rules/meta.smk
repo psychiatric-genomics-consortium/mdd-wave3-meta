@@ -156,7 +156,9 @@ rule dataset_eur:
 	 "results/meta/daner_mdd_HUNT.eur.hg19.hospital_all_20190625.aligned.gz",
 	 "results/meta/daner_mdd_STAGE.eur.hg19.MDDdx_fastGWAS.aligned.gz",
 	 "results/meta/daner_mdd_PREFECT.eur.hg19.run1.aligned.gz",
-	 "results/meta/daner_mdd_AGDS.eur.hg19.202011.aligned.gz"
+	 "results/meta/daner_mdd_AGDS.eur.hg19.202011.aligned.gz",
+	 "results/meta/daner_mdd_lgic2.eur.hg19.202011.aligned.gz",
+	 "results/meta/daner_mdd_BASIC.eur.hg19.202011.aligned.gz"
 	output: "results/meta/dataset_full_eur_v{analysis}"
 	log: "logs/meta/dataset_full_eur_v{analysis}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
@@ -189,7 +191,7 @@ rule postimp:
 
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]
-analysis_version = ["3.29.16"]
+analysis_version = ["3.29.18"]
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	

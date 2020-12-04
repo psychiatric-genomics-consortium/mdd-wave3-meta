@@ -1,8 +1,13 @@
 # Project updates
 
+# 4 Dec 2020
+
+- **v3.29.18** Add Basic, iCBT. _[EUR]_
+- Switch to HRC 1.1 panel for alignment and clumping. 
+
 # 20 Nov 2020
 
-- **v.3.29.16** Add AGDS. _[EUR]_
+- **v3.29.16** Add AGDS. _[EUR]_
 
 # 19 Nov 2020
 

@@ -16,7 +16,7 @@ rule cohorts_table:
 
 # GWAS summary
 rule gwas_summary:
-	input: manhattan="docs/figures/manhattan.nog2.eur.png", casecontrol=expand("results/distribution/basic.pgc_mdd_full_eur_hg19_v{version}.num.xls", version=analysis_version), snps=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc.summary", version=analysis_version)
+	input: manhattan="docs/figures/manhattan.nog2.eur.png", casecontrol=expand("results/distribution/basic.pgc_mdd_full_eur_hg19_v{version}.num.xls", version=analysis_version), snps=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc.summary", version=analysis_version), cohorts="docs/tables/cohorts.eur.txt"
 	output: "docs/gwas.md"
 	run:
 		import pandas as pd
