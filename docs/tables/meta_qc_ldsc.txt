@@ -4,6 +4,7 @@ AGDS     [202012]                 1.1132   (0.0975)  0.0903
 Airwave  [0820]                   0.4328   (0.1063)  0.0289
 ALSPAC   [12082019]               nan      (nan)     0.0376
 BASIC    [202011]                 nan      (nan)     0.0801
+BioVU    [Cov_SAIGE_202101]       nan      (nan)     0.0334
 deCODE   [DEPALL_FINAL_WHEAD]     0.8213   (0.0521)  0.0559
 ESTBB    [EstBB]                  nan      (nan)     0.0383
 FinnGen  [R5_18032020]            0.9273   (0.0591)  0.0333
