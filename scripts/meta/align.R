@@ -71,5 +71,5 @@ sumstats_release <- snakemake@wildcards$release
 log_table <- data.frame(cohort=sumstats_cohort, ancestries=sumstats_ancestries, release=sumstats_release,
            N_snps=N_snps, N_snps_aligned=N_snps_aligned, mean_OR=round(mean_or, 4), mean_SE=round(mean_se, 4))
 
-write_tsv(log_table, path=log_path)
+write_tsv(log_table, file=log_path)
 
