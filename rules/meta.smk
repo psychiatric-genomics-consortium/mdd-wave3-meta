@@ -92,29 +92,35 @@ rule meta_ldsc_munge:
 	output: "results/sumstats/munged/{cohort}.sumstats.gz"
 	shell: "resources/ldsc/ldsc/munge_sumstats.py --sumstats {input.sumstats} --daner --out {params.prefix} --merge-alleles {input.hm3} --chunksize 500000"
 	
-# calculate genetic correlation with MDD2
+# calculate genetic correlation with MDD2 and MDD29
 rule meta_ldsc_mdd2:
-	input: sumstats="results/sumstats/munged/{cohort}.sumstats.gz", mdd="results/sumstats/munged/daner_mdd_PGC.eur.hg19.wray2018.aligned.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
+	input: sumstats="results/sumstats/munged/{cohort}.sumstats.gz", mdd2="results/sumstats/munged/daner_mdd_PGC.eur.hg19.wray2018.aligned.sumstats.gz", mdd29="results/sumstats/munged/daner_mdd_MDD29.eur.hg19.0120a_rmUKBB.aligned.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
 	params:
 		prefix="results/sumstats/rg_mdd/{cohort}"
 	conda: "../envs/ldsc.yaml"
 	output: "results/sumstats/rg_mdd/{cohort}.log"
-	shell: "resources/ldsc/ldsc/ldsc.py --rg {input.sumstats},{input.mdd} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
+	shell: "resources/ldsc/ldsc/ldsc.py --rg {input.sumstats},{input.mdd2},{input.mdd29} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
 	
 rg_mdd_logs, = glob_wildcards("results/sumstats/rg_mdd/{cohort}.log")
 rule meta_ldsc_mdd2_table:
 	input: expand("results/sumstats/rg_mdd/{cohort}.log", cohort=rg_mdd_logs)
 	output: "docs/tables/meta_qc_ldsc.txt"
 	shell: """tmp=$(mktemp)
-	echo -e cohort release rg.mdd2 se gencov > ${{tmp}}.header
+	echo -e cohort release rg.mdd2 se.mdd2 gencov.mdd2 rg.mdd29 se.mdd29 gencov.mdd29 > ${{tmp}}.header
 	for log in {input}; do 
 	sumstats=$(basename $log .log);
-	cohort=$(echo $sumstats | awk -F. '{{print $1}}' | awk -F_ '{{print $3}}')
-	release=$(echo $sumstats | awk -F. '{{print $4}}')
-	gencov=$(cat $log | grep 'Total Observed scale gencov:' | awk '{{print $5}}');
-	rg=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $3}}');
-	se=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $4}}');
-	echo -e $cohort [$release] $rg $se $gencov >> ${{tmp}}.body;
+	cohort=$(echo $sumstats | awk -F. '{{print $1}}' | awk -F_ '{{print $3}}');
+	release=$(echo $sumstats | awk -F. '{{print $4}}');
+	gencovs=$(cat $log | grep 'Total Observed scale gencov:' | awk '{{print $5}}');
+	rgs=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $3}}');
+	ses=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $4}}');
+	gencov_mdd2=$(echo $gencovs | awk '{{print $1}}');
+	gencov_mdd29=$(echo $gencovs | awk '{{print $2}}');
+	rg_mdd2=$(echo $rgs | awk '{{print $1}}');
+	rg_mdd29=$(echo $rgs | awk '{{print $2}}');
+	se_mdd2=$(echo $ses | awk '{{print $1}}');
+	se_mdd29=$(echo $ses | awk '{{print $2}}');
+	echo -e $cohort [$release] $rg_mdd2 $se_mdd2 $gencov_mdd2 $rg_mdd29 $se_mdd29 $gencov_mdd29 >> ${{tmp}}.body;
 	done;
 	cat ${{tmp}}.header > $tmp
 	cat ${{tmp}}.body | sort -k 1,2 >> $tmp
