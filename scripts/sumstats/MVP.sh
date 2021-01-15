@@ -3,6 +3,7 @@
 text_gz=$1
 daner_gz=$2
 log=$3
+reference_dir=$4
 
 echo "Converting MVP to daner from $(basename $text_gz)" > $log
 
@@ -16,4 +17,4 @@ echo "Converting MVP to daner from $(basename $text_gz)" > $log
 # 8	SE
 # 9	P
 
-Rscript scripts/sumstats/MVP.R $text_gz $daner_gz $log
+Rscript scripts/sumstats/MVP.R $text_gz $daner_gz $log $reference_dir
