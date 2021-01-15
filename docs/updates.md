@@ -1,5 +1,10 @@
 # Project updates
 
+# 15 Jan 2021
+
+- **v3.29.21** Add BioVU, EXCEED, MVP _[EUR]_
+- calculate LDSC rg with MDD29 (PGC clinical cohorts)
+
 # 4 Dec 2020
 
 - **v3.29.18** Add Basic, iCBT. _[EUR]_

@@ -18,7 +18,7 @@ Meta-analysis of cohorts from the [MDD2](https://doi.org/10.1038/s41588-018-0090
 
 and the following new cohorts:
 
-- [ALSPAC](http://www.bristol.ac.uk/alspac/), [FinnGen](https://www.finngen.fi/en), [23andMe](https://www.23andme.com/) (v7.2), [Airwave](https://police-health.org.uk), [Partners Biobank](https://biobank.partners.org), [MoBa](https://www.fhi.no/en/studies/moba/), [HUNT](https://www.ntnu.edu/hunt/databank), [Estonian Biobank](https://genomics.ut.ee/en/access-biobank), [AGDS](https://www.geneticsofdepression.org.au), Swedish studies (PREFECT, STAGE, iCBT, Basic).
+- [ALSPAC](http://www.bristol.ac.uk/alspac/), [FinnGen](https://www.finngen.fi/en), [23andMe](https://www.23andme.com/) (v7.2), [Airwave](https://police-health.org.uk), [Partners Biobank](https://biobank.partners.org), [MoBa](https://www.fhi.no/en/studies/moba/), [HUNT](https://www.ntnu.edu/hunt/databank), [Estonian Biobank](https://genomics.ut.ee/en/access-biobank), [AGDS](https://www.geneticsofdepression.org.au), Swedish studies (PREFECT, STAGE, iCBT, Basic), [BioVU](https://victr.vumc.org/biovu-description), [EXCEED](https://exceed.org.uk), [MVP](https://www.research.va.gov/mvp/).
 
 …plus more as they are incorporated into the analysis.
 
