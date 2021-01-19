@@ -1,0 +1,11 @@
+
+## Add path to finemapper
+## Run jobs
+
+exit
+
+#for chr in {22..1}
+for chr in 21
+do
+    sh ${output}_jobs_chr$chr.sh
+done
