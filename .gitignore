@@ -3,6 +3,8 @@ resources/
 results/
 *.gz
 config.yaml
+*.yaml
+*.yml
 
 # Logs
 logs/
