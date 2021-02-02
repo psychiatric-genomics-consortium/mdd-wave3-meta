@@ -39,3 +39,4 @@ rule ldsc_h2:
 	conda: "../envs/ldsc.yaml"
 	output: "results/ldsc/h2/pgc_mdd_{cohorts}_{ancestries}_v{version}.log"
 	shell: "resources/ldsc/ldsc/ldsc.py --h2 {input.sumstats} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
+
