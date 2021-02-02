@@ -1,5 +1,14 @@
 # Project updates
 
+# 2 Feb 2021
+
+- Renamed primary project branch to `main`. Run the following to update the local environment
+```
+git branch -m master main
+git fetch origin
+git branch -u origin/main main
+```
+
 # 15 Jan 2021
 
 - **v3.29.21** Add BioVU, EXCEED, MVP _[EUR]_
