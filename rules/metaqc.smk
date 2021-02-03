@@ -55,8 +55,18 @@ meta_ldsc_munged_sumstats, = glob_wildcards("results/sumstats/munged/daner_mdd_{
 rule meta_ldsc_sumstats_pairs:
 	input: ["results/sumstats/rg_pairs/%s,%s.log" % cohorts for cohorts in list(itertools.combinations(sorted(meta_ldsc_munged_sumstats), r=2))]
 	
+# merge pairwise LDSC genetic correlation logs into a single table
+meta_ldsc_sumstats_pairs_logs, = glob_wildcards("results/sumstats/rg_pairs/{cohorts}.log")
+
+rule meta_ldsc_sumstats_pairs_table:
+	input: expand("results/sumstats/rg_pairs/{cohorts}.log", cohorts=meta_ldsc_sumstats_pairs_logs)
+	output: "docs/tables/meta_qc_ldsc_pairs.txt"
+	conda: "../envs/reports.yaml"
+	script: "../scripts/meta/ldsc_pairs_table.R"
+	
 # QC checks
 rule meta_qc:
 	input: expand("results/meta/dataset_full_eur_v{version}", version=analysis_version),
 		"docs/tables/meta_qc_align.txt",
-		"docs/tables/meta_qc_ldsc.txt"	
+		"docs/tables/meta_qc_ldsc.txt",
+		"docs/tables/meta_qc_ldsc_pairs.txt"	
