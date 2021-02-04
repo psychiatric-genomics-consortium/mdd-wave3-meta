@@ -32,3 +32,9 @@ rule gwas_summary:
 """.format(manhattan_png)
 		with open(output[0], 'w') as out:
 			print(md, file=out)
+
+rule report_metaqc:
+	input: meta_qc_align="docs/tables/meta_qc_align.txt", meta_qc_ldsc="docs/tables/meta_qc_ldsc.txt", meta_qc_ldsc_pairs="docs/tables/meta_qc_ldsc_pairs.txt", rmd="scripts/reports/metaqc.Rmd"
+	output: "docs/metaqc.html"
+	conda: "../envs/reports.yaml"
+	script: "../scripts/reports/metaqc.Rmd"
