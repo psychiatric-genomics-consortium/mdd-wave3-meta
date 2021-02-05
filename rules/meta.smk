@@ -19,6 +19,8 @@ rule stage_sumstats:
 rule sumstats:
 	input: expand("resources/sumstats/{sumstats}.gz", sumstats=config["sumstats"])
 	
+ruleorder: text2daner > daner
+
 # For pre-formatted daner files
 rule daner:
 	input: "resources/sumstats/daner_{cohort}.gz"
@@ -33,14 +35,6 @@ rule text2daner:
 	log: "logs/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{release}.log"
 	conda: "../envs/meta.yaml" 
 	shell: "sh {input.sh} {input.sumstats} {output} {log}"
-	
-# Convert vcf sumstats to daner
-rule vcf2daner:
-	input: sumstats="resources/sumstats/vcf_mdd_{cohort}.{ancestries}.{build}.{release}.gz", vcfgwas="resources/vcf/vendor/r-gwasvcf"
-	output: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz"
-	log: "logs/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{release}.log"
-	conda: "../envs/vcf.yaml"
-	script: "../scripts/meta/vcf2daner.R"
 	
 # for daner files on genome build hg19
 rule hg19:
@@ -69,7 +63,7 @@ ruleorder: hg19 > hg38to19
 
 # align to imputation panel
 rule align:
-	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz", ref="results/meta/reference_info"
+	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz", ref="results/meta/reference_info", script="scripts/meta/align.R"
 	output: "results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz"
 	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
 	conda: "../envs/meta.yaml" 
@@ -133,7 +127,8 @@ rule dataset_eur:
 	 "results/meta/daner_mdd_BASIC.eur.hg19.202011.aligned.gz",
 	 "results/meta/daner_mdd_BioVU.eur.hg19.Cov_SAIGE_202101.aligned.gz",
 	 "results/meta/daner_mdd_EXCEED.eur.hg19.202010.aligned.gz",
-	 "results/meta/daner_mdd_MVP.eur.hg19.ICDdep_AllSex_202101.aligned.gz"
+	 "results/meta/daner_mdd_MVP.eur.hg19.ICDdep_AllSex_202101.aligned.gz",
+	 "results/meta/daner_mdd_tkda1.eur.hg19.run1.aligned.gz"
 	output: "results/meta/dataset_full_eur_v{analysis}"
 	log: "logs/meta/dataset_full_eur_v{analysis}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
@@ -166,7 +161,7 @@ rule postimp:
 
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]
-analysis_version = ["3.29.21"]
+analysis_version = ["3.29.22"]
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	
