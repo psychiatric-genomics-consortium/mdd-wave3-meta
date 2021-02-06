@@ -43,7 +43,7 @@ rule l2reg_sldsc:
     log: "logs/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.log"
     conda: "../envs/finemapping.yaml" 
     shell:
-        "python3 {input.polyfun}/polyfun.py \
+        "export PYTHONNOUSERSITE=True && python3 {input.polyfun}/polyfun.py \
         --compute-h2-L2 \
         --no-partitions \
         --output-prefix {params.out} \
@@ -67,4 +67,4 @@ rule create_and_run_jobs:
     output: "results/finemapping/results_{cohorts}_{ancestries}_hg19_v{version}"
     log: "logs/finemapping/results_{cohorts}_{ancestries}_hg19_v{version}.log"
     conda: "../envs/finemapping.yaml"
-    shell: "scripts/finemapping/create.sh {params.snpvar} {input.n} {output}"
+    shell: "export PYTHONNOUSERSITE=True && scripts/finemapping/create.sh {params.snpvar} {input.n} {output}"

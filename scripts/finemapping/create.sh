@@ -1,5 +1,5 @@
 
-python3 -m rpy2.situation
+#python3 -m rpy2.situation
 
 inputprefix=$1
 nfile=$2
@@ -25,15 +25,14 @@ done
 
 ## Add path to finemapper
 
-for file in ${output}_jobs_*
-do
-    sed -i 's|finemapper.py|resources/finemapping/polyfun/finemapper.py|g' $file
-done
+# for file in ${output}_jobs_*
+# do
+#     sed -i 's|finemapper.py|resources/finemapping/polyfun/finemapper.py|g' $file
+# done
 
 ## Run jobs
 
-#for chr in {22..1}
-for chr in 21
+for chr in {22..1}
 do
     sh ${output}_jobs_chr$chr.sh
 done
