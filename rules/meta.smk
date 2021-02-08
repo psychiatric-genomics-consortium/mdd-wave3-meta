@@ -64,9 +64,19 @@ ruleorder: hg19 > hg38to19
 # Meta-analysis QC parameters
 meta_qc_params = {"maf": 0.01, "info": 0.6}
 
+# merged imputation panel SNPs
+rule impute_frq2:
+	input: ref="results/meta/reference_info"
+	output: "results/sumstats/impute_frq2.{ancestries}.rds"
+	params:
+		maf=meta_qc_params['maf']
+	log: "logs/sumstats/impute_frq2.{ancestries}.log"
+	conda: "../envs/meta.yaml"
+	script: "../scripts/meta/impute_frq2.R"
+
 # align to imputation panel
 rule align:
-	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz", ref="results/meta/reference_info", script="scripts/meta/align.R"
+	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz", ref="results/sumstats/impute_frq2.{ancestries}.rds", script="scripts/meta/align.R"
 	params:
 		maf=meta_qc_params['maf'],
 		info=meta_qc_params['info']
