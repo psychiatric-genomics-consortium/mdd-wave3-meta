@@ -25,13 +25,13 @@ Keep your branch up-to-date with the main branch:
 git pull
 git push origin analysis
 git push --set-upstream origin analysis
-git merge master
+git merge main
 ```
 
 Finally, when you are ready to merge your changes back into the main branch
 
 ```
-git checkout master
+git checkout main
 git merge analysis
 ```
 
