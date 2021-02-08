@@ -61,9 +61,15 @@ rule hg38to19:
 	
 ruleorder: hg19 > hg38to19
 
+# Meta-analysis QC parameters
+meta_qc_params = {"maf": 0.01, "info": 0.6}
+
 # align to imputation panel
 rule align:
 	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz", ref="results/meta/reference_info", script="scripts/meta/align.R"
+	params:
+		maf=meta_qc_params['maf'],
+		info=meta_qc_params['info']
 	output: "results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz"
 	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
 	conda: "../envs/meta.yaml" 

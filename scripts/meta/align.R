@@ -16,6 +16,11 @@ reference_dir <- readLines(reference_info)[[1]]
 # get ancestries superpopulation
 pop <- toupper(snakemake@wildcards$ancestries)
 
+# QC paramaters
+qc_maf <- snakemake@params$maf
+qc_info <- snakemake@params$info
+
+
 # list reference files for given ancestries group
 impute_frq2_files <- list.files(reference_dir, pattern=paste('*', pop, 'frq2.gz', sep='.'), full.names=T)
 
@@ -43,7 +48,7 @@ frq_u_col <- names(select(daner, starts_with('FRQ_U')))
 # merge on chromosome and position
 daner_aligned <- 
 daner %>%
-inner_join(impute_frq2 %>% filter(between(FA1, 0.01, 0.99)),
+inner_join(impute_frq2 %>% filter(between(FA1, qc_maf, 1-qc_maf)),
           by=c('CHR'='CHR', 'BP'='POS'), suffix=c('', '.imp')) %>%
 # keep rows where alleles match
 filter((A1 == A1.imp & A2 == A2.imp ) | (A1 == A2.imp & A2 == A1.imp)) %>%
@@ -53,7 +58,7 @@ filter(!is.na(OR) & !is.na(SE) & !is.na(P)) %>%
 filter(.data[[frq_a_col]] > 0, .data[[frq_a_col]] < 1,
        .data[[frq_u_col]] > 0, .data[[frq_u_col]] < 1) %>%
 # filter on INFO
-filter(INFO >= 0.6) %>%
+filter(INFO >= qc_info) %>%
 # select imputed SNP name
 mutate(SNP=SNP.imp) %>%
 # remove duplicate SNPs
