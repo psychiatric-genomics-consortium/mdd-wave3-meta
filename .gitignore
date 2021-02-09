@@ -8,6 +8,7 @@ config.yaml
 
 # Logs
 logs/
+slurm-*.out
 
 # History files
 .Rhistory
