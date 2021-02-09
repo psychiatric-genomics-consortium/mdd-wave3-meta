@@ -63,10 +63,19 @@ rule meta_ldsc_sumstats_pairs_table:
 	output: "docs/tables/meta_qc_ldsc_pairs.txt"
 	conda: "../envs/reports.yaml"
 	script: "../scripts/meta/ldsc_pairs_table.R"
+
+# table of alignment checks
+align_logs, = glob_wildcards("logs/sumstats/aligned/{cohort}.log")
+rule meta_align_qc:
+	input: expand("logs/sumstats/aligned/{cohort}.log", cohort=align_logs)
+	output: "docs/tables/meta_qc_align.txt"
+	conda: "../envs/meta.yaml"
+	script: "../scripts/meta/align_qc_table.R"
 	
 # QC checks
 rule meta_qc:
 	input: expand("results/meta/dataset_full_eur_v{version}", version=analysis_version),
 		"docs/tables/meta_qc_align.txt",
 		"docs/tables/meta_qc_ldsc.txt",
-		"docs/tables/meta_qc_ldsc_pairs.txt"	
+		"docs/tables/meta_qc_ldsc_pairs.txt",
+		"docs/metaqc.html"	

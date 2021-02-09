@@ -12,10 +12,11 @@ library(ggplot2)
 
 # Reference panel alignment
 
-Marker names were aligned to the meta-analysis reference panel and effect sizes were checked.
+Marker names were aligned to the meta-analysis reference panel and effect sizes were checked. SNPs with MAF < `r snakemake@params$maf` in the imputation reference panel and INFO < `r snakemake@params$info` in the cohort were removed.
 
 ```{r meta_qc_align}
 meta_qc_align <- read_tsv(snakemake@input$meta_qc_align)
+meta_qc_align %>% print(n=Inf)
 ```
 
 Mean odds-ratios with standard error

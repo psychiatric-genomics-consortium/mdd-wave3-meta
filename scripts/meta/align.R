@@ -29,7 +29,7 @@ frq_u_col <- names(select(daner, starts_with('FRQ_U')))
 # merge on chromosome and position
 daner_aligned <- 
 daner %>%
-inner_join(impute_frq2 ,by=c('CHR'='CHR', 'BP'='POS'), suffix=c('', '.imp')) %>%
+inner_join(impute_frq2, by=c('CHR'='CHR', 'BP'='POS'), suffix=c('', '.imp')) %>%
 # keep rows where alleles match
 filter((A1 == A1.imp & A2 == A2.imp ) | (A1 == A2.imp & A2 == A1.imp)) %>%
 # remove rows with missing statistics

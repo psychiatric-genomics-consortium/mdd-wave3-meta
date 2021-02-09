@@ -85,14 +85,6 @@ rule align:
 	conda: "../envs/meta.yaml" 
 	script: "../scripts/meta/align.R"
 
-# table of alignment checks
-align_logs, = glob_wildcards("logs/sumstats/aligned/{cohort}.log")
-rule meta_align_qc:
-	input: expand("logs/sumstats/aligned/{cohort}.log", cohort=align_logs)
-	output: "docs/tables/meta_qc_align.txt"
-	conda: "../envs/meta.yaml"
-	script: "../scripts/meta/align_qc_table.R"
-
 # munge sumstats for ldsc regression
 rule meta_ldsc_munge:
 	input: sumstats="results/sumstats/aligned/{cohort}.gz", hm3="resources/ldsc/w_hm3.snplist", ldsc=rules.ldsc_install.output
