@@ -111,7 +111,7 @@ rule meta:
 # Ricopili results dataset list for eur ancestries
 rule dataset_eur:
 	input: "results/meta/daner_mdd_MDD29.eur.hg19.0120a_rmUKBB.aligned.gz",
-	 "results/meta/daner_mdd_23andMe.eur.hg19.v7_2.aligned.gz",
+	 "results/meta/daner_mdd_23andMe.eur.hg19.v7_2_202012.aligned.gz",
 	 "results/meta/daner_mdd_deCODE.eur.hg19.DEPALL_FINAL_WHEAD.aligned.gz",
 	 "results/meta/daner_mdd_GenScot.eur.hg19.1215a.aligned.gz",
 	 "results/meta/daner_mdd_GERA.eur.hg19.0915a_mds5.aligned.gz",
