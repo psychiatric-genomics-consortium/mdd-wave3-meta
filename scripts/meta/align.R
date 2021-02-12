@@ -26,6 +26,9 @@ impute_frq2 <- readRDS(impute_frq2_rds)
 frq_a_col <- names(select(daner, starts_with('FRQ_A')))
 frq_u_col <- names(select(daner, starts_with('FRQ_U')))
 
+n_cases <- as.numeric(str_split(frq_a_col, pattern='_')[[1]][3])
+n_controls <- as.numeric(str_split(frq_u_col, pattern='_')[[1]][3])
+
 # merge on chromosome and position
 daner_aligned <- 
 daner %>%
@@ -55,18 +58,21 @@ aligned_gz <- snakemake@output[[1]]
 write_tsv(daner_aligned, aligned_gz)
 
 # write log
+
 N_snps <- nrow(daner)
-mean_or <- exp(mean(log(daner_aligned$OR)))
+N_snps_aligned <- nrow(daner_aligned)
+median_or <- median(daner_aligned$OR)
 mean_se <- mean(daner_aligned$SE)
 max_or <- max(c(daner_aligned$OR, 1/daner_aligned$OR))
 max_se <- max(daner_aligned$SE)
-N_snps_aligned <- nrow(daner_aligned)
 sumstats_cohort <- snakemake@wildcards$cohort
 sumstats_ancestries <- snakemake@wildcards$ancestries
 sumstats_release <- snakemake@wildcards$release
 
 log_table <- data.frame(cohort=sumstats_cohort, ancestries=sumstats_ancestries, release=sumstats_release,
-           N_snps=N_snps, N_snps_aligned=N_snps_aligned, mean_OR=round(mean_or, 4), max_OR=round(max_or, 4), mean_SE=round(mean_se, 4), max_SE=round(max_se, 4))
+		                N_cases=n_cases, N_controls=n_controls, N_snps=N_snps, N_snps_aligned=N_snps_aligned,
+						median_or=round(median_or, 4), max_OR=round(max_or, 4),
+						mean_SE=round(mean_se, 4), max_SE=round(max_se, 4))
 
 write_tsv(log_table, file=log_path)
 
