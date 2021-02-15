@@ -8,6 +8,7 @@ library(readr)
 library(tidyr)
 library(stringr)
 library(ggplot2)
+library(fdrtool)
 ```
 
 # Reference panel alignment
@@ -98,21 +99,37 @@ Estimate amount of sample overlap as $N_S = g_\mathrm{cov_{int}}\sqrt{N_1N_2} / 
 rP <- 1
 meta_qc_ldsc_pairs_mdd3_ns <-
 meta_qc_ldsc_pairs_mdd3 %>%
-mutate(Ns=gcov_int*sqrt(cohortN1*cohortN2)/rP) %>%
-select(cohort1, subcohort1, cohort2, subcohort2, cohortN1, cohortN2, Ns) %>%
+mutate(Ns_factor=sqrt(cohortN1*cohortN2)/rP) %>%
+mutate(Ns=gcov_int*Ns_factor,
+       Ns_l95=(gcov_int+qnorm(0.025)*gcov_int_se)*Ns_factor,
+	   Ns_u95=(gcov_int+qnorm(0.975)*gcov_int_se)*Ns_factor,
+	   chisq=gcov_int^2/gcov_int_se^2) %>%
+filter(!is.na(chisq)) %>%
+mutate(qval=fdrtool(pchisq(chisq, df=1, lower.tail=F), statistic='pvalue', plot=FALSE)$qval) %>%
+select(cohort1, subcohort1, cohort2, subcohort2, cohortN1, cohortN2, chisq, qval, Ns, Ns_l95, Ns_u95) %>%
 mutate(Ns_pct=100*Ns/(cohortN1+cohortN2))
 ```
 
 Sort (largest-to-smallest) by sample overlap
-```{r meta_qc_ldsc_pairs_nspct_arrange}
+```{r meta_qc_ldsc_pairs_ns_arrange}
 meta_qc_ldsc_pairs_mdd3_ns %>%
-arrange(desc(Ns))
+arrange(desc(Ns)) %>%
+select(-chisq, -qval, -Ns_pct)
 ```
 
 Sort (largest-to-smallest) by percentage of overlap to combined sample size
-```{r meta_qc_ldsc_pairs_ns_arrange}
+```{r meta_qc_ldsc_pairs_nspct_arrange}
 meta_qc_ldsc_pairs_mdd3_ns %>%
-arrange(desc(Ns_pct))
+arrange(desc(Ns_pct)) %>%
+select(-cohortN1, -cohortN2, -chisq, -qval)
+```
+
+Sort by $\Chi^2$ (Wald) test statistics
+
+```{r meta_qc_ldsc_pairs_wald_arrange}
+meta_qc_ldsc_pairs_mdd3_ns %>%
+arrange(desc(chisq)) %>%
+select(-cohortN1, -cohortN2)
 ```
 
 Test for heterogeniety in covariance intercepts. Calculate $w$, the inverse variance of each $g_\mathrm{covint}$ standard error, then calculate a weighted sum $\hat{g_\mathrm{covint}}$
