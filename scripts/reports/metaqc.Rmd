@@ -1,5 +1,6 @@
 ---
 title: "PGC MDD3 sumstats QC checks for meta-analysis"
+output: html_document
 ---
 
 ```{r}
@@ -93,7 +94,7 @@ mutate(SDs=abs(gcov_int)/sd(gcov_int, na.rm=T)) %>%
 arrange(gcov_int)
 ```
 
-Estimate amount of sample overlap as $N_S = g_\mathrm{cov_{int}}\sqrt{N_1N_2} / r_\mathrm{P}$, where $r_\mathrm{P}$ is the phenotypic correlation between the two MDD phenotype (assume $r_\mathrm{P} = 1$)
+Estimate amount of sample overlap as $N_S = g_{\mathrm{cov}_\mathrm{int}}\sqrt{N_1N_2} / r_\mathrm{P}$, where $r_\mathrm{P}$ is the phenotypic correlation between the two MDD phenotype (assume $r_\mathrm{P} = 1$)
 
 ```{r meta_qc_ldsc_pairs_ns}
 rP <- 1
@@ -124,7 +125,7 @@ arrange(desc(Ns_pct)) %>%
 select(-cohortN1, -cohortN2, -chisq, -qval)
 ```
 
-Sort by $\Chi^2$ (Wald) test statistics
+Sort by $\chi^2$ (Wald) test statistics
 
 ```{r meta_qc_ldsc_pairs_wald_arrange}
 meta_qc_ldsc_pairs_mdd3_ns %>%
@@ -222,3 +223,56 @@ coord_flip(ylim=c(gcov_int_min-0.01, gcov_int_max+0.01))
 ```
 
 
+## Clustering
+
+Cluster based on similarity in genetic covariance intercepts.
+
+```{r subcohorts}
+# get a list of all cohort/subcohort names
+
+subcohorts <- 
+bind_rows(
+select(meta_qc_ldsc_pairs_mdd3, cohort=cohort1, subcohort=subcohort1),
+select(meta_qc_ldsc_pairs_mdd3, cohort=cohort2, subcohort=subcohort2)
+) %>%
+distinct()
+
+```
+
+ Make a matrix:
+
+```{r gcov_int_mat}
+
+cohort_names <- 
+subcohorts %>%
+transmute(cohort=paste(cohort, subcohort, sep='.')) %>%
+pull(cohort)
+
+gcov_int_mat <- diag(length(cohort_names))
+dimnames(gcov_int_mat) <- list(cohort_names, cohort_names)
+
+for(i in seq.int(nrow(meta_qc_ldsc_pairs_mdd3))) {
+	cohort1 <- meta_qc_ldsc_pairs_mdd3$cohort1[i]
+	cohort2 <- meta_qc_ldsc_pairs_mdd3$cohort2[i]
+	subcohort1 <- meta_qc_ldsc_pairs_mdd3$subcohort1[i]
+	subcohort2 <- meta_qc_ldsc_pairs_mdd3$subcohort2[i]
+	cohort_name1 <- paste(cohort1, subcohort1, sep='.')
+	cohort_name2 <- paste(cohort2, subcohort2, sep='.')
+
+	# if gcov_int is NA, substitute 0 (average)
+
+	gcov_int <- coalesce(meta_qc_ldsc_pairs_mdd3$gcov_int[i], 0)
+
+	gcov_int_mat[cohort_name1,cohort_name2] <- gcov_int	
+	gcov_int_mat[cohort_name2,cohort_name1] <- gcov_int
+}
+
+```
+
+Convert intercepts into a dissimilarity matrix. For intercepts, `1 ==` same, `0 ==` average, `<0 ==` different. For dissimilarity, `0 ==` same and larger values `==` more dissimilar.
+
+```{r gcov_int_dist}
+
+plot(hclust(as.dist(1-gcov_int_mat)))
+
+```
