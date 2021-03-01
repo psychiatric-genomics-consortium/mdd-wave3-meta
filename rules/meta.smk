@@ -128,7 +128,7 @@ rule dataset_eur:
 	 "results/meta/daner_mdd_MoBa.eur.hg19.rotterdam1.aligned.gz",
 	 "results/meta/daner_mdd_HUNT.eur.hg19.gp_all_20190625.aligned.gz",
 	 "results/meta/daner_mdd_HUNT.eur.hg19.hospital_all_20190625.aligned.gz",
-	 "results/meta/daner_mdd_STAGE.eur.hg19.MDDdx_fastGWAS.aligned.gz",
+	 "results/meta/daner_mdd_STAGE.eur.hg19.MDDdx_saige.aligned.gz",
 	 "results/meta/daner_mdd_PREFECT.eur.hg19.run1.aligned.gz",
 	 "results/meta/daner_mdd_AGDS.eur.hg19.202012.aligned.gz",
 	 "results/meta/daner_mdd_lgic2.eur.hg19.202011.aligned.gz",
