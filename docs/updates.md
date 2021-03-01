@@ -1,5 +1,9 @@
 # Project updates
 
+# 1 Mar 2021
+
+- **v3.29.22** Add Takeda. Update STAGE and 23andMe _[EUR]_
+
 # 2 Feb 2021
 
 - Renamed primary project branch to `main`. Run the following to update the local environment
