@@ -25,13 +25,13 @@ Keep your branch up-to-date with the main branch:
 git pull
 git push origin analysis
 git push --set-upstream origin analysis
-git merge master
+git merge main
 ```
 
 Finally, when you are ready to merge your changes back into the main branch
 
 ```
-git checkout master
+git checkout main
 git merge analysis
 ```
 
@@ -210,3 +210,38 @@ rule analysis_download:
 # Analyses based on cohort-level summary statistics
 
 If your analysis requires individual cohort summary statistics (as opposed to the final meta-analysis summary statistics) then the analysis must be conducted on [LISA](https://geneticcluster.org). 
+
+# Running workflows on a cluster
+
+Snakemake has features for [cluster execution](https://snakemake.readthedocs.io/en/stable/executing/cluster.html). On LISA, workflow stages can be submitted to the batch system with
+
+```
+snakemake -jNN --use-conda --cluster 'sbatch -t MM' OUTPUT_FILE_NAME
+```
+
+where _`NN`_ is the number of stages that will be submitted to the queue in parallel and _`MM`_ is the runtime allocation for each stage. Other flags can be passed to the cluster as part of the `sbatch` command. When a job is submitted to LISA, an entire node with 16 cores is dedicated to the task. [Job groupings](https://snakemake.readthedocs.io/en/stable/executing/grouping.html) should be used to make 16 be submitted to each node to run in parallel:
+
+```
+snakemake -j4 --use-conda --cluster 'sbatch -t 60 -n 16' analysis --groups analysis_part1=group0 analysis_part2=group0 analysis=group1 --group-components group0=16 group1=16
+```
+
+will submit jobs in groups of `16` to the cluster while utilising up to `4` nodes running at the same time.
+
+One common issue on clusters (not LISA) for running Snakemake is that the conda environment is not activated on each worker node. In this case it is necessary to make a custom job script that will setup conda. Create a file such as `resources/jobscript.sh` with the contents like:
+
+```
+#!/bin/sh
+# properties = {properties}
+
+source ~/.bashrc
+conda activate base
+
+{exec_job}
+```
+
+Then envoke it using the `--jobscript` flag
+
+```
+snakemake -j32 --use-conda --cluster 'qsub' --jobscript resources/jobscript.sh OUTPUT_FILE_NAME
+```
+

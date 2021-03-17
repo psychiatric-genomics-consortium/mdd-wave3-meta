@@ -1,8 +1,8 @@
 # PGC MDD3 Meta-analysis
 
-Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium.
+Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium. See table of included studies [here](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts.eur.txt)
 
-**Current version**: v3.29.13 [EUR]
+**Current version**: v3.29.21 [EUR]
 
 ![MDD Manhattan plot](docs/figures/manhattan.nog2.eur.png)
 
@@ -18,7 +18,7 @@ Meta-analysis of cohorts from the [MDD2](https://doi.org/10.1038/s41588-018-0090
 
 and the following new cohorts:
 
-- [ALSPAC](http://www.bristol.ac.uk/alspac/), [FinnGen](https://www.finngen.fi/en), [23andMe](https://www.23andme.com/) (v7.2), [Airwave](https://police-health.org.uk), [Partners Biobank](https://biobank.partners.org)
+- [ALSPAC](http://www.bristol.ac.uk/alspac/), [FinnGen](https://www.finngen.fi/en), [23andMe](https://www.23andme.com/) (v7.2), [Airwave](https://police-health.org.uk), [Partners Biobank](https://biobank.partners.org), [MoBa](https://www.fhi.no/en/studies/moba/), [HUNT](https://www.ntnu.edu/hunt/databank), [Estonian Biobank](https://genomics.ut.ee/en/access-biobank), [AGDS](https://www.geneticsofdepression.org.au), Swedish studies (PREFECT, STAGE, iCBT, Basic), [BioVU](https://victr.vumc.org/biovu-description), [EXCEED](https://exceed.org.uk), [MVP](https://www.research.va.gov/mvp/).
 
 …plus more as they are incorporated into the analysis.
 
@@ -56,10 +56,11 @@ bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/mas
 brew install anaconda
 ```
 
-Install Snakemake and its dependencies
+Install Python 3.8, Snakemake, and the basic project dependencies
 
 ```
 conda activate base
+conda install python=3.8
 conda install -c conda-forge mamba
 mamba install -c bioconda -c conda-forge snakemake-minimal
 mamba install dropbox

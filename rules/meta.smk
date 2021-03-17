@@ -75,40 +75,22 @@ rule align:
 	conda: "../envs/meta.yaml" 
 	script: "../scripts/meta/align.R"
 
+# table of alignment checks
+align_logs, = glob_wildcards("logs/sumstats/aligned/{cohort}.log")
+rule meta_align_qc:
+	input: expand("logs/sumstats/aligned/{cohort}.log", cohort=align_logs)
+	output: "docs/tables/meta_qc_align.txt"
+	conda: "../envs/meta.yaml"
+	script: "../scripts/meta/align_qc_table.R"
+
 # munge sumstats for ldsc regression
 rule meta_ldsc_munge:
 	input: sumstats="results/sumstats/aligned/{cohort}.gz", hm3="resources/ldsc/w_hm3.snplist", ldsc=rules.ldsc_install.output
 	params:
-		prefix="results/ldsc/munged/{cohort}"
+		prefix="results/sumstats/munged/{cohort}"
 	conda: "../envs/ldsc.yaml"
-	output: "results/ldsc/munged/{cohort}.sumstats.gz"
+	output: "results/sumstats/munged/{cohort}.sumstats.gz"
 	shell: "resources/ldsc/ldsc/munge_sumstats.py --sumstats {input.sumstats} --daner --out {params.prefix} --merge-alleles {input.hm3} --chunksize 500000"
-	
-# calculate genetic correlation with MDD2
-rule meta_ldsc_mdd2:
-	input: sumstats="results/ldsc/munged/{cohort}.sumstats.gz", mdd="results/ldsc/munged/daner_mdd_PGC.eur.hg19.wray2018.aligned.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
-	params:
-		prefix="results/ldsc/rg_mdd/{cohort}"
-	conda: "../envs/ldsc.yaml"
-	output: "results/ldsc/rg_mdd/{cohort}.log"
-	shell: "resources/ldsc/ldsc/ldsc.py --rg {input.sumstats},{input.mdd} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
-	
-rg_mdd_logs, = glob_wildcards("results/ldsc/rg_mdd/{cohort}.log")
-rule meta_ldsc_mdd2_table:
-	input: expand("results/ldsc/rg_mdd/{cohort}.log", cohort=rg_mdd_logs)
-	output: "docs/tables/ldsc_mdd_rg.txt"
-	shell: """tmp=$(mktemp)
-	echo -e cohort release gencov rg se > $tmp
-	for log in {input}; do 
-	sumstats=$(basename $log .log);
-	cohort=$(echo $sumstats | awk -F. '{{print $1}}' | awk -F_ '{{print $3}}')
-	release=$(echo $sumstats | awk -F. '{{print $4}}')
-	gencov=$(cat $log | grep 'Total Observed scale gencov:' | awk '{{print $5}}');
-	rg=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $3}}');
-	se=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $4}}');
-	echo -e $cohort [$release] $gencov $rg $se >> $tmp;
-	done;
-	column -t -s' ' $tmp > {output}"""
 	
 # create reference info file linking to imputation panel
 rule refdir:
@@ -119,7 +101,7 @@ rule refdir:
 # link sumstats files into meta-analysis directory, but also run
 # LDSC rg with MDD2
 rule meta:
-	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/ldsc/rg_mdd/{cohort}.log"
+	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/sumstats/rg_mdd/{cohort}.log"
 	output: "results/meta/{cohort}.gz"
 	log: "logs/meta/{cohort}.log"
 	shell: "cp -v {input.sumstats} {output} > {log}"
@@ -131,8 +113,9 @@ rule dataset_eur:
 	 "results/meta/daner_mdd_deCODE.eur.hg19.DEPALL_FINAL_WHEAD.aligned.gz",
 	 "results/meta/daner_mdd_GenScot.eur.hg19.1215a.aligned.gz",
 	 "results/meta/daner_mdd_GERA.eur.hg19.0915a_mds5.aligned.gz",
-	 "results/meta/daner_mdd_UKBB.eur.hg19.MD_glm.aligned.gz",
-	 "results/meta/daner_mdd_iPSYCH.eur.hg19.170220.aligned.gz",
+	 "results/meta/daner_mdd_UKBB.eur.hg19.MD_glm_202012.aligned.gz",
+	 "results/meta/daner_mdd_iPSYCH.eur.hg19.2012_HRC.aligned.gz",
+	 "results/meta/daner_mdd_iPSYCH.eur.hg19.2015i_HRC.aligned.gz",
 	 "results/meta/daner_mdd_FinnGen.eur.hg19.R5_18032020.aligned.gz",
 	 "results/meta/daner_mdd_ALSPAC.eur.hg19.12082019.aligned.gz",
 	 "results/meta/daner_mdd_Airwave.eur.hg19.0820.aligned.gz",
@@ -142,7 +125,15 @@ rule dataset_eur:
 	 "results/meta/daner_mdd_MoBa.eur.hg19.harvest24.aligned.gz",
 	 "results/meta/daner_mdd_MoBa.eur.hg19.rotterdam1.aligned.gz",
 	 "results/meta/daner_mdd_HUNT.eur.hg19.gp_all_20190625.aligned.gz",
-	 "results/meta/daner_mdd_HUNT.eur.hg19.hospital_all_20190625.aligned.gz"
+	 "results/meta/daner_mdd_HUNT.eur.hg19.hospital_all_20190625.aligned.gz",
+	 "results/meta/daner_mdd_STAGE.eur.hg19.MDDdx_fastGWAS.aligned.gz",
+	 "results/meta/daner_mdd_PREFECT.eur.hg19.run1.aligned.gz",
+	 "results/meta/daner_mdd_AGDS.eur.hg19.202012.aligned.gz",
+	 "results/meta/daner_mdd_lgic2.eur.hg19.202011.aligned.gz",
+	 "results/meta/daner_mdd_BASIC.eur.hg19.202011.aligned.gz",
+	 "results/meta/daner_mdd_BioVU.eur.hg19.Cov_SAIGE_202101.aligned.gz",
+	 "results/meta/daner_mdd_EXCEED.eur.hg19.202010.aligned.gz",
+	 "results/meta/daner_mdd_MVP.eur.hg19.ICDdep_AllSex_202101.aligned.gz"
 	output: "results/meta/dataset_full_eur_v{analysis}"
 	log: "logs/meta/dataset_full_eur_v{analysis}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
@@ -162,7 +153,6 @@ rule dataset_nocCOHORT_eur:
 	log: "logs/meta/dataset_no{cohort}_eur_v{analysis}"
 	output: "results/meta/dataset_no{cohort}_eur_v{analysis}"
 	shell: "cat {input} | grep --invert daner_mdd_{wildcards.cohort} > {output}"
-	
 
 # Ricopili submission
 rule postimp:
@@ -176,7 +166,7 @@ rule postimp:
 
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]
-analysis_version = ["3.29.13"]
+analysis_version = ["3.29.21"]
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	
@@ -188,4 +178,3 @@ cohorts_analyst = ["full", "noUKBB", "no23andMe", "noALSPAC"]
 
 # cohort sets for public
 cohorts_public = ["no23andMe"]
-

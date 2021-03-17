@@ -45,8 +45,13 @@ inner_join(impute_frq2 %>% filter(between(FA1, 0.01, 0.99)),
 filter((A1 == A1.imp & A2 == A2.imp ) | (A1 == A2.imp & A2 == A1.imp)) %>%
 filter(!is.na(OR) & !is.na(SE) & !is.na(P)) %>%
 # select imputed SNP name
-mutate(SNP=SNP.imp, SNP) %>%
-select(-ends_with('.imp'), -FA1) %>%
+mutate(SNP=SNP.imp) %>%
+# remove duplicate SNPs
+group_by(SNP) %>%
+mutate(count=n()) %>%
+ungroup() %>%
+filter(count == 1) %>%
+select(-ends_with('.imp'), -FA1, -count) %>%
 arrange(CHR, BP) %>%
 select(CHR, SNP, BP, A1, A2, starts_with('FRQ_A'), starts_with('FRQ_U'), INFO, OR, SE, P, everything())
 
@@ -64,7 +69,7 @@ sumstats_ancestries <- snakemake@wildcards$ancestries
 sumstats_release <- snakemake@wildcards$release
 
 log_table <- data.frame(cohort=sumstats_cohort, ancestries=sumstats_ancestries, release=sumstats_release,
-           N_snps=N_snps, N_snps_aligned=N_snps_aligned, mean_OR=signif(mean_or, 5), mean_SE=signif(mean_se, 5))
+           N_snps=N_snps, N_snps_aligned=N_snps_aligned, mean_OR=round(mean_or, 4), mean_SE=round(mean_se, 4))
 
-write_tsv(log_table, path=log_path)
+write_tsv(log_table, file=log_path)
 

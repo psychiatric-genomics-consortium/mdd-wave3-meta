@@ -1,5 +1,32 @@
 # Project updates
 
+# 2 Feb 2021
+
+- Renamed primary project branch to `main`. Run the following to update the local environment
+```
+git branch -m master main
+git fetch origin
+git branch -u origin/main main
+```
+
+# 15 Jan 2021
+
+- **v3.29.21** Add BioVU, EXCEED, MVP _[EUR]_
+- calculate LDSC rg with MDD29 (PGC clinical cohorts)
+
+# 4 Dec 2020
+
+- **v3.29.18** Add Basic, iCBT. _[EUR]_
+- Switch to HRC 1.1 panel for alignment and clumping. 
+
+# 20 Nov 2020
+
+- **v3.29.16** Add AGDS. _[EUR]_
+
+# 19 Nov 2020
+
+- **v3.29.15** Add PREFECT, STAGE. Update iPSYCH, UKBB _[EUR]_
+
 # 6 Nov 2020
 
 - Meta-analyzed sumstats available directly on Lisa. Set-up config file with an entry for `lisa` under the `distribution` settings that contains the path for the distribution files.

@@ -2,6 +2,7 @@ configfile: "config_23andMe.yaml"
 import os
 import json
 import gzip
+import itertools
 from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
 from snakemake.remote.dropbox import RemoteProvider as DropboxRemoteProvider
 
@@ -14,6 +15,7 @@ wildcard_constraints:
 
 include: "rules/ldsc.smk"
 include: "rules/meta.smk"
+include: "rules/metaqc.smk"
 include: "rules/distribution.smk"
 include: "rules/vcf.smk"
 include: "rules/reports.smk"
