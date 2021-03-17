@@ -16,12 +16,12 @@ rule cohorts_table:
 
 # GWAS summary
 rule gwas_summary:
-	input: manhattan="docs/figures/manhattan.nog2.eur.png", casecontrol=expand("results/distribution/basic.pgc_mdd_full_eur_hg19_v{version}.num.xls", version=analysis_version), snps=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc.summary", version=analysis_version)
+	input: manhattan="docs/figures/manhattan.nog2.eur.png", casecontrol=expand("results/distribution/basic.pgc_mdd_full_eur_hg19_v{version}.num.xls", version=analysis_version), snps=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc.summary", version=analysis_version), cohorts_table="docs/tables/cohorts.eur.txt"
 	output: "docs/gwas.md"
 	run:
 		import pandas as pd
 		manhattan_png = os.path.relpath(input.manhattan, "docs")
-		casecontrol = pd.read_excel(input.casecontrol)
+		#casecontrol = pd.read_excel(input.casecontrol)
 		md = """
 # MDD3 Meta-analysis
 
@@ -32,3 +32,9 @@ rule gwas_summary:
 """.format(manhattan_png)
 		with open(output[0], 'w') as out:
 			print(md, file=out)
+
+rule report_metaqc:
+	input: meta_qc_align="docs/tables/meta_qc_align.txt", meta_qc_ldsc="docs/tables/meta_qc_ldsc.txt", meta_qc_ldsc_pairs="docs/tables/meta_qc_ldsc_pairs.txt", rmd="scripts/reports/metaqc.Rmd"
+	output: "docs/metaqc.html"
+	conda: "../envs/reports.yaml"
+	script: "../scripts/reports/metaqc.Rmd"

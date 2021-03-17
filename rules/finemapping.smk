@@ -59,12 +59,28 @@ rule define_n:
     conda: "../envs/finemapping.yaml" 
     shell: "scripts/finemapping/define_n.bash {input} {output}"
 
-rule create_and_run_jobs:
+rule create_finemapping_jobs:
     input: snpvar="logs/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.log",
         n="results/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.out",
 	susie="logs/finemapping/install_susie.log"
-    params: snpvar="results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}_chr"
-    output: "results/finemapping/results_{cohorts}_{ancestries}_hg19_v{version}"
-    log: "logs/finemapping/results_{cohorts}_{ancestries}_hg19_v{version}.log"
+    params: snpvar="results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}_chr",
+        outprefix="results/finemapping/results_{cohorts}_{ancestries}_hg19_v{version}"
+    output: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}_jobs_chr{chr}.sh", chr=range(1,22,1)) 
+    log: "logs/finemapping/create_{cohorts}_{ancestries}_hg19_v{version}.log"
     conda: "../envs/finemapping.yaml"
-    shell: "export PYTHONNOUSERSITE=True && scripts/finemapping/create.sh {params.snpvar} {input.n} {output}"
+    shell: "export PYTHONNOUSERSITE=True && scripts/finemapping/create.sh {params.snpvar} {input.n} {params.outprefix}"
+
+rule run_finemapping_jobs_main:
+    input: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}_jobs_chr{chr}.sh", chr=range(1,22,1))
+    output: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.chr{chr}*.gz", chr=range(1, 22, 1))
+    log: expand("logs/finemapping/run_{{cohorts}}_{{ancestries}}_hg19_v{{version}}_jobs_chr{chr}.log", chr=range(1, 22, 1))
+    conda: "../envs/finemapping.yaml"
+    shell: "sh {input}"
+
+rule merge_finemapping_jobs:
+    input: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.chr{chr}*.gz", chr=range(1, 22, 1))
+    output: "results/finemapping/merged_results_{cohorts}_{ancestries}_hg19_v{version}_WG_susie_1.gz"
+    log: "logs/finemapping/merged_results_{cohorts}_{ancestries}_hg19_v{version}.log"
+    conda: "../envs/finemapping.yaml" 
+    shell: "cat ${input} >> ${output} && gunzip -c ${output} | sort -k11,11gr | head | column -t"
+
