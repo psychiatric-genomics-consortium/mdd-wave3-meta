@@ -47,8 +47,14 @@ sumstats <- read_table2(text_gz,
 	  TGeaf = col_double()
 	))
 
-Ncases <- 10336
-Ncontrols <- 142861
+Ncases <- 13347
+Ncontrols <- 145996
+
+# males: ncases = 5468, nctrls=75107
+# females: ncases = 7879, nctrls =68794
+# 
+# total run
+# ncases = 13347, nctrls 145996
 
 FRQ_A_col <- paste0('FRQ_A_', Ncases)
 FRQ_U_col <- paste0('FRQ_U_', Ncontrols)
