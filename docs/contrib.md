@@ -226,15 +226,31 @@ where _`NN`_ is the number of stages that will be submitted to the queue in para
 On LISA, the Snakemake command can be wrapped and passed to the batch system
 
 ```
-sbatch --wrap "snakemake -j4 --use-conda --cluster 'sbatch -t 60 -n 16' OUTFILE"
+sbatch -t 360 -n 1 --wrap  "snakemake -j4 --use-conda --cluster 'sbatch -t 60 -n 16' OUTFILE"
 ```
+
+With this command the Snakemake process will be allowed to for up to 6 hours while each stage of the workflow will be allowed 60 minutes. 
 
 ## Grouping stages together
 
 By default the `--cluster` command will submit each stage of the workflow as its own job to the batch system. Stages can be grouped together using the `--groups` and `--group-component` flags at the end of the Snakemake command. For example, if `stage1` has many pieces to it, 16 can be run in parallel a single LISA node with
 
 ```
-sbatch --wrap "snakemake -j4 --use-conda --cluster 'sbatch -t 60 -n 16' FILENAME.out --groups stage1=group0 --group-components group0=16"
+sbatch -t 360 -n 1 --wrap "snakemake -j4 --use-conda --cluster 'sbatch -t 60 -n 16' FILENAME.out --groups stage1=group0 --group-components group0=16"
+```
+
+When deciding which jobs to group together, it can be useful to get a list of which ones will be executed using a dry run (`-n` flag)
+
+```
+snakemake -j1 -n FILENAME.out
+```
+
+### Example
+
+For example, grouping jobs together for the meta-analysis pre-processing. The staging, conversion, and alignment stages are grouped together and run as batches of 5 (to avoid using up too much memory) while the LDSC stages can be run in batches of 16.
+
+```
+sbatch -t 360 -n 1 --wrap "snakemake -j4 --use-conda --cluster 'sbatch -t 120 -n 16' results/meta/dataset_full_eur_v3.47.23 --groups stage_sumstats=group0 text2daner=group0 hg19=group0 daner=group0 align=group0 meta=group1 meta_ldsc_mdd2=group1 meta_ldsc_munge=group1 dataset_eur=group2 --group-components group0=5 group1=16 group2=1"
 ```
 
 ## Using scratch space
