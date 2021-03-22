@@ -221,6 +221,33 @@ snakemake -jNN --use-conda --cluster 'sbatch -t MM' OUTPUT_FILE_NAME
 
 where _`NN`_ is the number of stages that will be submitted to the queue in parallel and _`MM`_ is the runtime allocation for each stage. Other flags can be passed to the cluster as part of the `sbatch` command. 
 
+## Running the Snakemake process itself as a job
+
+On LISA, the Snakemake command can be wrapped and passed to the batch system
+
+```
+sbatch --wrap "snakemake -j4 --use-conda --cluster 'sbatch -t 60 -n 16' OUTFILE"
+```
+
+## Grouping stages together
+
+By default the `--cluster` command will submit each stage of the workflow as its own job to the batch system. Stages can be grouped together using the `--groups` and `--group-component` flags at the end of the Snakemake command. For example, if `stage1` has many pieces to it, 16 can be run in parallel a single LISA node with
+
+```
+sbatch --wrap "snakemake -j4 --use-conda --cluster 'sbatch -t 60 -n 16' FILENAME.out --groups stage1=group0 --group-components group0=16"
+```
+
+## Using scratch space
+
+If a job needs to write intermediate files before producing the final output, use "[shadow rules](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#shadow-rules)"
+
+```
+sbatch --wrap "snakemake --shadow-prefix /scratch --cluster 'sbatch -t 60 -n 16' FILENAME.out"
+```
+
+
+## Job scripts
+
 One common issue on clusters for running Snakemake is that the conda environment is not activated on each worker node. In this case it is necessary to make a custom job script that will setup conda. Create a file such as `resources/jobscript.sh` with the contents like:
 
 ```
@@ -233,9 +260,11 @@ conda activate base
 {exec_job}
 ```
 
-Then envoke it using the `--jobscript` flag
+Then invoke it using the `--jobscript` flag
 
 ```
 snakemake -j32 --use-conda --cluster 'qsub' --jobscript resources/jobscript.sh OUTPUT_FILE_NAME
 ```
+
+
 
