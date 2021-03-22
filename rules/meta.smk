@@ -110,7 +110,7 @@ rule meta:
 
 # Ricopili results dataset list for eur ancestries
 rule dataset_eur:
-	input: "results/meta/daner_mdd_MDD29.eur.hg19.0120a_rmUKBB.aligned.gz",
+	input: "results/meta/daner_mdd_MDD47.eur.hg19.29w2_18w3_1503.aligned.gz",
 	 "results/meta/daner_mdd_23andMe.eur.hg19.v7_2_202012.aligned.gz",
 	 "results/meta/daner_mdd_deCODE.eur.hg19.DEPALL_FINAL_WHEAD.aligned.gz",
 	 "results/meta/daner_mdd_GenScot.eur.hg19.1215a.aligned.gz",
@@ -170,7 +170,7 @@ rule postimp:
 
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]
-analysis_version = ["3.29.23"]
+analysis_version = ["3.47.23"]
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	

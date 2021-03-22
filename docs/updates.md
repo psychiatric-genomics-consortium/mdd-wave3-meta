@@ -1,8 +1,12 @@
 # Project updates
 
+# 22 Mar 2021
+
+- **v3.47.23** Add 18 wave 3 genotyped cohorts (MDD47) _[EUR]_
+
 # 8 Mar 2021
 
-- **v3.29.23** Add DBDS.
+- **v3.29.23** Add DBDS. _[EUR]_
 
 # 1 Mar 2021
 
