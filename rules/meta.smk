@@ -64,6 +64,13 @@ ruleorder: hg19 > hg38to19
 # Meta-analysis QC parameters
 meta_qc_params = {"maf": 0.01, "info": 0.6}
 
+	
+# create reference info file linking to imputation panel
+rule refdir:
+	output: "results/meta/reference_info"
+	log: "logs/meta/reference_info.log"
+	shell: "cd results/meta; impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
+
 # merged imputation panel SNPs
 rule impute_frq2:
 	input: ref="results/meta/reference_info"
@@ -94,16 +101,21 @@ rule meta_ldsc_munge:
 	output: "results/sumstats/munged/{cohort}.sumstats.gz"
 	shell: "resources/ldsc/ldsc/munge_sumstats.py --sumstats {input.sumstats} --daner --out {params.prefix} --merge-alleles {input.hm3} --chunksize 500000"
 	
-# create reference info file linking to imputation panel
-rule refdir:
-	output: "results/meta/reference_info"
-	log: "logs/meta/reference_info.log"
-	shell: "cd results/meta; impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
+# extract lists of CPIDs and SNPs from aligned sumstats
+rule meta_cpids:
+	input: sumstats="results/sumstats/aligned/{cohort}.gz"
+	output: "results/sumstats/cpids/{cohort}.cpids.gz"
+	log: "logs/sumstats/cpids/{cohort}.log"
+	shell: "zcat {input.sumstats} | awk '{{print $1, $2, $3}}' | gzip -c > {output}"
+	
+# identify duplicate CPIDs and SNPs across aligned data
+rule meta_dedup:
+	input 
 
 # link sumstats files into meta-analysis directory, but also run
 # LDSC rg with MDD2
 rule meta:
-	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/sumstats/rg_mdd/{cohort}.log"
+	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/sumstats/rg_mdd/{cohort}.log", cpids="results/sumstats/cpids/{cohort}.cpids.gz"
 	output: "results/meta/{cohort}.gz"
 	log: "logs/meta/{cohort}.log"
 	shell: "cp -v {input.sumstats} {output} > {log}"
