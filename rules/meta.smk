@@ -80,7 +80,7 @@ rule align:
 	params:
 		maf=meta_qc_params['maf'],
 		info=meta_qc_params['info'],
-		mac=meta_qc_prams['maf']
+		mac=meta_qc_params['mac']
 	output: "results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz"
 	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
 	conda: "../envs/meta.yaml" 

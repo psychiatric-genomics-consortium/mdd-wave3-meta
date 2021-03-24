@@ -33,19 +33,20 @@ n_controls <- as.numeric(str_split(frq_u_col, pattern='_')[[1]][3])
 # merge on chromosome and position
 daner_aligned <- 
 daner %>%
-inner_join(impute_frq2, by=c('CHR'='CHR', 'BP'='POS'), suffix=c('', '.imp')) %>%
-# keep rows where alleles match
-filter((A1 == A1.imp & A2 == A2.imp ) | (A1 == A2.imp & A2 == A1.imp)) %>%
 # remove rows with missing statistics
 filter(!is.na(OR) & !is.na(SE) & !is.na(P)) %>%
 # remove rows with small minor allele counts
 mutate(frq_a=.data[[frq_a_col]],
-       frq_u=.data[[frq_u_col]]) %>%
+	   frq_u=.data[[frq_u_col]]) %>%
 mutate(maf_a=if_else(frq_a <= 0.5, true=frq_a, false=1-frq_a),
-       maf_u=if_else(frq_u <= 0.5, true=frq_u, false=1-frq_u)) %>%
+	   maf_u=if_else(frq_u <= 0.5, true=frq_u, false=1-frq_u)) %>%
 filter(maf_a*n_cases >= qc_mac & maf_u*n_controls >= qc_mac) %>%
 # filter on INFO
 filter(INFO >= qc_info) %>%
+# align with reference panel
+inner_join(impute_frq2, by=c('CHR'='CHR', 'BP'='POS'), suffix=c('', '.imp')) %>%
+# keep rows where alleles match
+filter((A1 == A1.imp & A2 == A2.imp ) | (A1 == A2.imp & A2 == A1.imp)) %>%
 # select imputed SNP name
 mutate(SNP=SNP.imp) %>%
 # remove duplicate SNPs
