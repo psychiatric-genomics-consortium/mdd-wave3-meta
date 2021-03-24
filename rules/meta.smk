@@ -62,7 +62,7 @@ rule hg38to19:
 ruleorder: hg19 > hg38to19
 
 # Meta-analysis QC parameters
-meta_qc_params = {"maf": 0.01, "info": 0.6}
+meta_qc_params = {"maf": 0.01, "info": 0.1, "mac": 20}
 
 # merged imputation panel SNPs
 rule impute_frq2:
@@ -79,7 +79,8 @@ rule align:
 	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz", ref="results/sumstats/impute_frq2.{ancestries}.rds", script="scripts/meta/align.R"
 	params:
 		maf=meta_qc_params['maf'],
-		info=meta_qc_params['info']
+		info=meta_qc_params['info'],
+		mac=meta_qc_prams['maf']
 	output: "results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz"
 	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
 	conda: "../envs/meta.yaml" 
