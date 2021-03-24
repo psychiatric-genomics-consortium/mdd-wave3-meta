@@ -109,8 +109,8 @@ rule meta_cpids:
 	shell: "zcat {input.sumstats} | awk '{{print $1, $2, $3}}' | gzip -c > {output}"
 	
 # identify duplicate CPIDs and SNPs across aligned data
-rule meta_dedup:
-	input 
+# rule meta_dedup:
+# 	input 
 
 # link sumstats files into meta-analysis directory, but also run
 # LDSC rg with MDD2
