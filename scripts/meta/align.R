@@ -18,6 +18,7 @@ pop <- toupper(snakemake@wildcards$ancestries)
 # QC paramaters
 qc_maf <- snakemake@params$maf
 qc_info <- snakemake@params$info
+qc_mac <- snakemake@params$maf
 
 # Read in QC'd list of SNPs from the imputation panel
 impute_frq2 <- readRDS(impute_frq2_rds)
@@ -37,19 +38,23 @@ inner_join(impute_frq2, by=c('CHR'='CHR', 'BP'='POS'), suffix=c('', '.imp')) %>%
 filter((A1 == A1.imp & A2 == A2.imp ) | (A1 == A2.imp & A2 == A1.imp)) %>%
 # remove rows with missing statistics
 filter(!is.na(OR) & !is.na(SE) & !is.na(P)) %>%
-# remove rows where allele frequencies == 0 or 1
-filter(.data[[frq_a_col]] > 0, .data[[frq_a_col]] < 1,
-       .data[[frq_u_col]] > 0, .data[[frq_u_col]] < 1) %>%
+# remove rows with small minor allele counts
+mutate(frq_a=.data[[frq_a_col]],
+       frq_u=.data[[frq_u_col]]) %>%
+mutate(maf_a=if_else(frq_a <= 0.5, true=frq_a, false=1-frq_a),
+       maf_u=if_else(frq_u <= 0.5, true=frq_u, false=1-frq_u)) %>%
+filter(maf_a*n_cases >= qc_mac & maf_u*n_controls >= qc_mac) %>%
 # filter on INFO
 filter(INFO >= qc_info) %>%
 # select imputed SNP name
 mutate(SNP=SNP.imp) %>%
 # remove duplicate SNPs
-group_by(SNP) %>%
-mutate(count=n()) %>%
-ungroup() %>%
-filter(count == 1) %>%
-select(-ends_with('.imp'), -FA1, -count) %>%
+add_count(SNP, name="snp_count") %>%
+filter(snp_count == 1) %>%
+# remove duplicate CHR/BP (cpid)
+add_count(CHR, BP, name="cpid_count") %>%
+filter(cpid_count == 1) %>%
+select(-ends_with('.imp'), -FA1, -snp_count, -cpid_count, -frq_a, -frq_u, -maf_a, -maf_u) %>%
 arrange(CHR, BP) %>%
 select(CHR, SNP, BP, A1, A2, starts_with('FRQ_A'), starts_with('FRQ_U'), INFO, OR, SE, P, everything())
 
