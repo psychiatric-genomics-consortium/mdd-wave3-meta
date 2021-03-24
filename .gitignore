@@ -60,4 +60,5 @@ Miniconda*.sh
 
 # Snakemake
 .snakemake/
+snakejob.*
 
