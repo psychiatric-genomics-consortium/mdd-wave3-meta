@@ -34,7 +34,6 @@ lapply(impute_frq2_files,
 									FA1 = col_double(),
 									NCHROBS = col_integer()
 )))) %>%
-select(-NCHROBS) %>%
-filter(between(FA1, qc_maf, 1-qc_maf))
+select(-NCHROBS)
 
 saveRDS(impute_frq2, impute_frq2_rds)
