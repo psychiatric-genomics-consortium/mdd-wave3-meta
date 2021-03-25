@@ -44,6 +44,9 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 
+# Console plot output
+Rplots.*
+
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
 
