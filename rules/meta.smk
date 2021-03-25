@@ -145,32 +145,6 @@ rule meta_cpids:
 	log: "logs/sumstats/cpids/{cohort}.log"
 	shell: "zcat {input.sumstats} | awk -v OFS='\t' '{{print $1, $2, $3}}' | gzip -c > {output}"
 
-
-# find SNPs that are present across cohorts
-rule meta_unite_eur:
-	input: expand("results/sumstats/cpids/daner_mdd_{cohort}.eur.hg19.{release}.aligned.cpids.gz", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur])
-	output: "results/sumstats/unite/eur.snps"
-	log: "logs/sumstats/unite/eur.log"
-	shadow: "minimal"
-	shell:
-		"""
-		zcat {input[0]} | awk 'NR > 1 {{print $2}}' > eur.clin.snps
-		for daner in {input}; do
-			zcat $daner | awk 'NR > 1 {{print $2}}' >> eur.all.snps
-		done
-		cat eur.all.snps | sort | uniq -d > eur.twice.snps
-		cat eur.clin.snps eur.twice.snps | sort | uniq > {output}
-		wc -l {output} > {log}
-		"""
-		
-# filter aligned sumstats to included SNPs
-rule meta_unite:
-	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz", include="results/sumstats/unite/{ancestries}.snps"
-	output: "results/sumstats/united/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz"
-	log: "logs/sumstats/united/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
-	conda: "../envs/meta.yaml" 
-	script: "../scripts/meta/unite.R"
-
 # link sumstats files into meta-analysis directory, but also run
 # LDSC rg with MDD2
 rule meta:
