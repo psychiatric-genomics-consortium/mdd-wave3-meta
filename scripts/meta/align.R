@@ -18,7 +18,7 @@ pop <- toupper(snakemake@wildcards$ancestries)
 # QC paramaters
 qc_maf <- snakemake@params$maf
 qc_info <- snakemake@params$info
-qc_mac <- snakemake@params$maf
+qc_mac <- snakemake@params$mac
 
 # Read in QC'd list of SNPs from the imputation panel
 impute_frq2 <- readRDS(impute_frq2_rds)
