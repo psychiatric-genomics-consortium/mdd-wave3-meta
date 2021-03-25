@@ -7,6 +7,42 @@
 #               #
 #################
 
+
+##
+## Cohort lists. List of cohort + subcohort/release pairs
+## 
+cohorts_eur = [["MDD47", "29w2_18w3_1503"], 
+["23andMe", "v7_2_202012"],      
+["deCODE", "DEPALL_FINAL_WHEAD"],
+["GenScot", "1215a"],            
+["GERA", "0915a_mds5"],    
+["UKBB", "MD_glm_202012"], 
+["iPSYCH", "2012_HRC"],        
+["iPSYCH", "2015i_HRC"],       
+["FinnGen", "R5_18032020"],      
+["ALSPAC", "12082019"],        
+["Airwave", "0820"],             
+["PBK", "2020"],         
+["ESTBB", "EstBB"],          
+["MoBa", "harvest12"],     
+["MoBa", "harvest24"],     
+["MoBa", "rotterdam1"],    
+["HUNT", "gp_all_20190625"],
+["HUNT", "hospital_all_20190625"],
+["STAGE", "MDDdx_saige"],    
+["PREFECT", "run1"],             
+["AGDS", "202012"],        
+["lgic2", "202011"],         
+["BASIC", "202011"],        
+["BioVU", "Cov_SAIGE_202101"],
+["EXCEED", "202010"],          
+["MVP", "ICDdep_AllSex_202101"],
+["tkda1", "run1"],           
+["DBDS", "FINAL202103"]]
+
+cohorts_eas=["23andMe","v7_2"],
+ ["Taiwan", "20200327""]
+
 # Copy summary statistics listed in config.yaml under sumstats
 # with key FORMAT_COHORT.POP.hgNN.RELEASE
 rule stage_sumstats:
@@ -107,59 +143,26 @@ rule meta_cpids:
 	input: sumstats="results/sumstats/aligned/{cohort}.gz"
 	output: "results/sumstats/cpids/{cohort}.cpids.gz"
 	log: "logs/sumstats/cpids/{cohort}.log"
-	shell: "zcat {input.sumstats} | awk '{{print $1, $2, $3}}' | gzip -c > {output}"
-	
-# identify duplicate CPIDs and SNPs across aligned data
-# rule meta_dedup:
-# 	input 
+	shell: "zcat {input.sumstats} | awk -v OFS='\t' '{{print $1, $2, $3}}' | gzip -c > {output}"
 
 # link sumstats files into meta-analysis directory, but also run
 # LDSC rg with MDD2
 rule meta:
-	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/sumstats/rg_mdd/{cohort}.log", cpids="results/sumstats/cpids/{cohort}.cpids.gz"
+	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/sumstats/rg_mdd/{cohort}.log"
 	output: "results/meta/{cohort}.gz"
 	log: "logs/meta/{cohort}.log"
 	shell: "cp -v {input.sumstats} {output} > {log}"
 
 # Ricopili results dataset list for eur ancestries
 rule dataset_eur:
-	input: "results/meta/daner_mdd_MDD47.eur.hg19.29w2_18w3_1503.aligned.gz",
-	 "results/meta/daner_mdd_23andMe.eur.hg19.v7_2_202012.aligned.gz",
-	 "results/meta/daner_mdd_deCODE.eur.hg19.DEPALL_FINAL_WHEAD.aligned.gz",
-	 "results/meta/daner_mdd_GenScot.eur.hg19.1215a.aligned.gz",
-	 "results/meta/daner_mdd_GERA.eur.hg19.0915a_mds5.aligned.gz",
-	 "results/meta/daner_mdd_UKBB.eur.hg19.MD_glm_202012.aligned.gz",
-	 "results/meta/daner_mdd_iPSYCH.eur.hg19.2012_HRC.aligned.gz",
-	 "results/meta/daner_mdd_iPSYCH.eur.hg19.2015i_HRC.aligned.gz",
-	 "results/meta/daner_mdd_FinnGen.eur.hg19.R5_18032020.aligned.gz",
-	 "results/meta/daner_mdd_ALSPAC.eur.hg19.12082019.aligned.gz",
-	 "results/meta/daner_mdd_Airwave.eur.hg19.0820.aligned.gz",
-	 "results/meta/daner_mdd_PBK.eur.hg19.2020.aligned.gz",
-	 "results/meta/daner_mdd_ESTBB.eur.hg19.EstBB.aligned.gz",
-	 "results/meta/daner_mdd_MoBa.eur.hg19.harvest12.aligned.gz",
-	 "results/meta/daner_mdd_MoBa.eur.hg19.harvest24.aligned.gz",
-	 "results/meta/daner_mdd_MoBa.eur.hg19.rotterdam1.aligned.gz",
-	 "results/meta/daner_mdd_HUNT.eur.hg19.gp_all_20190625.aligned.gz",
-	 "results/meta/daner_mdd_HUNT.eur.hg19.hospital_all_20190625.aligned.gz",
-	 "results/meta/daner_mdd_STAGE.eur.hg19.MDDdx_saige.aligned.gz",
-	 "results/meta/daner_mdd_PREFECT.eur.hg19.run1.aligned.gz",
-	 "results/meta/daner_mdd_AGDS.eur.hg19.202012.aligned.gz",
-	 "results/meta/daner_mdd_lgic2.eur.hg19.202011.aligned.gz",
-	 "results/meta/daner_mdd_BASIC.eur.hg19.202011.aligned.gz",
-	 "results/meta/daner_mdd_BioVU.eur.hg19.Cov_SAIGE_202101.aligned.gz",
-	 "results/meta/daner_mdd_EXCEED.eur.hg19.202010.aligned.gz",
-	 "results/meta/daner_mdd_MVP.eur.hg19.ICDdep_AllSex_202101.aligned.gz",
-	 "results/meta/daner_mdd_tkda1.eur.hg19.run1.aligned.gz",
-	 "results/meta/daner_mdd_DBDS.eur.hg19.FINAL202103.aligned.gz"
+	input: expand("results/meta/daner_mdd_{cohort}.eur.hg19.{release}.aligned.gz", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur])
 	output: "results/meta/dataset_full_eur_v{analysis}"
 	log: "logs/meta/dataset_full_eur_v{analysis}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
 	
 # Ricopili results dataset list for eas ancestries
 rule dataset_eas:
-	input: 
-	 "results/meta/daner_mdd_23andMe.eas.hg19.v7_2.aligned.gz",
-	 "results/meta/daner_mdd_Taiwan.eas.hg19.20200327.aligned.gz"
+	input: expand("results/meta/daner_mdd_{cohort}.eas.hg19.{release}.aligned.gz", zip, cohort=[cohort[0] for cohort in cohorts_eas], release=[cohort[1] for cohort in cohorts_eas])
 	output: "results/meta/dataset_full_eas_v{analysis}"
 	log: "logs/meta/dataset_full_eas_v{analysis}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
