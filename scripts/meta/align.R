@@ -41,6 +41,7 @@ mutate(frq_a=.data[[frq_a_col]],
 mutate(maf_a=if_else(frq_a <= 0.5, true=frq_a, false=1-frq_a),
 	   maf_u=if_else(frq_u <= 0.5, true=frq_u, false=1-frq_u)) %>%
 filter(maf_a*n_cases >= qc_mac & maf_u*n_controls >= qc_mac) %>%
+filter(maf_a >= qc_maf | maf_u >= qc_maf) %>%
 # filter on INFO
 filter(INFO >= qc_info) %>%
 # align with reference panel
