@@ -28,7 +28,7 @@ ggplot(meta_qc_align %>%
        unite('cohort',
 	          cohort, ancestries, release, 
 			  sep="."),
-	    aes(x=reorder(cohort, mean_SE),
+	    aes(x=reorder(cohort, (4*N_cases*N_controls)/(N_cases + N_controls)),
 		    y=median_or,
 			ymax=exp(log(median_or)+mean_SE),
 		    ymin=exp(log(median_or)-mean_SE))) +
