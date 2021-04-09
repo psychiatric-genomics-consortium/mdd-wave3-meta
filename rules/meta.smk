@@ -38,10 +38,11 @@ cohorts_eur = [["MDD47", "29w2_18w3_1503"],
 ["EXCEED", "202010"],          
 ["MVP", "ICDdep_AllSex_202101"],
 ["tkda1", "run1"],           
-["DBDS", "FINAL202103"]]
+["DBDS", "FINAL202103"],
+["SHARE", "godartsshare_842021"]]
 
-cohorts_eas=["23andMe","v7_2"],
- ["Taiwan", "20200327""]
+cohorts_eas=[["23andMe","v7_2"],
+["Taiwan", "20200327"]]
 
 # Copy summary statistics listed in config.yaml under sumstats
 # with key FORMAT_COHORT.POP.hgNN.RELEASE
@@ -186,7 +187,7 @@ rule postimp:
 
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]
-analysis_version = ["3.47.23"]
+analysis_version = ["3.47.24"]
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	
