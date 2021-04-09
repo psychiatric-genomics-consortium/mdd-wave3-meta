@@ -199,3 +199,11 @@ cohorts_analyst = ["full", "noUKBB", "no23andMe", "noALSPAC"]
 
 # cohort sets for public
 cohorts_public = ["no23andMe"]
+
+# check Ricopili output for complete rows and duplicates
+rule postimp_rp:
+	input: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.gz"
+	log: "logs/meta/distribution/{analysis}.rp.log"
+	conda: "../envs/meta.yaml"
+	output: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.rp.gz"
+	script: "../scripts/meta/rp.R"
