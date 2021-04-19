@@ -38,6 +38,21 @@ coord_flip(ylim=c(0.8, 1.25))
 
 ```
 
+Mean standard error versus effective sample size:
+```{r meta_qc_align_Neff_SE}
+
+ggplot(meta_qc_align %>%
+	   unite('cohort',
+			  cohort, ancestries, release, 
+			  sep=".") %>%
+	   mutate(Neff=(4*N_cases*N_controls)/(N_cases + N_controls)),
+		aes(x=Neff, y=mean_SE, label=cohort)) +
+geom_text(check_overlap=TRUE, size=2) +
+scale_x_log10(breaks=c(1, 100, 1000, 5000, 10000, 50000, 100000, 500000))
+
+```
+
+
 # Genetic correlation with clinical cohorts
 
 LDSC genetic correlations were calculated with the PGC `MDD29` clinical cohorts
