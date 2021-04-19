@@ -11,7 +11,7 @@
 ##
 ## Cohort lists. List of cohort + subcohort/release pairs
 ## 
-cohorts_eur = [["MDD47", "29w2_18w3_1503"], 
+cohorts_eur = [["MDD49", "29w2_20w3_1504"], 
 ["23andMe", "v7_2_202012"],      
 ["deCODE", "DEPALL_FINAL_WHEAD"],
 ["GenScot", "1215a"],            
@@ -187,7 +187,7 @@ rule postimp:
 
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]
-analysis_version = ["3.47.24"]
+analysis_version = ["3.49.24"]
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	
