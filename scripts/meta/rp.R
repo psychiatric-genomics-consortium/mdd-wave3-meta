@@ -31,4 +31,4 @@ write_tsv(daner_rp, daner_out_gz)
 
 log_info <- paste("Ricopili check:", "remove", nrow(daner)-nrow(daner_patch), "incomplete rows and", nrow(daner_dups) - nrow(daner_rp), "duplicate markers or positions.")
 
-cat(log_info, log_path)
+cat(log_info, file=log_path)
