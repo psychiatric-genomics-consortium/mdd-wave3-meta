@@ -15,6 +15,7 @@ wildcard_constraints:
 
 include: "rules/ldsc.smk"
 include: "rules/meta.smk"
+include: "rules/meta_carpa.smk"
 include: "rules/metaqc.smk"
 include: "rules/distribution.smk"
 include: "rules/vcf.smk"
