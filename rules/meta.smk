@@ -207,3 +207,7 @@ rule postimp_rp:
 	conda: "../envs/meta.yaml"
 	output: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.rp.gz"
 	script: "../scripts/meta/rp.R"
+	
+# inputs for postimp_rp
+rule postimp_rp_all:
+	input: expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.rp.gz", cohorts=cohorts_analyst, ancestries=['eur'], version=analysis_version)
