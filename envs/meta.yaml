@@ -10,3 +10,4 @@ dependencies:
   - r-tidyr
   - r-stringr
   - r-gdata
+  - plink =1.90b6.21
