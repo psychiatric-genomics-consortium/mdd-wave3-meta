@@ -21,6 +21,7 @@ pop <- toupper(snakemake@wildcards$ancestries)
 # list reference files for given ancestries group
 impute_frq2_files <- list.files(reference_dir, pattern=paste('*', pop, 'frq2.gz', sep='.'), full.names=T)
 
+# read in, merge, and remove markers with duplicate positions
 impute_frq2 <-
 bind_rows(
 lapply(impute_frq2_files,
@@ -34,6 +35,8 @@ lapply(impute_frq2_files,
 									FA1 = col_double(),
 									NCHROBS = col_integer()
 )))) %>%
-select(-NCHROBS)
+add_count(CHR, POS) %>%
+filter(n == 1) %>%
+select(-NCHROBS, -n)
 
 saveRDS(impute_frq2, impute_frq2_rds)
