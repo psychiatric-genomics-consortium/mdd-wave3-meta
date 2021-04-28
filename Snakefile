@@ -13,6 +13,7 @@ DBox_dist_public = DropboxRemoteProvider(oauth2_access_token=config["remote"]["d
 wildcard_constraints:
     version="[\d.]+"
 
+include: "rules/resources.smk"
 include: "rules/ldsc.smk"
 include: "rules/meta.smk"
 include: "rules/meta_carpa.smk"
