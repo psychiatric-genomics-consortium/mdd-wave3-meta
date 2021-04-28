@@ -87,10 +87,17 @@ rule hg_chain:
 	run:
 		 outputName = os.path.basename(input[0])
 		 shell("gunzip -c {input} > {output}")
+		 
+# download GRCh37/GRCh38 conversion-unstable positions (CUPs) https://github.com/cathaloruaidh/genomeBuildConversionls
+rule hg_cups:
+	input: HTTP.remote("raw.githubusercontent.com/cathaloruaidh/genomeBuildConversion/master/CUP_FILES/FASTA_BED.ALL_GRCh{build}.novel_CUPs.bed")
+	log: "logs/resources/liftOver/GRCh{build}.novel_CUPs.log"
+	output: "resources/liftOver/FASTA_BED.ALL_GRCh{build}.novel_CUPs.bed"
+	shell: "cp -v {input} {output} > {log}"
 	
 # liftover hg38 to hg19	
 rule hg38to19:
-	input: daner="results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg38.{release}.gz", chain="resources/liftOver/hg38ToHg19.over.chain"
+	input: daner="results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg38.{release}.gz", chain="resources/liftOver/hg38ToHg19.over.chain", cups="resources/liftOver/FASTA_BED.ALL_GRCh38.novel_CUPs.bed"
 	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{release}.gz"
 	log: "logs/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{release}.log"
 	conda: "../envs/meta.yaml" 
