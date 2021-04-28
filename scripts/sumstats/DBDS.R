@@ -63,7 +63,9 @@ cat(paste('Formatting daner', '\n'))
 daner <-
 sumstats %>%
 filter(Effect != 1 & Pval != 1) %>%
-transmute(CHR=str_replace(Chrom, 'chr', ''), SNP=rsName, BP=PosB37, A1=Amin, A2=Amaj,
+transmute(CHR=case_when(Chrom == 'chrX' ~ '23',
+                        TRUE ~ str_replace(Chrom, 'chr', '')),
+         SNP=rsName, BP=PosB37, A1=Amin, A2=Amaj,
 		 !!FRQ_A_col:=MAF_PC/100,
 		 !!FRQ_U_col:=MAF_PC/100,
 		 INFO=Info,
