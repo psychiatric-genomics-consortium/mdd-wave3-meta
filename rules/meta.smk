@@ -117,7 +117,7 @@ rule refdir:
 
 # merged imputation panel SNPs
 rule impute_frq2:
-	input: ref="results/meta/reference_info"
+	input: ref="results/meta/reference_info", cups="resources/liftOver/FASTA_BED.ALL_GRCh37.novel_CUPs.bed"
 	output: "results/sumstats/impute_frq2.{ancestries}.rds"
 	params:
 		maf=meta_qc_params['maf']

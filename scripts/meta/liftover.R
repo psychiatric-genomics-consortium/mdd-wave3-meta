@@ -25,7 +25,7 @@ hgToHg <- import.chain(chain_path)
 # conversion-unstable positions file of ranges to remove
 novel_cups <- read_table2(cup_path, col_names=c('chr', 'start', 'end'))
 
-# create genomic ranges for sumstats
+# create genomic ranges for sumstats (assume scaffold is called 'chrN')
 # convert non-autosome numeric chromosomes to text
 sumstats_gr_hg_from <- 
 with(daner_hg_from,
@@ -52,6 +52,7 @@ sumstats_gr_hg_to <- liftOver(sumstats_gr_hg_from_nocups, hgToHg)
 daner_hg_to <-
 daner_hg_from %>%
 inner_join(as.data.frame(sumstats_gr_hg_to), by='SNP') %>%
+mutate(CHR=str_replace(CHR, 'chr', '')) %>%
 select(CHR, SNP, BP=start, A1, A2, starts_with('FRQ'), INFO, OR, SE, P)
 
 write_tsv(daner_hg_to, daner_hg_to_gz)
