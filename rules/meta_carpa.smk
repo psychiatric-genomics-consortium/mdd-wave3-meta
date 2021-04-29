@@ -1,5 +1,39 @@
 # Meta-analysis using METACARPA https://github.com/hmgu-itg/metacarpa/
 
+	
+# list of cohorts/releases
+# split into groups of 16 or fewer (==bitmask size in metacarpa)
+cohorts_eur_16 = {
+'group1': [['23andMe', 'v7_2_202012'],
+['MVP', 'ICDdep_AllSex_202101'],
+['UKBB', 'MD_glm_202012'],
+['MDD49', '29w2_20w3_1504'],
+['AGDS', '202012'],
+['BioVU', 'Cov_SAIGE_202101'],
+['GERA', '0915a_mds5'],
+['PBK', '2020'],
+['Airwave', '0820'],
+['SHARE', 'godartsshare_842021'],
+['GenScot', '1215a'],
+['EXCEED', '202010'],
+['ALSPAC', '12082019']],
+'group2': [['FinnGen', 'R5_18032020'],
+['ESTBB', 'EstBB'],
+['deCODE', 'DEPALL_FINAL_WHEAD'],
+['iPSYCH', '2012_HRC'],
+['DBDS', 'FINAL202103'],
+['iPSYCH', '2015i_HRC'],
+['HUNT', 'gp_all_20190625'],
+['HUNT', 'hospital_all_20190625'],
+['PREFECT', 'run1'],
+['BASIC', '202011'],
+['lgic2', '202011'],
+['tkda1', 'run1'],
+['MoBa', 'harvest12'],
+['MoBa', 'rotterdam1'],
+['STAGE', 'MDDdx_saige'],
+['MoBa', 'harvest24']]}
+
 # Download the METACARPA binary
 rule metacarpa_download:
 	input: HTTP.remote("https://github.com/hmgu-itg/metacarpa/releases/download/1.0.1/metacarpa", keep_local=False)
@@ -20,39 +54,29 @@ rule metacarpa_snps:
 	output: "results/sumstats/metacarpa/snps/mdd_{cohort}.aligned.snplist"
 	shell: "cat {input} | awk '{{print $9}}' | sort > {output}"
 
-# SNPs common to all cohorts	
+# SNPs common to cohort groups	
 rule metacarpa_snps_eur:
-	input: expand("results/sumstats/metacarpa/snps/mdd_{cohort}.eur.hg19.{release}.aligned.snplist", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur])
+	input: lambda wildcards: expand("results/sumstats/metacarpa/snps/mdd_{cohort}.eur.hg19.{release}.aligned.snplist", zip, cohort=[cohort[0] for cohort in cohorts_eur_16[wildcards.group]], release=[cohort[1] for cohort in cohorts_eur_16[wildcards.group]])
 	params:
-		n_cohorts=len(cohorts_eur)
-	output: "results/sumstats/metacarpa/full_eur.snplist"
-	run:
-	    # get SNPs from first file and make a set
-		with open(input[0]) as f:
-			snps = set(f.read().splitlines())
-		# open all SNP lists one by one and intersect them with the snps set
-		for snplist in input:
-			print(snplist)
-			with open(snplist) as f:
-				snps = set.intersection(snps, set(f.read().splitlines()))
-			print(len(snps))
-		# output intersection of all SNPs
-		with open(output[0], 'w') as out:
-			out.writelines(map(lambda snp: snp+'\n', list(snps))) 
+		n_cohorts=len(cohorts_eur),
+		mask_min=30000
+	conda: "../envs/meta.yaml"
+	output: "results/sumstats/metacarpa/{group}_eur.snplist"
+	script: "../scripts/meta/metacarpa_snplist.py"
 
 # extract common SNPs	
 rule metacarpa_extract:
-	input: assoc="results/sumstats/metacarpa/assoc/mdd_{cohort}.{ancestries}.hg19.{release}.aligned.assoc", snplist="results/sumstats/metacarpa/full_eur.snplist"
-	output: "results/sumstats/metacarpa/extract/mdd_{cohort}.{ancestries}.hg19.{release}.aligned.assoc"
+	input: assoc="results/sumstats/metacarpa/assoc/mdd_{cohort}.{ancestries}.hg19.{release}.aligned.assoc", snplist="results/sumstats/metacarpa/{group}_eur.snplist"
+	output: "results/sumstats/metacarpa/extract/{group}_mdd_{cohort}.{ancestries}.hg19.{release}.aligned.assoc"
 	shell: "grep -wFf {input.snplist} {input.assoc} > {output}"
 
 # prune the sumstats for correlation matrix construction
 rule metacarpa_prune:
-	input: hm3="resources/ldsc/w_hm3.snplist", snplist="results/sumstats/metacarpa/full_{ancestries}.snplist", bed="resources/1kg/1kg_phase1_all.bed"
+	input: hm3="resources/ldsc/w_hm3.snplist", snplist="results/sumstats/metacarpa/{group}_{ancestries}.snplist", bed="resources/1kg/1kg_phase1_all.bed"
 	params:
 		bed_prefix="resources/1kg/1kg_phase1_all",
-		prune_prefix="results/sumstats/metacarpa/1kg.{ancestries}"
-	output: "results/sumstats/metacarpa/1kg.{ancestries}.prune.in"
+		prune_prefix="results/sumstats/metacarpa/{group}.1kg.{ancestries}"
+	output: "results/sumstats/metacarpa/{group}.1kg.{ancestries}.prune.in"
 	conda: "../envs/meta.yaml"
 	shell: """
 	plink \
@@ -65,51 +89,21 @@ rule metacarpa_prune:
 	
 # extract pruned SNPs from sumstats
 rule metacarpa_prune_extract:
-	input: assoc="results/sumstats/metacarpa/extract/mdd_{cohort}.{ancestries}.hg19.{release}.aligned.assoc", snplist="results/sumstats/metacarpa/1kg.{ancestries}.prune.in"
-	output: "results/sumstats/metacarpa/pruned/mdd_{cohort}.{ancestries}.hg19.{release}.aligned.pruned.assoc"
+	input: assoc="results/sumstats/metacarpa/extract/{group}_mdd_{cohort}.{ancestries}.hg19.{release}.aligned.assoc", snplist="results/sumstats/metacarpa/{group}.1kg.{ancestries}.prune.in"
+	output: "results/sumstats/metacarpa/pruned/{group}_mdd_{cohort}.{ancestries}.hg19.{release}.aligned.pruned.assoc"
 	shell: "grep -wFf {input.snplist} {input.assoc} > {output}"
-	
-# sample-size sorted list of cohorts
-cohorts_eur_n = [['23andMe', 'v7_2_202012'],
-['MVP', 'ICDdep_AllSex_202101'],
-['UKBB', 'MD_glm_202012'],
-['ESTBB', 'EstBB'],
-['MDD49', '29w2_20w3_1504'],
-['FinnGen', 'R5_18032020'],
-['deCODE', 'DEPALL_FINAL_WHEAD'],
-['iPSYCH', '2012_HRC'],
-['DBDS', 'FINAL202103'],
-['AGDS', '202012'],
-['iPSYCH', '2015i_HRC'],
-['BioVU', 'Cov_SAIGE_202101'],
-['GERA', '0915a_mds5'],
-['HUNT', 'gp_all_20190625'],
-['PBK', '2020']]
 
-# ['HUNT', 'hospital_all_20190625']],
-# ['Airwave', '0820'],
-# ['PREFECT', 'run1'],
-# ['SHARE', 'godartsshare_842021'],
-# ['BASIC', '202011'],
-# ['GenScot', '1215a'],
-# ['lgic2', '202011'],
-# ['tkda1', 'run1'],
-# ['MoBa', 'harvest12'],
-# ['EXCEED', '202010'],
-# ['MoBa', 'rotterdam1'],
-# ['ALSPAC', '12082019'],
-# ['STAGE', 'MDDdx_saige'],
-# ['MoBa', 'harvest24']]
 
 	
 rule metacarpa_matrix_eur:
-	input: assoc=expand("results/sumstats/metacarpa/pruned/mdd_{cohort}.eur.hg19.{release}.aligned.pruned.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur_n], release=[cohort[1] for cohort in cohorts_eur_n]), metacarpa="resources/metacarpa/metacarpa"
+	input: assoc=lambda wildcards: expand("results/sumstats/metacarpa/pruned/{{group}}_mdd_{cohort}.eur.hg19.{release}.aligned.pruned.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur_16[wildcards.group]], release=[cohort[1] for cohort in cohorts_eur_16[wildcards.group]]), metacarpa="resources/metacarpa/metacarpa"
 	params:
 		input_args=lambda wildcards, input: ' '.join(['-I ' + assoc for assoc in input.assoc]),
-		output_prefix="results/sumstats/metacarpa/full_eur"
-	output: "results/sumstats/metacarpa/full_eur.matrix.txt"
+		output_prefix="results/sumstats/metacarpa/{group}_eur"
+	output: "results/sumstats/metacarpa/{group}_eur.matrix.txt"
 	shell: """
-	{input.metacarpa} {params.input_args} \
+	{input.metacarpa} \
+	{params.input_args} \
 	--output {params.output_prefix} \
 	--sep ' ' \
 	--chr-col 1 \
@@ -127,10 +121,10 @@ rule metacarpa_matrix_eur:
 	"""
 	
 rule metacarpa_eur:
-	input: assoc=expand("results/sumstats/metacarpa/extract/mdd_{cohort}.eur.hg19.{release}.aligned.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur_n], release=[cohort[1] for cohort in cohorts_eur_n]), matrix="results/sumstats/metacarpa/full_eur.matrix.txt", metacarpa="resources/metacarpa/metacarpa"
+	input: assoc=lambda wildcards: expand("results/sumstats/metacarpa/extract/{{group}}_mdd_{cohort}.eur.hg19.{release}.aligned.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur_16[wildcards.group]], release=[cohort[1] for cohort in cohorts_eur_16[wildcards.group]]), matrix="results/sumstats/metacarpa/{group}_eur.matrix.txt", metacarpa="resources/metacarpa/metacarpa"
 	params:
 		input_args=lambda wildcards, input: ' '.join(['-I ' + assoc for assoc in input.assoc])
-	output: "results/meta/metacarpa/pgc_mdd_full_eur_hg19_v{version}.mc.txt"
+	output: "results/meta/metacarpa/pgc_mdd_{group}_eur_hg19_v{version}.mc.txt"
 	shell: """
 	{input.metacarpa} {params.input_args} \
 	--output {output} \
@@ -144,9 +138,8 @@ rule metacarpa_eur:
 	--se-col 7 \
 	--af-col 8 \
 	--id-col 9 \
-	--size-col 10 \
-	--matrix {input.matrix}
+	--size-col 10
 	"""
 	
 rule metacarpa_eur_analyze:
-	input: expand("results/meta/metacarpa/pgc_mdd_full_eur_hg19_v{version}.mc.txt", version=analysis_version)
+	input: expand("results/meta/metacarpa/pgc_mdd_{group}_eur_hg19_v{version}.mc.txt", version=analysis_version, group=['group1', 'group2'])
