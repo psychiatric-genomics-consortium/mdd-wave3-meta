@@ -39,6 +39,6 @@ echo "Nco: ${Nco}" >> $log
 
 echo -e "CHR\tSNP\tBP\tA1\tA2\tFRQ_A_${Nca}\tFRQ_U_${Nco}\tINFO\tOR\tSE\tP" > $daner
 
-zcat $text_gz | tail -n +2 | awk -v OFS='\t' '{{sub("chr", "", $2)}{print $2, $12, $14, $5, $4, $6, $6, $10, $21, $8, $9}}' >> $daner
+zcat $text_gz | tail -n +2 | awk '{{sub("chr", "", $2); sub("X", "23", $2)}{print $2, $12, $14, $5, $4, $6, $6, $10, $21, $8, $9}}' >> $daner
 
 gzip -f --verbose $daner 2>> $log

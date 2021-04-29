@@ -1,5 +1,6 @@
 library(dplyr)
 library(readr)
+library(rtracklayer)
 library(stringr)
 
 # log
@@ -30,12 +31,24 @@ frq_u_col <- names(select(daner, starts_with('FRQ_U')))
 n_cases <- as.numeric(str_split(frq_a_col, pattern='_')[[1]][3])
 n_controls <- as.numeric(str_split(frq_u_col, pattern='_')[[1]][3])
 
-# merge on chromosome and position
-daner_aligned <- 
-daner %>%
+# create genomic ranges for sumstats and reference
+sumstats_gr <- with(daner, GRanges(seqnames=CHR, ranges=IRanges(BP, width=1), SNP=SNP))
+impute_gr <- with(impute_frq2, GRanges(seqnames=CHR, ranges=IRanges(POS, width=1), SNP=SNP))
+
+# find duplicate positions in the sumstats
+sumstats_dups_idx <- as_tibble(findOverlaps(sumstats_gr, sumstats_gr)) %>% filter(queryHits != subjectHits)
+
+# match up sumstats and imputation panel
+sumstats_impute_align_idx <- as_tibble(findOverlaps(sumstats_gr, impute_gr))
+sumstats_impute_align_idx_nodups <- sumstats_impute_align_idx %>% filter(!queryHits %in% sumstats_dups_idx$queryHits)
+
+# merge using alignment indices
+daner_aligned <-
+daner %>% dplyr::slice(sumstats_impute_align_idx_nodups$queryHits) %>%
+bind_cols(impute_frq2 %>% dplyr::slice(sumstats_impute_align_idx_nodups$subjectHits) %>% rename_with(~ paste0(., '.imp'))) %>%
 # remove rows with missing statistics
 filter(!is.na(OR) & !is.na(SE) & !is.na(P)) %>%
-# remove rows with small minor allele counts
+# remove rows with small minor allele counts and frequencies
 mutate(frq_a=.data[[frq_a_col]],
 	   frq_u=.data[[frq_u_col]]) %>%
 mutate(maf_a=if_else(frq_a <= 0.5, true=frq_a, false=1-frq_a),
@@ -44,8 +57,6 @@ filter(maf_a*n_cases >= qc_mac & maf_u*n_controls >= qc_mac) %>%
 filter(maf_a >= qc_maf | maf_u >= qc_maf) %>%
 # filter on INFO
 filter(INFO >= qc_info) %>%
-# align with reference panel
-inner_join(impute_frq2, by=c('CHR'='CHR', 'BP'='POS'), suffix=c('', '.imp')) %>%
 # keep rows where alleles match
 filter((A1 == A1.imp & A2 == A2.imp ) | (A1 == A2.imp & A2 == A1.imp)) %>%
 # select imputed SNP name
@@ -53,10 +64,7 @@ mutate(SNP=SNP.imp) %>%
 # remove duplicate SNPs
 add_count(SNP, name="snp_count") %>%
 filter(snp_count == 1) %>%
-# remove duplicate CHR/BP (cpid)
-add_count(CHR, BP, name="cpid_count") %>%
-filter(cpid_count == 1) %>%
-select(-ends_with('.imp'), -FA1, -snp_count, -cpid_count, -frq_a, -frq_u, -maf_a, -maf_u) %>%
+select(-ends_with('.imp'), -snp_count, -frq_a, -frq_u, -maf_a, -maf_u) %>%
 arrange(CHR, BP) %>%
 select(CHR, SNP, BP, A1, A2, starts_with('FRQ_A'), starts_with('FRQ_U'), INFO, OR, SE, P, everything())
 
