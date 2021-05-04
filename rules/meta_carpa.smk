@@ -140,6 +140,52 @@ rule metacarpa_eur:
 	--id-col 9 \
 	--size-col 10
 	"""
-	
+
+# Run meta-carpa for both groups	
 rule metacarpa_eur_analyze:
 	input: expand("results/meta/metacarpa/pgc_mdd_{group}_eur_hg19_v{version}.mc.txt", version=analysis_version, group=['group1', 'group2'])
+	
+# format into assoc files for input back into metacarpa
+#  1	rsid
+#  2	chr:pos
+#  3	effect_allele
+#  4	neffect_allele
+#  5	effect_allele_frequency
+#  6	effects
+#  7	beta
+#  8	se
+#  9	z
+# 10	z_se
+# 11	p_wald
+# 12	p_corrected
+# 13    p_stouffer
+# 14	n
+rule metacarpa_group_assoc:
+	input: "results/meta/metacarpa/pgc_mdd_{group}_eur_hg19_v{version}.mc.txt"
+	output: "results/meta/metacarpa/pgc_mdd_{group}_eur_hg19_v{version}.mc.assoc"
+	shell: """
+	cat {input} | awk 'NR > 1 {{sub(":", " ", $2); print $2, $3, $4, $11, $7, $8, $5, $1, $14}}' > {output}
+	"""
+	
+rule metacarpa_eur_meta:
+	input: group1="results/meta/metacarpa/pgc_mdd_group1_eur_hg19_v{version}.mc.assoc", group2="results/meta/metacarpa/pgc_mdd_group2_eur_hg19_v{version}.mc.assoc", metacarpa="resources/metacarpa/metacarpa"
+	output: "results/meta/metacarpa/pgc_mdd_full_eur_hg19_v{version}.mc.meta.txt"
+	shell: """
+	{input.metacarpa} -I {input.group1} -I {input.group2} \
+	--output {output} \
+	--sep ' ' \
+	--chr-col 1 \
+	--pos-col 2 \
+	--a1-col 3 \
+	--a2-col 4 \
+	--pval-col 5 \
+	--beta-col 6 \
+	--se-col 7 \
+	--af-col 8 \
+	--id-col 9 \
+	--size-col 10
+	"""
+	
+rule metacarpa_group_eur_analyze:
+	input: expand("results/meta/metacarpa/pgc_mdd_full_eur_hg19_v{version}.mc.meta.txt", version=analysis_version)
+	
