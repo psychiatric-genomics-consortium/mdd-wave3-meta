@@ -189,3 +189,8 @@ rule metacarpa_eur_meta:
 rule metacarpa_group_eur_analyze:
 	input: expand("results/meta/metacarpa/pgc_mdd_full_eur_hg19_v{version}.mc.meta.txt", version=analysis_version)
 	
+rule metacarpa_group_daner:
+	input: "results/meta/metacarpa/pgc_mdd_full_{analysis}.mc.meta.txt"
+	output: "results/meta/metacarpa/daner_pgc_mdd_full_{analysis}.mc.meta.gz"
+	conda: "../envs/meta.yaml"
+	script: "../scripts/meta/metacarpa_daner.R"
