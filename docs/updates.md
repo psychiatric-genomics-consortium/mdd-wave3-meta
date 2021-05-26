@@ -1,5 +1,9 @@
 # Project updates
 
+# 26 May 2021
+
+- **v3.49.24**: Add 2 wave 3 genotype cohorts (MDD47); SHARE; MVP Release 4 _[EUR]_
+
 # 22 Mar 2021
 
 - **v3.47.23** Add 18 wave 3 genotyped cohorts (MDD47) _[EUR]_
