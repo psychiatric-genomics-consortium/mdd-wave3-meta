@@ -3,7 +3,7 @@ channels:
   - bioconda
 dependencies:
   - dropbox
-  - r-base =4.0.2
+  - r-base =4.0.5
   - r-essentials
   - bioconductor-rtracklayer =1.48.0
   - r-dplyr
