@@ -1,6 +1,9 @@
 ---
 title: "PGC MDD3 sumstats QC checks for meta-analysis"
-output: html_document
+output:
+    html_document:
+        toc: true
+        toc_depth: 2
 ---
 
 ```{r}
@@ -10,6 +13,7 @@ library(tidyr)
 library(stringr)
 library(ggplot2)
 library(fdrtool)
+library(corrplot)
 ```
 
 # Reference panel alignment
@@ -85,12 +89,27 @@ transmute(cohort, ancestries, release, N=N_cases+N_controls)
 # sumstats like Wray 2018 that have had their 
 # sumstats munged for other reasons)
 meta_qc_ldsc_pairs_mdd3 <- meta_qc_ldsc_pairs  %>%
-filter(subcohort1 != 'wray2018' & subcohort2 != 'wray2018') %>%
+filter(!cohort1 %in% c('MDD29', 'PGC') & !cohort2 %in% c('MDD29', 'PGC')) %>%
 left_join(meta_qc_samplesize %>% rename(cohortN1=N), by=c('cohort1'='cohort', 'subcohort1'='release', 'ancestry1'='ancestries')) %>%
 left_join(meta_qc_samplesize %>% rename(cohortN2=N), by=c('cohort2'='cohort', 'subcohort2'='release', 'ancestry2'='ancestries'))
 
+```
+
+Histogram of intercepts
+
+```{r meta_qc_ldcs_pairs_hist}
+
 ggplot(meta_qc_ldsc_pairs_mdd3, aes(x=gcov_int)) +
 geom_histogram()
+
+```
+
+Pairwise intercepts
+
+```{r}
+
+
+
 ```
 
 Show the largest and smallest intercepts. Exclude Wray2018 sumstats that are also in the mix. Calculate distance from 0 in standard deviation units to get an idea of the magnitude of departure from expectation relative to the other intercepts.
@@ -286,8 +305,15 @@ for(i in seq.int(nrow(meta_qc_ldsc_pairs_mdd3))) {
 
 Convert intercepts into a dissimilarity matrix. For intercepts, `1 ==` same, `0 ==` average, `<0 ==` different. For dissimilarity, `0 ==` same and larger values `==` more dissimilar.
 
-```{r gcov_int_dist}
+```{r gcov_int_dist, fig.width=6, fig.height=9}
 
 plot(hclust(as.dist(1-gcov_int_mat)))
+
+```
+
+```{r gcov_int_mat_corr, fig.width=9, fig.height=9}
+
+corrplot(gcov_int_mat, is.corr=FALSE, diag=FALSE)
+
 
 ```
