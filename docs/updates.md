@@ -1,5 +1,9 @@
 # Project updates
 
+# 8 June 2021
+
+- **v3.49.24.02**: Update BioVU to NoCov version with INFO
+
 # 28 May 2021
 
 - **v3.49.24.01**: Fold HUNT cohorts with METACARPA
