@@ -59,12 +59,11 @@ filter(maf_a >= qc_maf | maf_u >= qc_maf) %>%
 filter(INFO >= qc_info) %>%
 # keep rows where alleles match
 filter((A1 == A1.imp & A2 == A2.imp ) | (A1 == A2.imp & A2 == A1.imp)) %>%
-# select imputed SNP name
+# select imputation reference SNP name
 mutate(SNP=SNP.imp) %>%
 # remove duplicate SNPs
-add_count(SNP, name="snp_count") %>%
-filter(snp_count == 1) %>%
-select(-ends_with('.imp'), -snp_count, -frq_a, -frq_u, -maf_a, -maf_u) %>%
+filter(!duplicated(SNP)) %>%
+select(-ends_with('.imp'), -frq_a, -frq_u, -maf_a, -maf_u) %>%
 arrange(CHR, BP) %>%
 select(CHR, SNP, BP, A1, A2, starts_with('FRQ_A'), starts_with('FRQ_U'), INFO, OR, SE, P, everything())
 
