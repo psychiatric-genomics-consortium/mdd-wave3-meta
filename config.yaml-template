@@ -1,6 +1,7 @@
 sumstats:
 refdir: /home/pgcdac/imputation_references/pgc-samples/hapmap_ref/impute2_ref/1000GP_Phase3_sr_0517d
 remote:
-  dropbox: 
-    analyst: TOKEN
-    public: TOKEN
+distribution:
+  analyst: TOKEN
+  public: TOKEN
+  lisa: PATH
