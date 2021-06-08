@@ -59,7 +59,7 @@ rule metacarpa_snps_eur:
 	input: lambda wildcards: expand("results/sumstats/metacarpa/snps/mdd_{cohort}.eur.hg19.{release}.aligned.snplist", zip, cohort=[cohort[0] for cohort in cohorts_eur_16[wildcards.group]], release=[cohort[1] for cohort in cohorts_eur_16[wildcards.group]])
 	params:
 		n_cohorts=len(cohorts_eur),
-		mask_min=30000
+		mask_min=1000
 	conda: "../envs/meta.yaml"
 	output: "results/sumstats/metacarpa/{group}_eur.snplist"
 	script: "../scripts/meta/metacarpa_snplist.py"
@@ -121,7 +121,7 @@ rule metacarpa_matrix_eur:
 	"""
 	
 rule metacarpa_eur:
-	input: assoc=lambda wildcards: expand("results/sumstats/metacarpa/extract/{{group}}_mdd_{cohort}.eur.hg19.{release}.aligned.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur_16[wildcards.group]], release=[cohort[1] for cohort in cohorts_eur_16[wildcards.group]]), matrix="results/sumstats/metacarpa/{group}_eur.matrix.txt", metacarpa="resources/metacarpa/metacarpa"
+	input: assoc=lambda wildcards: expand("results/sumstats/metacarpa/extract/{{group}}_mdd_{cohort}.eur.hg19.{release}.aligned.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur_16[wildcards.group]], release=[cohort[1] for cohort in cohorts_eur_16[wildcards.group]]), metacarpa="resources/metacarpa/metacarpa"
 	params:
 		input_args=lambda wildcards, input: ' '.join(['-I ' + assoc for assoc in input.assoc])
 	output: "results/meta/metacarpa/pgc_mdd_{group}_eur_hg19_v{version}.mc.txt"
