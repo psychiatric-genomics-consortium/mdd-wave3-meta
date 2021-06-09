@@ -1,8 +1,8 @@
 # Project updates
 
-# 8 June 2021
+# 9 June 2021
 
-- **v3.49.24.02**: Update BioVU to NoCov version with INFO
+- **v3.49.24.02**: Update BioVU to NoCov version with INFO, update MVP to unified Release 4 _[EUR]_
 
 # 28 May 2021
 
