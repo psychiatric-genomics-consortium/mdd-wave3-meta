@@ -219,7 +219,7 @@ Snakemake has features for [cluster execution](https://snakemake.readthedocs.io/
 snakemake -jNN --use-conda --cluster 'sbatch -t MM' OUTPUT_FILE_NAME
 ```
 
-where _`NN`_ is the number of stages that will be submitted to the queue in parallel and _`MM`_ is the runtime allocation for each stage. Other flags can be passed to the cluster as part of the `sbatch` command. 
+where _`NN`_ is the number of stages that will be submitted to the queue in parallel and _`MM`_ is the runtime allocation for each stage. Other flags can be passed to the cluster as part of the `sbatch` command. When a job is submitted to LISA, an entire node with 16 cores is dedicated to the task. [Job groupings](https://snakemake.readthedocs.io/en/stable/executing/grouping.html) should be used to make 16 be submitted to each node to run in parallel:
 
 ## Running the Snakemake process itself as a job
 
@@ -264,7 +264,7 @@ sbatch --wrap "snakemake --shadow-prefix /scratch --cluster 'sbatch -t 60 -n 16'
 
 ## Job scripts
 
-One common issue on clusters for running Snakemake is that the conda environment is not activated on each worker node. In this case it is necessary to make a custom job script that will setup conda. Create a file such as `resources/jobscript.sh` with the contents like:
+One common issue on clusters (not LISA) for running Snakemake is that the conda environment is not activated on each worker node. In this case it is necessary to make a custom job script that will setup conda. Create a file such as `resources/jobscript.sh` with the contents like:
 
 ```
 #!/bin/sh
