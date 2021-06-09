@@ -26,18 +26,16 @@ cohorts_eur = [["MDD49", "29w2_20w3_1504"],
 ["ESTBB", "EstBB"],          
 ["MoBa", "harvest12"],     
 ["MoBa", "harvest24"],     
-["MoBa", "rotterdam1"],    
-["HUNT", "gp_all_20190625"],
-["HUNT", "hospital_all_20190625"],
+["MoBa", "rotterdam1"],
+["HUNT", "gp_hospital_metacarpa_20190625"],
 ["STAGE", "MDDdx_saige"],    
 ["PREFECT", "run1"],             
 ["AGDS", "202012"],        
 ["lgic2", "202011"],         
 ["BASIC", "202011"],        
-["BioVU", "Cov_SAIGE_202101"],
+["BioVU", "NoCov_SAIGE_051821"],
 ["EXCEED", "202010"],          
-["MVP", "ICDdep_AllSex_202101"],
-["MVP", "zeurREL4icd_depFULL"],
+["MVP", "4_0ICDdep_202106"],
 ["tkda1", "run1"],           
 ["DBDS", "FINAL202103"],
 ["SHARE", "godartsshare_842021"]]
@@ -51,7 +49,7 @@ rule stage_sumstats:
 	input: lambda wildcards: config["sumstats"][wildcards.cohort]
 	output: "resources/sumstats/{cohort}.gz"
 	log: "logs/sumstats/stage/{cohort}.log"
-	shell: "cp -v {input} {output} > {log}"
+	shell: "ln -sv {input} {output} > {log}"
 
 # Harmonize names of all summary statistics listed under sumstats in config.yaml
 rule sumstats:
@@ -64,7 +62,7 @@ rule daner:
 	input: "resources/sumstats/daner_{cohort}.gz"
 	output: "results/sumstats/daner/daner_{cohort}.gz"
 	log: "logs/sumstats/daner/daner_{cohort}.log"
-	shell: "cp -v {input} {output} > {log}"
+	shell: "ln -sv $(readlink -f {input}) {output} > {log}"
 	
 # Convert text sumstats to daner
 rule text2daner:
@@ -79,7 +77,7 @@ rule hg19:
 	input: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg19.{release}.gz"
 	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{release}.gz"
 	log: "logs/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{release}.log"
-	shell: "cp -v {input} {output} > {log}"
+	shell: "ln -sv $(readlink -f {input}) {output} > {log}"
 
 # download hgIN to hgOUT chain
 rule hg_chain:
@@ -160,7 +158,7 @@ rule meta:
 	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/sumstats/rg_mdd/{cohort}.log"
 	output: "results/meta/{cohort}.gz"
 	log: "logs/meta/{cohort}.log"
-	shell: "cp -v {input.sumstats} {output} > {log}"
+	shell: "ln -sv $(readlink -f {input.sumstats}) {output} > {log}"
 
 # Ricopili results dataset list for eur ancestries
 rule dataset_eur:
@@ -194,8 +192,8 @@ rule postimp:
 	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
 
 # current European ancestries analysis
-# analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]
-analysis_version = ["3.49.24"]
+# analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count].[Revision]
+analysis_version = ["3.49.24.03"]
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	
