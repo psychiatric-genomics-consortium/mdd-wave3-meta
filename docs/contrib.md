@@ -42,7 +42,7 @@ Each workflow is build around a set of [rules](https://snakemake.readthedocs.io/
 Most downstream analyses will start from the final meta-analysed summary statistics which can be found:
 
 ```
-results/distribution/daner_pgc_mdd_COHORTS_POP_hg19_v3.NN.MM.gz
+results/distribution/daner_pgc_mdd_COHORTS_POP_hg19_v3.NN.MM.RR.rp.gz
 ```
 
 where 
@@ -51,7 +51,8 @@ where
 - `POP` is the ancestries superpopulation (e.g., `eur` for European ancestries)
 - `NN` is the number of PGC clinical cohorts included in the meta-analysis
 - `MM` is the number of additional cohorts included in the meta-analysis.
-- together `v3.NN.MM` is a verion for this analysis that can be used to track each summary statistics file as more cohorts are added to the eventual data freeze. 
+- `RR` is the minor revision number
+- together `v3.NN.MM.RR` is a version for this analysis that can be used to track each summary statistics file as more cohorts are added to the eventual data freeze. 
 
 For each analysis, create the following three files (replace `analysis` with a meaningful name for your workflow)
 
