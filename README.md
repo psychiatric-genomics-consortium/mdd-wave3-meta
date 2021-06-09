@@ -100,6 +100,8 @@ Fetch the most recent version of the meta-analysis. An authentication token is r
 snakemake -j1 downstream_full
 ```
 
+will download a daner sumstats file called `results/distribution/daner_pgc_mdd_full_eur_hg19_v3.NN.MM.OO.rp.gz"`
+
 For sumstats excluding a given `COHORT`:
 
 ```
