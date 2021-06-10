@@ -3,12 +3,8 @@ resources/
 results/
 *.gz
 config.yaml
-<<<<<<< HEAD
-config_23andMe.yaml
-=======
 *.yaml
 *.yml
->>>>>>> main
 
 # Logs
 logs/
