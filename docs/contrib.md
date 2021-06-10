@@ -271,7 +271,6 @@ sbatch --wrap "snakemake --shadow-prefix /scratch --cluster 'sbatch -t 60 -n 16'
 
 
 ## Job scripts
->>>>>>> main
 
 One common issue on clusters (not LISA) for running Snakemake is that the conda environment is not activated on each worker node. In this case it is necessary to make a custom job script that will setup conda. Create a file such as `resources/jobscript.sh` with the contents like:
 
@@ -285,18 +284,8 @@ conda activate base
 {exec_job}
 ```
 
-<<<<<<< HEAD
-Then envoke it using the `--jobscript` flag
-=======
 Then invoke it using the `--jobscript` flag
->>>>>>> main
 
 ```
 snakemake -j32 --use-conda --cluster 'qsub' --jobscript resources/jobscript.sh OUTPUT_FILE_NAME
 ```
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> main
