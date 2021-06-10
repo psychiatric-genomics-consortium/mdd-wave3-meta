@@ -1,5 +1,29 @@
 # Project updates
 
+# 9 June 2021
+
+- **v3.49.24.02**: Update BioVU to NoCov version with INFO, update MVP to unified Release 4 _[EUR]_
+
+# 28 May 2021
+
+- **v3.49.24.01**: Fold HUNT cohorts with METACARPA
+
+# 26 May 2021
+
+- **v3.49.24**: Add 2 wave 3 genotype cohorts (MDD47); SHARE; MVP Release 4 _[EUR]_
+
+# 22 Mar 2021
+
+- **v3.47.23** Add 18 wave 3 genotyped cohorts (MDD47) _[EUR]_
+
+# 8 Mar 2021
+
+- **v3.29.23** Add DBDS. _[EUR]_
+
+# 1 Mar 2021
+
+- **v3.29.22** Add Takeda. Update STAGE and 23andMe _[EUR]_
+
 # 2 Feb 2021
 
 - Renamed primary project branch to `main`. Run the following to update the local environment

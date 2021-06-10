@@ -42,7 +42,7 @@ Each workflow is build around a set of [rules](https://snakemake.readthedocs.io/
 Most downstream analyses will start from the final meta-analysed summary statistics which can be found:
 
 ```
-results/distribution/daner_pgc_mdd_COHORTS_POP_hg19_v3.NN.MM.gz
+results/distribution/daner_pgc_mdd_COHORTS_POP_hg19_v3.NN.MM.RR.rp.gz
 ```
 
 where 
@@ -51,7 +51,8 @@ where
 - `POP` is the ancestries superpopulation (e.g., `eur` for European ancestries)
 - `NN` is the number of PGC clinical cohorts included in the meta-analysis
 - `MM` is the number of additional cohorts included in the meta-analysis.
-- together `v3.NN.MM` is a verion for this analysis that can be used to track each summary statistics file as more cohorts are added to the eventual data freeze. 
+- `RR` is the minor revision number
+- together `v3.NN.MM.RR` is a version for this analysis that can be used to track each summary statistics file as more cohorts are added to the eventual data freeze. 
 
 For each analysis, create the following three files (replace `analysis` with a meaningful name for your workflow)
 
@@ -221,11 +222,56 @@ snakemake -jNN --use-conda --cluster 'sbatch -t MM' OUTPUT_FILE_NAME
 
 where _`NN`_ is the number of stages that will be submitted to the queue in parallel and _`MM`_ is the runtime allocation for each stage. Other flags can be passed to the cluster as part of the `sbatch` command. When a job is submitted to LISA, an entire node with 16 cores is dedicated to the task. [Job groupings](https://snakemake.readthedocs.io/en/stable/executing/grouping.html) should be used to make 16 be submitted to each node to run in parallel:
 
+<<<<<<< HEAD
 ```
 snakemake -j4 --use-conda --cluster 'sbatch -t 60 -n 16' analysis --groups analysis_part1=group0 analysis_part2=group0 analysis=group1 --group-components group0=16 group1=16
 ```
 
 will submit jobs in groups of `16` to the cluster while utilising up to `4` nodes running at the same time.
+=======
+## Running the Snakemake process itself as a job
+
+On LISA, the Snakemake command can be wrapped and passed to the batch system
+
+```
+sbatch -t 360 -n 1 --wrap  "snakemake -j4 --use-conda --cluster 'sbatch -t 60 -n 16' OUTFILE"
+```
+
+With this command the Snakemake process will be allowed to for up to 6 hours while each stage of the workflow will be allowed 60 minutes. 
+
+## Grouping stages together
+
+By default the `--cluster` command will submit each stage of the workflow as its own job to the batch system. Stages can be grouped together using the `--groups` and `--group-component` flags at the end of the Snakemake command. For example, if `stage1` has many pieces to it, 16 can be run in parallel a single LISA node with
+
+```
+sbatch -t 360 -n 1 --wrap "snakemake -j4 --use-conda --cluster 'sbatch -t 60 -n 16' FILENAME.out --groups stage1=group0 --group-components group0=16"
+```
+
+When deciding which jobs to group together, it can be useful to get a list of which ones will be executed using a dry run (`-n` flag)
+
+```
+snakemake -j1 -n FILENAME.out
+```
+
+### Example
+
+For example, grouping jobs together for the meta-analysis pre-processing. The staging, conversion, and alignment stages are grouped together and run as batches of 5 (to avoid using up too much memory) while the LDSC stages can be run in batches of 16.
+
+```
+sbatch -t 360 -n 1 --wrap "snakemake -j4 --use-conda --cluster 'sbatch -t 120 -n 16' results/meta/dataset_full_eur_v3.47.23 --groups stage_sumstats=group0 text2daner=group0 hg19=group0 daner=group0 align=group0 meta=group1 meta_ldsc_mdd2=group1 meta_ldsc_munge=group1 dataset_eur=group2 --group-components group0=5 group1=16 group2=1"
+```
+
+## Using scratch space
+
+If a job needs to write intermediate files before producing the final output, use "[shadow rules](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#shadow-rules)"
+
+```
+sbatch --wrap "snakemake --shadow-prefix /scratch --cluster 'sbatch -t 60 -n 16' FILENAME.out"
+```
+
+
+## Job scripts
+>>>>>>> main
 
 One common issue on clusters (not LISA) for running Snakemake is that the conda environment is not activated on each worker node. In this case it is necessary to make a custom job script that will setup conda. Create a file such as `resources/jobscript.sh` with the contents like:
 
@@ -239,9 +285,18 @@ conda activate base
 {exec_job}
 ```
 
+<<<<<<< HEAD
 Then envoke it using the `--jobscript` flag
+=======
+Then invoke it using the `--jobscript` flag
+>>>>>>> main
 
 ```
 snakemake -j32 --use-conda --cluster 'qsub' --jobscript resources/jobscript.sh OUTPUT_FILE_NAME
 ```
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> main

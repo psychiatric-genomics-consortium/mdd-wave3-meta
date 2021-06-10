@@ -2,9 +2,11 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - r-base =4.0.2
+  - r-base =4.0.5
   - r-essentials
   - r-markdown
   - imagemagick
   - pandas
   - xlrd
+  - r-fdrtool
+  - r-corrplot

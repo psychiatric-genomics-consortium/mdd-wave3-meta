@@ -35,6 +35,9 @@ rule gwas_summary:
 
 rule report_metaqc:
 	input: meta_qc_align="docs/tables/meta_qc_align.txt", meta_qc_ldsc="docs/tables/meta_qc_ldsc.txt", meta_qc_ldsc_pairs="docs/tables/meta_qc_ldsc_pairs.txt", rmd="scripts/reports/metaqc.Rmd"
+	params:
+		maf=meta_qc_params['maf'],
+		info=meta_qc_params['info']
 	output: "docs/metaqc.html"
 	conda: "../envs/reports.yaml"
 	script: "../scripts/reports/metaqc.Rmd"

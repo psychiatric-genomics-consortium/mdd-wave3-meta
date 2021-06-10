@@ -1,5 +1,9 @@
 ---
 title: "PGC MDD3 sumstats QC checks for meta-analysis"
+output:
+    html_document:
+        toc: true
+        toc_depth: 2
 ---
 
 ```{r}
@@ -8,32 +12,51 @@ library(readr)
 library(tidyr)
 library(stringr)
 library(ggplot2)
+library(fdrtool)
+library(corrplot)
 ```
 
 # Reference panel alignment
 
-Marker names were aligned to the meta-analysis reference panel and effect sizes were checked.
+Marker names were aligned to the meta-analysis reference panel and effect sizes were checked. SNPs with MAF < `r snakemake@params$maf` in the imputation reference panel and INFO < `r snakemake@params$info` in the cohort were removed.
 
 ```{r meta_qc_align}
 meta_qc_align <- read_tsv(snakemake@input$meta_qc_align)
+meta_qc_align %>% print(n=Inf)
 ```
 
-Mean odds-ratios with standard error
+Median odds-ratios with standard error
+
 ```{r meta_qc_align_mean_OR}
 
 ggplot(meta_qc_align %>%
        unite('cohort',
 	          cohort, ancestries, release, 
 			  sep="."),
-	    aes(x=reorder(cohort, mean_SE),
-		    y=mean_OR,
-			ymax=exp(log(mean_OR)+mean_SE),
-		    ymin=exp(log(mean_OR)-mean_SE))) +
+	    aes(x=reorder(cohort, (4*N_cases*N_controls)/(N_cases + N_controls)),
+		    y=median_or,
+			ymax=exp(log(median_or)+mean_SE),
+		    ymin=exp(log(median_or)-mean_SE))) +
 geom_linerange() +
 geom_point() +
 coord_flip(ylim=c(0.8, 1.25))
 
 ```
+
+Mean standard error versus effective sample size:
+```{r meta_qc_align_Neff_SE}
+
+ggplot(meta_qc_align %>%
+	   unite('cohort',
+			  cohort, ancestries, release, 
+			  sep=".") %>%
+	   mutate(Neff=(4*N_cases*N_controls)/(N_cases + N_controls)),
+		aes(x=Neff, y=mean_SE, label=cohort)) +
+geom_text(check_overlap=TRUE, size=2) +
+scale_x_log10(breaks=c(1, 100, 1000, 5000, 10000, 50000, 100000, 500000))
+
+```
+
 
 # Genetic correlation with clinical cohorts
 
@@ -59,14 +82,35 @@ Pairwise LDSC genetic covariance intercepts between all cohorts
 ```{r meta_qc_ldsc_pairs}
 meta_qc_ldsc_pairs <- read_tsv(snakemake@input$meta_qc_ldsc_pairs)
 
+# calculate total sample sizes
+meta_qc_samplesize <- meta_qc_align %>%
+transmute(cohort, ancestries, release, N=N_cases+N_controls)
+
 # sumstats appearing in MDD3 (exclude other
 # sumstats like Wray 2018 that have had their 
 # sumstats munged for other reasons)
 meta_qc_ldsc_pairs_mdd3 <- meta_qc_ldsc_pairs  %>%
-filter(subcohort1 != 'wray2018' & subcohort2 != 'wray2018')
+filter(!cohort1 %in% c('MDD29', 'PGC') & !cohort2 %in% c('MDD29', 'PGC')) %>%
+left_join(meta_qc_samplesize %>% rename(cohortN1=N), by=c('cohort1'='cohort', 'subcohort1'='release', 'ancestry1'='ancestries')) %>%
+left_join(meta_qc_samplesize %>% rename(cohortN2=N), by=c('cohort2'='cohort', 'subcohort2'='release', 'ancestry2'='ancestries'))
+
+```
+
+Histogram of intercepts
+
+```{r meta_qc_ldcs_pairs_hist}
 
 ggplot(meta_qc_ldsc_pairs_mdd3, aes(x=gcov_int)) +
 geom_histogram()
+
+```
+
+Pairwise intercepts
+
+```{r}
+
+
+
 ```
 
 Show the largest and smallest intercepts. Exclude Wray2018 sumstats that are also in the mix. Calculate distance from 0 in standard deviation units to get an idea of the magnitude of departure from expectation relative to the other intercepts.
@@ -83,6 +127,45 @@ meta_qc_ldsc_pairs_mdd3 %>%
 select(cohort1, subcohort1, cohort2, subcohort2, gcov_int) %>%
 mutate(SDs=abs(gcov_int)/sd(gcov_int, na.rm=T)) %>%
 arrange(gcov_int)
+```
+
+Estimate amount of sample overlap as $N_S = g_{\mathrm{cov}_\mathrm{int}}\sqrt{N_1N_2} / r_\mathrm{P}$, where $r_\mathrm{P}$ is the phenotypic correlation between the two MDD phenotype (assume $r_\mathrm{P} = 1$)
+
+```{r meta_qc_ldsc_pairs_ns}
+rP <- 1
+meta_qc_ldsc_pairs_mdd3_ns <-
+meta_qc_ldsc_pairs_mdd3 %>%
+mutate(Ns_factor=sqrt(cohortN1*cohortN2)/rP) %>%
+mutate(Ns=gcov_int*Ns_factor,
+       Ns_l95=(gcov_int+qnorm(0.025)*gcov_int_se)*Ns_factor,
+	   Ns_u95=(gcov_int+qnorm(0.975)*gcov_int_se)*Ns_factor,
+	   chisq=gcov_int^2/gcov_int_se^2) %>%
+filter(!is.na(chisq)) %>%
+mutate(qval=fdrtool(pchisq(chisq, df=1, lower.tail=F), statistic='pvalue', plot=FALSE)$qval) %>%
+select(cohort1, subcohort1, cohort2, subcohort2, cohortN1, cohortN2, chisq, qval, Ns, Ns_l95, Ns_u95) %>%
+mutate(Ns_pct=100*Ns/(cohortN1+cohortN2))
+```
+
+Sort (largest-to-smallest) by sample overlap
+```{r meta_qc_ldsc_pairs_ns_arrange}
+meta_qc_ldsc_pairs_mdd3_ns %>%
+arrange(desc(Ns)) %>%
+select(-chisq, -qval, -Ns_pct)
+```
+
+Sort (largest-to-smallest) by percentage of overlap to combined sample size
+```{r meta_qc_ldsc_pairs_nspct_arrange}
+meta_qc_ldsc_pairs_mdd3_ns %>%
+arrange(desc(Ns_pct)) %>%
+select(-cohortN1, -cohortN2, -chisq, -qval)
+```
+
+Sort by $\chi^2$ (Wald) test statistics
+
+```{r meta_qc_ldsc_pairs_wald_arrange}
+meta_qc_ldsc_pairs_mdd3_ns %>%
+arrange(desc(chisq)) %>%
+select(-cohortN1, -cohortN2)
 ```
 
 Test for heterogeniety in covariance intercepts. Calculate $w$, the inverse variance of each $g_\mathrm{covint}$ standard error, then calculate a weighted sum $\hat{g_\mathrm{covint}}$
@@ -174,4 +257,62 @@ coord_flip(ylim=c(gcov_int_min-0.01, gcov_int_max+0.01))
 
 ```
 
+## Clustering
 
+Cluster based on similarity in genetic covariance intercepts.
+
+```{r subcohorts}
+# get a list of all cohort/subcohort names
+
+subcohorts <- 
+bind_rows(
+select(meta_qc_ldsc_pairs_mdd3, cohort=cohort1, subcohort=subcohort1),
+select(meta_qc_ldsc_pairs_mdd3, cohort=cohort2, subcohort=subcohort2)
+) %>%
+distinct()
+
+```
+
+ Make a matrix:
+
+```{r gcov_int_mat}
+
+cohort_names <- 
+subcohorts %>%
+transmute(cohort=paste(cohort, subcohort, sep='.')) %>%
+pull(cohort)
+
+gcov_int_mat <- diag(length(cohort_names))
+dimnames(gcov_int_mat) <- list(cohort_names, cohort_names)
+
+for(i in seq.int(nrow(meta_qc_ldsc_pairs_mdd3))) {
+	cohort1 <- meta_qc_ldsc_pairs_mdd3$cohort1[i]
+	cohort2 <- meta_qc_ldsc_pairs_mdd3$cohort2[i]
+	subcohort1 <- meta_qc_ldsc_pairs_mdd3$subcohort1[i]
+	subcohort2 <- meta_qc_ldsc_pairs_mdd3$subcohort2[i]
+	cohort_name1 <- paste(cohort1, subcohort1, sep='.')
+	cohort_name2 <- paste(cohort2, subcohort2, sep='.')
+
+	# if gcov_int is NA, substitute 0 (average)
+
+	gcov_int <- coalesce(meta_qc_ldsc_pairs_mdd3$gcov_int[i], 0)
+
+	gcov_int_mat[cohort_name1,cohort_name2] <- gcov_int	
+	gcov_int_mat[cohort_name2,cohort_name1] <- gcov_int
+}
+
+```
+
+Convert intercepts into a dissimilarity matrix. For intercepts, `1 ==` same, `0 ==` average, `<0 ==` different. For dissimilarity, `0 ==` same and larger values `==` more dissimilar.
+
+```{r gcov_int_dist, fig.width=6, fig.height=9}
+
+plot(hclust(as.dist(1-gcov_int_mat)))
+
+```
+
+```{r gcov_int_mat_corr, fig.width=9, fig.height=9}
+
+corrplot(gcov_int_mat, is.corr=FALSE, diag=FALSE)
+
+```

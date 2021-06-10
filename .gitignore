@@ -3,10 +3,16 @@ resources/
 results/
 *.gz
 config.yaml
+<<<<<<< HEAD
 config_23andMe.yaml
+=======
+*.yaml
+*.yml
+>>>>>>> main
 
 # Logs
 logs/
+slurm-*.out
 
 # History files
 .Rhistory
@@ -42,6 +48,9 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 
+# Console plot output
+Rplots.*
+
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
 
@@ -58,4 +67,5 @@ Miniconda*.sh
 
 # Snakemake
 .snakemake/
+snakejob.*
 
