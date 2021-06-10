@@ -29,6 +29,6 @@ echo "Nco: ${Nco}" >> $log
 
 echo -e "CHR\tSNP\tBP\tA1\tA2\tFRQ_A_${Nca}\tFRQ_U_${Nco}\tINFO\tOR\tSE\tP" > $daner
 
-zcat $text_gz | dos2unix | tail -n +2 | awk -v OFS='\t' '{print $3, $1, $4, $2, $9, $10, $11, $12, $6, $7, $8}' >> $daner
+zcat $text_gz | dos2unix | tail -n +2 | awk -v OFS='\t' 'NF == 12 {print $3, $1, $4, $2, $9, $10, $11, $12, $6, $7, $8}' >> $daner
 
 gzip -f --verbose $daner 2>> $log

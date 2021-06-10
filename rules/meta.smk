@@ -7,24 +7,62 @@
 #               #
 #################
 
+
+##
+## Cohort lists. List of cohort + subcohort/release pairs
+## 
+cohorts_eur = [["MDD49", "29w2_20w3_1504"], 
+["23andMe", "v7_2_202012"],      
+["deCODE", "DEPALL_FINAL_WHEAD"],
+["GenScot", "1215a"],            
+["GERA", "0915a_mds5"],    
+["UKBB", "MD_glm_202012"], 
+["iPSYCH", "2012_HRC"],        
+["iPSYCH", "2015i_HRC"],       
+["FinnGen", "R5_18032020"],      
+["ALSPAC", "12082019"],        
+["Airwave", "0820"],             
+["PBK", "2020"],         
+["ESTBB", "EstBB"],          
+["MoBa", "harvest12"],     
+["MoBa", "harvest24"],     
+["MoBa", "rotterdam1"],
+["HUNT", "gp_hospital_metacarpa_20190625"],
+["STAGE", "MDDdx_saige"],    
+["PREFECT", "run1"],             
+["AGDS", "202012"],        
+["lgic2", "202011"],         
+["BASIC", "202011"],        
+["BioVU", "NoCov_SAIGE_051821"],
+["EXCEED", "202010"],          
+["MVP", "4_0ICDdep_202106"],
+["tkda1", "run1"],           
+["DBDS", "FINAL202103"],
+["SHARE", "godartsshare_842021"]]
+
+cohorts_eas=[["23andMe","v7_2"],
+["Taiwan", "20200327"]]
+
 # Copy summary statistics listed in config.yaml under sumstats
 # with key FORMAT_COHORT.POP.hgNN.RELEASE
 rule stage_sumstats:
 	input: lambda wildcards: config["sumstats"][wildcards.cohort]
 	output: "resources/sumstats/{cohort}.gz"
 	log: "logs/sumstats/stage/{cohort}.log"
-	shell: "cp -v {input} {output} > {log}"
+	shell: "ln -sv {input} {output} > {log}"
 
 # Harmonize names of all summary statistics listed under sumstats in config.yaml
 rule sumstats:
 	input: expand("resources/sumstats/{sumstats}.gz", sumstats=config["sumstats"])
 	
+ruleorder: text2daner > daner
+
 # For pre-formatted daner files
 rule daner:
 	input: "resources/sumstats/daner_{cohort}.gz"
 	output: "results/sumstats/daner/daner_{cohort}.gz"
 	log: "logs/sumstats/daner/daner_{cohort}.log"
-	shell: "cp -v {input} {output} > {log}"
+	shell: "ln -sv $(readlink -f {input}) {output} > {log}"
 	
 # Convert text sumstats to daner
 rule text2daner:
@@ -34,20 +72,12 @@ rule text2daner:
 	conda: "../envs/meta.yaml" 
 	shell: "sh {input.sh} {input.sumstats} {output} {log}"
 	
-# Convert vcf sumstats to daner
-rule vcf2daner:
-	input: sumstats="resources/sumstats/vcf_mdd_{cohort}.{ancestries}.{build}.{release}.gz", vcfgwas="resources/vcf/vendor/r-gwasvcf"
-	output: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz"
-	log: "logs/sumstats/daner/daner_mdd_{cohort}.{ancestries}.{build}.{release}.log"
-	conda: "../envs/vcf.yaml"
-	script: "../scripts/meta/vcf2daner.R"
-	
 # for daner files on genome build hg19
 rule hg19:
 	input: "results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg19.{release}.gz"
 	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{release}.gz"
 	log: "logs/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{release}.log"
-	shell: "cp -v {input} {output} > {log}"
+	shell: "ln -sv $(readlink -f {input}) {output} > {log}"
 
 # download hgIN to hgOUT chain
 rule hg_chain:
@@ -56,10 +86,17 @@ rule hg_chain:
 	run:
 		 outputName = os.path.basename(input[0])
 		 shell("gunzip -c {input} > {output}")
+		 
+# download GRCh37/GRCh38 conversion-unstable positions (CUPs) https://github.com/cathaloruaidh/genomeBuildConversionls
+rule hg_cups:
+	input: HTTP.remote("raw.githubusercontent.com/cathaloruaidh/genomeBuildConversion/master/CUP_FILES/FASTA_BED.ALL_GRCh{build}.novel_CUPs.bed")
+	log: "logs/resources/liftOver/GRCh{build}.novel_CUPs.log"
+	output: "resources/liftOver/FASTA_BED.ALL_GRCh{build}.novel_CUPs.bed"
+	shell: "cp -v {input} {output} > {log}"
 	
 # liftover hg38 to hg19	
 rule hg38to19:
-	input: daner="results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg38.{release}.gz", chain="resources/liftOver/hg38ToHg19.over.chain"
+	input: daner="results/sumstats/daner/daner_mdd_{cohort}.{ancestries}.hg38.{release}.gz", chain="resources/liftOver/hg38ToHg19.over.chain", cups="resources/liftOver/FASTA_BED.ALL_GRCh38.novel_CUPs.bed"
 	output: "results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{release}.gz"
 	log: "logs/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.hg19.{release}.log"
 	conda: "../envs/meta.yaml" 
@@ -67,9 +104,33 @@ rule hg38to19:
 	
 ruleorder: hg19 > hg38to19
 
+# Meta-analysis QC parameters
+meta_qc_params = {"maf": 0.01, "info": 0.1, "mac": 20}
+
+	
+# create reference info file linking to imputation panel
+rule refdir:
+	output: "results/meta/reference_info"
+	log: "logs/meta/reference_info.log"
+	shell: "cd results/meta; impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
+
+# merged imputation panel SNPs
+rule impute_frq2:
+	input: ref="results/meta/reference_info", cups="resources/liftOver/FASTA_BED.ALL_GRCh37.novel_CUPs.bed"
+	output: "results/sumstats/impute_frq2.{ancestries}.rds"
+	params:
+		maf=meta_qc_params['maf']
+	log: "logs/sumstats/impute_frq2.{ancestries}.log"
+	conda: "../envs/meta.yaml"
+	script: "../scripts/meta/impute_frq2.R"
+
 # align to imputation panel
 rule align:
-	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz", ref="results/meta/reference_info"
+	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz", ref="results/sumstats/impute_frq2.{ancestries}.rds", script="scripts/meta/align.R"
+	params:
+		maf=meta_qc_params['maf'],
+		info=meta_qc_params['info'],
+		mac=meta_qc_params['mac']
 	output: "results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz"
 	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
 	conda: "../envs/meta.yaml" 
@@ -92,11 +153,12 @@ rule meta_ldsc_munge:
 	output: "results/sumstats/munged/{cohort}.sumstats.gz"
 	shell: "resources/ldsc/ldsc/munge_sumstats.py --sumstats {input.sumstats} --daner --out {params.prefix} --merge-alleles {input.hm3} --chunksize 500000"
 	
-# create reference info file linking to imputation panel
-rule refdir:
-	output: "results/meta/reference_info"
-	log: "logs/meta/reference_info.log"
-	shell: "cd results/meta; impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
+# extract lists of CPIDs and SNPs from aligned sumstats
+rule meta_cpids:
+	input: sumstats="results/sumstats/aligned/{cohort}.gz"
+	output: "results/sumstats/cpids/{cohort}.cpids.gz"
+	log: "logs/sumstats/cpids/{cohort}.log"
+	shell: "zcat {input.sumstats} | awk -v OFS='\t' '{{print $1, $2, $3}}' | gzip -c > {output}"
 
 # link sumstats files into meta-analysis directory, but also run
 # LDSC rg with MDD2
@@ -104,45 +166,18 @@ rule meta:
 	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/sumstats/rg_mdd/{cohort}.log"
 	output: "results/meta/{cohort}.gz"
 	log: "logs/meta/{cohort}.log"
-	shell: "cp -v {input.sumstats} {output} > {log}"
+	shell: "ln -sv $(readlink -f {input.sumstats}) {output} > {log}"
 
 # Ricopili results dataset list for eur ancestries
 rule dataset_eur:
-	input: "results/meta/daner_mdd_MDD29.eur.hg19.0120a_rmUKBB.aligned.gz",
-	 "results/meta/daner_mdd_23andMe.eur.hg19.v7_2.aligned.gz",
-	 "results/meta/daner_mdd_deCODE.eur.hg19.DEPALL_FINAL_WHEAD.aligned.gz",
-	 "results/meta/daner_mdd_GenScot.eur.hg19.1215a.aligned.gz",
-	 "results/meta/daner_mdd_GERA.eur.hg19.0915a_mds5.aligned.gz",
-	 "results/meta/daner_mdd_UKBB.eur.hg19.MD_glm_202012.aligned.gz",
-	 "results/meta/daner_mdd_iPSYCH.eur.hg19.2012_HRC.aligned.gz",
-	 "results/meta/daner_mdd_iPSYCH.eur.hg19.2015i_HRC.aligned.gz",
-	 "results/meta/daner_mdd_FinnGen.eur.hg19.R5_18032020.aligned.gz",
-	 "results/meta/daner_mdd_ALSPAC.eur.hg19.12082019.aligned.gz",
-	 "results/meta/daner_mdd_Airwave.eur.hg19.0820.aligned.gz",
-	 "results/meta/daner_mdd_PBK.eur.hg19.2020.aligned.gz",
-	 "results/meta/daner_mdd_ESTBB.eur.hg19.EstBB.aligned.gz",
-	 "results/meta/daner_mdd_MoBa.eur.hg19.harvest12.aligned.gz",
-	 "results/meta/daner_mdd_MoBa.eur.hg19.harvest24.aligned.gz",
-	 "results/meta/daner_mdd_MoBa.eur.hg19.rotterdam1.aligned.gz",
-	 "results/meta/daner_mdd_HUNT.eur.hg19.gp_all_20190625.aligned.gz",
-	 "results/meta/daner_mdd_HUNT.eur.hg19.hospital_all_20190625.aligned.gz",
-	 "results/meta/daner_mdd_STAGE.eur.hg19.MDDdx_fastGWAS.aligned.gz",
-	 "results/meta/daner_mdd_PREFECT.eur.hg19.run1.aligned.gz",
-	 "results/meta/daner_mdd_AGDS.eur.hg19.202012.aligned.gz",
-	 "results/meta/daner_mdd_lgic2.eur.hg19.202011.aligned.gz",
-	 "results/meta/daner_mdd_BASIC.eur.hg19.202011.aligned.gz",
-	 "results/meta/daner_mdd_BioVU.eur.hg19.Cov_SAIGE_202101.aligned.gz",
-	 "results/meta/daner_mdd_EXCEED.eur.hg19.202010.aligned.gz",
-	 "results/meta/daner_mdd_MVP.eur.hg19.ICDdep_AllSex_202101.aligned.gz"
+	input: expand("results/meta/daner_mdd_{cohort}.eur.hg19.{release}.aligned.gz", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur])
 	output: "results/meta/dataset_full_eur_v{analysis}"
 	log: "logs/meta/dataset_full_eur_v{analysis}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
 	
 # Ricopili results dataset list for eas ancestries
 rule dataset_eas:
-	input: 
-	 "results/meta/daner_mdd_23andMe.eas.hg19.v7_2.aligned.gz",
-	 "results/meta/daner_mdd_Taiwan.eas.hg19.20200327.aligned.gz"
+	input: expand("results/meta/daner_mdd_{cohort}.eas.hg19.{release}.aligned.gz", zip, cohort=[cohort[0] for cohort in cohorts_eas], release=[cohort[1] for cohort in cohorts_eas])
 	output: "results/meta/dataset_full_eas_v{analysis}"
 	log: "logs/meta/dataset_full_eas_v{analysis}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
@@ -165,8 +200,8 @@ rule postimp:
 	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
 
 # current European ancestries analysis
-# analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count]
-analysis_version = ["3.29.21"]
+# analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count].[Revision]
+analysis_version = ["3.49.24.03"]
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
 	
@@ -178,3 +213,15 @@ cohorts_analyst = ["full", "noUKBB", "no23andMe", "noALSPAC"]
 
 # cohort sets for public
 cohorts_public = ["no23andMe"]
+
+# check Ricopili output for complete rows and duplicates
+rule postimp_rp:
+	input: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.gz"
+	log: "logs/meta/distribution/{analysis}.rp.log"
+	conda: "../envs/meta.yaml"
+	output: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.rp.gz"
+	script: "../scripts/meta/rp.R"
+	
+# inputs for postimp_rp
+rule postimp_rp_all:
+	input: expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.rp.gz", cohorts=cohorts_analyst, ancestries=['eur'], version=analysis_version)

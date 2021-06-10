@@ -136,34 +136,45 @@ exists then it can be converted separately to `hg19` by running
 snakemake -j1 --use-conda results/sumstats/hg19/daner_mdd_COHORT.POP.hg19.RELEASE.gz
 ```
 
-## Add cohort to the meta-analysis rule
+## Add cohort to the meta-analysis list
 
-The meta-analysis rule for each ancestries group is in the [`rules/meta.smk`](../rules/meta.smk) Snakemake file. The rule for which cohorts to include is called `dataset_POP` where `POP` is the name ancestries superopulation group name (lowercase). The name of the final aligned sumstats file for a cohort is called `results/meta/daner_mdd_COHORT.POP.hg19.RELEASE.aligned.gz`. Add this file as an input to the `postimp_POP` rule. For example, if the current meta-analysis datasets for `eur` were listed as 
-
-```
-# Ricopili results dataset list for eur ancestries
-rule dataset_eur:
-	input: "results/meta/daner_mdd_MDD29.eur.hg19.0120a_rmUKBB.aligned.gz",
-	 "results/meta/daner_mdd_23andMe.eur.hg19.v7_2.aligned.gz",
-	 "results/meta/daner_mdd_deCODE.eur.hg19.160211.aligned.gz"
-	output: "results/meta/dataset_full_eur_v{analysis}"
-	log: "logs/meta/dataset_full_eur_v{analysis}.log"
-	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
-```
-
-and the summary statistics we want to add are for the `GenScot` cohort release version `1215a`, then the updated rule would be:
+The meta-analysis rule for each ancestries group is in the [`rules/meta.smk`](../rules/meta.smk) Snakemake file.The cohort/release names are in a list at the top of the Snakemake file called `cohorts_POP`, where `POP` is the name ancestries superpopulation group name (lowercase). Add a two element entry to this list of the form `["COHORT"], ["RELEASE"]`. For example, if the current entries are
 
 ```
-# Ricopili results dataset list for eur ancestries
-rule dataset_eur:
-	input: "results/meta/daner_mdd_MDD29.eur.hg19.0120a_rmUKBB.aligned.gz",
-	 "results/meta/daner_mdd_23andMe.eur.hg19.v7_2.aligned.gz",
-	 "results/meta/daner_mdd_deCODE.eur.hg19.160211.aligned.gz",
-	 "results/meta/daner_mdd_GenScot.eur.hg19.1215a.aligned.gz"
-	output: "results/meta/dataset_full_eur_v{version}"
-	log: "logs/meta/dataset_full_eur_v{version}.log"
-	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
+cohorts_eur = [["MDD49", "29w2_20w3_1504"], 
+["23andMe", "v7_2_202012"],      
+["deCODE", "DEPALL_FINAL_WHEAD"]]
 ```
+
+and the summary statistics we want to add are for the `GenScot` cohort release version `1215a`, then the updated list would be:
+
+```
+cohorts_eur = [["MDD49", "29w2_20w3_1504"], 
+["23andMe", "v7_2_202012"],      
+["deCODE", "DEPALL_FINAL_WHEAD"],
+["GenScot", "1215a"]]
+```
+
+# Set-up meta
+
+Run the `dataset_POP` commands to do all the preprocessing of the summary statistics.
+
+```
+snakemake -j1 --use-conda dataset_eur
+```
+
+Run the QC steps to calculate pairwise LDSC regressions between all the input cohorts
+```
+snakemake -j16 --use-conda meta_ldsc_sumstats_pairs
+```
+
+Then run the rule to generate all of the preprocessing QC information
+
+```
+snakemake -j1 --use-conda meta_qc
+```
+
+Finally, examine the QC output report: `docs/metaqc.html`.
 
 # Run the meta-analysis
 
@@ -174,3 +185,9 @@ snakemake -j1 --use-conda results/meta/full_POP_v3.N.M.done
 ```
 
 where `POP` is the ancestries group and `v3.N.M` is a version number specifying the number of cohorts included, where `N` is the number of PGC cohorts (analysed from genotype data) and `M` is the number of additional cohorts analysed from summary statitics. For example, the above meta analysis with 29 PGC MDD cohorts and three additional cohorts (23andMe, deCode, and GenScot) would be `v3.29.03`.
+
+Once the full and LOO Ricopili meta-analyses jobs finish, create the final versions of the sumstats for downstream analysis:
+
+```
+snakemake -j4 --use-conda postimp_rp_all
+```
