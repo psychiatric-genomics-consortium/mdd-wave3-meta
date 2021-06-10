@@ -16,17 +16,17 @@ rule get_baseline:
     shell: "tar -xzvf {input}; mv baselineLF2.2.UKB resources/finemapping/"
 
 rule format_sumstat:
-    input: "results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
-    output: "results/finemapping/for_munge_{cohorts}_{ancestries}_hg19_v{version}.gz"
-    log: "logs/finemapping/for_munge_{cohorts}_{ancestries}_hg19_v{version}.log"
+    input: "results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.rp.gz"
+    output: "results/finemapping/for_munge_{cohorts}_{ancestries}_hg19_v{version}.rp.gz"
+    log: "logs/finemapping/for_munge_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
     conda: "../envs/finemapping.yaml"
     shell: "scripts/finemapping/format.bash {input} {output}"
 
 rule munge_sumstat:
-    input: sumstats="results/finemapping/for_munge_{cohorts}_{ancestries}_hg19_v{version}.gz",
+    input: sumstats="results/finemapping/for_munge_{cohorts}_{ancestries}_hg19_v{version}.rp.gz",
         polyfun="resources/finemapping/polyfun"
-    output: "results/finemapping/munged_{cohorts}_{ancestries}_hg19_v{version}.parquet"
-    log: "logs/finemapping/munged_{cohorts}_{ancestries}_hg19_v{version}.log"
+    output: "results/finemapping/munged_{cohorts}_{ancestries}_hg19_v{version}.rp.parquet"
+    log: "logs/finemapping/munged_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
     conda: "../envs/finemapping.yaml"
     shell:
         "python3 {input.polyfun}/munge_polyfun_sumstats.py \
@@ -36,11 +36,11 @@ rule munge_sumstat:
         --min-maf 0.001"
 
 rule l2reg_sldsc:
-    input: sumstats="results/finemapping/munged_{cohorts}_{ancestries}_hg19_v{version}.parquet",
+    input: sumstats="results/finemapping/munged_{cohorts}_{ancestries}_hg19_v{version}.rp.parquet",
         polyfun="resources/finemapping/polyfun",
 	baseline="logs/finemapping/get_baseline.log"
-    params: out="results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}_chr"
-    log: "logs/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.log"
+    params: out="results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.rp_chr"
+    log: "logs/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
     conda: "../envs/finemapping.yaml" 
     shell:
         "export PYTHONNOUSERSITE=True && python3 {input.polyfun}/polyfun.py \
@@ -53,34 +53,34 @@ rule l2reg_sldsc:
         --allow-missing"
 
 rule define_n:
-    input: "results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
-    output: "results/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.out"
-    log: "logs/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.log"
+    input: "results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.rp.gz"
+    output: "results/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.rp.out"
+    log: "logs/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
     conda: "../envs/finemapping.yaml" 
     shell: "scripts/finemapping/define_n.bash {input} {output}"
 
 rule create_finemapping_jobs:
-    input: snpvar="logs/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.log",
-        n="results/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.out",
+    input: snpvar="logs/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.rp.log",
+        n="results/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.rp.out",
 	susie="logs/finemapping/install_susie.log"
-    params: snpvar="results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}_chr",
-        outprefix="results/finemapping/results_{cohorts}_{ancestries}_hg19_v{version}"
-    output: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}_jobs_chr{chr}.sh", chr=range(1,22,1)) 
-    log: "logs/finemapping/create_{cohorts}_{ancestries}_hg19_v{version}.log"
+    params: snpvar="results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.rp_chr",
+        outprefix="results/finemapping/results_{cohorts}_{ancestries}_hg19_v{version}.rp"
+    output: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.rp_jobs_chr{chr}.sh", chr=range(1,22,1)) 
+    log: "logs/finemapping/create_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
     conda: "../envs/finemapping.yaml"
     shell: "export PYTHONNOUSERSITE=True && scripts/finemapping/create.sh {params.snpvar} {input.n} {params.outprefix}"
 
 rule run_finemapping_jobs_main:
-    input: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}_jobs_chr{chr}.sh", chr=range(1,22,1))
-    output: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.chr{chr}*.gz", chr=range(1, 22, 1))
-    log: expand("logs/finemapping/run_{{cohorts}}_{{ancestries}}_hg19_v{{version}}_jobs_chr{chr}.log", chr=range(1, 22, 1))
+    input: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.rp_jobs_chr{chr}.sh", chr=range(1,22,1))
+    output: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.rp.chr{chr}*.gz", chr=range(1, 22, 1))
+    log: expand("logs/finemapping/run_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.rp_jobs_chr{chr}.log", chr=range(1, 22, 1))
     conda: "../envs/finemapping.yaml"
     shell: "sh {input}"
 
 rule merge_finemapping_jobs:
-    input: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.chr{chr}*.gz", chr=range(1, 22, 1))
-    output: "results/finemapping/merged_results_{cohorts}_{ancestries}_hg19_v{version}_WG_susie_1.gz"
-    log: "logs/finemapping/merged_results_{cohorts}_{ancestries}_hg19_v{version}.log"
+    input: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.rp.chr{chr}*.gz", chr=range(1, 22, 1))
+    output: "results/finemapping/merged_results_{cohorts}_{ancestries}_hg19_v{version}.rp_WG_susie_1.gz"
+    log: "logs/finemapping/merged_results_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
     conda: "../envs/finemapping.yaml" 
     shell: "cat ${input} >> ${output} && gunzip -c ${output} | sort -k11,11gr | head | column -t"
 
