@@ -66,7 +66,7 @@ rule meta_ldsc_sumstats_pairs_table:
 
 # table of alignment checks
 align_logs, = glob_wildcards("logs/sumstats/aligned/{cohort}.log")
-rule meta_align_qc:
+rule meta_align_qc_tab:
 	input: expand("logs/sumstats/aligned/{cohort}.log", cohort=align_logs)
 	output: "docs/tables/meta_qc_align.txt"
 	conda: "../envs/meta.yaml"
