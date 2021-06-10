@@ -21,10 +21,16 @@ library(corrplot)
 ```{r meta_sample_size}
 
 meta_qc_align <- read_tsv(snakemake@input$meta_qc_align)
+cohorts_mdd <- read_tsv(snakemake@input$cohorts_mdd)
+
+cohorts_samples <- cohorts_mdd %>%
+filter(Dataset != 'SUM') %>%
+mutate(cohort=str_match(Dataset, "mdd_(.+)_eur")[,2])
 
 meta_samples <- 
 meta_qc_align %>%
 filter(!cohort %in% c('MDD29', 'PGC')) %>%
+bind_rows(cohorts_samples) %>%
 group_by(cohort) %>%
 summarize(Cases=sum(N_cases), Controls=sum(N_controls)) %>%
 pivot_longer(Cases:Controls, names_to="MDD", values_to="N") %>%
@@ -39,7 +45,7 @@ pull(cohort)
 ggplot(meta_samples, aes(x=0, y=0, color=MDD, size=N)) +
 geom_point() +
 facet_wrap(~factor(cohort, levels=cohort_order)) +
-scale_size_area(max_size=30) +
+scale_size_area(max_size=33) +
 theme_minimal() +
 theme(axis.line=element_blank(),
   axis.text.x=element_blank(),
@@ -382,7 +388,10 @@ rg_mat_1 <- rg_mat
 rg_mat_1[which(rg_mat_1 > 1)] <- 1
 rg_mat_1[which(rg_mat_1 < -1)] <- -1
 
-corrplot(rg_mat_1, na.label='.')
+has_rg_idx <- rowSums(!is.na(rg_mat_1)) > 1
+
+corrplot(rg_mat_1[has_rg_idx,has_rg_idx], na.label='.')
+
 
 ```
 
