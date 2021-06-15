@@ -34,7 +34,7 @@ rule gwas_summary:
 			print(md, file=out)
 
 rule report_metaqc:
-	input: meta_qc_align="docs/tables/meta_qc_align.txt", meta_qc_ldsc="docs/tables/meta_qc_ldsc.txt", meta_qc_ldsc_pairs="docs/tables/meta_qc_ldsc_pairs.txt", rmd="scripts/reports/metaqc.Rmd"
+	input: meta_qc_align="docs/tables/meta_qc_align.txt", meta_qc_ldsc="docs/tables/meta_qc_ldsc.txt", meta_qc_ldsc_pairs="docs/tables/meta_qc_ldsc_pairs.txt", cohorts_mdd="docs/tables/cohorts_mdd.eur.txt", rmd="scripts/reports/metaqc.Rmd"
 	params:
 		maf=meta_qc_params['maf'],
 		info=meta_qc_params['info']

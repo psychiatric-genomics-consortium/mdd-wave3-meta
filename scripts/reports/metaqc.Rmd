@@ -16,12 +16,51 @@ library(fdrtool)
 library(corrplot)
 ```
 
+# Sample sizes
+
+```{r meta_sample_size}
+
+meta_qc_align <- read_tsv(snakemake@input$meta_qc_align)
+cohorts_mdd <- read_tsv(snakemake@input$cohorts_mdd)
+
+cohorts_samples <- cohorts_mdd %>%
+filter(Dataset != 'SUM') %>%
+mutate(cohort=str_match(Dataset, "mdd_(.+)_eur")[,2])
+
+meta_samples <- 
+meta_qc_align %>%
+filter(!cohort %in% c('MDD29', 'PGC')) %>%
+bind_rows(cohorts_samples) %>%
+group_by(cohort) %>%
+summarize(Cases=sum(N_cases), Controls=sum(N_controls)) %>%
+pivot_longer(Cases:Controls, names_to="MDD", values_to="N") %>%
+arrange(desc(N))
+
+cohort_order <-
+meta_samples %>%
+filter(MDD == 'Cases') %>%
+arrange(desc(N)) %>%
+pull(cohort)
+
+ggplot(meta_samples, aes(x=0, y=0, color=MDD, size=N)) +
+geom_point() +
+facet_wrap(~factor(cohort, levels=cohort_order)) +
+scale_size_area(max_size=33) +
+theme_minimal() +
+theme(axis.line=element_blank(),
+  axis.text.x=element_blank(),
+  axis.text.y=element_blank(),
+  axis.ticks=element_blank(),
+  axis.title.x=element_blank(),
+  axis.title.y=element_blank())
+
+```
+
 # Reference panel alignment
 
 Marker names were aligned to the meta-analysis reference panel and effect sizes were checked. SNPs with MAF < `r snakemake@params$maf` in the imputation reference panel and INFO < `r snakemake@params$info` in the cohort were removed.
 
 ```{r meta_qc_align}
-meta_qc_align <- read_tsv(snakemake@input$meta_qc_align)
 meta_qc_align %>% print(n=Inf)
 ```
 
@@ -316,3 +355,43 @@ plot(hclust(as.dist(1-gcov_int_mat)))
 corrplot(gcov_int_mat, is.corr=FALSE, diag=FALSE)
 
 ```
+
+## Genetic correlations
+
+
+```{r rg_mat}
+
+rg_mat <- diag(length(cohort_names))
+dimnames(rg_mat) <- list(cohort_names, cohort_names)
+
+for(i in seq.int(nrow(meta_qc_ldsc_pairs_mdd3))) {
+	cohort1 <- meta_qc_ldsc_pairs_mdd3$cohort1[i]
+	cohort2 <- meta_qc_ldsc_pairs_mdd3$cohort2[i]
+	subcohort1 <- meta_qc_ldsc_pairs_mdd3$subcohort1[i]
+	subcohort2 <- meta_qc_ldsc_pairs_mdd3$subcohort2[i]
+	cohort_name1 <- paste(cohort1, subcohort1, sep='.')
+	cohort_name2 <- paste(cohort2, subcohort2, sep='.')
+
+	# if rg is NA, substitute 0 (average)
+
+	rg <- meta_qc_ldsc_pairs_mdd3$rg[i]
+
+	rg_mat[cohort_name1,cohort_name2] <- rg	
+	rg_mat[cohort_name2,cohort_name1] <- rg
+}
+
+```
+
+```{r rg_mat_corr, fig.width=9, fig.height=9}
+
+rg_mat_1 <- rg_mat
+rg_mat_1[which(rg_mat_1 > 1)] <- 1
+rg_mat_1[which(rg_mat_1 < -1)] <- -1
+
+has_rg_idx <- rowSums(!is.na(rg_mat_1)) > 1
+
+corrplot(rg_mat_1[has_rg_idx,has_rg_idx], na.label='.')
+
+
+```
+
