@@ -16,25 +16,26 @@ rule vcf_install_gwas2vcf:
 # fasta reference files
 rule vcf_fasta_grch37:
     input: HTTP.remote("http://fileserve.mrcieu.ac.uk/ref/2.8/b37/human_g1k_v37.fasta")
-	output: "resources/fasta/human_g1k_v37.fasta"
+	output: "resources/fasta/human_grch37.fasta"
 	shell: "cp {input} {output}"
 
 rule vcf_fasta_grch37_fai:
     input: HTTP.remote("http://fileserve.mrcieu.ac.uk/ref/2.8/b37/human_g1k_v37.fasta.fai")
-	output: "resources/fasta/human_g1k_v37.fasta.fai"
+	output: "resources/fasta/human_grch37.fasta.fai"
 	shell: "cp {input} {output}"
 
 rule vcf_fasta_grch38:
     input: HTTP.remote("https://storage.googleapis.com/genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.fasta")
-	output: "resources/fasta/Homo_sapiens_assembly38.fasta"
+	output: "resources/fasta/human_grch38.fasta"
 	shell: "cp {input} {output}"
 
 rule vcf_fasta_grch38_fai:
     input: HTTP.remote("https://storage.googleapis.com/genomics-public-data/resources/broad/hg38/v0/Homo_sapiens_assembly38.fasta.fai")
-	output: "resources/fasta/Homo_sapiens_assembly38.fasta.fai"
+	output: "resources/fasta/human_grch38.fasta.fai"
 	shell: "cp {input} {output}"
 
 
+# Conversion of final sumstats
 vcf_sumstats_gz, = glob_wildcards("results/distribution/daner_{sumstats}.gz")
 
 # Convert OR to Log-Odds
@@ -44,10 +45,11 @@ rule vcf_logOR:
     shell: "gunzip -c {input} | tail -n +2 | awk '{{print $1, $3, $4, $5, log($9), $10, $11, $2, $7, $8, $17, $18}}' | gzip -c > {output}"
 
 # Parameter file for VCF conversion (json)
+builds = {"19": "GRCh37", "38": "GRCh38"}
 rule vcf_daner2vcf_json:
-    input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
-    output: vcf="results/vcf/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.json"
-    log: "logs/vcf/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.json.log"
+    input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.gz"
+    output: vcf="results/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json"
+    log: "logs/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json.log"
     run:
         with gzip.open(input.daner, 'r') as daner:
             headers = daner.readline().split()
@@ -68,18 +70,18 @@ rule vcf_daner2vcf_json:
                         "ncontrol_col": 11,
                         "delimiter": " ",
                         "header": False,
-                        "build": "GRCh37",
+                        "build": "{build}".format(build=builds[wildcards.hg]),
                         "cohort_cases": cohort_cases,
                         "cohort_controls": cohort_controls,
-                        "id": "pgc_mdd_{cohorts}_{pops}_v{version}".format(version=wildcards.version, cohorts=wildcards.cohorts, pops=wildcards.ancestries.upper())},
+                        "id": "pgc_mdd_{cohorts}_{pops}_v{analysis}".format(analysis=wildcards.analysis, cohorts=wildcards.cohorts, pops=wildcards.ancestries.upper())},
                      out)
 
 
 
 rule vcf_daner2vcf:
-    input: beta="results/vcf/beta/{sumstats}.gz", json="results/vcf/{sumstats}.json", fasta="resources/fasta/human_g1k_v37.fasta", fai="resources/fasta/human_g1k_v37.fasta.fai", gwas2vcf=rules.vcf_install_gwas2vcf.output
-    output: "results/vcf/{sumstats}.vcf.gz"
-    log: "logs/vcf/{sumstats}.log"
+    input: beta="results/vcf/beta/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.gz", json="results/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json", fasta=lambda wildcards: expand("resources/fasta/human_{build}.fasta", build=builds[wildcards.hg].lower()), fai=lambda wildcards: expand("resources/fasta/human_{build}.fasta.fai", build=builds[wildcards.hg].lower()), gwas2vcf=rules.vcf_install_gwas2vcf.output
+    output: "results/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.vcf.gz"
+    log: "logs/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.log"
     conda: "../envs/vcf.yaml"
     shell: "python resources/vendor/gwas2vcf/main.py --out {output} --data {input.beta} --json {input.json} --ref {input.fasta} > {log}"
 
