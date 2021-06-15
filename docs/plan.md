@@ -2,7 +2,7 @@
 
 Plans for analyses to include in primary and who is involved:
 
-**Analysts:** Mark Adams, Swapnil Awasthi, Fabian Strait, Oliver Pain, Xueyi Shen, Olga Giannakopoulou, Alex Kwong, Shuyang Yao, Jackson Thorp, Bochao Lin, Gita Pathak, Abigail ter Kuile, Alish Palmos, Qinqin Huang, Kartik Chundru, Karmel Choi, Zac Gerring, Jonathan Coleman, David Howard, Na Cai, Hilary Martin, Eske Derks, Karoline Kuchenbäcker, Naomi Wray 
+**Analysts:** Mark Adams, Swapnil Awasthi, Fabian Strait, Oliver Pain, Xueyi Shen, Olga Giannakopoulou, Xiangrui Meng, Alex Kwong, Shuyang Yao, Jackson Thorp, Bochao Lin, Gita Pathak, Abigail ter Kuile, Alish Palmos, Qinqin Huang, Lu Yi, Kartik Chundru, Karmel Choi, Zac Gerring, Eva Schulte, Jonathan Coleman, David Howard, Na Cai, Hilary Martin, Eske Derks, Karoline Kuchenbäcker, Naomi Wray 
 
 ## Meta-analysis
 
@@ -23,9 +23,9 @@ Plans for analyses to include in primary and who is involved:
 - Gene-based analysis _(Howard)_
 - Expression based mapping / eQTL _(Derks, Gerring)_
 - Hi-C (chromosome conformation) ([H-MAGMA](https://github.com/thewonlab/H-MAGMA)) _(Pathak)_
-- cell type analysis _(Yao)_
+- cell type analysis _(Yao, Lu)_
 - TWAS / gene-set enrichment _(Pain)_
-- Gene annotation: _(Coleman, Howard, ter Kuile, Pathak)_
+- Gene annotation: _(Coleman, Howard, ter Kuile, Pathak, Schulte)_
  
 ## Prediction
  
@@ -38,4 +38,4 @@ Plans for analyses to include in primary and who is involved:
   - latent-causal analysis ([gLVC](https://github.com/lukejoconnor/LCV)) _(Pathak)_
   - MR-PRESSO _(Lin)_
   - [SMR](https://cnsgenomics.com/software/smr/#Overview) (summary-data-based Mendelian Randomization) _(Pathak, Wray)_
-- Cross-ancestries prediction _(Giannakopoulou, Huang, Chundru)_
+- Cross-ancestries prediction _(Meng, Huang, Chundru)_
