@@ -9,7 +9,7 @@ cohorts_eur_16 = {
 ['UKBB', 'MD_glm_202012'],
 ['MDD49', '29w2_20w3_1504'],
 ['AGDS', '202012'],
-['BioVU', 'Cov_SAIGE_202101'],
+['BioVU', 'NoCov_SAIGE_051821'],
 ['GERA', '0915a_mds5'],
 ['PBK', '2020'],
 ['Airwave', '0820'],
