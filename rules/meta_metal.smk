@@ -53,7 +53,7 @@ OVERLAP ON
 {process}
 
 OUTFILE {outfile} .tbl
-ANALYZE
+ANALYZE HETEROGENEITY
 QUIT
 		""".format(process=params.process, outfile=params.outfile)
 		with open(output[0], 'w') as out:
@@ -67,3 +67,9 @@ rule metal_eur:
 rule metal_eur_analyze:
 	input: expand("results/meta/metal/mdd_eur_v{version}_1.tbl", version=analysis_version)
 	
+rule metal_daner:
+	input: "results/meta/metal/mdd_eur_v{version}_1.tbl"
+	output: "results/meta/metal/daner_mdd_eur_v{version}.metal.gz"
+	shell: """
+	cat {input} | awk -v OFS='\\t' '{{if(NR == 1) {{print "CHR", "SNP", "BP", "A1", "A2", "FRQ_A", "FRQ_U", "INFO", "BETA", "SE", "P"}} else {{print $1, $3, $2, toupper($4), toupper($5), $6, $6, 1, $9, 1, $11}}}}' | gzip -c > {output}
+	"""
