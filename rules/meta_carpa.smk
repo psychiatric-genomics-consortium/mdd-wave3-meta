@@ -5,11 +5,11 @@
 # split into groups of 16 or fewer (==bitmask size in metacarpa)
 cohorts_eur_16 = {
 'group1': [['23andMe', 'v7_2_202012'],
-['MVP', 'ICDdep_AllSex_202101'],
+['MVP', '4_0ICDdep_202106'],
 ['UKBB', 'MD_glm_202012'],
 ['MDD49', '29w2_20w3_1504'],
 ['AGDS', '202012'],
-['BioVU', 'Cov_SAIGE_202101'],
+['BioVU', 'NoCov_SAIGE_051821'],
 ['GERA', '0915a_mds5'],
 ['PBK', '2020'],
 ['Airwave', '0820'],
@@ -23,8 +23,7 @@ cohorts_eur_16 = {
 ['iPSYCH', '2012_HRC'],
 ['DBDS', 'FINAL202103'],
 ['iPSYCH', '2015i_HRC'],
-['HUNT', 'gp_all_20190625'],
-['HUNT', 'hospital_all_20190625'],
+['HUNT', 'gp_hospital_metacarpa_20190625'],
 ['PREFECT', 'run1'],
 ['BASIC', '202011'],
 ['lgic2', '202011'],
