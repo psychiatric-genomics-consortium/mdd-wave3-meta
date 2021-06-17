@@ -42,12 +42,34 @@ sumstats_dups_idx <- as_tibble(findOverlaps(sumstats_gr, sumstats_gr)) %>% filte
 sumstats_impute_align_idx <- as_tibble(findOverlaps(sumstats_gr, impute_gr))
 sumstats_impute_align_idx_nodups <- sumstats_impute_align_idx %>% filter(!queryHits %in% sumstats_dups_idx$queryHits)
 
+# reference panel alleles
+impute_alleles <- unique(c(impute_frq2$A1, impute_frq2$A2))
+
+flip <- function(nucleotide) {
+	case_when(nucleotide == 'A' ~ 'T',
+	          nucleotide == 'T' ~ 'A',
+			  nucleotide == 'C' ~ 'G',
+			  nucleotide == 'G' ~ 'C',
+			  TRUE ~ nucleotide)
+}
+
+flip_strand <- function(allele) {
+	str_replace_all(allele, pattern='[ATCG]', replacement=flip)
+}
+
 # merge using alignment indices
 daner_aligned <-
 daner %>% dplyr::slice(sumstats_impute_align_idx_nodups$queryHits) %>%
 bind_cols(impute_frq2 %>% dplyr::slice(sumstats_impute_align_idx_nodups$subjectHits) %>% rename_with(~ paste0(., '.imp'))) %>%
 # remove rows with missing statistics
 filter(!is.na(OR) & !is.na(SE) & !is.na(P)) %>%
+# remove alleles not found in the reference
+filter(A1 %in% impute_alleles & A2 %in% impute_alleles) %>%
+# remove non-matchable alleles
+filter((A1 == A1.imp & A2 == A2.imp) |
+       (A1 == A2.imp & A2 == A1.imp) |
+       (A1 == flip(A1.imp) & A2 == flip(A2.imp)) |
+	   (A1 == flip(A2.imp) & A2 == flip(A1.imp))) %>%
 # remove rows with small minor allele counts and frequencies
 mutate(frq_a=.data[[frq_a_col]],
 	   frq_u=.data[[frq_u_col]]) %>%
@@ -57,8 +79,6 @@ filter(maf_a*n_cases >= qc_mac & maf_u*n_controls >= qc_mac) %>%
 filter(maf_a >= qc_maf | maf_u >= qc_maf) %>%
 # filter on INFO
 filter(INFO >= qc_info) %>%
-# keep rows where alleles match
-filter((A1 == A1.imp & A2 == A2.imp ) | (A1 == A2.imp & A2 == A1.imp)) %>%
 # select imputation reference SNP name
 mutate(SNP=SNP.imp) %>%
 # remove duplicate SNPs
