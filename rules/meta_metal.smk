@@ -27,12 +27,12 @@ rule metal_sumstats_tbl:
 	input: "results/sumstats/aligned/daner_{sumstats}.aligned.gz"
 	output: "results/sumstats/tbl/{sumstats}.tbl"
 	shell: """
-	zcat {input} | awk -v OFS='\t' -v Neff=$(zcat {input} | head -n 1 | awk '{{print $6, $7}}' | sed "s/_/ /g" | awk '{{print (4*$3*$6)/($3 + $6)}}') '{{if(NR == 1) {{print $0, "Neff"}} else {{if(NF == 19) {{print $0, 2*$19}} else {{print $0, Neff}}}}}}' > {output}
+	zcat {input} | awk -v OFS='\t' -v Neff=$(zcat {input} | head -n 1 | awk '{{print $6, $7}}' | sed "s/_/ /g" | awk '{{print (4*$3*$6)/($3 + $6)}}') '{{if(NR == 1) {{print $0, "FRQ_A", "Neff"}} else {{if(NF == 19) {{print $0, $6, 2*$19}} else {{print $0, $6, Neff}}}}}}' > {output}
 	"""
 	
 rule metal_script_eur:
 	input: tbls=expand("results/sumstats/tbl/mdd_{cohort}.eur.hg19.{release}.tbl", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur]), metal="resources/metal/METAL/build/bin/metal"
-	params: process=lambda wildcards, input: '\n'.join(['PROCESS ' + tbl for tbl in input.tbls]), outfile="results/meta/metal/mdd_eur_v{version}"
+	params: process=lambda wildcards, input: '\n'.join(['PROCESS ' + tbl for tbl in input.tbls]), outfile="results/meta/metal/mdd_eur_v{version}_"
 	output: "results/meta/metal/mdd_eur_v{version}.metal"
 	run:
 		metal = """
@@ -43,9 +43,11 @@ EFFECT log(OR)
 WEIGHT Neff
 CHROMOSOME CHR
 POSITION BP
+FREQ FRQ_A
 
 SCHEME SAMPLESIZE
 TRACKPOSITIONS ON
+AVERAGEFREQ ON
 OVERLAP ON
 
 {process}
@@ -64,6 +66,4 @@ rule metal_eur:
 	
 rule metal_eur_analyze:
 	input: expand("results/meta/metal/mdd_eur_v{version}_1.tbl", version=analysis_version)
-	
-rule metal_daner:
 	
