@@ -56,13 +56,13 @@ bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/mas
 brew install anaconda
 ```
 
-Install Python 3.8, Snakemake, and the basic project dependencies
+Install Python 3.8, Snakemake 5.32, and the basic project dependencies
 
 ```
 conda activate base
 conda install python=3.8
 conda install -c conda-forge mamba
-mamba install -c bioconda -c conda-forge snakemake-minimal
+mamba install -c bioconda -c conda-forge snakemake-minimal==5.32.2
 mamba install dropbox
 ```
 
