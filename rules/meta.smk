@@ -102,8 +102,7 @@ rule hg38to19:
 ruleorder: hg19 > hg38to19
 
 # Meta-analysis QC parameters
-meta_qc_params = {"maf": 0.01, "info": 0.1, "mac": 20}
-
+meta_qc_params = {"maf": 0.001, "info": 0.1, "mac": 20, "secure_frq": 0.20, "diff_frq": 0.15}
 	
 # create reference info file linking to imputation panel
 rule refdir:
@@ -127,7 +126,9 @@ rule align:
 	params:
 		maf=meta_qc_params['maf'],
 		info=meta_qc_params['info'],
-		mac=meta_qc_params['mac']
+		mac=meta_qc_params['mac'],
+		secure_frq=meta_qc_params['secure_frq'],
+		diff_frq=meta_qc_params['diff_frq']
 	output: "results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz"
 	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
 	conda: "../envs/meta.yaml" 
