@@ -129,7 +129,7 @@ rule align:
 		mac=meta_qc_params['mac'],
 		secure_frq=meta_qc_params['secure_frq'],
 		diff_frq=meta_qc_params['diff_frq']
-	output: "results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz"
+	output: daner="results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz", snp_counts="results/sumstats/aligned/mdd_{cohort}.{ancestries}.{build}.{release}.aligned.txt"
 	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
 	conda: "../envs/meta.yaml" 
 	script: "../scripts/meta/align.R"
