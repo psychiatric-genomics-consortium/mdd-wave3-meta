@@ -67,7 +67,7 @@ rule meta_ldsc_sumstats_pairs_table:
 # table of alignment checks
 align_logs, = glob_wildcards("logs/sumstats/aligned/{cohort}.log")
 rule meta_align_qc:
-	input: expand("logs/sumstats/aligned/daner_mdd_{cohort}.{ancestry}.hg19.{release}.aligned.log", zip, cohort=[cohort[0] for cohort in cohorts_eur + cohorts_eas], ancestry=['eur'] * len(cohorts_eur) + ['eas'] * len(cohorts_eas), release=[cohort[1] for cohort in cohorts_eur + cohorts_eas])
+	input: expand("results/sumstats/aligned/mdd_{cohort}.{ancestry}.hg19.{release}.aligned.txt", zip, cohort=[cohort[0] for cohort in cohorts_eur + cohorts_eas], ancestry=['eur'] * len(cohorts_eur) + ['eas'] * len(cohorts_eas), release=[cohort[1] for cohort in cohorts_eur + cohorts_eas])
 	output: "docs/tables/meta_qc_align.txt"
 	conda: "../envs/meta.yaml"
 	script: "../scripts/meta/align_qc_table.R"
