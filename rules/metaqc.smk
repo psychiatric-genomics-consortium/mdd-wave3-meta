@@ -2,7 +2,7 @@
 
 # calculate genetic correlation with MDD2 and MDD29
 rule meta_ldsc_mdd2:
-	input: sumstats="results/sumstats/munged/{cohort}.sumstats.gz", mdd2="results/sumstats/munged/daner_mdd_PGC.eur.hg19.wray2018.aligned.sumstats.gz", mdd29="results/sumstats/munged/daner_mdd_MDD29.eur.hg19.0120a_rmUKBB.aligned.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
+	input: sumstats="results/sumstats/munged/{cohort}.sumstats.gz", mdd2="results/sumstats/munged/daner_mdd_PGC.eur.hg19.wray2018.qc.sumstats.gz", mdd29="results/sumstats/munged/daner_mdd_MDD29.eur.hg19.0120a_rmUKBB.qc.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
 	params:
 		prefix="results/sumstats/rg_mdd/{cohort}"
 	conda: "../envs/ldsc.yaml"
@@ -36,7 +36,7 @@ rule meta_ldsc_mdd2_table:
 	
 # LDSC rg between two sets of sumstats
 rule meta_ldsc_pairwise_rg:
-	input: sumstats1="results/sumstats/munged/daner_mdd_{cohort1}.aligned.sumstats.gz", sumstats2="results/sumstats/munged/daner_mdd_{cohort2}.aligned.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
+	input: sumstats1="results/sumstats/munged/daner_mdd_{cohort1}.qc.sumstats.gz", sumstats2="results/sumstats/munged/daner_mdd_{cohort2}.qc.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
 	params:
 		prefix="results/sumstats/rg_pairs/{cohort1},{cohort2}"
 	output: "results/sumstats/rg_pairs/{cohort1},{cohort2}.log"
@@ -45,7 +45,7 @@ rule meta_ldsc_pairwise_rg:
 
 # create pairwise lists of all munged sumstats
 # first use glob to get a list of all munged sumstats
-meta_ldsc_munged_sumstats, = glob_wildcards("results/sumstats/munged/daner_mdd_{cohort}.aligned.sumstats.gz")
+meta_ldsc_munged_sumstats, = glob_wildcards("results/sumstats/munged/daner_mdd_{cohort}.qc.sumstats.gz")
 # we could use expand() here as the input like:
 # 	input: expand("results/ldsc/pairs/{cohort1},{cohort2}.log", cohort1=ldsc_munged_sumstats, cohort2=ldsc_munged_sumstats)
 # but this is inefficient because it creates combinations of pairs in all orderings,
@@ -67,7 +67,7 @@ rule meta_ldsc_sumstats_pairs_table:
 # table of alignment checks
 align_logs, = glob_wildcards("logs/sumstats/aligned/{cohort}.log")
 rule meta_align_qc:
-	input: expand("results/sumstats/aligned/mdd_{cohort}.{ancestry}.hg19.{release}.aligned.txt", zip, cohort=[cohort[0] for cohort in cohorts_eur + cohorts_eas], ancestry=['eur'] * len(cohorts_eur) + ['eas'] * len(cohorts_eas), release=[cohort[1] for cohort in cohorts_eur + cohorts_eas])
+	input: aligned=expand("results/sumstats/aligned/mdd_{cohort}.{ancestry}.hg19.{release}.aligned.txt", zip, cohort=[cohort[0] for cohort in cohorts_eur + cohorts_eas], ancestry=['eur'] * len(cohorts_eur) + ['eas'] * len(cohorts_eas), release=[cohort[1] for cohort in cohorts_eur + cohorts_eas]), filtered=expand("results/sumstats/filtered/mdd_{cohort}.{ancestry}.hg19.{release}.qc.txt", zip, cohort=[cohort[0] for cohort in cohorts_eur + cohorts_eas], ancestry=['eur'] * len(cohorts_eur) + ['eas'] * len(cohorts_eas), release=[cohort[1] for cohort in cohorts_eur + cohorts_eas])
 	output: "docs/tables/meta_qc_align.txt"
 	conda: "../envs/meta.yaml"
 	script: "../scripts/meta/align_qc_table.R"

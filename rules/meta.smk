@@ -124,15 +124,25 @@ rule impute_frq2:
 rule align:
 	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz", ref="results/sumstats/impute_frq2.{ancestries}.rds", script="scripts/meta/align.R"
 	params:
+		secure_frq=meta_qc_params['secure_frq'],
+	output: daner="results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz", snp_counts="results/sumstats/aligned/mdd_{cohort}.{ancestries}.{build}.{release}.aligned.txt"
+	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
+	conda: "../envs/meta.yaml" 
+	script: "../scripts/meta/align.R"
+	
+# apply QC filters
+rule filter:
+	input: daner="results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz", script="scripts/meta/filter.R"
+	params:
 		maf=meta_qc_params['maf'],
 		info=meta_qc_params['info'],
 		mac=meta_qc_params['mac'],
 		secure_frq=meta_qc_params['secure_frq'],
 		diff_frq=meta_qc_params['diff_frq']
-	output: daner="results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz", snp_counts="results/sumstats/aligned/mdd_{cohort}.{ancestries}.{build}.{release}.aligned.txt"
-	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
+	output: daner="results/sumstats/filtered/daner_mdd_{cohort}.{ancestries}.{build}.{release}.qc.gz", snp_counts="results/sumstats/filtered/mdd_{cohort}.{ancestries}.{build}.{release}.qc.txt"
+	log: "logs/sumstats/filtered/daner_mdd_{cohort}.{ancestries}.{build}.{release}.qc.log"
 	conda: "../envs/meta.yaml" 
-	script: "../scripts/meta/align.R"
+	script: "../scripts/meta/filter.R"
 	
 # Convert OR to Log-Odds
 rule meta_vcf_logOR:
@@ -193,7 +203,7 @@ rule meta_vcf_merge_eas:
 
 # munge sumstats for ldsc regression
 rule meta_ldsc_munge:
-	input: sumstats="results/sumstats/aligned/{cohort}.gz", hm3="resources/ldsc/w_hm3.snplist", ldsc=rules.ldsc_install.output
+	input: sumstats="results/sumstats/filtered/{cohort}.gz", hm3="resources/ldsc/w_hm3.snplist", ldsc=rules.ldsc_install.output
 	params:
 		prefix="results/sumstats/munged/{cohort}"
 	conda: "../envs/ldsc.yaml"
