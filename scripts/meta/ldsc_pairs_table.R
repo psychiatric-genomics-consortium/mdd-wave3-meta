@@ -29,8 +29,8 @@ bind_rows(lapply(ldsc_logs, parse_ldsc_log))
 # parse cohorts and subcohorts from sumstats filenames
 
 # regular expression to parse. Format:
-# daner_mdd_{COHORT}.{ANCESTRY}.hg19.{SUBCOHORT}.aligned.sumstats.gz
-cohort_regx <- "daner_mdd_(\\w+)\\.([a-z]+)\\.hg19\\.(\\w+)\\.aligned\\.sumstats\\.gz"
+# daner_mdd_{COHORT}.{ANCESTRY}.hg19.{SUBCOHORT}.aligned.qc.gz
+cohort_regx <- "daner_mdd_(\\w+)\\.([a-z]+)\\.hg19\\.(\\w+)\\.qc\\.sumstats\\.gz"
 
 p1_cohorts <- as_tibble(str_match(basename(ldsc_results$p1), cohort_regx)) %>%
 rename(sumstats1=V1, cohort1=V2, subcohort1=V4, ancestry1=V3)

@@ -3,21 +3,21 @@
 # link sumstats files into meta-analysis directory, but also run
 # LDSC rg with MDD2
 rule meta:
-	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/sumstats/rg_mdd/{cohort}.log"
+	input: sumstats="results/sumstats/filtered/{cohort}.gz", rg="results/sumstats/rg_mdd/{cohort}.log"
 	output: "results/meta/{cohort}.gz"
 	log: "logs/meta/{cohort}.log"
 	shell: "ln -sv $(readlink -f {input.sumstats}) {output} > {log}"
 
 # Ricopili results dataset list for eur ancestries
 rule dataset_eur:
-	input: expand("results/meta/daner_mdd_{cohort}.eur.hg19.{release}.aligned.gz", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur])
+	input: expand("results/meta/daner_mdd_{cohort}.eur.hg19.{release}.qc.gz", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur])
 	output: "results/meta/dataset_full_eur_v{analysis}"
 	log: "logs/meta/dataset_full_eur_v{analysis}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
 	
 # Ricopili results dataset list for eas ancestries
 rule dataset_eas:
-	input: expand("results/meta/daner_mdd_{cohort}.eas.hg19.{release}.aligned.gz", zip, cohort=[cohort[0] for cohort in cohorts_eas], release=[cohort[1] for cohort in cohorts_eas])
+	input: expand("results/meta/daner_mdd_{cohort}.eas.hg19.{release}.qc.gz", zip, cohort=[cohort[0] for cohort in cohorts_eas], release=[cohort[1] for cohort in cohorts_eas])
 	output: "results/meta/dataset_full_eas_v{analysis}"
 	log: "logs/meta/dataset_full_eas_v{analysis}.log"
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"

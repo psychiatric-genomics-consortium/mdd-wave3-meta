@@ -73,8 +73,8 @@ ggplot(meta_qc_align %>%
 			  sep="."),
 	    aes(x=reorder(cohort, (4*N_cases*N_controls)/(N_cases + N_controls)),
 		    y=median_or,
-			ymax=exp(log(median_or)+mean_SE),
-		    ymin=exp(log(median_or)-mean_SE))) +
+			ymax=exp(log(median_or)+median_SE),
+		    ymin=exp(log(median_or)-median_SE))) +
 geom_linerange() +
 geom_point() +
 coord_flip(ylim=c(0.8, 1.25))
@@ -89,8 +89,8 @@ ggplot(meta_qc_align %>%
 			  cohort, ancestries, release, 
 			  sep=".") %>%
 	   mutate(Neff=(4*N_cases*N_controls)/(N_cases + N_controls)),
-		aes(x=Neff, y=mean_SE, label=cohort)) +
-geom_text(check_overlap=TRUE, size=2) +
+		aes(x=Neff, y=median_SE, label=cohort)) +
+geom_text(size=2) +
 scale_x_log10(breaks=c(1, 100, 1000, 5000, 10000, 50000, 100000, 500000))
 
 ```
