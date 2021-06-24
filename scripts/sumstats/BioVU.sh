@@ -37,6 +37,6 @@ echo "Nco: ${Nco}" >> $log
 
 echo -e "CHR\tSNP\tBP\tA1\tA2\tFRQ_A_${Nca}\tFRQ_U_${Nco}\tINFO\tOR\tSE\tP" > $daner
 
-zcat $text_gz | awk -v OFS='\t' '{if(NR > 1){print $2, $1, $3, $4, $5, $18, $19, $20, exp($10), $11, $13}}' >> $daner
+zcat $text_gz | awk -v OFS='\t' '{if(NR > 1){print $2, $1, $3, $5, $4, $18, $19, $20, exp($10), $11, $13}}' >> $daner
 
 gzip -f --verbose $daner 2>> $log
