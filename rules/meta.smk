@@ -146,13 +146,13 @@ rule filter:
 	
 # Convert OR to Log-Odds
 rule meta_vcf_logOR:
-	input: "results/sumstats/aligned/daner_{sumstats}.aligned.gz"
+	input: "results/sumstats/filtered/daner_{sumstats}.qc.gz"
 	output: "results/sumstats/beta/{sumstats}.gz"
 	shell: "gunzip -c {input} | tail -n +2 | awk '{{print $1, $3, $4, $5, log($9), $10, $11, $2, $7, $8}}' | gzip -c > {output}"	
 	
 # Parsing info for VCF conversion	
 rule meta_vcf_daner2vcf_json:
-	input: daner="results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.hg{hg}.{release}.aligned.gz"
+	input: daner="results/sumstats/filtered/daner_mdd_{cohort}.{ancestries}.hg{hg}.{release}.qc.gz"
 	output: vcf="results/sumstats/vcf/mdd_{cohort}.{ancestries}.hg{hg}.{release}.json"
 	log: "logs/sumstats/vcf/mdd_{cohort}.{ancestries}.hg{hg}.{release}.json.log"
 	run:
