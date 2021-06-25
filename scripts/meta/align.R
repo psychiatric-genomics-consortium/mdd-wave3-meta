@@ -78,11 +78,10 @@ mutate(frq_a=.data[[frq_a_col]],
 mutate(A1.flip=flip(A1), A2.flip=flip(A2))
 
 N_snps_merged <- nrow(daner_merged)
-logging(glue("{N_snps_merged} SNPs after merge with reference. {N_snps-N_snps_merged} removed."))
+logging(glue("{N_snps_merged} SNPs merged with reference positions. {N_snps-N_snps_merged} removed."))
 
 rm(daner, impute_frq2)
 	   
-
 
 logging("Checking SNP effects")
 daner_nomiss <- 
@@ -95,23 +94,6 @@ logging(glue("{N_snps_merged-N_snps_nomiss} SNPs removed for missing OR, SE, or 
 
 rm(daner_merged)
 
-logging("Checking for unambiguous strand flips")
-daner_unambiguous_flips <- daner_nomiss %>%
-filter(A1 != A2.flip) %>%
-filter((A1.flip == A1.ref & A2.flip == A2.ref) |
-       (A1.flip == A2.ref & A2.flip == A1.ref))
-
-N_snps_unambiguous_flips <- nrow(daner_unambiguous_flips)
-logging(glue("{N_snps_unambiguous_flips} SNPs with unambiguous strand flips detected"))
-
-if(N_snps_unambiguous_flips > 0) {
-	logging("Align while resolving strand orientation")
-	resolve_strand <- TRUE
-} else {
-	logging("Align assuming matching strand orientation")
-	resolve_strand <- FALSE
-}
-
 # recode to reference panel
 logging("Aligning to reference panel")
 daner_matching <- daner_nomiss %>%
@@ -122,9 +104,35 @@ filter((A1 == A1.ref & A2 == A2.ref) |
 	   (A1.flip == A2.ref & A2.flip == A1.ref))
 	   
 N_snps_matching <- nrow(daner_matching)
-logging(glue("{N_snps_merged} SNPs match reference alleles. {N_snps_nomiss-N_snps_matching} removed."))
+logging(glue("{N_snps_matching} SNPs match reference alleles. {N_snps_nomiss-N_snps_matching} removed."))
 
 rm(daner_nomiss)
+
+logging("Checking for unambiguous flips")
+daner_unambiguous_flips <- daner_matching %>%
+filter(A1 != A2.flip) %>%
+filter((A1.flip == A1.ref & A2.flip == A2.ref) |
+	   (A1.flip == A2.ref & A2.flip == A1.ref))
+
+N_snps_unambiguous_flips <- nrow(daner_unambiguous_flips)
+logging(glue("{N_snps_unambiguous_flips} SNPs with unambiguous strand flips detected"))
+
+daner_ambiguous_flips <- daner_matching %>%
+filter(A1 == A2.flip) %>%
+filter(abs(frq_u - FA1.ref) > abs((1-frq_u) - FA1.ref)) %>%
+filter(abs(frq_u - 0.5) > qc_secure/2 & abs(FA1.ref - 0.5) > qc_secure/2) %>%
+select(A1, A2, frq_u, A1.ref, A2.ref, FA1.ref)
+
+N_snps_ambiguous_flips <- nrow(daner_ambiguous_flips)
+logging(glue("{N_snps_ambiguous_flips} SNPs with ambiguous strand flips detected"))
+
+if(N_snps_unambiguous_flips > 0 | N_snps_ambiguous_flips > 0) {
+	logging("Align while resolving strand orientation")
+	resolve_strand <- TRUE
+} else {
+	logging("Align assuming matching strand orientation")
+	resolve_strand <- FALSE
+}
 
 if(resolve_strand) {
 	daner_aligned <- daner_matching %>%
