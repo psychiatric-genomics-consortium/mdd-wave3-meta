@@ -24,10 +24,10 @@ rule metal_build:
 
 # format sumstats for input into METAL
 rule metal_sumstats_tbl:
-	input: "results/sumstats/aligned/daner_{sumstats}.aligned.gz"
+	input: "results/sumstats/filtered/daner_{sumstats}.qc.gz"
 	output: "results/sumstats/tbl/{sumstats}.tbl"
 	shell: """
-	zcat {input} | awk -v OFS='\t' -v Neff=$(zcat {input} | head -n 1 | awk '{{print $6, $7}}' | sed "s/_/ /g" | awk '{{print (4*$3*$6)/($3 + $6)}}') '{{if(NR == 1) {{print $0, "FRQ_A", "Neff"}} else {{if(NF == 19) {{print $0, $6, 2*$19}} else {{print $0, $6, Neff}}}}}}' > {output}
+	zcat {input} | awk -v OFS='\t' -v Neff=$(zcat {input} | head -n 1 | awk '{{print $6, $7}}' | sed "s/_/ /g" | awk '{{print (4*$3*$6)/($3 + $6)}}') '{{if(NR == 1) {{print $1, $2, $3, $4, $5, $9, $11, "FRQ_A", "Neff"}} else {{if(NF == 19) {{print $1, $2, $3, $4, $5, $9, $11, $6, 2*$19}} else {{print $1, $2, $3, $4, $5, $9, $11, $6, Neff}}}}}}' > {output}
 	"""
 	
 rule metal_script_eur:
@@ -48,7 +48,9 @@ FREQ FRQ_A
 SCHEME SAMPLESIZE
 TRACKPOSITIONS ON
 AVERAGEFREQ ON
+MINMAXFREQ ON
 OVERLAP ON
+SEPARATOR TAB
 
 {process}
 

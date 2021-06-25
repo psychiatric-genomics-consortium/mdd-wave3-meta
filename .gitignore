@@ -5,6 +5,8 @@ results/
 config.yaml
 *.yaml
 *.yml
+*.tbl
+*.tbl.info
 
 # Logs
 logs/
