@@ -120,8 +120,7 @@ logging(glue("{N_snps_unambiguous_flips} SNPs with unambiguous strand flips dete
 daner_ambiguous_flips <- daner_matching %>%
 filter(A1 == A2.flip) %>%
 filter(abs(frq_u - FA1.ref) > abs((1-frq_u) - FA1.ref)) %>%
-filter(abs(frq_u - 0.5) > qc_secure/2 & abs(FA1.ref - 0.5) > qc_secure/2) %>%
-select(A1, A2, frq_u, A1.ref, A2.ref, FA1.ref)
+filter(abs(frq_u - 0.5) > qc_secure/2 & abs(FA1.ref - 0.5) > qc_secure/2)
 
 N_snps_ambiguous_flips <- nrow(daner_ambiguous_flips)
 logging(glue("{N_snps_ambiguous_flips} SNPs with ambiguous strand flips detected"))

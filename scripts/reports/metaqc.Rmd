@@ -104,7 +104,10 @@ LDSC genetic correlations were calculated with the PGC `MDD29` clinical cohorts
 meta_qc_ldsc <-
 read_table2(snakemake@input$meta_qc_ldsc) %>%
 mutate(se.mdd2=as.numeric(str_remove_all(se.mdd2, "[\\(\\)]")),
- se.mdd29=as.numeric(str_remove_all(se.mdd29, "[\\(\\)]")))
+ 	   se.mdd29=as.numeric(str_remove_all(se.mdd29, "[\\(\\)]")),
+	   gencov_se.mdd2=as.numeric(str_remove_all(gencov_se.mdd2, "[\\(\\)]")),
+	   gencov_se.mdd29=as.numeric(str_remove_all(gencov_se.mdd29, "[\\(\\)]"))
+	)
 ```
 ```{r metq_qc_ldsc_rg}
 ggplot(meta_qc_ldsc, aes(x=reorder(paste(cohort, release), rg.mdd29), y=rg.mdd29, ymin=rg.mdd29-se.mdd29, ymax=rg.mdd29+se.mdd29)) +
@@ -112,6 +115,35 @@ geom_linerange() +
 geom_point() +
 coord_flip(ylim=c(0, 1.25))
 ```
+
+Genetic covariance:
+
+```{r metq_qc_ldsc_gcov}
+ggplot(meta_qc_ldsc, aes(x=reorder(paste(cohort, release), gencov.mdd29), y=gencov.mdd29, ymin=gencov.mdd29-gencov_se.mdd29, ymax=gencov.mdd29+gencov_se.mdd29)) +
+geom_linerange() +
+geom_point() +
+coord_flip()
+```
+
+# Genetic correlation with previous meta analysis
+
+```{r metq_qc_ldsc_rg_mdd2}
+ggplot(meta_qc_ldsc, aes(x=reorder(paste(cohort, release), rg.mdd2), y=rg.mdd2, ymin=rg.mdd2-se.mdd2, ymax=rg.mdd2+se.mdd2)) +
+geom_linerange() +
+geom_point() +
+coord_flip(ylim=c(0, 1.25))
+```
+
+Genetic covariance:
+
+```{r metq_qc_ldsc_gcov_mdd2}
+ggplot(meta_qc_ldsc, aes(x=reorder(paste(cohort, release), gencov.mdd2), y=gencov.mdd2, ymin=gencov.mdd2-gencov_se.mdd2, ymax=gencov.mdd2+gencov_se.mdd2)) +
+geom_linerange() +
+geom_point() +
+coord_flip()
+```
+
+
 
 # Genetic covariance intercepts
 

@@ -13,26 +13,34 @@ rg_mdd_logs, = glob_wildcards("results/sumstats/rg_mdd/{cohort}.log")
 rule meta_ldsc_mdd2_table:
 	input: expand("results/sumstats/rg_mdd/{cohort}.log", cohort=rg_mdd_logs)
 	output: "docs/tables/meta_qc_ldsc.txt"
-	shell: """tmp=$(mktemp)
-	echo -e cohort release rg.mdd2 se.mdd2 gencov.mdd2 rg.mdd29 se.mdd29 gencov.mdd29 > ${{tmp}}.header
-	for log in {input}; do 
-	sumstats=$(basename $log .log);
-	cohort=$(echo $sumstats | awk -F. '{{print $1}}' | awk -F_ '{{print $3}}');
-	release=$(echo $sumstats | awk -F. '{{print $4}}');
-	gencovs=$(cat $log | grep 'Total Observed scale gencov:' | awk '{{print $5}}');
-	rgs=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $3}}');
-	ses=$(cat $log | grep 'Genetic Correlation:' | awk '{{print $4}}');
-	gencov_mdd2=$(echo $gencovs | awk '{{print $1}}');
-	gencov_mdd29=$(echo $gencovs | awk '{{print $2}}');
-	rg_mdd2=$(echo $rgs | awk '{{print $1}}');
-	rg_mdd29=$(echo $rgs | awk '{{print $2}}');
-	se_mdd2=$(echo $ses | awk '{{print $1}}');
-	se_mdd29=$(echo $ses | awk '{{print $2}}');
-	echo -e $cohort [$release] $rg_mdd2 $se_mdd2 $gencov_mdd2 $rg_mdd29 $se_mdd29 $gencov_mdd29 >> ${{tmp}}.body;
-	done;
-	cat ${{tmp}}.header > $tmp
-	cat ${{tmp}}.body | sort -k 1,2 >> $tmp
-	column -t -s' ' $tmp > {output}"""
+	shell: """
+tmp=$(mktemp)
+echo -e "cohort release rg.mdd2 se.mdd2 gencov.mdd2 gencov_se.mdd2 z1z2.mdd2 rg.mdd29 se.mdd29 gencov.mdd29 gencov_se.mdd29 z1z2.mdd29" > ${{tmp}}.header
+for log in {input}; do
+sumstats=$(basename $log .log);
+cohort=$(echo $sumstats | awk -F. '{{print $1}}' | awk -F_ '{{print $3}}');
+release=$(echo $sumstats | awk -F. '{{print $4}}');
+gencov_mdd2_entry=$(cat $log | awk '/rg for phenotype 2/,/rg for phenotype 3/' | grep 'Total Observed scale gencov:' || true);
+z1z2_mdd2_entry=$(cat $log | awk '/rg for phenotype 2/,/rg for phenotype 3/' | grep 'Mean z1' || true);
+rg_mdd2_entry=$(cat $log | awk '/rg for phenotype 2/,/rg for phenotype 3/' | grep 'Genetic Correlation:' || true);
+gencov_mdd29_entry=$(cat $log | awk '/rg for phenotype 3/,/Summary of Genetic/' | grep 'Total Observed scale gencov:' || true);
+z1z2_mdd29_entry=$(cat $log | awk '/rg for phenotype 3/,/Summary of Genetic/' | grep 'Mean z1' || true);
+rg_mdd29_entry=$(cat $log | awk '/rg for phenotype 3/,/Summary of Genetic/' | grep 'Genetic Correlation:' || true);
+gencov_mdd2=$(echo $gencov_mdd2_entry | awk '{{print $5}}');
+gencov_se_mdd2=$(echo $gencov_mdd2_entry | awk '{{print $6}}');
+z1z2_mdd2=$(echo $z1z2_mdd2_entry | awk '{{print $3}}');
+rg_mdd2=$(echo $rg_mdd2_entry | awk '{{print $3}}');
+se_mdd2=$(echo $rg_mdd2_entry | awk '{{print $4}}');
+gencov_mdd29=$(echo $gencov_mdd29_entry | awk '{{print $5}}');
+gencov_se_mdd29=$(echo $gencov_mdd29_entry | awk '{{print $6}}');
+z1z2_mdd29=$(echo $z1z2_mdd29_entry | awk '{{print $3}}');
+rg_mdd29=$(echo $rg_mdd29_entry | awk '{{print $3}}');
+se_mdd29=$(echo $rg_mdd29_entry | awk '{{print $4}}');
+echo -e "$cohort\t[$release]\t$rg_mdd2\t$se_mdd2\t$gencov_mdd2\t$gencov_se_mdd2\t$z1z2_mdd2\t$rg_mdd29\t$se_mdd29\t$gencov_mdd29\t$gencov_se_mdd29\t$z1z2_mdd29"  >> ${{tmp}}.body;
+done;
+cat ${{tmp}}.header > $tmp;
+cat ${{tmp}}.body | sort -k 1,2 >> $tmp;
+column -t -s' ' $tmp > {output}"""
 	
 # LDSC rg between two sets of sumstats
 rule meta_ldsc_pairwise_rg:
