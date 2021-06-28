@@ -1,0 +1,50 @@
+---
+title: "PGC MDD3 sumstats QC PCA checks for meta-analysis"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
+```{r libraries}
+library(dplyr)
+library(readr)
+library(tidyr)
+library(stringr)
+library(psych)
+library(ggplot2)
+```
+
+Read in sumstats
+
+```{r assoc}
+assoc_files <- snakemake@input$assoc
+
+assocs <- lapply(assoc_files, read_table2,
+	col_names=c('CHR', 'SNP', 'BP', 'FRQ', 'OR', 'SE'),
+	col_types=cols(CHR = col_double(),
+					 SNP = col_character(),
+					 BP = col_double(),
+					 FRQ = col_double(),
+					 OR = col_double(),
+					 SE = col_double()
+					))
+```
+
+Merge into matrix
+
+```{r betas}
+betas <- bind_cols(lapply(assocs, function(a) a %>% mutate(beta=log(OR)) %>% pull(beta)))
+```
+
+Eigenvalues
+```{r eigen}
+eigen_values <- eigen(cor(betas))$values
+eigen_values
+```
+
+Perform PCA
+```{r pca}
+beta_pca <- principal(betas, length(which(eigen_values > 1)), rotate='varimax')
+print(beta_pca)
+```
