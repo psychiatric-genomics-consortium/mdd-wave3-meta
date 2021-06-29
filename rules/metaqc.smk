@@ -130,6 +130,19 @@ rule meta_qc_prune_extract:
 	output: "results/sumstats/metaqc/pruned/{group}_mdd_{cohort}.{ancestries}.hg19.{release}.qc.pruned.assoc"
 	shell: "zcat {input.assoc} | awk '{{print $1, $2, $3, $7, $9, $10}}' | grep -wFf {input.snplist} > {output}"
 	
+
+	
+# extract top SNPs from sumstats
+rule meta_qc_snps_clumped:
+	input: expand("results/distribution/daner_pgc_mdd_{{group}}_{{ancestries}}_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc", version=analysis_version)
+	output: "results/sumstats/metaqc/{group}.{ancestries}.clumped.snplist"
+	shell: "cat {input} | awk 'NR > 1 {{print $1}}' > {output}"
+
+rule meta_qc_clumped_extract:
+	input: assoc= "results/sumstats/filtered/daner_mdd_{cohort}.{ancestries}.hg19.{release}.qc.gz", snplist="results/sumstats/metaqc/{group}.{ancestries}.clumped.snplist"
+	output: "results/sumstats/metaqc/clumped/{group}_mdd_{cohort}.{ancestries}.hg19.{release}.qc.clumped.assoc"
+	shell: "zcat {input.assoc} | awk '{{print $1, $2, $3, $7, $9, $10}}' | grep -wFf {input.snplist} > {output}"
+	
 # QC checks
 rule meta_qc:
 	input: expand("results/meta/dataset_full_eur_v{version}", version=analysis_version),
