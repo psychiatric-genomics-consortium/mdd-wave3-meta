@@ -43,7 +43,7 @@ rule report_metaqc:
 	script: "../scripts/reports/metaqc.Rmd"
 	
 rule report_metaqc_beta_pca:
-	input:  assoc=expand("results/sumstats/metaqc/pruned/full_mdd_{cohort}.eur.hg19.{release}.qc.pruned.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur]), rmd="scripts/reports/metaqc_pca.Rmd"
+	input:  pruned=expand("results/sumstats/metaqc/pruned/full_mdd_{cohort}.eur.hg19.{release}.qc.pruned.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur]), clumped=expand("results/sumstats/metaqc/clumped/full_mdd_{cohort}.eur.hg19.{release}.qc.clumped.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur]), rmd="scripts/reports/metaqc_pca.Rmd"
 	output: "docs/metaqc_pca.html"
 	conda: "../envs/reports.yaml"
 	script: "../scripts/reports/metaqc_pca.Rmd"
