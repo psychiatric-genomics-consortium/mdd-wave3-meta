@@ -69,16 +69,12 @@ rule metal_eur:
 rule metal_eur_analyze:
 	input: expand("results/meta/metal/mdd_eur_v{version}_1.tbl", version=analysis_version)
 	
-# Convert to daner format with BETA=Z, SE=1 column.
-# Could reconstruct OR/SE as
-# OR = exp(Z / sqrt(Neff/4*FRQ*(1-FRQ)))
-# SE = 1/sqrt(Neff/4*FRQ*(1-MAF))	
+# Convert to daner format and merge with Ricopili information
 rule metal_daner:
-	input: "results/meta/metal/mdd_eur_v{version}_1.tbl"
-	output: "results/meta/metal/daner_mdd_eur_v{version}.metal.gz"
-	shell: """
-	cat {input} | awk -v OFS='\\t' -v N=$(cat {input} | awk 'NR > 1 {{print $12}}' | sort -nr | head -n +1) '{{if(NR == 1) {{print "CHR", "SNP", "BP", "A1", "A2", "FRQ_A_" N/2, "FRQ_U_" N/2, "INFO", "BETA", "SE", "P"}} else {{if($8 > 0.01 && $9 <= 0.99) {{print $1, $3, $2, toupper($4), toupper($5), ($8+$9)/2, ($8+$9)/2, 1, $11, 1, $13}}}}}}' | gzip -c > {output}
-	"""
+	input: metal="results/meta/metal/mdd_eur_v{version}_1.tbl", ricopili="results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.rp.gz"
+	output: "results/meta/metal/daner_mdd_full_eur_hg19_v{version}.ml.gz"
+	conda: "../envs/meta.yaml"
+	script: "../scripts/meta/metal_daner.R"
 	
 rule metal_daner_eur:
-	input: expand("results/meta/metal/daner_mdd_eur_v{version}.metal.gz", version=analysis_version)
+	input: expand("results/meta/metal/daner_mdd_full_eur_hg19_v{version}.ml.gz", version=analysis_version)
