@@ -16,7 +16,7 @@ cohorts_eur_16 = {
 ['SHARE', 'godartsshare_842021'],
 ['GenScot', '1215a'],
 ['EXCEED', '202010'],
-['ALSPAC', '12082019']],
+['ALSPAC', '27022020']],
 'group2': [['FinnGen', 'R5_18032020'],
 ['ESTBB', 'EstBB'],
 ['deCODE', 'DEPALL_FINAL_WHEAD'],
@@ -39,23 +39,23 @@ rule metacarpa_download:
 	output: "resources/metacarpa/metacarpa"
 	shell: "cp {input} {output}"
 	
-# format aligned sumstats to METACARPA assoc input
+# format aligned/filtered sumstats to METACARPA assoc input
 # CHR POS A1 A2 P BETA SE AF Neff
 # Neff = (4 * Ncases * Ncontrols) / (Ncases + Ncontrols)
 rule metacarpa_sumstats:
-	input: "results/sumstats/aligned/daner_mdd_{cohort}.aligned.gz"
-	output: "results/sumstats/metacarpa/assoc/mdd_{cohort}.aligned.assoc"
+	input: "results/sumstats/filtered/daner_mdd_{cohort}.qc.gz"
+	output: "results/sumstats/metacarpa/assoc/mdd_{cohort}.qc.assoc"
 	shell: "zcat {input} | awk -v neff=$(zcat {input} | head -n 1 | awk '{{print $6, $7}}' | sed 's/_/ /g' | awk '{{print (4*$3*$6)/($3+$6)}}') 'NR > 1 {{print $1, $3, $4, $5, $11, log($9), $10, $7, $2, neff}}' > {output}"
 	
 # get list of SNPs in each cohort
 rule metacarpa_snps:
-	input: "results/sumstats/metacarpa/assoc/mdd_{cohort}.aligned.assoc"
-	output: "results/sumstats/metacarpa/snps/mdd_{cohort}.aligned.snplist"
+	input: "results/sumstats/metacarpa/assoc/mdd_{cohort}.qc.assoc"
+	output: "results/sumstats/metacarpa/snps/mdd_{cohort}.qc.snplist"
 	shell: "cat {input} | awk '{{print $9}}' | sort > {output}"
 
 # SNPs common to cohort groups	
 rule metacarpa_snps_eur:
-	input: lambda wildcards: expand("results/sumstats/metacarpa/snps/mdd_{cohort}.eur.hg19.{release}.aligned.snplist", zip, cohort=[cohort[0] for cohort in cohorts_eur_16[wildcards.group]], release=[cohort[1] for cohort in cohorts_eur_16[wildcards.group]])
+	input: lambda wildcards: expand("results/sumstats/metacarpa/snps/mdd_{cohort}.eur.hg19.{release}.qc.snplist", zip, cohort=[cohort[0] for cohort in cohorts_eur_16[wildcards.group]], release=[cohort[1] for cohort in cohorts_eur_16[wildcards.group]])
 	params:
 		n_cohorts=len(cohorts_eur),
 		mask_min=1000
@@ -65,8 +65,8 @@ rule metacarpa_snps_eur:
 
 # extract common SNPs	
 rule metacarpa_extract:
-	input: assoc="results/sumstats/metacarpa/assoc/mdd_{cohort}.{ancestries}.hg19.{release}.aligned.assoc", snplist="results/sumstats/metacarpa/{group}_eur.snplist"
-	output: "results/sumstats/metacarpa/extract/{group}_mdd_{cohort}.{ancestries}.hg19.{release}.aligned.assoc"
+	input: assoc="results/sumstats/metacarpa/assoc/mdd_{cohort}.{ancestries}.hg19.{release}.qc.assoc", snplist="results/sumstats/metacarpa/{group}_eur.snplist"
+	output: "results/sumstats/metacarpa/extract/{group}_mdd_{cohort}.{ancestries}.hg19.{release}.qc.assoc"
 	shell: "grep -wFf {input.snplist} {input.assoc} > {output}"
 
 # prune the sumstats for correlation matrix construction
@@ -88,14 +88,14 @@ rule metacarpa_prune:
 	
 # extract pruned SNPs from sumstats
 rule metacarpa_prune_extract:
-	input: assoc="results/sumstats/metacarpa/extract/{group}_mdd_{cohort}.{ancestries}.hg19.{release}.aligned.assoc", snplist="results/sumstats/metacarpa/{group}.1kg.{ancestries}.prune.in"
-	output: "results/sumstats/metacarpa/pruned/{group}_mdd_{cohort}.{ancestries}.hg19.{release}.aligned.pruned.assoc"
+	input: assoc="results/sumstats/metacarpa/extract/{group}_mdd_{cohort}.{ancestries}.hg19.{release}.qc.assoc", snplist="results/sumstats/metacarpa/{group}.1kg.{ancestries}.prune.in"
+	output: "results/sumstats/metacarpa/pruned/{group}_mdd_{cohort}.{ancestries}.hg19.{release}.qc.pruned.assoc"
 	shell: "grep -wFf {input.snplist} {input.assoc} > {output}"
 
 
 	
 rule metacarpa_matrix_eur:
-	input: assoc=lambda wildcards: expand("results/sumstats/metacarpa/pruned/{{group}}_mdd_{cohort}.eur.hg19.{release}.aligned.pruned.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur_16[wildcards.group]], release=[cohort[1] for cohort in cohorts_eur_16[wildcards.group]]), metacarpa="resources/metacarpa/metacarpa"
+	input: assoc=lambda wildcards: expand("results/sumstats/metacarpa/pruned/{{group}}_mdd_{cohort}.eur.hg19.{release}.qc.pruned.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur_16[wildcards.group]], release=[cohort[1] for cohort in cohorts_eur_16[wildcards.group]]), metacarpa="resources/metacarpa/metacarpa"
 	params:
 		input_args=lambda wildcards, input: ' '.join(['-I ' + assoc for assoc in input.assoc]),
 		output_prefix="results/sumstats/metacarpa/{group}_eur"
@@ -120,7 +120,7 @@ rule metacarpa_matrix_eur:
 	"""
 	
 rule metacarpa_eur:
-	input: assoc=lambda wildcards: expand("results/sumstats/metacarpa/extract/{{group}}_mdd_{cohort}.eur.hg19.{release}.aligned.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur_16[wildcards.group]], release=[cohort[1] for cohort in cohorts_eur_16[wildcards.group]]), metacarpa="resources/metacarpa/metacarpa"
+	input: assoc=lambda wildcards: expand("results/sumstats/metacarpa/extract/{{group}}_mdd_{cohort}.eur.hg19.{release}.qc.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur_16[wildcards.group]], release=[cohort[1] for cohort in cohorts_eur_16[wildcards.group]]), metacarpa="resources/metacarpa/metacarpa"
 	params:
 		input_args=lambda wildcards, input: ' '.join(['-I ' + assoc for assoc in input.assoc])
 	output: "results/meta/metacarpa/pgc_mdd_{group}_eur_hg19_v{version}.mc.txt"
