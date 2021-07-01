@@ -2,8 +2,11 @@ library(dplyr)
 library(readr)
 library(tidyr)
 
-carpa_txt <- snakemake@input[[1]]
+carpa_txt <- snakemake@input$metacarpa
 carpa <- read_tsv(carpa_txt, col_types=list(`chr:pos`=col_character()))
+
+daner_rp_gz <- snakemake@input$ricopili
+daner_rp <- read_tsv(daner_rp_gz, col_types=list("SNP"=col_character()))
 
 # find largest sample size
 Nco <- Nca <- round(max(carpa$n)/2)
@@ -11,20 +14,27 @@ Nco <- Nca <- round(max(carpa$n)/2)
 frq_a_col <- paste('FRQ', 'A', Nca, sep='_')
 frq_u_col <- paste('FRQ', 'U', Nca, sep='_')
 
-daner_wald <- 
+carpa_rp <- 
 carpa %>%
-separate(`chr:pos`, c('CHR', 'BP'), sep=':') %>%
-transmute(CHR, SNP=rsid, BP,
-A1=effect_allele, A2=neffect_allele,
-!!frq_a_col:=effect_allele_frequency, 
-!!frq_u_col:=effect_allele_frequency,
-INFO=1, OR=exp(beta), SE=se, P=p_wald, Direction=effects, 
-Nca=round(n/2), Nco=round(n/2), Neff_half=round(n/2))
+inner_join(daner_rp, by=c('rsid'='SNP'), suffix=c('.mc', '.rp'))
 
+alleles_non_matching <- carpa_rp %>% filter(effect_allele != A1 | neffect_allele != A2)
+
+if(nrow(alleles_non_matching > 0)) {
+    cat("Non-matching effect/noneffect alleles when merging Metacarpa and Ricopili results\n")
+    stop()
+}
+
+daner_mc <-
+carpa_rp %>%
+mutate(or_wald=exp(beta)) %>%
+select(CHR, SNP=rsid, BP, A1, A2,
+    starts_with('FRQ_A'), starts_with('FRQ_U'),
+    OR=or_wald, SE=se, P=p_wald, Direction=effects,
+    HetISqt, HetDf, HetPVa, 
+    Nca, Nco, Neff_half)
 
 daner_gz <- snakemake@output[[1]]
-write_tsv(daner_wald, daner_gz)
-
-
+write_tsv(daner_mc, daner_gz)
 
 # lambda_gc <- median(qchisq(P, 1, lower.tail=F)) / qchisq(0.5,1)
