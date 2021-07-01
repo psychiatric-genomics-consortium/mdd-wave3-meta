@@ -44,7 +44,7 @@ mutate(or_metal=exp(Z/sqrt(N/4*frq*(1-frq))),
        se_metal=1/sqrt(N/4*frq*(1-frq)),
        N_half=N/2) %>%
 select(CHR, SNP=MarkerName, BP, A1, A2,
-    starts_with('FRQ_A'), starts_with('FRQ_U'),
+    starts_with('FRQ_A'), starts_with('FRQ_U'), INFO,
     OR=or_metal, SE=se_metal, P=`P-value`, Direction=Direction.rp,
     HetISqt=HetISq, HetDf=HetDf.ml, HetPVa=HetPVal, 
     Nca, Nco, Neff_half=N_half) %>%

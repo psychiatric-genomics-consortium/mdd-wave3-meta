@@ -29,7 +29,7 @@ daner_mc <-
 carpa_rp %>%
 mutate(or_wald=exp(beta)) %>%
 select(CHR, SNP=rsid, BP, A1, A2,
-    starts_with('FRQ_A'), starts_with('FRQ_U'),
+    starts_with('FRQ_A'), starts_with('FRQ_U'), INFO,
     OR=or_wald, SE=se, P=p_wald, Direction=effects,
     HetISqt, HetDf, HetPVa, 
     Nca, Nco, Neff_half)
