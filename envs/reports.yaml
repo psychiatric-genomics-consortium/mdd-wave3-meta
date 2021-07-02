@@ -10,3 +10,4 @@ dependencies:
   - xlrd
   - r-fdrtool
   - r-corrplot
+  - r-psych

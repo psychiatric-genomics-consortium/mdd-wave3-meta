@@ -80,6 +80,69 @@ rule meta_align_qc:
 	conda: "../envs/meta.yaml"
 	script: "../scripts/meta/align_qc_table.R"
 	
+# get list of SNPs in each cohort
+rule meta_snps:
+	input: "results/sumstats/filtered/daner_mdd_{cohort}.qc.gz"
+	output: "results/sumstats/snps/mdd_{cohort}.qc.snplist"
+	shell: "zcat {input} | awk 'NR > 1 {{print $2}}' | sort > {output}"
+	
+# SNPs common to all cohorts	
+rule meta_snps_eur:
+	input: expand("results/sumstats/snps/mdd_{cohort}.eur.hg19.{release}.qc.snplist", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur])
+	params:
+		n_cohorts=len(cohorts_eur)
+	output: "results/sumstats/full_eur.snplist"
+	run:
+		# get SNPs from first file and make a set
+		with open(input[0]) as f:
+			snps = set(f.read().splitlines())
+		# open all SNP lists one by one and intersect them with the snps set
+		for snplist in input:
+			print(snplist)
+			with open(snplist) as f:
+				snps = set.intersection(snps, set(f.read().splitlines()))
+			print(len(snps))
+		# output intersection of all SNPs
+		with open(output[0], 'w') as out:
+			out.writelines(map(lambda snp: snp+'\n', list(snps))) 
+			
+rule meta_qc_prune:
+	input: snplist="results/sumstats/{group}_{ancestries}.snplist", bed="resources/1kg/1kg_phase1_all.bed"
+	params:
+		bed_prefix="resources/1kg/1kg_phase1_all",
+		prune_prefix="results/sumstats/{group}.1kg.{ancestries}"
+	output: "results/sumstats/{group}.1kg.{ancestries}.prune.in"
+	conda: "../envs/meta.yaml"
+	shell: """
+	plink \
+	--bfile {params.bed_prefix} \
+	--extract {input.snplist} \
+	--indep-pairwise 500kb 1 0.2 \
+	--maf 0.05 \
+	--out {params.prune_prefix} \
+	--memory 2000
+	"""
+	
+		
+# extract pruned SNPs from sumstats
+rule meta_qc_prune_extract:
+	input: assoc= "results/sumstats/filtered/daner_mdd_{cohort}.{ancestries}.hg19.{release}.qc.gz", snplist="results/sumstats/{group}.1kg.{ancestries}.prune.in"
+	output: "results/sumstats/metaqc/pruned/{group}_mdd_{cohort}.{ancestries}.hg19.{release}.qc.pruned.assoc"
+	shell: "zcat {input.assoc} | awk '{{print $1, $2, $3, $7, $9, $10}}' | grep -wFf {input.snplist} > {output}"
+	
+
+	
+# extract top SNPs from sumstats
+rule meta_qc_snps_clumped:
+	input: expand("results/distribution/daner_pgc_mdd_{{group}}_{{ancestries}}_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc", version=analysis_version)
+	output: "results/sumstats/metaqc/{group}.{ancestries}.clumped.snplist"
+	shell: "cat {input} | awk 'NR > 1 {{print $1}}' > {output}"
+
+rule meta_qc_clumped_extract:
+	input: assoc= "results/sumstats/filtered/daner_mdd_{cohort}.{ancestries}.hg19.{release}.qc.gz", snplist="results/sumstats/metaqc/{group}.{ancestries}.clumped.snplist"
+	output: "results/sumstats/metaqc/clumped/{group}_mdd_{cohort}.{ancestries}.hg19.{release}.qc.clumped.assoc"
+	shell: "zcat {input.assoc} | awk '{{print $1, $2, $3, $7, $9, $10}}' | grep -wFf {input.snplist} > {output}"
+	
 # QC checks
 rule meta_qc:
 	input: expand("results/meta/dataset_full_eur_v{version}", version=analysis_version),
