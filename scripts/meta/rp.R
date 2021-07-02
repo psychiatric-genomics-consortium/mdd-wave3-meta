@@ -13,9 +13,14 @@ daner_gz <- snakemake@input[[1]]
 daner <- read_table2(daner_gz, col_types=cols("SNP"=col_character()))
 
 # remove problem rows
-daner_patch <- daner %>%
-	dplyr::slice(-problems(daner)$row) %>%
-	arrange(CHR, BP)
+if(nrow(problems(daner)) > 0) {
+	daner_patch <- daner %>%
+		dplyr::slice(-problems(daner)$row) %>%
+		arrange(CHR, BP)
+} else {
+	daner_patch <- daner %>%
+		arrange(CHR, BP)
+}
 
 # check for duplicate SNPs and CPIDs
 
