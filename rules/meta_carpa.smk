@@ -39,6 +39,13 @@ rule metacarpa_download:
 	output: "resources/metacarpa/metacarpa"
 	shell: "cp {input} {output}"
 	
+# build instructions on LISA if the binary doesn't work	
+# git clone git@github.com:hmgu-itg/metacarpa.git
+# cd metacarpa/src
+# module load 2020	
+# module load Boost/1.72.0-gompi-2020a
+# c++ -O3 -std=c++11 -static -o metacarpa metacarpa.cpp -lboost_program_options -lboost_serialization -lpthread
+	
 # format aligned/filtered sumstats to METACARPA assoc input
 # CHR POS A1 A2 P BETA SE AF Neff
 # Neff = (4 * Ncases * Ncontrols) / (Ncases + Ncontrols)

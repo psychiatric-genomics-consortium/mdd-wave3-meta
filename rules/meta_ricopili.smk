@@ -46,7 +46,7 @@ rule postimp_eas:
 	input: expand("results/meta/full_eas_v{version}.done", version=["3.00.02"])
 	
 # cohort sets for analysts
-cohorts_analyst = ["full", "noUKBB", "no23andMe", "noALSPAC"]
+cohorts_analyst = ["full", "noUKBB", "noALSPAC"]
 
 # cohort sets for public
 cohorts_public = ["no23andMe"]
