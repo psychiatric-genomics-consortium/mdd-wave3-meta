@@ -27,10 +27,6 @@ include: "rules/meta_mtag.smk"
 include: "rules/meta_metal.smk"
 include: "rules/metaqc.smk"
 include: "rules/distribution.smk"
-<<<<<<< HEAD
-include: "rules/vcf.smk"
-include: "rules/reports.smk"
 include: "rules/finemapping.smk"
-=======
 include: "rules/reports.smk"
->>>>>>> main
+

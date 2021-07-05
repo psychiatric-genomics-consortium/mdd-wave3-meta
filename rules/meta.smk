@@ -203,7 +203,7 @@ rule meta_vcf_merge_eas:
 
 # table of alignment checks
 align_logs, = glob_wildcards("logs/sumstats/aligned/{cohort}.log")
-rule meta_align_qc:
+rule meta_qc_align:
 	input: expand("logs/sumstats/aligned/{cohort}.log", cohort=align_logs)
 	output: "docs/tables/meta_qc_align.txt"
 	conda: "../envs/meta.yaml"
