@@ -2,7 +2,7 @@
 
 Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium. See table of included studies [here](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts.eur.txt)
 
-**Current version**: v3.49.24.03 [EUR]
+**Current version**: v3.49.24.05 [EUR]
 
 ![MDD Manhattan plot](docs/figures/manhattan.nog2.eur.png)
 
@@ -56,13 +56,13 @@ bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/mas
 brew install anaconda
 ```
 
-Install Python 3.8, Snakemake, and the basic project dependencies
+Install Python 3.8, Snakemake 5.32, and the basic project dependencies
 
 ```
 conda activate base
 conda install python=3.8
 conda install -c conda-forge mamba
-mamba install -c bioconda -c conda-forge snakemake-minimal
+mamba install -c bioconda -c conda-forge snakemake-minimal==5.32.2
 mamba install dropbox
 ```
 
@@ -137,7 +137,7 @@ Check the [`rules`](rules/) directory for the analyses to be run. See more on [h
 * **Mark James Adams** - *analyst* - [Edinburgh](https://www.ed.ac.uk)
 * **Swapnil Awasthi** - *analyst* - [Broad](https://www.broadinstitute.org/)
 * **Fabian Strait** - *analyst* - [CIMH](https://www.zi-mannheim.de/)
-* **Olga Giannakopoulou** - *analyst* [UCL](http://www.bristol.ac.uk/alspac/)
+* **Xiangrui Meng** - *analyst* [UCL](http://www.ucl.ac.uk)
 * **David Howard** - *analyst* - [KCL](https://www.kcl.ac.uk/)
 * **Jonathan Coleman** - *analyst* – [KCL](https://www.kcl.ac.uk/)
 * **Oliver Pain** - *analyst* - [KCL](https://www.kcl.ac.uk/)
@@ -146,7 +146,8 @@ Check the [`rules`](rules/) directory for the analyses to be run. See more on [h
 * **Shuyang Yao** - *analyst* – [Karolinska](https://ki.se)
 * **Karmel Choi** - *analyst* – [Harvard/MGH](https://www.hsph.harvard.edu)
 * **Eske Derks** - *analytical group lead* - [QIMR](https://www.qimrberghofer.edu.au)
-* **Karoline Kuchenbaecker** - *analytical group lead* - [UCL](http://www.bristol.ac.uk/alspac/)
+* **Karoline Kuchenbaecker** - *analytical group lead* - [UCL](http://www.ucl.ac.uk/)
+* **Patrick Sullivan** - *analytic group director* - [Karolinska](https://ki.se)
 * **Naomi Wray** - *analytical group director* - [Queensland](https://cnsgenomics.com/)
 * **Stephan Ripke** - *analytical group director* - [Broad](https://www.broadinstitute.org/)
 * **Cathryn Lewis** - *workgroup chair* - [KCL](https://www.kcl.ac.uk/)

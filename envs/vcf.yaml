@@ -36,3 +36,11 @@ dependencies:
   - r-data.table
   - r-cpp11
   - r-coloc
+  - r-rcpparmadillo
+  - r-viridisLite
+  - r-cachem
+  - r-irlba
+  - r-mixsqp
+  - r-gridExtra
+  - r-viridis
+  - r-susier

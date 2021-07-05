@@ -34,10 +34,17 @@ rule gwas_summary:
 			print(md, file=out)
 
 rule report_metaqc:
-	input: meta_qc_align="docs/tables/meta_qc_align.txt", meta_qc_ldsc="docs/tables/meta_qc_ldsc.txt", meta_qc_ldsc_pairs="docs/tables/meta_qc_ldsc_pairs.txt", rmd="scripts/reports/metaqc.Rmd"
+	input: meta_qc_align="docs/tables/meta_qc_align.txt", meta_qc_ldsc="docs/tables/meta_qc_ldsc.txt", meta_qc_ldsc_pairs="docs/tables/meta_qc_ldsc_pairs.txt", cohorts_mdd="docs/tables/cohorts_mdd.eur.txt", rmd="scripts/reports/metaqc.Rmd"
 	params:
 		maf=meta_qc_params['maf'],
 		info=meta_qc_params['info']
 	output: "docs/metaqc.html"
 	conda: "../envs/reports.yaml"
 	script: "../scripts/reports/metaqc.Rmd"
+	
+rule report_metaqc_beta_pca:
+	input:  pruned=expand("results/sumstats/metaqc/pruned/full_mdd_{cohort}.eur.hg19.{release}.qc.pruned.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur]), clumped=expand("results/sumstats/metaqc/clumped/full_mdd_{cohort}.eur.hg19.{release}.qc.clumped.assoc", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur]), rmd="scripts/reports/metaqc_pca.Rmd"
+	output: "docs/metaqc_pca.html"
+	conda: "../envs/reports.yaml"
+	script: "../scripts/reports/metaqc_pca.Rmd"
+	
