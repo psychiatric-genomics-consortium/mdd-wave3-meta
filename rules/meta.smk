@@ -1,6 +1,3 @@
-# Conduct meta-analysis in Ricopili
-
-
 #################
 #               #
 # Meta analyses #
@@ -20,7 +17,7 @@ cohorts_eur = [["MDD49", "29w2_20w3_1504"],
 ["iPSYCH", "2012_HRC"],        
 ["iPSYCH", "2015i_HRC"],       
 ["FinnGen", "R5_18032020"],      
-["ALSPAC", "12082019"],        
+["ALSPAC", "27022020"],        
 ["Airwave", "0820"],             
 ["PBK", "2020"],         
 ["ESTBB", "EstBB"],          
@@ -105,8 +102,7 @@ rule hg38to19:
 ruleorder: hg19 > hg38to19
 
 # Meta-analysis QC parameters
-meta_qc_params = {"maf": 0.01, "info": 0.1, "mac": 20}
-
+meta_qc_params = {"maf": 0.001, "info": 0.1, "mac": 20, "secure_frq": 0.20, "diff_frq": 0.15}
 	
 # create reference info file linking to imputation panel
 rule refdir:
@@ -128,13 +124,82 @@ rule impute_frq2:
 rule align:
 	input: daner="results/sumstats/hg19/daner_mdd_{cohort}.{ancestries}.{build}.{release}.gz", ref="results/sumstats/impute_frq2.{ancestries}.rds", script="scripts/meta/align.R"
 	params:
-		maf=meta_qc_params['maf'],
-		info=meta_qc_params['info'],
-		mac=meta_qc_params['mac']
-	output: "results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz"
+		secure_frq=meta_qc_params['secure_frq'],
+	output: daner="results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz", snp_counts="results/sumstats/aligned/mdd_{cohort}.{ancestries}.{build}.{release}.aligned.txt"
 	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
 	conda: "../envs/meta.yaml" 
 	script: "../scripts/meta/align.R"
+	
+# apply QC filters
+rule filter:
+	input: daner="results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz", script="scripts/meta/filter.R"
+	params:
+		maf=meta_qc_params['maf'],
+		info=meta_qc_params['info'],
+		mac=meta_qc_params['mac'],
+		secure_frq=meta_qc_params['secure_frq'],
+		diff_frq=meta_qc_params['diff_frq']
+	output: daner="results/sumstats/filtered/daner_mdd_{cohort}.{ancestries}.{build}.{release}.qc.gz", snp_counts="results/sumstats/filtered/mdd_{cohort}.{ancestries}.{build}.{release}.qc.txt"
+	log: "logs/sumstats/filtered/daner_mdd_{cohort}.{ancestries}.{build}.{release}.qc.log"
+	conda: "../envs/meta.yaml" 
+	script: "../scripts/meta/filter.R"
+	
+# Convert OR to Log-Odds
+rule meta_vcf_logOR:
+	input: "results/sumstats/filtered/daner_{sumstats}.qc.gz"
+	output: "results/sumstats/beta/{sumstats}.gz"
+	shell: "gunzip -c {input} | tail -n +2 | awk '{{print $1, $3, $4, $5, log($9), $10, $11, $2, $7, $8}}' | gzip -c > {output}"	
+	
+# Parsing info for VCF conversion	
+rule meta_vcf_daner2vcf_json:
+	input: daner="results/sumstats/filtered/daner_mdd_{cohort}.{ancestries}.hg{hg}.{release}.qc.gz"
+	output: vcf="results/sumstats/vcf/mdd_{cohort}.{ancestries}.hg{hg}.{release}.json"
+	log: "logs/sumstats/vcf/mdd_{cohort}.{ancestries}.hg{hg}.{release}.json.log"
+	run:
+		with gzip.open(input.daner, 'r') as daner:
+			headers = daner.readline().split()
+			cohort_cases = headers[5].decode().split('_')[2]
+			cohort_controls = headers[6].decode().split('_')[2]
+		with open(output.vcf, 'w') as out:
+			json.dump({"chr_col": 0,
+						"pos_col": 1,
+						"ea_col": 2,
+						"oa_col": 3,
+						"beta_col": 4,
+						"se_col": 5,
+						"pval_col": 6,
+						"snp_col": 7,
+						"eaf_col": 8,
+						"imp_info_col": 9,
+						"delimiter": " ",
+						"header": False,
+						"build": "{build}".format(build=builds[wildcards.hg]),
+						"cohort_cases": cohort_cases,
+						"cohort_controls": cohort_controls,
+						"id": "mdd.{cohort}.{release}.{ancestries}".format(release=wildcards.release, cohort=wildcards.cohort, ancestries=wildcards.ancestries.upper())},
+					 out)
+
+# VCF conversion and harmonisation
+rule meta_vcf_daner2vcf:
+	input: beta="results/sumstats/beta/mdd_{cohort}.{ancestries}.hg{hg}.{release}.gz", json="results/sumstats/vcf/mdd_{cohort}.{ancestries}.hg{hg}.{release}.json", fasta=lambda wildcards: expand("resources/fasta/human_{build}.fasta", build=builds[wildcards.hg].lower()), fai=lambda wildcards: expand("resources/fasta/human_{build}.fasta.fai", build=builds[wildcards.hg].lower()), gwas2vcf=rules.vcf_install_gwas2vcf.output
+	output: vcf="results/sumstats/vcf/mdd_{cohort}.{ancestries}.hg{hg}.{release}.vcf.gz", tbi="results/sumstats/vcf/mdd_{cohort}.{ancestries}.hg{hg}.{release}.vcf.gz.tbi"
+	log: "logs/sumstats/vcf/mdd_{cohort}.{ancestries}.hg{hg}.{release}.log"
+	conda: "../envs/vcf.yaml"
+	shell: "python resources/vendor/gwas2vcf/main.py --out {output.vcf} --data {input.beta} --json {input.json} --ref {input.fasta} > {log}"
+
+# Merge VCF files
+rule meta_vcf_merge_eur:
+	input: expand("results/sumstats/vcf/mdd_{cohort}.eur.hg19.{release}.vcf.gz", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur])
+	conda: "../envs/vcf.yaml"
+	output: "results/sumstats/mdd_cohorts_eur.vcf.gz"
+	shell: "bcftools merge -O z -o {output} {input}"
+	
+rule meta_vcf_merge_eas:
+	input: expand("results/sumstats/vcf/mdd_{cohort}.eas.hg19.{release}.vcf.gz", zip, cohort=[cohort[0] for cohort in cohorts_eas], release=[cohort[1] for cohort in cohorts_eas])
+	conda: "../envs/vcf.yaml"
+	output: "results/sumstats/mdd_cohorts_eas.vcf.gz"
+	shell: "bcftools merge -O z -o {output} {input}"
+	
 
 # table of alignment checks
 align_logs, = glob_wildcards("logs/sumstats/aligned/{cohort}.log")
@@ -146,7 +211,7 @@ rule meta_align_qc:
 
 # munge sumstats for ldsc regression
 rule meta_ldsc_munge:
-	input: sumstats="results/sumstats/aligned/{cohort}.gz", hm3="resources/ldsc/w_hm3.snplist", ldsc=rules.ldsc_install.output
+	input: sumstats="results/sumstats/filtered/{cohort}.gz", hm3="resources/ldsc/w_hm3.snplist", ldsc=rules.ldsc_install.output
 	params:
 		prefix="results/sumstats/munged/{cohort}"
 	conda: "../envs/ldsc.yaml"
@@ -160,68 +225,3 @@ rule meta_cpids:
 	log: "logs/sumstats/cpids/{cohort}.log"
 	shell: "zcat {input.sumstats} | awk -v OFS='\t' '{{print $1, $2, $3}}' | gzip -c > {output}"
 
-# link sumstats files into meta-analysis directory, but also run
-# LDSC rg with MDD2
-rule meta:
-	input: sumstats="results/sumstats/aligned/{cohort}.gz", rg="results/sumstats/rg_mdd/{cohort}.log"
-	output: "results/meta/{cohort}.gz"
-	log: "logs/meta/{cohort}.log"
-	shell: "ln -sv $(readlink -f {input.sumstats}) {output} > {log}"
-
-# Ricopili results dataset list for eur ancestries
-rule dataset_eur:
-	input: expand("results/meta/daner_mdd_{cohort}.eur.hg19.{release}.aligned.gz", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur])
-	output: "results/meta/dataset_full_eur_v{analysis}"
-	log: "logs/meta/dataset_full_eur_v{analysis}.log"
-	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
-	
-# Ricopili results dataset list for eas ancestries
-rule dataset_eas:
-	input: expand("results/meta/daner_mdd_{cohort}.eas.hg19.{release}.aligned.gz", zip, cohort=[cohort[0] for cohort in cohorts_eas], release=[cohort[1] for cohort in cohorts_eas])
-	output: "results/meta/dataset_full_eas_v{analysis}"
-	log: "logs/meta/dataset_full_eas_v{analysis}.log"
-	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
-	
-# Dataset list that exclude a particular cohort
-rule dataset_nocCOHORT_eur:
-	input: "results/meta/dataset_full_eur_v{analysis}"
-	log: "logs/meta/dataset_no{cohort}_eur_v{analysis}"
-	output: "results/meta/dataset_no{cohort}_eur_v{analysis}"
-	shell: "cat {input} | grep --invert daner_mdd_{wildcards.cohort} > {output}"
-
-# Ricopili submission
-rule postimp:
-	input: dataset="results/meta/dataset_{cohorts}_{ancestries}_v{version}", ref="results/meta/reference_info"
-	params:
-		popname=lambda wildcards: wildcards.ancestries.upper(),
-		dataset=lambda wildcards, input: os.path.basename(input.dataset)
-	output: touch("results/meta/{cohorts}_{ancestries}_v{version}.done")
-	log: "logs/meta/pgc_mdd_meta_{cohorts}_{ancestries}_hg19_v{version}.postimp_navi.log"
-	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
-
-# current European ancestries analysis
-# analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count].[Revision]
-analysis_version = ["3.49.24.03"]
-rule postimp_eur:
-	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
-	
-rule postimp_eas:
-	input: expand("results/meta/full_eas_v{version}.done", version=["3.00.02"])
-	
-# cohort sets for analysts
-cohorts_analyst = ["full", "noUKBB", "no23andMe", "noALSPAC"]
-
-# cohort sets for public
-cohorts_public = ["no23andMe"]
-
-# check Ricopili output for complete rows and duplicates
-rule postimp_rp:
-	input: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.gz"
-	log: "logs/meta/distribution/{analysis}.rp.log"
-	conda: "../envs/meta.yaml"
-	output: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.rp.gz"
-	script: "../scripts/meta/rp.R"
-	
-# inputs for postimp_rp
-rule postimp_rp_all:
-	input: expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.rp.gz", cohorts=cohorts_analyst, ancestries=['eur'], version=analysis_version)

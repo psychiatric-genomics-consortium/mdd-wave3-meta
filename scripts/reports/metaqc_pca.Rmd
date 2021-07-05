@@ -1,0 +1,101 @@
+---
+title: "PGC MDD3 sumstats QC PCA checks for meta-analysis"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+---
+
+```{r libraries}
+library(dplyr)
+library(readr)
+library(tidyr)
+library(stringr)
+library(tidyr)
+library(psych)
+library(ggplot2)
+```
+
+Read in sumstats
+
+```{r pruned}
+pruned_files <- snakemake@input$pruned
+
+pruned <- lapply(pruned_files, read_table2,
+	col_names=c('CHR', 'SNP', 'BP', 'FRQ', 'OR', 'SE'),
+	col_types=cols(CHR = col_double(),
+					 SNP = col_character(),
+					 BP = col_double(),
+					 FRQ = col_double(),
+					 OR = col_double(),
+					 SE = col_double()
+					))
+```
+
+```{r clumped}
+clumped_files <- snakemake@input$clumped
+
+clumped <- lapply(clumped_files, read_table2,
+	col_names=c('CHR', 'SNP', 'BP', 'FRQ', 'OR', 'SE'),
+	col_types=cols(CHR = col_double(),
+					 SNP = col_character(),
+					 BP = col_double(),
+					 FRQ = col_double(),
+					 OR = col_double(),
+					 SE = col_double()
+					))
+```
+
+## Pruned
+
+Merge into matrix
+
+```{r betas}
+pruned_betas <- bind_cols(lapply(pruned, function(a) a %>% mutate(beta=log(OR)) %>% pull(beta)))
+
+pruned_basenames <- basename(pruned_files)
+pruned_cohorts <- str_match(pruned_basenames, pattern="full_mdd_(.+)\\.eur\\.hg19\\.(.+)\\.qc\\.pruned\\.assoc")
+pruned_cohort_names <- paste(pruned_cohorts[,2], pruned_cohorts[,3])
+names(pruned_betas) <- pruned_cohort_names
+
+```
+
+Eigenvalues
+```{r eigen}
+pruned_ev <- eigen(cor(pruned_betas))$values
+pruned_ev
+plot(pruned_ev)
+lines(pruned_ev)
+```
+
+Perform PCA
+```{r pca}
+pruned_pca <- principal(pruned_betas, length(which(pruned_ev > 1)), rotate='none')
+print(pruned_pca, cut=0.3)
+```
+
+## Clumped
+
+```{r betas_clumped}
+
+clumped_basenames <- basename(clumped_files)
+clumped_cohorts <- str_match(clumped_basenames, pattern="full_mdd_(.+)\\.eur\\.hg19\\.(.+)\\.qc\\.clumped\\.assoc")
+clumped_cohort_names <- paste(clumped_cohorts[,2], clumped_cohorts[,3])
+
+clumped_betas <- bind_rows(lapply(seq.int(length(clumped)), function(i) clumped[[i]] %>% transmute(cohort=clumped_cohort_names[i], SNP, beta=log(OR)))) %>% pivot_wider(id_cols=SNP, names_from=cohort, values_from=beta)
+
+```
+
+```{r eigen_clumped}
+
+clumped_ev <- eigen(cor(select(clumped_betas, -SNP), use='pairwise.complete'))$values
+clumped_ev
+plot(clumped_ev)
+lines(clumped_ev)
+```
+
+```{r pca_clumped}
+
+clumped_pca <- principal(select(clumped_betas, -SNP), length(which(clumped_ev > 1)), rotate='none')
+print(clumped_pca)
+```

@@ -1,5 +1,9 @@
 # Project updates
 
+# 25 June 2021
+
+- **v3.49.24.05**: Update ALSPAC, Fst checks during filtering.
+
 # 9 June 2021
 
 - **v3.49.24.02**: Update BioVU to NoCov version with INFO, update MVP to unified Release 4 _[EUR]_
