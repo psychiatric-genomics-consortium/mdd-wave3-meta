@@ -60,6 +60,9 @@ rule downstream_full:
 
 rule downstream_noUKBB:
 	input: expand("results/distribution/daner_pgc_mdd_noUKBB_eur_hg19_v{version}.rp.gz", version=analysis_version)
+	
+rule downstream_noALSPAC:
+	input: expand("results/distribution/daner_pgc_mdd_noALSPAC_eur_hg19_v{version}.rp.gz", version=analysis_version)
 
 rule downstream_no23andMe:
 	input: expand("results/distribution/daner_pgc_mdd_no23andMe_eur_hg19_v{version}.rp.gz", version=analysis_version)
