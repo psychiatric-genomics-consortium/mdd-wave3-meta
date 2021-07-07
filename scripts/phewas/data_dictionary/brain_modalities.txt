@@ -1,0 +1,20 @@
+Mean FA in 	FA.sk
+Mean ICVF in 	ICVF.sk
+Mean ISOVF in 	ISOVF.sk
+Mean MD in 	MD.sk
+Mean MO in 	MO.sk
+Mean OD in 	OD.sk
+Weighted-mean FA in tract 	FA.wm
+Weighted-mean ICVF in tract 	ICVF.wm
+Weighted-mean ISOVF in tract 	ISOVF.wm
+Weighted-mean MD in tract 	MD.wm
+Weighted-mean MO in tract 	MO.wm
+Weighted-mean OD in tract 	OD.wm
+Volume of grey matter in 	vol.GM
+Median T2star in 	T2.star
+Volume of 	Cortical volume
+Area of 	Cortical surface area
+Mean thickness of 	Cortical thickness 
+Grey-white contrast in 	GWcontrast
+Mean intensity of 	mean_intensity
+

@@ -1,0 +1,36 @@
+field_name;Field
+25925;Intensity scaling for T1
+25756;Scanner lateral (X) brain position
+25757;Scanner transverse (Y) brain position
+25758;Scanner longitudinal (Z) brain position
+25759;Scanner table position
+25733;Amount of warping applied to non-linearly align T1 brain image to standard-space
+25731;Discrepancy between T1 brain image and standard-space brain template (linearly-aligned)
+25732;Discrepancy between T1 brain image and standard-space brain template (nonlinearly-aligned)
+25735;Inverted contrast-to-noise ratio in T1
+25734;Inverted signal-to-noise ratio in T1
+25000;Volumetric scaling from T1 head image to standard space
+25926;Intensity scaling for T2_FLAIR
+25781;Total volume of white matter hyperintensities (from T1 and T2_FLAIR images)
+25736;Discrepancy between T2 FLAIR brain image and T1 brain image
+25921;Increased search space in eddy current estimation used for dMRI
+25928;Intensity scaling for dMRI
+25922;Standard deviation of apparent translation in the Y axis as measured by eddy
+25737;Discrepancy between dMRI brain image and T1 brain image
+25746;Number of dMRI outlier slices detected and corrected
+25923;Echo Time for rfMRI
+25929;Intensity scaling for rfMRI
+25741;Mean rfMRI head motion, averaged across space and time points
+25744;Inverted temporal signal-to-noise ratio in artefact-cleaned pre-processed rfMRI
+25743;Inverted temporal signal-to-noise ratio in pre-processed rfMRI
+25927;Intensity scaling for SWI
+25738;Discrepancy between SWI brain image and T1 brain image
+25924;Echo Time for tfMRI
+25930;Intensity scaling for tfMRI
+25740;Discrepancy between tfMRI brain image and T1 brain image
+12651;Duration of eprime test
+12706;Eprime error flag
+25780;Acquisition protocol phase
+12139;Believed safe to perform brain MRI scan
+12187;Brain MRI measuring method
+12188;Operator indicated brain MRI measurement completed
