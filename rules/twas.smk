@@ -18,116 +18,29 @@ rule install_fusion:
 # download plink2R
 rule download_plink2R:
   output:
-    directory("resources/twas/plink2R/plink2R-master/")
+    "resources/twas/plink2R/plink2R-master/data.bed"
   conda:
     "../envs/twas.yaml"
   shell:
     "wget -O resources/twas/plink2R/master.zip https://github.com/gabraham/plink2R/archive/master.zip; unzip resources/twas/plink2R/master.zip -d resources/twas/plink2R"
 
-# Create variable indicating latest (current) conda environment
-import os
-from pathlib import Path
-paths = sorted(Path(".snakemake/conda/").iterdir(), key=os.path.getmtime)
-path=str(paths[-1])
-import re
-env=re.sub(".*/", "", path)
-
-target_short = [".snakemake/conda/",env,"/lib/R/library/"]
-target_short = "".join(target_short)
-target = [".snakemake/conda/",env,"/lib/R/library/plink2R"]
-target = "".join(target)
-
 # install plink2R
 rule install_plink2R:
-  input:
-    "resources/twas/plink2R/plink2R-master/data.bed"
+  input: rules.download_plink2R.output
   output:
-    directory(target)
+    touch("resources/twas/install_plink2R")
   conda:
     "../envs/twas.yaml"
   shell:
-    "Rscript -e 'install.packages(\"resources/twas/plink2R/plink2R-master/plink2R/\",repos=NULL, lib=\"{target_short}\")'"
+    "Rscript -e 'install.packages(\"resources/twas/plink2R/plink2R-master/plink2R/\",repos=NULL)'"
 
 # install focus
 rule install_focus:
   conda:
     "../envs/twas.yaml"
+  output: touch("resources/twas/pyfocus")
   shell:
     "pip install pyfocus==0.6.10 --user"
-
-# install MESC
-rule install_mesc:
-  output:
-    directory("resources/twas/mesc/mesc")
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "git clone git@github.com:douglasyao/mesc.git {output}"
-
-# Download MESC data
-rule download_mesc_exp:
-  output:
-    directory("resources/twas/mesc/GTEx_v8")
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "wget -O resources/twas/mesc/All_Tissues.tar.gz http://gusevlab.org/projects/MESC/All_Tissues.tar.gz; tar -xzf resources/twas/mesc/All_Tissues.tar.gz -C resources/twas/mesc/; rm resources/twas/mesc/All_Tissues.tar.gz"
-
-rule download_mesc_sets:
-  output:
-    directory("resources/twas/mesc/GTEx_gene_set_expscores")
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "wget -O resources/twas/mesc/All_Tissues_Gene_Sets.tar.gz http://gusevlab.org/projects/MESC/All_Tissues_Gene_Sets.tar.gz; tar -xzf resources/twas/mesc/All_Tissues_Gene_Sets.tar.gz -C resources/twas/mesc/; rm resources/twas/mesc/All_Tissues_Gene_Sets.tar.gz"
-
-# download rlang
-rule download_rlang:
-  output:
-    directory("resources/twas/rlang/rlang-master/")
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "wget -O resources/twas/rlang/master.zip https://github.com/r-lib/rlang/archive/master.zip; unzip resources/twas/rlang/master.zip -d resources/twas/rlang"
-
-# Create variable indicating latest (current) conda environment
-import os
-from pathlib import Path
-paths = sorted(Path(".snakemake/conda/").iterdir(), key=os.path.getmtime)
-path=str(paths[-1])
-import re
-env=re.sub(".*/", "", path)
-
-target_short = [".snakemake/conda/",env,"/lib/R/library/"]
-target_short = "".join(target_short)
-target = [".snakemake/conda/",env,"/lib/R/library/rlang"]
-target = "".join(target)
-
-# install rlang
-rule install_rlang:
-  input:
-	"resources/twas/rlang/rlang-master/DESCRIPTION"
-  output:
-    directory(target)
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "Rscript -e 'install.packages(\"resources/twas/rlang/rlang-master/\",repos=NULL, lib=\"{target_short}\")'"
-
-# Download MSigDB getsets c2 and c5 
-# This has to be done manually due to login requirements for MSigDB
-#https://www.gsea-msigdb.org/gsea/msigdb/download_file.jsp?filePath=/msigdb/release/7.1/c2.all.v7.1.entrez.gmt"
-#https://www.gsea-msigdb.org/gsea/msigdb/download_file.jsp?filePath=/msigdb/release/7.1/c5.all.v7.1.entrez.gmt"
-
-# Combine c2 and c5 genesets
-rule combine_sets:
-  input: c2="resources/twas/gsea/c2.all.v7.1.entrez.gmt", c5="resources/twas/gsea/c5.all.v7.1.entrez.gmt"
-  output:
-    "resources/twas/gsea/c2_and_c5.all.v7.1.entrez.gmt"
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "cat {input.c2} {input.c5} > {output}"
 
 ###
 # Munge sumstats
@@ -147,13 +60,13 @@ rule pre_munge:
 # munge sumstats using FOCUS munge function
 rule focus_munge:
   input:
-    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_premunged.gz"
+    premunged="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_premunged.gz", focus="resources/twas/pyfocus"
   output:
     "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz"
   conda:
     "../envs/twas.yaml"
   shell:
-    "focus munge {input} --output results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged"
+    "focus munge {input.premunged} --output results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged"
 
 ###
 # Run TWAS
@@ -170,23 +83,18 @@ rule retrieve_Neff:
   shell:
     "Rscript scripts/twas/median_neff.R --daner {input} --out {output}"
 
-# Read in the median Neff
-Neff_file = open("results/twas/median_Neff.txt", "r")
-Neff_char=Neff_file.read()
-Neff_num=float(Neff_char)
-
 # Create list of FUSION SNP-weight sets to be used in the TWAS
 weights=["Adrenal_Gland","Brain_Amygdala","Brain_Anterior_cingulate_cortex_BA24","Brain_Caudate_basal_ganglia","Brain_Cerebellar_Hemisphere","Brain_Cerebellum","Brain_Cortex","Brain_Frontal_Cortex_BA9","Brain_Hippocampus","Brain_Hypothalamus","Brain_Nucleus_accumbens_basal_ganglia","Brain_Putamen_basal_ganglia","Brain_Substantia_nigra","CMC.BRAIN.RNASEQ","CMC.BRAIN.RNASEQ_SPLICING","NTR.BLOOD.RNAARR","Pituitary","Thyroid","Whole_Blood","YFS.BLOOD.RNAARR"]
 
 # Create list of chromosome numbers
-chrs=range(1, 23)
+chr=range(1, 22)
 
-# Run fusion twas
-rule run_fusion_twas:
-  resources: mem_mb=20000 
+# run twas
+rule run_twas:
   input:
-    sumstats="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz",
-    neff="results/twas/median_Neff.txt"
+    sumstats="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz", neff_txt="results/twas/median_Neff.txt", fusion=rules.install_fusion.output, plink2R=rules.install_plink2R.output
+  params:
+    Neff_num=lambda wildcards, input: float(open(input.neff_txt, "r").read()) 
   output:
     "results/twas/PGC_MDD3_twas_{weight}_chr{chr}"
   conda: 
@@ -194,16 +102,16 @@ rule run_fusion_twas:
   shell:
     "Rscript resources/twas/fusion/FUSION.assoc_test.R "
     "--sumstats {input.sumstats} "
-    "--weights /scratch/groups/biomarkers-brc-mh/TWAS_resource/FUSION/SNP-weights/{wildcards.weight}/{wildcards.weight}.pos "
-    "--weights_dir /scratch/groups/biomarkers-brc-mh/TWAS_resource/FUSION/SNP-weights/{wildcards.weight} "
+    "--weights /mnt/lustre/groups/biomarkers-brc-mh/TWAS_resource/FUSION/SNP-weights/{wildcards.weight}/{wildcards.weight}.pos "
+    "--weights_dir /mnt/lustre/groups/biomarkers-brc-mh/TWAS_resource/FUSION/SNP-weights/{wildcards.weight} "
     "--ref_ld_chr /scratch/groups/biomarkers-brc-mh/Reference_data/1KG_Phase3/PLINK/EUR/EUR_phase3.MAF_001.chr "
     "--out {output} "
     "--chr {wildcards.chr} "
     "--coloc_P 1e-3 "
-    "--GWASN {Neff_num}"
+    "--GWASN {params.Neff_num}"
 
 rule fusion_twas:
-    input: expand("results/twas/PGC_MDD3_twas_{weight}_chr{chr}", weight=weights, chr=chrs)
+    input: expand("results/twas/PGC_MDD3_twas_{weight}_chr{chr}", weight=weights, chr=chr)
 
 # Run twas using psychENCODE SNP-weights
 rule run_psychencode_twas:
@@ -453,6 +361,3 @@ rule est_h2med_sets:
   output: "results/twas/mesc/PGC_MDD3_TWAS.MESC.sets.all.h2med"
   conda: "../envs/mesc.yaml"
   shell: "resources/twas/mesc/mesc/run_mesc.py --h2med {input} --exp-chr resources/twas/mesc/GTEx_gene_set_expscores/All_Tissues --out results/twas/mesc/PGC_MDD3_TWAS.MESC.sets"
-
-
-
