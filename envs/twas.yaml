@@ -9,4 +9,22 @@ dependencies:
   - r-RColorBrewer
   - r-devtools
   - r-Rcpp
-  
+  - r-RcppEigen
+  - r-coloc
+  - r-ggrepel
+  - r-cowplot
+  - r-ggplot2
+  - bioconductor-biomart
+  - r-WGCNA
+  - r-Matrix
+  - r-VGAM
+  - r-gdata
+  - r-lme4
+  - r-matrixcalc
+  - r-pbkrtest
+  - r-foreach
+  - r-doMC
+  - bioconductor-GWASTools
+  - bioconductor-qusage
+  - r-withr
+  - r-lme4qtl

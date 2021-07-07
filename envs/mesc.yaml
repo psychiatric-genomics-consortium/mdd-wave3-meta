@@ -1,0 +1,9 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=2
+  - numpy
+  - pandas
+  - bitarray
+  - scipy
