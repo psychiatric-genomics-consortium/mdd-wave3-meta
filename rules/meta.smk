@@ -210,6 +210,17 @@ rule meta_ldsc_munge:
 	output: "results/sumstats/munged/{cohort}.sumstats.gz"
 	shell: "resources/ldsc/ldsc/munge_sumstats.py --sumstats {input.sumstats} --daner --out {params.prefix} --merge-alleles {input.hm3} --chunksize 500000"
 	
+# calculate observed scale h2
+rule meta_ldsc_h2:
+	input: sumstats="results/sumstats/munged/{cohort}.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
+	params:
+		prefix="results/sumstats/h2/{cohort}"
+	conda: "../envs/ldsc.yaml"
+	output: "results/sumstats/h2/{cohort}.log"
+	shell: "resources/ldsc/ldsc/ldsc.py --h2 {input.sumstats} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
+	
+
+	
 # extract lists of CPIDs and SNPs from aligned sumstats
 rule meta_cpids:
 	input: sumstats="results/sumstats/aligned/{cohort}.gz"
