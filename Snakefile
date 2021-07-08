@@ -1,4 +1,4 @@
-configfile: "config.yaml"
+configfile: "config_23andMe.yaml"
 import os
 import json
 import gzip
@@ -27,4 +27,6 @@ include: "rules/meta_mtag.smk"
 include: "rules/meta_metal.smk"
 include: "rules/metaqc.smk"
 include: "rules/distribution.smk"
+include: "rules/finemapping.smk"
 include: "rules/reports.smk"
+
