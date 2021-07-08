@@ -15,7 +15,7 @@ rule meta_ldsc_mdd2_table:
 	output: "docs/tables/meta_qc_ldsc.txt"
 	shell: """
 tmp=$(mktemp)
-echo -e "cohort release h2_obs h2_obs_se rg.mdd2 se.mdd2 gencov.mdd2 gencov_se.mdd2 z1z2.mdd2 rg.mdd29 se.mdd29 gencov.mdd29 gencov_se.mdd29 z1z2.mdd29" > ${{tmp}}.header
+echo -e "cohort\trelease\th2_obs\th2_obs_se\trg.mdd2\tse.mdd2\tgencov.mdd2\tgencov_se.mdd2\tz1z2.mdd2\trg.mdd29\tse.mdd29\tgencov.mdd29\tgencov_se.mdd29\tz1z2.mdd29" > ${{tmp}}.header
 for log in {input}; do
 sumstats=$(basename $log .log);
 cohort=$(echo $sumstats | awk -F. '{{print $1}}' | awk -F_ '{{print $3}}');
@@ -28,22 +28,21 @@ gencov_mdd29_entry=$(cat $log | awk '/rg for phenotype 3/,/Summary of Genetic/' 
 z1z2_mdd29_entry=$(cat $log | awk '/rg for phenotype 3/,/Summary of Genetic/' | grep 'Mean z1' || true);
 rg_mdd29_entry=$(cat $log | awk '/rg for phenotype 3/,/Summary of Genetic/' | grep 'Genetic Correlation:' || true);
 h2=$(echo $h2_entry | awk '{{print $5}}');
-h2_se=$(echo $h2_entry | awk '{{print $6}}' | sed -e 's/[[:punct:]]//g');
+h2_se=$(echo $h2_entry | awk '{{print $6}}' | sed -e 's/[()]//g');
 gencov_mdd2=$(echo $gencov_mdd2_entry | awk '{{print $5}}');
-gencov_se_mdd2=$(echo $gencov_mdd2_entry | awk '{{print $6}}'| sed -e 's/[[:punct:]]//g');
+gencov_se_mdd2=$(echo $gencov_mdd2_entry | awk '{{print $6}}'| sed -e 's/[()]//g');
 z1z2_mdd2=$(echo $z1z2_mdd2_entry | awk '{{print $3}}');
 rg_mdd2=$(echo $rg_mdd2_entry | awk '{{print $3}}');
-se_mdd2=$(echo $rg_mdd2_entry | awk '{{print $4}}'| sed -e 's/[[:punct:]]//g');
+se_mdd2=$(echo $rg_mdd2_entry | awk '{{print $4}}'| sed -e 's/[()]//g');
 gencov_mdd29=$(echo $gencov_mdd29_entry | awk '{{print $5}}');
-gencov_se_mdd29=$(echo $gencov_mdd29_entry | awk '{{print $6}}'| sed -e 's/[[:punct:]]//g');
+gencov_se_mdd29=$(echo $gencov_mdd29_entry | awk '{{print $6}}'| sed -e 's/[()]//g');
 z1z2_mdd29=$(echo $z1z2_mdd29_entry | awk '{{print $3}}');
 rg_mdd29=$(echo $rg_mdd29_entry | awk '{{print $3}}');
-se_mdd29=$(echo $rg_mdd29_entry | awk '{{print $4}}'| sed -e 's/[[:punct:]]//g');
+se_mdd29=$(echo $rg_mdd29_entry | awk '{{print $4}}'| sed -e 's/[()]//g');
 echo -e "$cohort\t[$release]\t$h2\t$h2_se\t$rg_mdd2\t$se_mdd2\t$gencov_mdd2\t$gencov_se_mdd2\t$z1z2_mdd2\t$rg_mdd29\t$se_mdd29\t$gencov_mdd29\t$gencov_se_mdd29\t$z1z2_mdd29"  >> ${{tmp}}.body;
 done;
-cat ${{tmp}}.header > $tmp;
-cat ${{tmp}}.body | sort -k 1,2 >> $tmp;
-column -t -s' ' $tmp > {output}"""
+cat ${{tmp}}.header > {output};
+cat ${{tmp}}.body | sort -k 1,2 >> {output}"""
 	
 # LDSC rg between two sets of sumstats
 rule meta_ldsc_pairwise_rg:
