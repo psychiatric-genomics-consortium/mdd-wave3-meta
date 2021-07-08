@@ -19,10 +19,16 @@ rule cojo_qctool:
     input: "resources/cojo/qctool_v2.0.8-CentOS_Linux7.6.1810-x86_64.tgz"
     output: "resources/cojo/qctool_v2.0.8-CentOS\\ Linux7.6.1810-x86_64/qctool"
     shell: "tar -xz --directory=resources/cojo -f {input}"
+
+# QC sumstats to MAF <= 0.01, INFO >= 0.6
+rule cojo_daner_qc:
+    input: "results/distribution/daner_{analysis}.rp.gz"
+    output: "results/cojo/daner_{analysis}.rp.qc.gz"
+    shell: "zcat {input} | awk '{{if(NR == 1 || ($7 >= 0.01 && $7 <= 0.99 && $8 >= 0.6)) {{print $0}}}}' | gzip -c > {output}"
     
 # sumstats for input into GCTA
 rule cojo_ma:
-    input: "results/distribution/daner_{analysis}.rp.gz"
+    input: "results/cojo/daner_{analysis}.rp.qc.gz"
     output: "results/cojo/{analysis}.ma"
     shell: """zcat {input} | awk '{{if(NR == 1) {{print "SNP", "A1", "A2", "freq", "b", "se", "p", "N"}} else {{print $2, $4, $5, $7, log($9), $10, $11, 2*$19}}}}' > {output}"""
     
