@@ -65,6 +65,7 @@ meta_qc_align %>% print(n=Inf)
 ```
 
 Median odds-ratios with standard error
+
 ```{r meta_qc_align_mean_OR}
 
 ggplot(meta_qc_align %>%
@@ -327,7 +328,6 @@ coord_flip(ylim=c(gcov_int_min-0.01, gcov_int_max+0.01))
 
 ```
 
-
 ## Clustering
 
 Cluster based on similarity in genetic covariance intercepts.
@@ -426,4 +426,3 @@ corrplot(rg_mat_1[has_rg_idx,has_rg_idx], na.label='.')
 
 
 ```
-
