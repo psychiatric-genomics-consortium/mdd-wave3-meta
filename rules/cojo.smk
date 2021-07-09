@@ -8,6 +8,8 @@
 # - ukbAAA_imp_chrN_v3_sSSSS.sample: sample files
 # - ukbRRRR.enc_ukb: phenotype release file (unencrypted)
 
+ukb_path=config['ukb'] if "ukb" in config else '~'
+
 
 # download qctool
 rule cojo_qctool_tgz:
@@ -41,17 +43,17 @@ rule cojo_regions:
 
 # symlink to UKB bgen and sample files
 rule cojo_ukb_bgen:
-    input: bgen=expand("{ukb}/ukb_imp_chr{{chr}}_v3.bgen", ukb=config['ukb'])
+    input: bgen=expand("{ukb}/ukb_imp_chr{{chr}}_v3.bgen", ukb=ukb_path)
     output: "resources/cojo/ukb/ukb_imp_chr{chr}_v3.bgen"
     shell: "ln -sv {input} {output}"
 
 rule cojo_ukb_bgi:
-    input: bgi=expand("{ukb}/ukb_imp_chr{{chr}}_v3.bgen.bgi", ukb=config['ukb'])
+    input: bgi=expand("{ukb}/ukb_imp_chr{{chr}}_v3.bgen.bgi", ukb=ukb_path)
     output: "resources/cojo/ukb/ukb_imp_chr{chr}_v3.bgen.bgi"
     shell: "ln -sv {input} {output}"
     
 rule cojo_ukb_sample:
-    params: ukb=config['ukb']
+    params: ukb=ukb_path
     output: "resources/cojo/ukb/ukb_imp_chr{chr}_v3.sample"
     shell: "ln -sv {params.ukb}/ukb*_imp_chr{wildcards.chr}_v3_s*.sample {output}"
 
@@ -64,7 +66,7 @@ rule cojo_ukb_conv:
 # Assumes there is one file in the config['ukb'] directory with the extension *.enc_ukb
 rule cojo_ukb_22006:
     input: ukbconv="resources/cojo/ukb/ukbconv"
-    params: ukb=config['ukb'], prefix="resources/cojo/ukb/f22006"
+    params: ukb=ukb_path, prefix="resources/cojo/ukb/f22006"
     output: "results/cojo/f22006.txt"
     shell: "{input.ukbconv} {params.ukb}/ukb*.enc_ukb txt -o{params.prefix} -s22006"
     
@@ -75,7 +77,7 @@ rule cojo_ukb_eur_ids:
     
 # extract list related individuals (ukbA_rel_sP.txt from `gfetch rel`)
 rule cojo_ukb_rels:
-    params: ukb=config['ukb']
+    params: ukb=ukb_path
     output: "results/cojo/ukb_rel.dat"
     shell: "cat {params.ukb}/ukb*_rel_s*.dat | awk 'NR > 1 {{print $1}}' | sed 's/ /\\n/' | sort | uniq | awk '{{print $1, $1}}' > {output}"
     
