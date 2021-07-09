@@ -78,7 +78,7 @@ rule hg19:
 
 # download hgIN to hgOUT chain
 rule hg_chain:
-    input: HTTP.remote("hgdownload.soe.ucsc.edu/goldenPath/hg{from}/liftOver/hg{from}ToHg{to}.over.chain.gz", keep_local=True)
+	input: HTTP.remote("hgdownload.soe.ucsc.edu/goldenPath/hg{from}/liftOver/hg{from}ToHg{to}.over.chain.gz", keep_local=True)
 	output: "resources/liftOver/hg{from}ToHg{to}.over.chain"
 	run:
 		 outputName = os.path.basename(input[0])
@@ -102,7 +102,18 @@ rule hg38to19:
 ruleorder: hg19 > hg38to19
 
 # Meta-analysis QC parameters
-meta_qc_params = {"maf": 0.001, "info": 0.1, "mac": 20, "secure_frq": 0.20, "diff_frq": 0.15}
+meta_qc_params = {"maf": 0.001,
+				  "info": 0.1,
+				  "mac": 20,
+				  "secure_frq": 0.20,
+				  "diff_frq": 0.15,
+			      "clu_p1": 0.0001,
+			      "clu_p2": 0.0001,
+				  "clu_r2": 0.1,
+			      "clu_kb": 3000,
+			      "clu_info": 0.6,
+			      "clu_maf": 0.01,
+			      "cojo_kb": 50}
 	
 # create reference info file linking to imputation panel
 rule refdir:
@@ -218,6 +229,41 @@ rule meta_ldsc_munge:
 	output: "results/sumstats/munged/{cohort}.sumstats.gz"
 	shell: "resources/ldsc/ldsc/munge_sumstats.py --sumstats {input.sumstats} --daner --out {params.prefix} --merge-alleles {input.hm3} --chunksize 500000"
 	
+# calculate observed scale h2
+rule meta_ldsc_h2:
+	input: sumstats="results/sumstats/munged/{cohort}.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
+	params:
+		prefix="results/sumstats/h2/{cohort}"
+	conda: "../envs/ldsc.yaml"
+	output: "results/sumstats/h2/{cohort}.log"
+	shell: "resources/ldsc/ldsc/ldsc.py --h2 {input.sumstats} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
+	
+rule meta_ldsc_h2_table:
+	input: expand("results/sumstats/h2/daner_mdd_{cohort}.eur.hg19.{release}.qc.log", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur])
+	output: "docs/tables/meta_ldsc_h2.txt"
+	shell: """
+tmp=$(mktemp)
+echo -e "cohort\trelease\th2_obs\th2_obs_se\tlambdaGC\tmeanChisq\tintercept\tintercept_se" > ${{tmp}}.header
+for log in {input}; do
+sumstats=$(basename $log .log);
+cohort=$(echo $sumstats | awk -F. '{{print $1}}' | awk -F_ '{{print $3}}');
+release=$(echo $sumstats | awk -F. '{{print $4}}');
+h2_entry=$(cat $log | grep 'Total Observed scale h2:' || true)
+lambda_entry=$(cat $log | grep 'Lambda GC:' || true)
+chisq_entry=$(cat $log | grep 'Mean Chi^2:' || true)
+intercept_entry=$(cat $log | grep 'Intercept:' || true)
+ratio_entry=$(cat $log | grep 'Ratio:' || true)
+h2=$(echo $h2_entry | awk '{{print $5}}');
+h2_se=$(echo $h2_entry | awk '{{print $6}}' | sed -e 's/[()]//g');
+lambdagc=$(echo $lambda_entry | awk '{{print $3}}');
+chisq=$(echo $chisq_entry | awk '{{print $3}}');
+intercept=$(echo $intercept_entry | awk '{{print $2}}');
+intercept_se=$(echo $intercept_entry | awk '{{print $3}}' | sed -e 's/[()]//g');
+echo -e "$cohort\t[$release]\t$h2\t$h2_se\t$lambdagc\t$chisq\t$intercept\t$intercept_se"  >> ${{tmp}}.body;
+done;
+cat ${{tmp}}.header > {output};
+cat ${{tmp}}.body | sort -k 1,2 >> {output}"""
+
 # extract lists of CPIDs and SNPs from aligned sumstats
 rule meta_cpids:
 	input: sumstats="results/sumstats/aligned/{cohort}.gz"
