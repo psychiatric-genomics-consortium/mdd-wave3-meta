@@ -102,7 +102,18 @@ rule hg38to19:
 ruleorder: hg19 > hg38to19
 
 # Meta-analysis QC parameters
-meta_qc_params = {"maf": 0.001, "info": 0.1, "mac": 20, "secure_frq": 0.20, "diff_frq": 0.15}
+meta_qc_params = {"maf": 0.001,
+				  "info": 0.1,
+				  "mac": 20,
+				  "secure_frq": 0.20,
+				  "diff_frq": 0.15,
+			      "clu_p1": 0.0001,
+			      "clu_p2": 0.0001,
+				  "clu_r2": 0.1,
+			      "clu_kb": 3000,
+			      "clu_info": 0.6,
+			      "clu_maf": 0.01,
+			      "cojo_kb": 50}
 	
 # create reference info file linking to imputation panel
 rule refdir:
@@ -252,7 +263,7 @@ echo -e "$cohort\t[$release]\t$h2\t$h2_se\t$lambdagc\t$chisq\t$intercept\t$inter
 done;
 cat ${{tmp}}.header > {output};
 cat ${{tmp}}.body | sort -k 1,2 >> {output}"""
-	
+
 # extract lists of CPIDs and SNPs from aligned sumstats
 rule meta_cpids:
 	input: sumstats="results/sumstats/aligned/{cohort}.gz"
