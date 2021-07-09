@@ -82,21 +82,28 @@ rule cojo_ukb_rels:
 # read in list of regions (CHR START STOP) and 
 # merge close by regions
 # return region strings "CHR:START-STOP"
-def cojo_parse_regions(regions_file):
+def cojo_parse_regions(regions_file, kb=50):
     # open regions file and split into list of [CHR, START, STOP]
     regions_f = open(regions_file, 'r')
     regions_list = regions_f.read().split('\n')
     regions = [[int(float(i)) for i in r.split()] for r in regions_list if r != '']
-    # merge together regions that are on the same chromosome and within 50kb of each
+    # merge together regions that are on the same chromosome and within M kb of each
     # other
     merged_regions = []
-    kb50 = 50000
+    bp = kb*1000
     for r in regions:
         add = True
         for i in range(len(merged_regions)):
             m = merged_regions[i]
             if r[0] == m[0]:
-                if abs(m[1] - r[2]) <= kb50 or abs(r[1] - m[2]) <= kb50:
+                # extend regions
+                r_start=r[1] - bp/2
+                r_end=r[2] + bp/2
+                m_start=m[1] - bp/2
+                m_end=m[2] + bp/2
+                # test for partial or full overlap
+                if(r_start <= m_end and m_start <= r_end):
+                    # merge regions
                     merged_regions[i] = [r[0], min(r[1], m[1]), max(r[2], m[2])]
                     add = False
                     break
@@ -110,7 +117,7 @@ def cojo_parse_regions(regions_file):
 # Extract region from the BGEN file
 rule cojo_region_bgen:
     input: bgen="resources/cojo/ukb/ukb_imp_chr{chr}_v3.bgen", bgi="resources/cojo/ukb/ukb_imp_chr{chr}_v3.bgen.bgi", regions="results/cojo/{analysis}.regions"
-    output: temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bgen")
+    output: "results/cojo/{analysis}/{chr}:{start}-{stop}.bgen"
     params: chr0=lambda wildcards: wildcards.chr.zfill(2)
     conda: "../envs/cojo.yaml"
     shell: "bgenix -g {input.bgen} -incl-range {params.chr0}:{wildcards.start}-{wildcards.stop} > {output}"
@@ -124,25 +131,27 @@ rule cojo_snplists:
     
 # convert UKB BGEN to PLINK BED
 # keep unrelated European ancestries
-# extract SNPs that are in the GWAS
+# extract SNPs that are in the GWAS in this region
 rule cojo_region_bed:
     input: bgen="results/cojo/{analysis}/{chr}:{start}-{stop}.bgen", snplist="results/cojo/{analysis}/{chr}:{start}-{stop}.snplist", sample= "resources/cojo/ukb/ukb_imp_chr{chr}_v3.sample", eur_ids="results/cojo/ukb_eur.ids", rel_ids="results/cojo/ukb_rel.dat"
     conda: "../envs/cojo.yaml"
     params: prefix="results/cojo/{analysis}/{chr}:{start}-{stop}"
-    output: temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bed"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.fam"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bim")
+    output: "results/cojo/{analysis}/{chr}:{start}-{stop}.bed", "results/cojo/{analysis}/{chr}:{start}-{stop}.fam", "results/cojo/{analysis}/{chr}:{start}-{stop}.bim"
     shell: "plink2 --make-bed --bgen {input.bgen} 'ref-first' --sample {input.sample} --double-id --keep {input.eur_ids} --remove {input.rel_ids} --extract {input.snplist} --out {params.prefix} --memory 4000 --threads 1"
     
 # COJO analysis
+# parse CHR, start, and stop from input filename
 rule cojo_slct:
     input: bed="results/cojo/{analysis}/{chr}:{start}-{stop}.bed", fam="results/cojo/{analysis}/{chr}:{start}-{stop}.fam", bim="results/cojo/{analysis}/{chr}:{start}-{stop}.bim", ma="results/cojo/{analysis}.ma"
     conda: "../envs/cojo.yaml"
     params: prefix="results/cojo/{analysis}/{chr}:{start}-{stop}"
     output: jma="results/cojo/{analysis}/{chr}:{start}-{stop}.jma.cojo", jma_ldr="results/cojo/{analysis}/{chr}:{start}-{stop}.ldr.cojo"
-    shell: "gcta64 --bfile {params.prefix} --cojo-file {input.ma} --cojo-slct --out {params.prefix}"
+    shell: "gcta64 --bfile {params.prefix} --cojo-file {input.ma} --cojo-slct --out {params.prefix}; if grep -e 'No SNPs have been selected' {params.prefix}.log; then touch {output}; fi"
     
-
+# parse regions from the region list file to determine inputs
+# cojo_parse_regions() returns a list ["CHR:START-STOP", "CHR:START-STOP", ...]
 rule cojo_regions_analyse:
-    input: lambda wildcards: expand("results/cojo/{analysis}/{region}.jma.cojo", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions'))
+    input: lambda wildcards: expand("results/cojo/{analysis}/{region}.jma.cojo", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb']))
     output: "results/cojo/{analysis}.cojo"
     shell: "touch {output}"
 
