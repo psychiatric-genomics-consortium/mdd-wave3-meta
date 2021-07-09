@@ -60,23 +60,26 @@ rule downstream_full:
 
 rule downstream_noUKBB:
 	input: expand("results/distribution/daner_pgc_mdd_noUKBB_eur_hg19_v{version}.rp.gz", version=analysis_version)
+	
+rule downstream_noALSPAC:
+	input: expand("results/distribution/daner_pgc_mdd_noALSPAC_eur_hg19_v{version}.rp.gz", version=analysis_version)
 
 rule downstream_no23andMe:
 	input: expand("results/distribution/daner_pgc_mdd_no23andMe_eur_hg19_v{version}.rp.gz", version=analysis_version)
 
 # Download tables and figures
 rule redistribute_figtabs:
-	input: DBox_dist.remote("distribution/{analysis}_v{version}/{prefix}.{analysis}_v{version}.{ext}")
+	input: lambda wildcards: expand("{local_path}/mdd3/distribution/{analysis}_v{version}/{prefix}.{analysis}_v{version}.{ext}", local_path=distribute_local_path, analysis=wildcards.analysis, version=wildcards.version, ext=wildcards.ext) if "lisa" in config["remote"]["distribution"] else DBox_dist.remote("distribution/{analysis}_v{version}/{prefix}.{analysis}_v{version}.{ext}")
 	output: "results/distribution/{prefix}.{analysis}_v{version}.{ext}"
 	shell: "cp {input} {output}"
 
 rule redistribute_danerxls:
-	input: DBox_dist.remote("distribution/{analysis}_v{version}/daner_{analysis}_v{version}.xls")
+	input: lambda wildcards: expand("{local_path}/mdd3/distribution/{analysis}_v{version}/daner_{analysis}_v{version}.xls", local_path=distribute_local_path, analysis=wildcards.analysis, version=wildcards.version, ext=wildcards.ext) if "lisa" in config["remote"]["distribution"] else DBox_dist.remote("distribution/{analysis}_v{version}/daner_{analysis}_v{version}.xls")
 	output: "results/distribution/daner_{analysis}_v{version}.xls"
 	shell: "cp {input} {output}"
 	
 rule redistribute_danerext:
-	input: DBox_dist.remote("distribution/{analysis}_v{version}/daner_{analysis}_v{version}.gz.{ext}")
+	input: lambda wildcards: expand("{local_path}/mdd3/distribution/{analysis}_v{version}/daner_{analysis}_v{version}.gz.{ext}", local_path=distribute_local_path, analysis=wildcards.analysis, version=wildcards.version, ext=wildcards.ext) if "lisa" in config["remote"]["distribution"] else DBox_dist.remote("distribution/{analysis}_v{version}/daner_{analysis}_v{version}.gz.{ext}")
 	output: "results/distribution/daner_{analysis}_v{version}.gz.{ext}"
 	shell: "cp {input} {output}"
 

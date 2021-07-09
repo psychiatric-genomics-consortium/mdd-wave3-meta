@@ -45,6 +45,23 @@ rule postimp_eur:
 rule postimp_eas:
 	input: expand("results/meta/full_eas_v{version}.done", version=["3.00.02"])
 	
+# Clump results based on workflow params
+rule postimp_clump:
+	input: "results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
+	params:
+		refdir=config['refdir'],
+		p1=meta_qc_params['clu_p1'],
+		p2=meta_qc_params['clu_p2'],
+		r2=meta_qc_params['clu_r2'],
+		frq=meta_qc_params['clu_maf'],
+		info=meta_qc_params['clu_info'],
+		window=meta_qc_params['clu_kb'],
+		popname=lambda wildcards: wildcards.ancestries.upper(),
+		pfile="distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz",
+		outname="pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.reclump"
+	output: touch("results/meta/{cohorts}_{ancestries}_v{version}.reclump.done")
+	shell: "cd results/meta; clump_nav3 --pfile {params.pfile} --refdir {params.refdir}/pop_{params.popname} --clu_p1 {params.p1} --clu_p2 {params.p2} --clu_r2 {params.r2} --clu_window {params.window} --popname {params.popname} --outname {params.outname} --debug --serial --sepa 16"
+	
 # cohort sets for analysts
 cohorts_analyst = ["full", "noUKBB", "noALSPAC"]
 
