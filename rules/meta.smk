@@ -254,7 +254,7 @@ echo -e "$cohort\t[$release]\t$h2\t$h2_se\t$lambdagc\t$chisq\t$intercept\t$inter
 done;
 cat ${{tmp}}.header > {output};
 cat ${{tmp}}.body | sort -k 1,2 >> {output}"""
-	
+
 # extract lists of CPIDs and SNPs from aligned sumstats
 rule meta_cpids:
 	input: sumstats="results/sumstats/aligned/{cohort}.gz"
