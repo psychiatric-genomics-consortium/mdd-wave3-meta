@@ -112,7 +112,8 @@ meta_qc_params = {"maf": 0.001,
 				  "clu_r2": 0.1,
 			      "clu_kb": 3000,
 			      "clu_info": 0.6,
-			      "clu_maf": 0.01}
+			      "clu_maf": 0.01,
+			      "cojo_kb": 50}
 	
 # create reference info file linking to imputation panel
 rule refdir:
