@@ -80,6 +80,9 @@ for(weight in weights){
 
 write.table(all, paste0(opt$out,'PGC_MDD3_twas_AllTissues_GW.txt'), row.names=F, col.names=T, quote=F)
 
+# Write file listing chromosomes with transcriptome-wide significant results
+write.table(unique(all$CHR[which(all$TWAS.P < 1.368572e-06)]), paste0(opt$out,'PGC_MDD3_TWSig_chr.txt'), row.names=F, col.names=T, quote=F)
+
 # Write out transcriptome-wide significant results
 write.table(all[which(all$TWAS.P < 1.368572e-06),], paste0(opt$out,'PGC_MDD3_twas_AllTissues_GW_TWSig.txt'), row.names=F, col.names=T, quote=F)
 

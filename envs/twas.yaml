@@ -24,6 +24,7 @@ dependencies:
   - r-pbkrtest
   - r-foreach
   - r-doMC
+  - r-R.utils
   - bioconductor-GWASTools
   - bioconductor-qusage
   - r-withr

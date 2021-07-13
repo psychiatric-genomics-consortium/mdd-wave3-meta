@@ -1,0 +1,39 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-base =3.5.0
+  - r-essentials
+  - r-data.table
+  - r-optparse
+  - r-RColorBrewer
+  - r-devtools
+  - r-Rcpp
+  - r-RcppEigen
+  - r-coloc
+  - r-ggrepel
+  - r-cowplot
+  - r-ggplot2
+  - bioconductor-biomart
+  - r-WGCNA
+  - r-Matrix
+  - r-VGAM
+  - r-gdata
+  - r-lme4
+  - r-matrixcalc
+  - r-pbkrtest
+  - r-foreach
+  - r-doMC
+  - r-R.utils
+  - bioconductor-GWASTools
+  - bioconductor-qusage
+  - r-withr
+  - r-lme4qtl
+  - opencv
+  - sqlalchemy
+  - matplotlib >=3.1.0
+  - seaborn
+  - numpy
+  - scipy
+  - pandas >=0.23.0
+  - pandas-plink
