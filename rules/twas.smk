@@ -42,6 +42,83 @@ rule install_focus:
   shell:
     "pip install pyfocus==0.6.10 --user"
 
+# install TWAS-plotter
+rule install_twas_plotter:
+  output:
+    directory("resources/twas/TWAS-plotter/")
+  conda:
+    "../envs/twas.yaml"
+  shell:
+    "git clone git@github.com:opain/TWAS-plotter.git {output}"
+
+# install TWAS-GSEA
+rule install_twas_gsea:
+  output:
+    directory("resources/twas/TWAS-GSEA/")
+  conda:
+    "../envs/twas.yaml"
+  shell:
+    "git clone git@github.com:opain/TWAS-GSEA.git {output}"
+
+# Download gene-sets
+rule download_c2_sets:
+  output:
+    "resources/twas/gsea/c2.all.v7.4.entrez.gmt"
+  conda:
+    "../envs/twas.yaml"
+  shell:
+    "wget -O resources/twas/gsea/c2.all.v7.4.entrez.gmt --no-check-certificate 'https://docs.google.com/uc?export=download&id=1msbXzWTqBNa3pxVqzOwCjb7SSgpXykik'"
+    
+rule download_c5_sets:
+  output:
+    "resources/twas/gsea/c5.all.v7.4.entrez.gmt"
+  conda:
+    "../envs/twas.yaml"
+  shell:
+    "wget -O resources/twas/gsea/c5.all.v7.4.entrez.gmt --no-check-certificate 'https://docs.google.com/uc?export=download&id=1lzpZP4TtZjIr94rKjNbwWQYLgH7u70gL'"
+    
+# Combine gene-sets into a single file
+rule combine_gene_sets:
+  input:
+    c2="resources/twas/gsea/c2.all.v7.4.entrez.gmt", c5="resources/twas/gsea/c5.all.v7.4.entrez.gmt"
+  output:
+    "resources/twas/gsea/c2_and_c5.all.v7.4.entrez.gmt"
+  conda:
+    "../envs/twas.yaml"
+  shell:
+    "cat {input.c2} {input.c5} > resources/twas/gsea/c2_and_c5.all.v7.4.entrez.gmt"
+
+# Install MESC
+rule install_mesc:
+  output:
+    directory("resources/twas/mesc/")
+  conda:
+    "../envs/twas.yaml"
+  shell:
+    "git clone git@github.com:douglasyao/mesc.git {output}"
+
+# Download MESC expression scores
+rule download_mesc_score:
+  input:
+    mesc_dir=rules.install_mesc.output
+  output:
+    directory("resources/twas/mesc_data/GTEx_v8/")
+  conda:
+    "../envs/twas.yaml"
+  shell:
+    "wget -O resources/twas/mesc_data/All_Tissues.tar.gz http://gusevlab.org/projects/MESC/All_Tissues.tar.gz ; tar -xvf resources/twas/mesc_data/All_Tissues.tar.gz -C resources/twas/mesc_data/; rm resources/twas/mesc_data/All_Tissues.tar.gz"
+
+# Download MESC expression scores for sets
+rule download_mesc_score_sets:
+  input:
+    mesc_dir=rules.install_mesc.output
+  output:
+    directory("resources/twas/mesc_data/GTEx_gene_set_expscores")
+  conda:
+    "../envs/twas.yaml"
+  shell:
+    "wget -O resources/twas/mesc_data/All_Tissues_Gene_Sets.tar.gz http://gusevlab.org/projects/MESC/All_Tissues_Gene_Sets.tar.gz ; tar -xvf resources/twas/mesc_data/All_Tissues_Gene_Sets.tar.gz -C resources/twas/mesc_data/; rm resources/twas/mesc_data/All_Tissues_Gene_Sets.tar.gz"
+    
 ###
 # Munge sumstats
 ###
@@ -49,9 +126,9 @@ rule install_focus:
 # Format sumstats file so FOCUS can read it
 rule pre_munge:
   input:
-    "results/distribution/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz"
+    "results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp.gz"
   output:
-    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_premunged.gz"
+    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_premunged.gz"
   conda:
     "../envs/twas.yaml"
   shell:
@@ -60,13 +137,13 @@ rule pre_munge:
 # munge sumstats using FOCUS munge function
 rule focus_munge:
   input:
-    premunged="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_premunged.gz", focus="resources/twas/pyfocus"
+    premunged="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_premunged.gz", focus="resources/twas/pyfocus"
   output:
-    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz"
+    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged.sumstats.gz"
   conda:
     "../envs/twas.yaml"
   shell:
-    "focus munge {input.premunged} --output results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged"
+    "focus munge {input.premunged} --output results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged"
 
 ###
 # Run TWAS
@@ -75,13 +152,13 @@ rule focus_munge:
 # Calculate median effective sample size
 rule retrieve_Neff:
   input:
-    "results/distribution/daner_pgc_mdd_full_eur_hg19_v3.29.08.gz"
+    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged.sumstats.gz"
   output:
     "results/twas/median_Neff.txt"
   conda: 
     "../envs/twas.yaml"
   shell:
-    "Rscript scripts/twas/median_neff.R --daner {input} --out {output}"
+    "Rscript scripts/twas/median_neff.R --munged {input} --out {output}"
 
 # Create list of FUSION SNP-weight sets to be used in the TWAS
 weights=["Adrenal_Gland","Brain_Amygdala","Brain_Anterior_cingulate_cortex_BA24","Brain_Caudate_basal_ganglia","Brain_Cerebellar_Hemisphere","Brain_Cerebellum","Brain_Cortex","Brain_Frontal_Cortex_BA9","Brain_Hippocampus","Brain_Hypothalamus","Brain_Nucleus_accumbens_basal_ganglia","Brain_Putamen_basal_ganglia","Brain_Substantia_nigra","CMC.BRAIN.RNASEQ","CMC.BRAIN.RNASEQ_SPLICING","NTR.BLOOD.RNAARR","Pituitary","Thyroid","Whole_Blood","YFS.BLOOD.RNAARR"]
@@ -91,8 +168,9 @@ chr=range(1, 22)
 
 # run twas
 rule run_twas:
+  resources: mem_mb=20000
   input:
-    sumstats="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz", neff_txt="results/twas/median_Neff.txt", fusion=rules.install_fusion.output, plink2R=rules.install_plink2R.output
+    sumstats="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged.sumstats.gz", neff_txt="results/twas/median_Neff.txt", fusion=rules.install_fusion.output, plink2R=rules.install_plink2R.output
   params:
     Neff_num=lambda wildcards, input: float(open(input.neff_txt, "r").read()) 
   output:
@@ -117,8 +195,9 @@ rule fusion_twas:
 rule run_psychencode_twas:
   resources: mem_mb=20000 
   input:
-    sumstats="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz",
-    neff="results/twas/median_Neff.txt"
+    sumstats="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged.sumstats.gz", neff_txt="results/twas/median_Neff.txt", fusion=rules.install_fusion.output, plink2R=rules.install_plink2R.output
+  params:
+    Neff_num=lambda wildcards, input: float(open(input.neff_txt, "r").read()) 
   output:
     "results/twas/psychencode/PGC_MDD3_twas_psychencode_chr{chr}"
   conda: 
@@ -132,10 +211,10 @@ rule run_psychencode_twas:
     "--out {output} "
     "--chr {wildcards.chr} "
     "--coloc_P 1e-3 "
-    "--GWASN {Neff_num}"
+    "--GWASN {params.Neff_num}"
 
 rule psychencode_twas:
-    input: expand("results/twas/psychencode/PGC_MDD3_twas_psychencode_chr{chr}", chr=chrs)
+    input: expand("results/twas/psychencode/PGC_MDD3_twas_psychencode_chr{chr}", chr=chr)
 
 ###
 # Combine TWAS results
@@ -143,7 +222,7 @@ rule psychencode_twas:
 
 rule combine_twas_res:
   input:
-    expand("results/twas/PGC_MDD3_twas_{weight}_chr{chr}", weight=weights, chr=chrs), expand("results/twas/psychencode/PGC_MDD3_twas_psychencode_chr{chr}", chr=chrs)
+    expand("results/twas/PGC_MDD3_twas_{weight}_chr{chr}", weight=weights, chr=chr), expand("results/twas/psychencode/PGC_MDD3_twas_psychencode_chr{chr}", chr=chr)
   output:
     "results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_TWSig.txt"
   conda: 
@@ -158,14 +237,14 @@ rule combine_twas_res:
 # Manhattan plot based on permutation significance
 rule make_manhattan:
   input:
-    "results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW.txt"
+    results="results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW.txt", fusion=rules.install_twas_plotter.output
   output:
     "results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_Manhattan.png"
   conda: 
     "../envs/twas.yaml"
   shell:
-    "Rscript /scratch/groups/biomarkers-brc-mh/TWAS_resource/FUSION/Scripts/Git/opain/TWAS-plotter/TWAS-plotter.V1.0.r \
-    --twas {input} \
+    "Rscript resources/twas/TWAS-plotter/TWAS-plotter.V1.0.r \
+    --twas {input.results} \
     --sig_p 1.368572e-06 \
     --output results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_Manhattan \
     --width 5000 \
@@ -184,16 +263,19 @@ rule download_glist:
   shell:
     "wget -P resources/twas/ https://www.cog-genomics.org/static/bin/plink/glist-hg19"
 
-import pandas as pd
-sig_file=pd.read_table("results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_TWSig.txt",sep=' ')
-chrs_sig=sig_file.CHR.unique()
-
 # Run conditional analysis
+sig_file = Path("results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_TWSig.txt")
+if sig_file.is_file():
+  import pandas as pd
+  sig_df=pd.read_table("results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_TWSig.txt",sep=' ')
+  chr_sig=sig_df.CHR.unique()
+
 rule run_conditional:
-  resources: mem_mb=50000 
+  resources: mem_mb=70000 
   input:
     sig= "results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_TWSig.txt",
-    ss= "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz"
+    ss= "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged.sumstats.gz",
+    fusion=rules.install_twas_plotter.output
   output:
     "results/twas/conditional/PGC_MDD3_TWAS_conditional_chr{chr}.joint_dropped.dat"
   conda: 
@@ -206,31 +288,58 @@ rule run_conditional:
       --ref_ld_chr /scratch/groups/biomarkers-brc-mh/Reference_data/1KG_Phase3/PLINK/EUR/EUR_phase3.MAF_001.chr \
       --out results/twas/conditional/PGC_MDD3_TWAS_conditional_chr{wildcards.chr} \
       --chr {wildcards.chr} \
-      --plot \
-      --plot_legend all \
       --save_loci \
       --ldsc F \
       --locus_win 500000"
 
-rule conditional:
-    input: expand("results/twas/conditional/PGC_MDD3_TWAS_conditional_chr{chr}.joint_dropped.dat", chr=chrs_sig)
+if sig_file.is_file():
+  rule conditional:
+      input: expand("results/twas/conditional/PGC_MDD3_TWAS_conditional_chr{chr}.joint_dropped.dat", chr=chr_sig)
 
 ######
 # Process TWAS results
 ######
+
 rule process_twas:
   input:
     "results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW.txt"
   output:
-    "results/twas/twas_results/PGC_MDD3_TWAS_colocalisation.txt"
+    "results/twas/twas_results/PGC_MDD3_twas_AllTissues_CLEAN.txt", "results/twas/twas_results/PGC_MDD3_twas_AllTissues_TWSig_CLEAN.txt", "results/twas/twas_results/PGC_MDD3_twas_panel_N.csv", "results/twas/twas_results/PGC_MDD3_twas.pos"
   conda:
     "../envs/twas.yaml"
   shell:
     "Rscript scripts/twas/process_twas.R"
 
 ######
+# Create locus plots
+######
+
+rule run_plot_loci:
+  input:
+    twas_res= "results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW.txt",
+    glist="resources/twas/glist-hg19",
+    pos="results/twas/twas_results/PGC_MDD3_twas.pos", 
+    fusion=rules.install_twas_plotter.output
+  output:
+    "results/twas/conditional/locus_plot_chr{chr}.log"
+  conda: 
+    "../envs/twas.yaml"
+  shell:
+    "Rscript resources/twas/TWAS-plotter/TWAS-locus-plotter.V1.0.r \
+      --twas {input.twas_res} \
+      --pos {input.pos} \
+      --window 500000 \
+      --gene_loc {input.glist} \
+      --post_proc_prefix results/twas/conditional/PGC_MDD3_TWAS_conditional_chr{wildcards.chr} | echo Done > results/twas/conditional/locus_plot_chr{wildcards.chr}.log"
+
+if sig_file.is_file():
+  rule plot_loci:
+      input: expand("results/twas/conditional/locus_plot_chr{chr}.log", chr=chr_sig)
+
+######
 # Process colocalisation analysis results
 ######
+
 rule process_coloc:
   input:
 	"results/twas/twas_results/PGC_MDD3_twas_AllTissues_TWSig_CLEAN.txt"
@@ -241,27 +350,26 @@ rule process_coloc:
   shell:
     "Rscript scripts/twas/process_coloc.R"
 
-
 ######
 # Process conditional analysis results
 ######
 
-rule process_conditional:
-  input: expand("results/twas/conditional/PGC_MDD3_TWAS_conditional_chr{chr}.joint_dropped.dat", chr=chrs_sig), "results/twas/twas_results/PGC_MDD3_twas_AllTissues_TWSig_CLEAN.txt"
-  output:
-    "results/twas/conditional/PGC_MDD3_TWAS_Conditional_table_novelty.csv"
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "Rscript scripts/twas/process_conditional.R"
-
+if sig_file.is_file():
+  rule process_conditional:
+    input: expand("results/twas/conditional/PGC_MDD3_TWAS_conditional_chr{chr}.joint_dropped.dat", chr=chr_sig), "results/twas/twas_results/PGC_MDD3_twas_AllTissues_TWSig_CLEAN.txt"
+    output:
+      "results/twas/conditional/PGC_MDD3_TWAS_Conditional_table_novelty.csv"
+    conda:
+      "../envs/twas.yaml"
+    shell:
+      "Rscript scripts/twas/process_conditional.R"
 
 ########
 # Finemap TWAS associations
 ########
 
 rule run_focus:
-  input: "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz"
+  input: "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged.sumstats.gz"
   output: "results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.tsv"
   conda: "../envs/twas.yaml"
   shell:
@@ -274,10 +382,10 @@ rule run_focus:
 	--out results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{wildcards.chr}"
 
 rule focus:
-    input: expand("results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.tsv", chr=chrs)
+    input: expand("results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.tsv", chr=chr)
 
 rule run_focus_gw:
-  input: "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz"
+  input: "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged.sumstats.gz"
   output: "results/twas/focus/GW_sig/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.tsv"
   conda: "../envs/twas.yaml"
   shell:
@@ -289,17 +397,31 @@ rule run_focus_gw:
 	--out results/twas/focus/GW_sig/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{wildcards.chr}"
 
 rule focus_gw:
-    input: expand("results/twas/focus/GW_sig/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.tsv", chr=chrs)
+    input: expand("results/twas/focus/GW_sig/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.tsv", chr=chr)
 
 # Process the FOCUS results
 rule process_focus:
-  input: expand("results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.tsv", chr=chrs)
+  input: expand("results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.tsv", chr=chr)
   output:
     "results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.results.csv"
   conda:
     "../envs/twas.yaml"
   shell:
     "Rscript scripts/twas/process_focus.R"
+
+########
+# Create high confidence associations table
+########
+
+rule process_focus:
+  input:
+    fusion="results/twas/conditional/PGC_MDD3_TWAS_Conditional_table_novelty.csv", focus_res="results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.results.csv"
+  output:
+    "results/twas/PGC3_MDD_TWAS_HighConf_results.csv"
+  conda:
+    "../envs/twas.yaml"
+  shell:
+    "Rscript scripts/twas/create_high_conf.R"
 
 ########
 # TWAS-GSEA
@@ -309,7 +431,7 @@ rule process_focus:
 rule prep_for_gsea:
   input: "results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW.txt"
   output:
-    "results/twas/twas_results/PGC_MDD3_twas_BLOOD_GW.txt"
+    "results/twas/twas_results/PGC_MDD3_twas_BLOOD_GW.txt","results/twas/twas_results/PGC_MDD3_twas_BRAIN_GW.txt","results/twas/twas_results/PGC_MDD3_twas_HPA_GW.txt","results/twas/twas_results/PGC_MDD3_twas_HPT_GW.txt","results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW.txt"
   conda:
     "../envs/twas.yaml"
   shell:
@@ -318,13 +440,13 @@ rule prep_for_gsea:
 # Run twas-gsea across results
 rule run_twas_gsea:
   resources: mem_mb=30000, cpus=3
-  input: ss="results/twas/twas_results/PGC_MDD3_twas_{set}_GW.txt", gmt="resources/twas/gsea/c2_and_c5.all.v7.1.entrez.gmt"
+  input: ss="results/twas/twas_results/PGC_MDD3_twas_{set}_GW.txt", gmt="resources/twas/gsea/c2_and_c5.all.v7.4.entrez.gmt", twas_gsea=rules.install_twas_gsea.output
   output:
     "results/twas/gsea/PGC_MDD3_twas_{set}_GSEA.log"
   conda:
-    "../envs/twas.yaml"
+    "../envs/twas_gsea.yaml"
   shell:
-    "Rscript /mnt/lustre/groups/biomarkers-brc-mh/TWAS_resource/FUSION/Scripts/Git/opain/TWAS-GSEA/TWAS-GSEA.V1.2.R \
+    "Rscript {input.twas_gsea}/TWAS-GSEA.V1.2.R \
   --twas_results {input.ss} \
   --pos results/twas/twas_results/PGC_MDD3_twas.pos \
   --gmt_file {input.gmt} \
@@ -347,17 +469,16 @@ rule twas_gsea:
 
 # Estimate h2med
 rule est_h2med:
-  input: "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz"
+  input: ss="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged.sumstats.gz", expr_scores=rules.download_mesc_score.output
   output: "results/twas/mesc/PGC_MDD3_TWAS.MESC.all.h2med"
   conda: "../envs/mesc.yaml"
-  shell: "resources/twas/mesc/mesc/run_mesc.py --h2med {input} --exp-chr resources/twas/mesc/GTEx_v8/All_Tissues --out results/twas/mesc/PGC_MDD3_TWAS.MESC"
-
-# MESC estimates non-significant SNP-based heritability mediated via cis-regulated expression. This is a surprising given the many colocalised signals identified in the TWAS, and it makes question the validity of estimates provided by MESC.
+  shell: "resources/twas/mesc/run_mesc.py --h2med {input.ss} --exp-chr {input.expr_scores}/All_Tissues --out results/twas/mesc/PGC_MDD3_TWAS.MESC"
 
 # Estimate gene-set enrichment
 rule est_h2med_sets:
   resources: mem_mb=20000 
-  input: "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.29.08_munged.sumstats.gz"
+  input: ss="results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged.sumstats.gz", expr_score_sets=rules.download_mesc_score_sets.output
   output: "results/twas/mesc/PGC_MDD3_TWAS.MESC.sets.all.h2med"
   conda: "../envs/mesc.yaml"
-  shell: "resources/twas/mesc/mesc/run_mesc.py --h2med {input} --exp-chr resources/twas/mesc/GTEx_gene_set_expscores/All_Tissues --out results/twas/mesc/PGC_MDD3_TWAS.MESC.sets"
+  shell: "resources/twas/mesc/run_mesc.py --h2med {input.ss} --exp-chr {input.expr_score_sets}/All_Tissues --out results/twas/mesc/PGC_MDD3_TWAS.MESC.sets"
+  
