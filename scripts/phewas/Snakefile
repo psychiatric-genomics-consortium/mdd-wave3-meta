@@ -1,0 +1,65 @@
+# Environment: R>3.6, Linux
+# R packages: data.table, dplyr, tidyverse, optparse
+# Other: PRSice 2.0
+
+# PRS scores ========================================================================
+
+### PREP for PRSice
+# Prep sumstats
+rule reformat_sumstats_PRSice:
+    input:
+        "../../results/distribution/daner_pgc_mdd_noUKBB_eur_hg19_v3.49.24.05.rp.gz"
+    output:
+        "../../data/mdd_noUKB_forPRSice"
+    shell:
+        "Rscript PREP.PRS/PREP.sumstats_forPRSice.R --sumstats {input} --out {output}"
+
+# Prep dummy phenotype
+rule dummypheno_PRSice:
+    input:
+        "/exports/igmm/eddie/GenScotDepression/shen/bakup.dat/ukb_genotype/autosome.qc.maf01.hwe5e-6.geno02.mind02.snps.fam",
+                    "/exports/igmm/eddie/GenScotDepression/data/ukb/genetics/input_filters/v2/ukb_sqc_qc_WhiteBritishPCs_addPrunedRels_noPGC_noGenScot_v2.id"
+    output:
+        "../../data/ukb_dummypheno"
+    shell:
+        "Rscript PREP.PRS/PREP.pheno_forPRSice.R {input} {output}"
+
+# Run PRSice on genotyped data (or: qsub PREP.PRS/job.PRS_prsice2.sh)
+rule mddprs_ukb:
+    input:
+        "../../data/mdd_noUKB_forPRSice"
+        "/exports/igmm/eddie/GenScotDepression/shen/bakup.dat/ukb_genotype/autosome.qc.maf01.hwe5e-6.geno02.mind02.snps",
+        "../../data/ukb_dummypheno"
+    output:
+        "../../data/mdd_prs_genotyped"
+    shell:
+        "bash PREP.PRS/job.PRS_genotyped_snkmk.sh {input} {output}"
+
+# Prepare snp list for imputed data 
+rule mksnpls_imputed:
+    input:
+        "../../data/mdd_noUKB_forPRSice"
+    output:
+        "../../data/mdd3.snps"
+    shell:
+        "cat {input} | tail -n +2 | awk '{{print $2}}' > {output}"
+
+# Prepare imputed genetic data in plink format: Extract SNPs from PGEN file, QC, and convert to BED format (or: qsub PREP.PRS/PREP.imputed_geneticdat.sh)
+# Check: https://github.com/ccbs-stradl/ukb_impv_prs
+rule bedformat_imputed:
+    input:
+        "../../data/mdd3.snps"
+    output:
+        "$SCRATCH/ukb_imp_v3.qc"
+    shell:
+        "bash PREP.imputed_geneticdat_snkmk.sh {input} {output}"
+
+
+
+
+
+
+
+# Phenotype preparation ==============================================================
+
+
