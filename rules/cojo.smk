@@ -153,9 +153,16 @@ rule cojo_slct:
 # parse regions from the region list file to determine inputs
 # cojo_parse_regions() returns a list ["CHR:START-STOP", "CHR:START-STOP", ...]
 rule cojo_regions_analyse:
-    input: lambda wildcards: expand("results/cojo/{analysis}/{region}.jma.cojo", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb']))
+    input: cojo=lambda wildcards: expand("results/cojo/{analysis}/{region}.jma.cojo", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), bim=lambda wildcards: expand("results/cojo/{analysis}/{region}.bim", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), daner="results/cojo/daner_{analysis}.rp.qc.gz", clump="results/distribution/daner_{analysis}.gz.p4.clump.areator.sorted.1mhc"
+    conda: "../envs/meta.yaml"
+    log: "logs/cojo/{analysis}.log"
     output: "results/cojo/{analysis}.cojo"
-    shell: "touch {output}"
+    script: "../scripts/meta/cojo.R"
+    
+rule cojo_table_eur:
+    input: expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.cojo", version=analysis_version)
+    output: "docs/tables/meta_snps_{cohorts}_{ancestries}.cojo.txt"
+    shell: "cp {input} {output}"
 
 rule cojo_analyse:
-    input: expand("results/cojo/pgc_mdd_full_eur_hg19_v{version}.cojo", version=analysis_version)
+    input: "docs/tables/meta_snps_full_eur.cojo.txt"
