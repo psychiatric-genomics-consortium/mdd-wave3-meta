@@ -85,15 +85,16 @@ rule cojo_ukb_rels:
 # merge close by regions
 # return region strings "CHR:START-STOP"
 def cojo_parse_regions(regions_file, kb=50):
+    from operator import itemgetter
     # open regions file and split into list of [CHR, START, STOP]
     regions_f = open(regions_file, 'r')
     regions_list = regions_f.read().split('\n')
     regions = [[int(float(i)) for i in r.split()] for r in regions_list if r != '']
     # merge together regions that are on the same chromosome and within M kb of each
-    # other
+    # other. Sort regions first
     merged_regions = []
     bp = kb*1000
-    for r in regions:
+    for r in sorted(regions, key=itemgetter(0, 1)):
         add = True
         for i in range(len(merged_regions)):
             m = merged_regions[i]
