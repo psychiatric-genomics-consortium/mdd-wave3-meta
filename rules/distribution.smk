@@ -50,9 +50,9 @@ rule local_dist_analyst:
 # Look at config file to determine whether to fetch locally on LISA or remotely
 # from Dropbox share
 rule redistribute_daner:
-	input: lambda wildcards: expand("{local_path}/mdd3/distribution/{analysis}/daner_{analysis}.rp.gz", local_path=distribute_local_path, analysis=wildcards.analysis) if "lisa" in config["remote"]["distribution"] else
-		DBox_dist.remote(expand("distribution/{analysis}/daner_{analysis}.rp.gz", analysis=wildcards.analysis))
-	output: "results/distribution/daner_{analysis}.rp.gz"
+	input: lambda wildcards: expand("{local_path}/mdd3/distribution/{analysis}/daner_{analysis}.{{ext}}.gz", local_path=distribute_local_path, analysis=wildcards.analysis) if "lisa" in config["remote"]["distribution"] else
+		DBox_dist.remote(expand("distribution/{analysis}/daner_{analysis}.{{ext}}.gz", analysis=wildcards.analysis))
+	output: "results/distribution/daner_{analysis}.{ext}.gz"
 	shell: "cp {input} {output}"
 
 rule downstream_full:
