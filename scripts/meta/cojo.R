@@ -5,6 +5,7 @@ library(dplyr)
 library(readr)
 library(stringr)
 library(glue)
+library(rtracklayer)
 
 # log
 log_path <- snakemake@log[[1]]
@@ -30,22 +31,20 @@ logging(glue("COJO regions: {length(regions_jma_cojo)}"))
 # Read in COJO jama files
 read_cojo <- function(cojo_file) {
     # read in the file
-    cojo_stats <- read_tsv(cojo_file, col_types=cols('SNP'=col_character(), 'refA'=col_character()))
-    # parse region coordinates from filename
-    regions_matched = str_match(basename(cojo_file), "([[:digit:]]+):([[:digit:]]+)-([[:digit:]]+)")
-    cojo_region <- cojo_stats %>%
-    mutate(region.left=as.numeric(regions_matched[,3]),
-           region.right=as.numeric(regions_matched[,4]),
-           ridx=row_number())
-    return(cojo_region)
+    cojo_stats <- read_tsv(cojo_file, col_types=cols('SNP'=col_character(), 'refA'=col_character())) %>%
+    mutate(snp_idx=row_number())
+    return(cojo_stats)
 }
-
 
 cojo_list <- lapply(regions_jma_cojo, read_cojo)
 cojo <- bind_rows(cojo_list) 
 
 # region coordinates
-regions <- cojo %>% group_by(Chr, region.left, region.right) %>% summarise(p=min(p)) %>% arrange(p) %>% ungroup() 
+regions_matched <- str_match(basename(regions_jma_cojo), "([[:digit:]]+):([[:digit:]]+)-([[:digit:]]+)")
+regions <- tibble(Chr=as.numeric(regions_matched[,2]),
+                  range.left=as.numeric(regions_matched[,3]),
+                  range.right=as.numeric(regions_matched[,4])
+)
 
 # bim files from LD reference
 bims_list <- lapply(regions_bim, read_tsv, col_names=c('CHR', 'SNP', 'CM', 'BP', 'A1', 'A2'), col_types=cols('SNP'=col_character()))
@@ -69,16 +68,21 @@ ref_miss_clump <- clumped_gw %>% filter(!SNP %in% bims$SNP)
 # look for regions with singleton SNPs
 daner_gw <- daner %>% filter(P <= 5e-8)
 
+# regions with empty COJO files
+ref_miss_cojo <- regions %>% dplyr::slice(which(sapply(cojo_list, nrow) ==0))
+
+ref_miss_cojo_clump <- clumped_gw %>% inner_join(ref_miss_cojo, by=c('CHR'='Chr', 'range.left', 'range.right'))
+
 # count number of significant SNPs in each region
-region_snp_counts <- plyr::adply(regions, 1, function(r) data.frame(n_sig_snps=nrow(filter(daner_gw, CHR == r$Chr & r$region.left <= BP & BP <= r$region.right)))) %>% arrange(Chr, region.left)
+region_snp_counts <- plyr::adply(regions, 1, function(r) data.frame(n_sig_snps=nrow(filter(daner_gw, CHR == r$Chr & r$range.left <= BP & BP <= r$range.right))))
 
 region_snp_multiple <- region_snp_counts %>% filter(n_sig_snps > 1)
 region_snp_singleton <- region_snp_counts %>% filter(n_sig_snps == 1)
 
-logging(glue("Singleton regions: {nrow(region_snp_singleton)}"))
-
 # enumerate regions
-region_numbers <- region_snp_multiple %>% arrange(p) %>% mutate(region=row_number())
+region_ranges <- region_snp_multiple %>% mutate(region=row_number())
+
+logging(glue("Singleton regions: {nrow(region_snp_singleton)}"))
 
 # clumped SNPs and LD friends
 clumped_friends <- bind_rows(plyr::alply(clumped_gw, 1, function(x) tibble(SNP=x$SNP, friend=str_split(x$`LD-friends(0.1).p0.001`, pattern=',')[[1]])))
@@ -90,23 +94,35 @@ clumped_friends_ld <- tibble(SNP=clumped_friends$SNP, friend=friends_snp_ld[,2],
 # Top SNP not in reference panel but LD friend is in COJO results
 clumped_friends_cojo <- clumped_friends_ld %>% filter(SNP %in% ref_miss_clump$SNP) %>% filter(friend %in% cojo$SNP)
 
-# daner entries for each COJO SNP, removing singletons
+# daner entries for each COJO SNP
 daner_cojo <-
 daner %>% 
-inner_join(cojo, by='SNP') %>%
-inner_join(select(region_numbers, 'Chr', 'region', 'region.left'), by=c('CHR'='Chr', 'region.left')) %>%
-mutate(locus=rank(P)) %>%
-select(region, ridx, locus, CHR, SNP, A1, A2, starts_with('FRQ'), INFO, OR, SE, P, ngt,
-      Direction, HetISqt, HetDf, HetPVa, Nca, Nco, Neff_half, bJ, bJ_se, pJ, LD_r, region.left, region.right) %>%
-arrange(region, ridx)
+filter(SNP %in% c(cojo$SNP, ref_miss_cojo_clump$SNP)) %>%
+left_join(cojo, by='SNP') 
 
-logging(glue("COJO Final SNPs: {nrow(daner_cojo)}"))
-logging(glue("COJO Final SNPs p <= 5e-8, pJ <= 5e-8: {nrow(filter(daner_cojo, P <= 5e-8, pJ <= 5e-8))}"))
-logging(glue("COJO Final SNPs p > 5e-8, pJ <= 5e-8: {nrow(filter(daner_cojo, P > 5e-8, pJ <= 5e-8))}"))
+logging(glue("COJO+Clump SNPs: {nrow(daner_cojo)}"))
+
+# intersection selected SNPs with non-singleton regions
+daner_cojo_gr <- with(daner_cojo, GRanges(seqnames=CHR, ranges=IRanges(BP, width=1), SNP=SNP))
+regions_gr <- with(region_ranges, GRanges(seqnames=Chr, ranges=IRanges(start=range.left, end=range.right)))
+
+daner_cojo_regions_overlap <- findOverlaps(daner_cojo_gr, regions_gr)
+
+daner_cojo_regions <- 
+bind_cols(dplyr::slice(daner_cojo, daner_cojo_regions_overlap@from),
+          dplyr::slice(region_ranges, daner_cojo_regions_overlap@to)) %>%
+mutate(snp_idx=coalesce(snp_idx, 1)) %>%
+select(region, snp_idx, CHR, SNP, BP, A1, A2, starts_with('FRQ'), INFO, OR, SE, P, ngt,
+      Direction, HetISqt, HetDf, HetPVa, Nca, Nco, Neff_half, bJ, bJ_se, pJ, LD_r, range.left, range.right) %>%
+arrange(region, snp_idx)
+
+logging(glue("COJO Final SNPs: {nrow(daner_cojo_regions)}"))
+logging(glue("COJO Final SNPs p <= 5e-8, pJ <= 5e-8: {nrow(filter(daner_cojo_regions, P <= 5e-8, pJ <= 5e-8))}"))
+logging(glue("COJO Final SNPs p > 5e-8, pJ <= 5e-8: {nrow(filter(daner_cojo_regions, P > 5e-8, pJ <= 5e-8))}"))
 
 output_cojo <- snakemake@output[[1]]
 
-write_tsv(daner_cojo, output_cojo)
+write_tsv(daner_cojo_regions, output_cojo)
 
 
 
