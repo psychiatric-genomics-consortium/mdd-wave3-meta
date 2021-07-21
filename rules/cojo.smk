@@ -85,15 +85,16 @@ rule cojo_ukb_rels:
 # merge close by regions
 # return region strings "CHR:START-STOP"
 def cojo_parse_regions(regions_file, kb=50):
+    from operator import itemgetter
     # open regions file and split into list of [CHR, START, STOP]
     regions_f = open(regions_file, 'r')
     regions_list = regions_f.read().split('\n')
     regions = [[int(float(i)) for i in r.split()] for r in regions_list if r != '']
     # merge together regions that are on the same chromosome and within M kb of each
-    # other
+    # other. Sort regions first
     merged_regions = []
     bp = kb*1000
-    for r in regions:
+    for r in sorted(regions, key=itemgetter(0, 1)):
         add = True
         for i in range(len(merged_regions)):
             m = merged_regions[i]
@@ -153,9 +154,23 @@ rule cojo_slct:
 # parse regions from the region list file to determine inputs
 # cojo_parse_regions() returns a list ["CHR:START-STOP", "CHR:START-STOP", ...]
 rule cojo_regions_analyse:
-    input: lambda wildcards: expand("results/cojo/{analysis}/{region}.jma.cojo", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb']))
+    input: cojo=lambda wildcards: expand("results/cojo/{analysis}/{region}.jma.cojo", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), bim=lambda wildcards: expand("results/cojo/{analysis}/{region}.bim", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), daner="results/cojo/daner_{analysis}.rp.qc.gz", clump="results/distribution/daner_{analysis}.gz.p4.clump.areator.sorted.1mhc"
+    conda: "../envs/meta.yaml"
+    log: "logs/cojo/{analysis}.log"
     output: "results/cojo/{analysis}.cojo"
-    shell: "touch {output}"
+    script: "../scripts/meta/cojo.R"
+    
+rule cojo_table_eur:
+    input: expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.cojo", version=analysis_version)
+    output: "docs/tables/meta_snps_{cohorts}_{ancestries}.cojo.txt"
+    shell: "cp {input} {output}"
 
 rule cojo_analyse:
-    input: expand("results/cojo/pgc_mdd_full_eur_hg19_v{version}.cojo", version=analysis_version)
+    input: "docs/tables/meta_snps_full_eur.cojo.txt"
+    
+rule cojo_docs:
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log=expand("logs/cojo/pgc_mdd_full_eur_hg19_v{version}.log", version=analysis_version), rmd="docs/cojo.Rmd"
+    params: qc=meta_qc_params
+    output: "docs/cojo.md"
+    conda: "../envs/reports.yaml"
+    script: "../docs/cojo.Rmd"
