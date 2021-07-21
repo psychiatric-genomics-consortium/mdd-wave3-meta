@@ -82,6 +82,12 @@ rule redistribute_danerext:
 	input: lambda wildcards: expand("{local_path}/mdd3/distribution/{analysis}_v{version}/daner_{analysis}_v{version}.gz.{ext}", local_path=distribute_local_path, analysis=wildcards.analysis, version=wildcards.version, ext=wildcards.ext) if "lisa" in config["remote"]["distribution"] else DBox_dist.remote("distribution/{analysis}_v{version}/daner_{analysis}_v{version}.gz.{ext}")
 	output: "results/distribution/daner_{analysis}_v{version}.gz.{ext}"
 	shell: "cp {input} {output}"
+	
+# alternative versions (like METACARPA)
+rule redistribute_daner_alt_ext:
+	input: lambda wildcards: expand("{local_path}/mdd3/distribution/{analysis}_v{version}/daner_{analysis}_v{version}.{{alt}}.gz.{ext}", local_path=distribute_local_path, analysis=wildcards.analysis, version=wildcards.version, ext=wildcards.ext) if "lisa" in config["remote"]["distribution"] else DBox_dist.remote("distribution/{analysis}_v{version}/daner_{analysis}_v{version}.{alt}.gz.{ext}")
+	output: "results/distribution/daner_{analysis}_v{version}.{alt}.gz.{ext}"
+	shell: "cp {input} {output}"
 
 # download most recent manhattan plot
 rule manhattan_full:
