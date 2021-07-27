@@ -1,0 +1,31 @@
+channels:
+  - conda-forge
+dependencies:
+  - r-base =4.0.5
+  - r-essentials
+  - r-dplyr
+  - r-tidyr
+  - r-stringr
+  - r-plyr
+  - r-e1071
+  - r-readr
+  - r-gdata
+  - r-lavaan
+  - r-doParallel
+  - r-foreach
+  - r-data.table
+  - r-stringr
+  - r-splitstackshape
+  - r-matrix
+  - r-iterators
+  - r-rcpp
+  - r-mgsub
+  - r-devtools
+  - r-r.methodss3
+  - r-bit
+  - r-tzdb
+  - r-bit64
+  - r-r.oo
+  - r-vroom
+  - r-r.utils
+  
