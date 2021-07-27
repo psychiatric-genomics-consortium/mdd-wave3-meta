@@ -28,4 +28,5 @@ dependencies:
   - r-r.oo
   - r-vroom
   - r-r.utils
+  - r-readxl
   
