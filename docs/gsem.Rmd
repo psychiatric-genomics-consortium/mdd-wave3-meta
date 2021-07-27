@@ -43,4 +43,29 @@ corrplot(cov2cor(mdd_covstruct$S), method='number')
 
 ```
 
-![](gsem_files/figure-gfm/rg-1.png)
+Common factor model
+
+```{r model}
+
+common.model <- "A =~ NA*clin + ehr + quest + self
+A ~~ 1*A"
+
+common.fit <- usermodel(covstruc=mdd_covstruct, estimation='DWLS', model=common.model)
+
+```
+
+```{r fit}
+
+knitr::kable(common.fit$modelfit)
+
+```
+
+```{r results}
+
+
+common.fit$results$Unstand_SE <- as.numeric(common.fit$results$Unstand_SE)
+common.fit$results$STD_Genotype_SE <- as.numeric(common.fit$results$STD_Genotype_SE)
+
+knitr::kable(common.fit$results, digits=4)
+
+```
