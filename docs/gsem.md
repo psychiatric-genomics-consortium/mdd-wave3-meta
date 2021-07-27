@@ -15,78 +15,6 @@ using [GenomicSEM](https://github.com/GenomicSEM/GenomicSEM).
 library(GenomicSEM)
 ```
 
-    ## Warning: replacing previous import 'gdata::nobs' by 'lavaan::nobs' when loading
-    ## 'GenomicSEM'
-
-    ## Warning: replacing previous import 'gdata::last' by 'data.table::last' when
-    ## loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'gdata::first' by 'data.table::first' when
-    ## loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'gdata::env' by 'R.utils::env' when loading
-    ## 'GenomicSEM'
-
-    ## Warning: replacing previous import 'gdata::resample' by 'R.utils::resample' when
-    ## loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'data.table::last' by 'dplyr::last' when
-    ## loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'plyr::summarize' by 'dplyr::summarize' when
-    ## loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'plyr::mutate' by 'dplyr::mutate' when
-    ## loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'plyr::id' by 'dplyr::id' when loading
-    ## 'GenomicSEM'
-
-    ## Warning: replacing previous import 'plyr::arrange' by 'dplyr::arrange' when
-    ## loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'plyr::summarise' by 'dplyr::summarise' when
-    ## loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'data.table::first' by 'dplyr::first' when
-    ## loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'plyr::rename' by 'dplyr::rename' when
-    ## loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'plyr::desc' by 'dplyr::desc' when loading
-    ## 'GenomicSEM'
-
-    ## Warning: replacing previous import 'plyr::count' by 'dplyr::count' when loading
-    ## 'GenomicSEM'
-
-    ## Warning: replacing previous import 'gdata::combine' by 'dplyr::combine' when
-    ## loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'data.table::between' by 'dplyr::between'
-    ## when loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'plyr::failwith' by 'dplyr::failwith' when
-    ## loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'Rcpp::prompt' by 'utils::prompt' when
-    ## loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'Rcpp::.DollarNames' by 'utils::.DollarNames'
-    ## when loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'Matrix::tail' by 'utils::tail' when loading
-    ## 'GenomicSEM'
-
-    ## Warning: replacing previous import 'gdata::object.size' by 'utils::object.size'
-    ## when loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'R.utils::timestamp' by 'utils::timestamp'
-    ## when loading 'GenomicSEM'
-
-    ## Warning: replacing previous import 'Matrix::head' by 'utils::head' when loading
-    ## 'GenomicSEM'
-
 ``` r
 library(readr)
 library(corrplot)
@@ -142,6 +70,47 @@ Genetic correlations
 corrplot(cov2cor(mdd_covstruct$S), method='number')
 ```
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/gsem_files/figure-gfm/rg-1.png)<!-- -->
+![](gsem_files/figure-gfm/rg-1.png)<!-- -->
 
-![](gsem_files/figure-gfm/rg-1.png)
+Common factor model
+
+``` r
+common.model <- "A =~ NA*clin + ehr + quest + self
+A ~~ 1*A"
+
+common.fit <- usermodel(covstruc=mdd_covstruct, estimation='DWLS', model=common.model)
+```
+
+    ## [1] "Running primary model"
+    ## [1] "Calculating CFI"
+    ## [1] "Calculating Standardized Results"
+    ## [1] "Calculating SRMR"
+    ## elapsed 
+    ##   0.632
+
+``` r
+knitr::kable(common.fit$modelfit)
+```
+
+|     |    chisq |  df |   p_chisq |      AIC | CFI |      SRMR |
+|:----|---------:|----:|----------:|---------:|----:|----------:|
+| df  | 0.612646 |   2 | 0.7361488 | 16.61265 |   1 | 0.0075507 |
+
+``` r
+common.fit$results$Unstand_SE <- as.numeric(common.fit$results$Unstand_SE)
+common.fit$results$STD_Genotype_SE <- as.numeric(common.fit$results$STD_Genotype_SE)
+
+knitr::kable(common.fit$results, digits=4)
+```
+
+|     | lhs   | op   | rhs   | Unstand_Est | Unstand_SE | STD_Genotype | STD_Genotype_SE | STD_All | p_value               |
+|:----|:------|:-----|:------|------------:|-----------:|-------------:|----------------:|--------:|:----------------------|
+| 1   | A     | =\~  | clin  |      0.2930 |     0.0121 |       0.9724 |          0.0403 |  0.9724 | 1.1522361334359e-128  |
+| 2   | A     | =\~  | ehr   |      0.2074 |     0.0044 |       0.9417 |          0.0200 |  0.9417 | \< 5e-300             |
+| 3   | A     | =\~  | quest |      0.2758 |     0.0082 |       0.9609 |          0.0285 |  0.9609 | 6.72730650027693e-250 |
+| 4   | A     | =\~  | self  |      0.2945 |     0.0087 |       0.8282 |          0.0245 |  0.8282 | 2.43326841868962e-251 |
+| 6   | clin  | \~\~ | clin  |      0.0049 |     0.0078 |       0.0544 |          0.0854 |  0.0544 | 0.524558310719012     |
+| 7   | ehr   | \~\~ | ehr   |      0.0055 |     0.0015 |       0.1132 |          0.0318 |  0.1132 | 0.000367093534982363  |
+| 8   | quest | \~\~ | quest |      0.0063 |     0.0043 |       0.0767 |          0.0520 |  0.0767 | 0.139995966627356     |
+| 9   | self  | \~\~ | self  |      0.0397 |     0.0037 |       0.3140 |          0.0293 |  0.3140 | 1.00009912017466e-26  |
+| 5   | A     | \~\~ | A     |      1.0000 |         NA |       1.0000 |              NA |  1.0000 | NA                    |
