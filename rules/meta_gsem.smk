@@ -2,21 +2,18 @@
 
 # study types
 # Clinically assessed
-meta_clin=['MDD49', 'tkda1', 'lgic2']
+meta_clin=['MDD49', 'GenScot', 'lgic2', 'tkda1']
 
 # Health register/EHR
-meta_ehr = ['iPSYCH', 'HUNT', 'BioVU', 'PBK', 'SHARE', 'MoBa', 'MVP', 'GERA', 'DBDS', 'EXCEED', 'FinnGen', 'PREFECT', 'ESTBB']
-
-# mixed
-meta_mixed = ['GenScot', 'UKBB', 'deCODE']
+meta_ehr = ['iPSYCH', 'deCODE', 'HUNT', 'BioVU', 'PBK', 'SHARE', 'MoBa', 'MVP', 'GERA', 'DBDS', 'EXCEED', 'FinnGen', 'PREFECT', 'ESTBB']
 
 # questionnaire
-meta_quest = ['AGDS', 'ALSPAC', 'BASIC', 'STAGE']
+meta_quest = ['AGDS', 'ALSPAC', 'BASIC', 'STAGE', 'UKBB']
 
 # self-declared
 meta_self = ['23andMe', 'Airwave']
 
-meta_structured_groups = {'clin': meta_clin, 'ehr': meta_ehr, 'mixed': meta_mixed, 'quest': meta_quest, 'self': meta_self}
+meta_structured_groups = {'clin': meta_clin, 'ehr': meta_ehr, 'quest': meta_quest, 'self': meta_self}
 
 # create reference info file linking to imputation panel
 rule meta_gsem_refdir:
@@ -47,3 +44,24 @@ rule meta_gsem_dataset_eur:
     
 rule meta_gsem_datasets_eur:
     input: expand("results/meta/gsem/dataset_{cohorts}_eur_v{version}", cohorts=meta_structured_groups.keys(), version=analysis_version)
+    
+# Ricopili submission
+rule meta_gsem_postimp:
+    input: dataset="results/meta/gsem/dataset_{cohorts}_{ancestries}_v{version}", ref="results/meta/gsem/reference_info"
+    params:
+        popname=lambda wildcards: wildcards.ancestries.upper(),
+        dataset=lambda wildcards, input: os.path.basename(input.dataset)
+    output: touch("results/meta/gsem/{cohorts}_{ancestries}_v{version}.done")
+    log: "logs/meta/gsem/pgc_mdd_meta_{cohorts}_{ancestries}_hg19_v{version}.postimp_navi.log"
+    shell: "cd results/meta/gsem; postimp_navi --result {params.dataset} --popname {params.popname} --onlymeta --nolahunt --no_neff_filter --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
+	
+rule install_gsem:
+	output: "resources/ldsc/install_genomicsem.done"
+	conda: "../envs/gsem.yaml"
+	shell: """Rscript -e 'devtools::install_github("GenomicSEM/GenomicSEM", upgrade="never")' 2>&1 > {output}"""
+	
+rule meta_gsem:
+	input: eur_sumstats=expand("results/meta/gsem/distribution/pgc_mdd_clin_eur_hg19_v3.49.24.05/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.gz.ldsc.sumstats.gz", cohorts=meta_structured_groups.keys(), version=analysis_version)
+	output: "docs/gsem.md"
+	conda: "../envs/gsem.yaml"
+	script: "docs/gsem.Rmd"
