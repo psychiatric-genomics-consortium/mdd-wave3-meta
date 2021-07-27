@@ -42,6 +42,7 @@ rule meta_gsem_dataset_eur:
     log: "logs/meta/gsem/dataset_{cohorts}_eur_v{version}.log"
     shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
     
+# Ricopili datasets files
 rule meta_gsem_datasets_eur:
     input: expand("results/meta/gsem/dataset_{cohorts}_eur_v{version}", cohorts=meta_structured_groups.keys(), version=analysis_version)
     
@@ -60,9 +61,17 @@ rule install_gsem:
 	conda: "../envs/gsem.yaml"
 	shell: """Rscript -e 'devtools::install_github("GenomicSEM/GenomicSEM", upgrade="never")' 2>&1 > {output}"""
 	
-rule meta_gsem:
+# Create LDSC covstruct in GenomicSEM
+rule meta_gsem_ldsc:
 	input: sumstats=expand("results/meta/gsem/distribution/pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}.gz.ldsc.sumstats.gz", cohorts=meta_structured_groups.keys(), version=analysis_version), samples=expand("results/meta/gsem/distribution/pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", cohorts=meta_structured_groups.keys(), version=analysis_version), w_ld_chr="resources/ldsc/{ancestries}_w_ld_chr/"
 	params: cohorts=meta_structured_groups.keys()
 	output: covstruct="docs/objects/covstruct.{ancestries}.R", ldsc_table="docs/tables/meta_gsem_ldsc.{ancestries}.txt"
 	conda: "../envs/gsem.yaml"
 	script: "../scripts/meta/gsem_ldsc.R"
+    
+# Notebook
+rule meta_gsem:
+    input: covstruct_eur="docs/objects/covstruct.eur.R", ldsc_table_eur="docs/tables/meta_gsem_ldsc.eur.txt", notebook="docs/gsem.Rmd"
+    output: "docs/gsem.md"
+    conda: "../envs/gsem.yaml"
+    script: "../docs/gsem.Rmd"
