@@ -61,7 +61,8 @@ rule install_gsem:
 	shell: """Rscript -e 'devtools::install_github("GenomicSEM/GenomicSEM", upgrade="never")' 2>&1 > {output}"""
 	
 rule meta_gsem:
-	input: eur_sumstats=expand("results/meta/gsem/distribution/pgc_mdd_clin_eur_hg19_v3.49.24.05/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.gz.ldsc.sumstats.gz", cohorts=meta_structured_groups.keys(), version=analysis_version)
-	output: "docs/gsem.md"
+	input: sumstats=expand("results/meta/gsem/distribution/pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}.gz.ldsc.sumstats.gz", cohorts=meta_structured_groups.keys(), version=analysis_version), samples=expand("results/meta/gsem/distribution/pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", cohorts=meta_structured_groups.keys(), version=analysis_version), w_ld_chr="resources/ldsc/{ancestries}_w_ld_chr/"
+	params: cohorts=meta_structured_groups.keys()
+	output: covstruct="docs/objects/covstruct.{ancestries}.R", ldsc_table="docs/tables/meta_gsem_ldsc.{ancestries}.txt"
 	conda: "../envs/gsem.yaml"
-	script: "docs/gsem.Rmd"
+	script: "../scripts/meta/gsem_ldsc.R"

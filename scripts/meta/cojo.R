@@ -81,6 +81,7 @@ region_snp_singleton <- region_snp_counts %>% filter(n_sig_snps == 1)
 
 # enumerate regions
 region_ranges <- region_snp_multiple %>% mutate(region=row_number())
+region_singleton_ranges <- region_snp_singleton %>% mutate(region=row_number()+max(region_ranges$region))
 
 logging(glue("Singleton regions: {nrow(region_snp_singleton)}"))
 
@@ -102,27 +103,46 @@ left_join(cojo, by='SNP')
 
 logging(glue("COJO+Clump SNPs: {nrow(daner_cojo)}"))
 
-# intersection selected SNPs with non-singleton regions
-daner_cojo_gr <- with(daner_cojo, GRanges(seqnames=CHR, ranges=IRanges(BP, width=1), SNP=SNP))
-regions_gr <- with(region_ranges, GRanges(seqnames=Chr, ranges=IRanges(start=range.left, end=range.right)))
+# intersection selected SNPs with non-singleton or singleton regions
 
-daner_cojo_regions_overlap <- findOverlaps(daner_cojo_gr, regions_gr)
+merge_daner_cojo_regions <- function(daner_cojo, region_ranges) {
+    # create genomic range objects for SNPs and regions
+    daner_cojo_gr <- with(daner_cojo, GRanges(seqnames=CHR, ranges=IRanges(BP, width=1), SNP=SNP))
+    regions_gr <- with(region_ranges, GRanges(seqnames=Chr, ranges=IRanges(start=range.left, end=range.right)))
+    
+    # find which region each SNP belongs to
+    daner_cojo_regions_overlap <- findOverlaps(daner_cojo_gr, regions_gr)
+    
+    # use overlap object to get row numbers, then slice and bind the two tibbles
+    daner_cojo_regions <- 
+    bind_cols(dplyr::slice(daner_cojo, daner_cojo_regions_overlap@from),
+              dplyr::slice(region_ranges, daner_cojo_regions_overlap@to)) %>%
+    # add in a SNP idx if the region cojo file was empty
+    mutate(snp_idx=coalesce(snp_idx, 1)) %>%
+    # select daner and cojo columns
+    select(region, snp_idx, CHR, SNP, BP, A1, A2,
+          starts_with('FRQ'), INFO, OR, SE, P, ngt,
+          Direction, HetISqt, HetDf, HetPVa, Nca, Nco, Neff_half,
+          bJ, bJ_se, pJ, LD_r,
+          range.left, range.right,  n_sig_snps) %>%
+    arrange(region, snp_idx)
+    
+    return(daner_cojo_regions)
+}
 
-daner_cojo_regions <- 
-bind_cols(dplyr::slice(daner_cojo, daner_cojo_regions_overlap@from),
-          dplyr::slice(region_ranges, daner_cojo_regions_overlap@to)) %>%
-mutate(snp_idx=coalesce(snp_idx, 1)) %>%
-select(region, snp_idx, CHR, SNP, BP, A1, A2, starts_with('FRQ'), INFO, OR, SE, P, ngt,
-      Direction, HetISqt, HetDf, HetPVa, Nca, Nco, Neff_half, bJ, bJ_se, pJ, LD_r, range.left, range.right) %>%
-arrange(region, snp_idx)
+daner_cojo_regions <- merge_daner_cojo_regions(daner_cojo, region_ranges)
+
+daner_cojo_singletons <- merge_daner_cojo_regions(daner_cojo, region_singleton_ranges)
 
 logging(glue("COJO Final SNPs: {nrow(daner_cojo_regions)}"))
 logging(glue("COJO Final SNPs p <= 5e-8, pJ <= 5e-8: {nrow(filter(daner_cojo_regions, P <= 5e-8, pJ <= 5e-8))}"))
 logging(glue("COJO Final SNPs p > 5e-8, pJ <= 5e-8: {nrow(filter(daner_cojo_regions, P > 5e-8, pJ <= 5e-8))}"))
 
-output_cojo <- snakemake@output[[1]]
-
+output_cojo <- snakemake@output$cojo
 write_tsv(daner_cojo_regions, output_cojo)
+
+output_singletons <- snakemake@output$singletons
+write_tsv(daner_cojo_singletons, output_singletons)
 
 
 
