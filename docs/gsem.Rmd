@@ -12,11 +12,12 @@ Summary statistics were grouped based on phenotype, then meta-analysed:
 
 The LDSC covariance structure of the four MDD phenotype was calcuted using [GenomicSEM](https://github.com/GenomicSEM/GenomicSEM).
 
-```{r}
+```{r libraries, results='hide', message=FALSE, warning=FALSE}
 
 library(GenomicSEM)
 library(readr)
 library(corrplot)
+library(dplyr)
 
 ```
 
@@ -43,7 +44,7 @@ corrplot(cov2cor(mdd_covstruct$S), method='number')
 
 ```
 
-Common factor model
+## Common factor model
 
 ```{r model}
 
@@ -62,10 +63,44 @@ knitr::kable(common.fit$modelfit)
 
 ```{r results}
 
+common.fit.results <- common.fit$results %>%
+    mutate(Unstand_SE=as.numeric(Unstand_SE),
+           STD_Genotype_SE=as.numeric(STD_Genotype_SE),
+           p_value=if_else(p_value == '< 5e-300', true=0, false=as.numeric(p_value)))
 
-common.fit$results$Unstand_SE <- as.numeric(common.fit$results$Unstand_SE)
-common.fit$results$STD_Genotype_SE <- as.numeric(common.fit$results$STD_Genotype_SE)
+knitr::kable(common.fit.results, digits=4)
 
-knitr::kable(common.fit$results, digits=4)
+```
+
+## GWAS-by-subtraction
+
+Fit a [GWAS-by-subtraction](https://rpubs.com/MichelNivard/565885) to decompose variance into that of minimally-phenotyped depression shared with maximal phenotypes versus specific to maximal phenotypes.
+
+```{r gbs_model}
+
+md.model <- "MD =~ NA*self + clin + ehr + quest
+MDD =~ NA*clin + ehr + quest
+
+MD ~~ 1*MD
+MDD ~~ 1*MDD
+MD ~~ 0*MDD
+
+self ~~ 0*clin + 0*ehr + 0*quest
+self ~~ 0*self"
+
+```
+
+```{r gbs_fit}
+md.fit <- usermodel(covstruc=mdd_covstruct, estimation='DWLS', model=md.model)
+```
+
+```{r gbs_results}
+
+md.fit.results <- md.fit$results %>%
+mutate(Unstand_SE=as.numeric(Unstand_SE),
+       STD_Genotype_SE=as.numeric(STD_Genotype_SE),
+       p_value=if_else(p_value == '< 5e-300', true=0, false=as.numeric(p_value)))
+
+knitr::kable(md.fit.results, digits=4)
 
 ```
