@@ -25,19 +25,18 @@
 ##nControl="{ncontrol}"
 ##nTrio="{ntrio}"
 ##nCohort="{ncohort}"
-##cohortList="{cohort_lsit}"
+##cohortList="{cohort_list}"
 ##nCaseByCohort="{cases_by_cohort}"
 ##nControlByCohort="{controls_by_cohort}"
 ##nTrioByCohort="{trios_by_cohort}"
 ##SNPsPassPostImputeByCohort="{snps_by_cohort}"
 ##ProcessedByCoreTeam="{processed_by_core}"
 ##referencePopulation="{ancestries}"
-##INFO=<ID=A1,Number=1,Type=Character,Description="SNP reference allele for freq and ln(OR) or beta">
-##INFO=<ID=A2,Number=1,Type=Character,Description="SNP alternate allele">
+##INFO=<ID=A1,Number=1,Type=Character,Description="SNP reference allele for freq and ln(OR) (effect allele)">
+##INFO=<ID=A2,Number=1,Type=Character,Description="SNP alternate allele (non-effect allele)">
 ##INFO=<ID=BETA,Number=1,Type=Float,Description="ln(OR) of A1">
 ##INFO=<ID=SE,Number=1,Type=Float,Description="standard error of ln(OR)">
 ##INFO=<ID=PVAL,Number=1,Type=Float,Description="P-value, uncorrected">
-##INFO=<ID=PVALWALD,Number=1,Type=Float,Description="P-value, corrected for sample overlap">
 ##INFO=<ID=NGT,Number=1,Type=Integer,Description="number of cohorts genotyped">
 ##INFO=<ID=FCAS,Number=1,Type=Float,Description="frequency of A1 in cases">
 ##INFO=<ID=FCON,Number=1,Type=Float,Description="frequency of A1 in controls">
