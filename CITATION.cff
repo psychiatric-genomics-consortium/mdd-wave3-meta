@@ -7,7 +7,7 @@ authors:
     given-names: 
 cff-version: "1.1.0"
 doi: "10.000/TBD"
-abstract: ""
+abstract: "We conducted a genome-wide association study of Major Depressive Disorder (MDD)..."
 references:
     - type: data
       title: "Genome-wide association study summary statistics for Major Depressive Disorder"

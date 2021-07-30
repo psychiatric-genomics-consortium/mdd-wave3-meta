@@ -93,6 +93,13 @@ rule vcf:
 rule vcf_daner2pgc:
     input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{analysis}.rp.gz", fasta_fai="resources/fasta/human_grch37.fasta.fai", genotype_cohorts="docs/tables/cohorts_mdd.eur.txt", sumstats_cohorts="docs/tables/cohorts.eur.txt", cff="CITATION.cff", header_template="scripts/vcf/pgc.glue"
     conda: "../envs/vcf.yaml"
-    output: "results/vcf/pgc_mdd2021_{cohorts}_{ancestries}_v{analysis}.pgc"
+    output: "results/vcf/pgc_mdd{year}_{cohorts}_{ancestries}_v{analysis}.pgc"
     script: "../scripts/vcf/pgc.R"
     
+rule vcf_pgc_gz:
+    input: "results/vcf/pgc_mdd{sumstats}.pgc"
+    output: "results/vcf/pgc_mdd{sumstats}.pgc.gz"
+    shell: "gzip -c {input} > {output}"
+    
+rule vcf_pgc:
+    input: expand("results/vcf/pgc_mdd{year}_full_eur_v{analysis}.pgc.gz", year=2021, analysis=analysis_version)
