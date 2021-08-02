@@ -44,6 +44,7 @@ fields.loose = fields.all %>%
   remove_category(.,kw='Online follow-up > Diet by 24-hour recall ',col.n='Path') %>%
   remove_category(.,kw='UK Biobank Assessment Centre > Touchscreen > Lifestyle and environment > Diet',col.n='Path') %>%
   remove_category(.,kw='UK Biobank Assessment Centre > Touchscreen > Lifestyle and environment > Alcohol',col.n='Path') %>%
+  remove_category(.,kw='Online follow-up > Diet',col.n='Path') %>%
   remove_category(.,kw='Genomics',col.n='Path') %>%
   remove_category(.,kw='UK Biobank Assessment Centre > Procedural metrics',col.n='Path') %>%
   remove_category(.,kw='Reason for ',col.n='Field') %>%

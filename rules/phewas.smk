@@ -78,6 +78,14 @@ rule ukb_data_dictionary:
     shell:
         "cp {input} {output}"
 
+rule data_coding:
+    input:
+         HTTP.remote("https://biobank.ctsu.ox.ac.uk/~bbdatan/Codings.csv")
+    output:
+        "data/Codings.csv"
+    shell:
+        "cp {input} {output}"
+
 rule loose_pheno:
     input:
         "data/Data_Dictionary_Showcase.csv",
@@ -111,3 +119,15 @@ rule chunk_cognition:
         "results/phewas/data_dictionary/fields.final.cognition.txt"
     shell:
         "Rscript scripts/phewas/PREP.phenotype_ukb/process_cognition_3.R {input} {output}"
+
+rule chunk_diet:
+    input:
+        "data/Data_Dictionary_Showcase.csv",
+        "data/Codings.csv",
+        "data/2021-04-phenotypes-ukb44797/DietByHourRecall.rds",
+                     "data/2021-04-phenotypes-ukb44797/Touchscreen.rds"
+    output:
+        "data/dat.diet_chunk.rds",
+        "results/phewas/data_dictionary/fields.final.diet.txt"
+    shell:
+        "Rscript scripts/phewas/PREP.phenotype_ukb/process_diet_4.R {input} {output}"
