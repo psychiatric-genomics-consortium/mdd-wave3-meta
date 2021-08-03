@@ -41,7 +41,7 @@ fields.loose = fields.all %>%
   remove_category(.,kw='UK Biobank Assessment Centre > Cognitive function',col.n='Path') %>%
   remove_category(.,kw='Online follow-up > Cognitive function',col.n='Path') %>%
   remove_category(.,kw='Health-related outcomes ',col.n='Path') %>%
-  remove_category(.,kw='Online follow-up > Diet by 24-hour recall ',col.n='Path') %>%
+  remove_category(.,kw='Online follow-up > Diet by 24-hour recall |Touchscreen > Lifestyle and environment > Alcohol',col.n='Path') %>%
   remove_category(.,kw='UK Biobank Assessment Centre > Touchscreen > Lifestyle and environment > Diet',col.n='Path') %>%
   remove_category(.,kw='UK Biobank Assessment Centre > Touchscreen > Lifestyle and environment > Alcohol',col.n='Path') %>%
   remove_category(.,kw='Online follow-up > Diet',col.n='Path') %>%
@@ -52,12 +52,13 @@ fields.loose = fields.all %>%
   remove_category(.,kw='UK Biobank Assessment Centre > Biological sampling',col.n='Path') %>%
   remove_category(.,kw='(pilot)|Invitation| method|Which eye(s)|Method of ',col.n='Field') %>%
   remove_category(.,kw=' code',col.n='Field') %>%
-  remove_category(.,kw='Bulk',col.n='ItemType')                
+  remove_category(.,kw='Bulk',col.n='ItemType') %>% 
+  remove_category(.,kw=152,col.n='Category')
 
-rm.others=read.csv(f.experiment_procedure,header=T,sep='\t',stringsAsFactors=F) %>% 
-  rbind(.,read.csv(f.covered_by_sumscores,header=T,sep='\t',stringsAsFactors=F))
+# rm.others=read.csv(f.experiment_procedure,header=T,sep='\t',stringsAsFactors=F) %>% 
+#   rbind(.,read.csv(f.covered_by_sumscores,header=T,sep='\t',stringsAsFactors=F))
+# 
+# fields.loose=fields.loose[!fields.loose$FieldID %in% as.numeric(rm.others$FieldID),]
 
-fields.loose=fields.loose[!fields.loose$FieldID %in% rm.others$FieldID,]
-
-write.table(fields.loose,file=f.output,quote=F,col.names=T,row.names=F,sep='\t')
+write.csv(fields.loose,file=f.output,quote=T,row.names = F,col.names = T)
 

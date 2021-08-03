@@ -125,9 +125,21 @@ rule chunk_diet:
         "data/Data_Dictionary_Showcase.csv",
         "data/Codings.csv",
         "data/2021-04-phenotypes-ukb44797/DietByHourRecall.rds",
-                     "data/2021-04-phenotypes-ukb44797/Touchscreen.rds"
+        "data/2021-04-phenotypes-ukb44797/Touchscreen.rds"
     output:
         "data/dat.diet_chunk.rds",
         "results/phewas/data_dictionary/fields.final.diet.txt"
     shell:
         "Rscript scripts/phewas/PREP.phenotype_ukb/process_diet_4.R {input} {output}"
+
+rule chunk_activity:
+    input:
+        "data/Data_Dictionary_Showcase.csv",
+        "data/Codings.csv",
+        "data/2021-04-phenotypes-ukb44797/PhysicalActivityMeasurement.rds",
+    output:
+        "data/dat.activity_chunk.rds",
+        "results/phewas/data_dictionary/fields.final.activity_data_and_QC.txt"
+    shell:
+        "Rscript scripts/phewas/PREP.phenotype_ukb/process_PhysicalActivity_5.R {input} {output}"
+
