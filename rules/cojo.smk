@@ -174,8 +174,13 @@ rule cojo_table_eur:
 rule cojo_analyse:
     input: "docs/tables/meta_snps_full_eur.cojo.txt"
     
+rule cojo_log:
+    input: expand("logs/cojo/pgc_mdd_full_eur_hg19_v{version}.rp.log", version=analysis_version)
+    output: "docs/objects/meta_snps_full_eur.cojo.log"
+    shell: "cp {input} {output}"
+    
 rule cojo_docs:
-    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log=expand("logs/cojo/pgc_mdd_full_eur_hg19_v{version}.rp.log", version=analysis_version), rmd="docs/cojo.Rmd"
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", rmd="docs/cojo.Rmd"
     params: qc=meta_qc_params
     output: "docs/cojo.md"
     conda: "../envs/reports.yaml"
