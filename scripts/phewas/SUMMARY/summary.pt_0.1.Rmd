@@ -2,7 +2,7 @@
 title: "Phewas result"
 author: X Shen  
 date: "\n`r format(Sys.time(), '%d %B, %Y')`"
-output: github_document
+output: html_document
 ---
 
 ```{r library,echo=F}
@@ -14,11 +14,13 @@ library(ggplot2)
 library(knitr)
 library(kableExtra)
 library(here)
+
+source(here::here('scripts/phewas/util/PheWAS_style_p_plot.R'))
 ```
 
 ------------------------------------------------------------------------
 
-## Load data
+### Load data
 
 Inputs:
 
@@ -29,9 +31,7 @@ target.pT = '0.1'
 f.category = '/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/data/phewas_categories.tsv'
 ```
 
-Load results:
-
-```{r load results,echo=F}
+```{r load results,echo=F,warning=F}
 pt=target.pT
 target.pT = target.pT %>% 
   gsub('\\.','\\\\.',.) %>% 
@@ -45,7 +45,9 @@ fields.all = list.files(d.path,pattern='^fields.final',full.names = T,include.di
   lapply(fread,stringsAsFactors=F,header=T,sep='\t',quote="\"") %>%
   lapply(as.data.frame) %>% 
   lapply(mutate,field_used=as.character(field_used),FieldID=as.character(FieldID)) %>% 
-  Reduce(function(dtf1,dtf2) bind_rows(dtf1,dtf2[,colnames(dtf1)]), .)
+  Reduce(function(dtf1,dtf2) bind_rows(dtf1,dtf2[,colnames(dtf1)]), .) %>% 
+  mutate(Field=gsub('(left hemisphere)','',Field)) %>% 
+  mutate(Field=gsub(' ()','',Field)) 
 
 
 g.path = f.dat_dir %>% strsplit(.,'/') %>% unlist %>% 
@@ -68,12 +70,15 @@ res.targetpT.annot = res.targetpT %>%
   select(category,Field,field=dependent,factor,beta,std,t.value,p.value,p.corrected)
 ```
 
+------------------------------------------------------------------------
 
 ### Summary
 
 At pT=`r pt`
--  Significant associations with the MDD3 PRS: `r sum(res.targetpT.annot[res.targetpT.annot$factor=='MDD3_Pt_0.1','p.corrected']<0.05)` 
--  Significant associations with the Howard PRS`r sum(res.targetpT.annot[res.targetpT.annot$factor=='Howard_Pt_0.1','p.corrected']<0.05)`
+
+-   Significant associations with the MDD3 PRS: `r sum(res.targetpT.annot[res.targetpT.annot$factor=='MDD3_Pt_0.1','p.corrected']<0.05)`
+
+-   Significant associations with the Howard PRS: `r sum(res.targetpT.annot[res.targetpT.annot$factor=='Howard_Pt_0.1','p.corrected']<0.05)`
 
 ```{r number of sig assoc, echo=F}
 MDD3.nsig = res.targetpT.annot %>%
@@ -88,9 +93,277 @@ Howard.nsig = res.targetpT.annot %>%
 nsig.compare = MDD3.nsig %>% 
   arrange(match(.$category,ref.category)) %>% 
   left_join(.,Howard.nsig,by='category') %>% 
-  select(category,Howard.Nsig,MDD3.Nsig,Npheno) %>% 
+  select(category,Howard.Nsig,MDD3.Nsig,Npheno)
+
+nsig.compare %>% 
   kbl() %>%
   kable_material(c("striped", "hover"))
 
 ```
 
+------------------------------------------------------------------------
+
+### P-plots
+
+#### MDD3
+
+\# ls.label = plot.dat %\>%
+
+\# filter(p.corrected\<0.001) %\>%
+
+\# select(dependent,Field)
+
+```{r pplot mdd3,echo=F,warning=F,fig.height=8,fig.width=10}
+plot.dat = res.targetpT.annot %>%
+  filter(factor=='MDD3_Pt_0.1')  %>% 
+  rename(dependent=field)
+
+ls.label = plot.dat %>% 
+  .[grep('^MDD_',.$dependent),] %>%  
+  select(dependent,Field)
+
+# ls.label = plot.dat %>%
+#   filter(p.corrected<0.001) %>%
+#   select(dependent,Field)
+
+#source(here::here('scripts/phewas/util/PheWAS_style_p_plot.R'))
+
+fig.MDD3=p_plot(TargetResult=plot.dat,color_theme_usr='Shen',
+                shape_sig=T,sig_nominal=T,
+           plot_title='MDD3 PRS pT=0.1',y_lim=50,
+           labels_annot=ls.label,add_category_name=T)
+
+fig.MDD3
+
+ggsave(fig.MDD3,filename = here::here('./pplot_MDD3.png'),width = 30,height = 15,units = 'in',device = 'png')
+```
+
+#### Howard et al
+
+```{r pplot Howard,echo=F,warning=F,fig.height=8,fig.width=10}
+plot.dat = res.targetpT.annot %>%
+  filter(factor=='Howard_Pt_0.1')  %>% 
+  rename(dependent=field)
+
+ls.label = plot.dat %>% 
+  .[grep('^MDD_',.$dependent),] %>% 
+  select(dependent,Field)
+
+# ls.label = plot.dat %>% 
+#   filter(p.corrected<0.001) %>% 
+#   select(dependent,Field)
+
+#source(here::here('scripts/phewas/util/PheWAS_style_p_plot.R'))
+
+fig.Howard=p_plot(TargetResult=plot.dat,color_theme_usr='Shen',
+                shape_sig=T,sig_nominal=T,
+           plot_title='Howard PRS pT=0.1',y_lim=50,
+           labels_annot=ls.label,add_category_name=T)
+
+fig.Howard
+ggsave(fig.Howard,filename = here::here('./pplot_Howard.png'),width = 30,height = 15,units = 'in',device = 'png')
+```
+
+------------------------------------------------------------------------
+
+### Comparison {.tabset}
+
+Phenotypes are included if:
+
+-   they are significantly associated with MDD3 PRS
+
+and
+
+-   CI for MDD3 PRS and Howard et al PRS do not overlap (CI=beta+/-std)
+
+```{r,warning=F,echo=F}
+res.mdd3 = res.targetpT.annot %>%
+  filter(factor=='MDD3_Pt_0.1') %>% 
+  mutate(mdd3.CI.low = beta-std,mdd3.CI.high=beta+std) %>% 
+  rename(mdd3.beta=beta,mdd3.std=std,
+         mdd3.p.value=p.value,mdd3.p.corrected=p.corrected,
+         mdd3.t.value=t.value)
+
+res.howard = res.targetpT.annot %>%
+  filter(factor=='Howard_Pt_0.1') %>% 
+  mutate(howard.CI.low = beta-std,howard.CI.high=beta+std) %>% 
+  rename(howard.beta=beta,howard.std=std,
+         howard.p.value=p.value,howard.p.corrected=p.corrected,
+         howard.t.value=t.value) %>% 
+  select(field,starts_with('howard.'))
+
+res.sum = left_join(res.mdd3,res.howard,by='field') %>% 
+  mutate(is.beta.diff = ifelse((mdd3.CI.low>howard.CI.high|howard.CI.low>mdd3.CI.high)&mdd3.p.corrected<0.05,1,0))
+```
+
+```{r,warning=F,echo=F}
+ref.keep = res.sum %>% select(field,is.beta.diff) %>% filter(is.beta.diff==1)
+dat.fig = res.targetpT.annot %>% 
+  left_join(.,ref.keep,by='field') %>% 
+  filter(is.beta.diff==1) %>% 
+  mutate(ord=1:nrow(.),category=as.factor(category)) %>% 
+  rename(PRS=factor)
+
+create_fig <- function(tmp.dat.fig,target.cat){
+  cat.dat = tmp.dat.fig %>% filter(category==target.cat)
+  
+  fig.tmp=
+  ggplot(cat.dat, aes(x=reorder(Field,ord), y=beta,color=PRS)) + 
+  geom_point(position=position_dodge(), stat="identity") +
+  geom_errorbar(aes(ymin=beta-std, ymax=beta+std), width=.1,
+                position=position_dodge(width=0.9),colour="grey")+
+  theme(
+    panel.background = element_blank(),
+    panel.grid = element_blank(),
+    axis.line.x = element_line(size=0.5),
+    axis.text=element_text(size=10), axis.title=element_text(size=11),
+    plot.title = element_text(lineheight=1, face="bold", vjust=1, hjust=0.5,size=9),
+    strip.text = element_text(size=8),
+    plot.margin=unit(c(1,1,1,3),'mm')) +
+  ylab("Standardised regression coefficient") + xlab("\n\n") +
+  #scale_y_continuous(limits=c(0,3))+
+  #scale_y_reverse()+
+  scale_x_discrete(position='top')+
+  geom_hline(yintercept=0,color = "black", size=0.3)+
+  #geom_vline(xintercept=7.5,color = "grey",linetype='dashed', size=1)+
+  coord_flip()+
+  ggtitle(target.cat)
+  
+  return(fig.tmp)
+}
+
+figs=dat.fig$category %>% unique %>% 
+  as.list %>% 
+  lapply(., create_fig,tmp.dat.fig=dat.fig)
+
+```
+
+#### Mental health
+
+```{r,echo=F,warning=F,fig.height=5,fig.width=10}
+
+figs[[1]]
+
+```
+
+#### Early life factor
+
+```{r,echo=F,warning=F,fig.height=2,fig.width=10}
+
+figs[[2]]
+
+```
+
+#### Physical health
+
+```{r,,echo=F,warning=F,fig.height=4,fig.width=10}
+
+figs[[3]]
+
+```
+
+#### Physical activity
+
+```{r,,echo=F,warning=F,fig.height=2.3,fig.width=10}
+
+figs[[4]]
+
+```
+
+#### Physical measure
+
+```{r,,echo=F,warning=F,fig.height=5,fig.width=10}
+
+figs[[5]]
+
+```
+
+#### Sociodemographic
+
+```{r,,echo=F,warning=F,fig.height=2,fig.width=10}
+
+figs[[6]]
+
+```
+
+#### Lifestyle
+
+```{r,,echo=F,warning=F,fig.height=1.5,fig.width=10}
+
+figs[[7]]
+
+```
+
+#### Cognition
+
+```{r,,echo=F,warning=F,fig.height=2,fig.width=10}
+
+figs[[8]]
+
+```
+
+#### Blood biomarker
+
+```{r,,echo=F,warning=F,fig.height=1.8,fig.width=10}
+
+figs[[9]]
+
+```
+
+#### Body MRI
+
+```{r,,echo=F,warning=F,fig.height=2,fig.width=10}
+
+figs[[10]]
+
+```
+
+#### Bulk brain-tissue measures
+
+```{r,,echo=F,warning=F,fig.height=4,fig.width=10}
+
+figs[[11]]
+
+```
+
+#### White matter microstructure (probablistic)
+
+```{r,,echo=F,warning=F,fig.height=1.3,fig.width=10}
+figs[[12]]
+```
+
+#### Subcortical measures
+
+```{r,,echo=F,warning=F,fig.height=6,fig.width=10}
+figs[[13]]
+```
+
+#### Subcortical sub-region
+
+```{r,,echo=F,warning=F,fig.height=6,fig.width=10}
+figs[[14]]
+```
+
+#### Cortical measures
+
+```{r,,echo=F,warning=F,fig.height=8,fig.width=10}
+figs[[15]]
+```
+
+#### Pial measures
+
+```{r,,echo=F,warning=F,fig.height=4,fig.width=10}
+figs[[16]]
+```
+
+#### G-W matter contrast
+
+```{r,,echo=F,warning=F,fig.height=1.5,fig.width=10}
+figs[[17]]
+```
+
+#### BA atlas cortical measures
+
+```{r,,echo=F,warning=F,fig.height=1.5,fig.width=10}
+figs[[18]]
+```

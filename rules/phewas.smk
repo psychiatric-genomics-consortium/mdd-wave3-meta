@@ -67,6 +67,16 @@ rule mddprs_imputed:
     shell:
         "bash script/phewas/PREP.PRS/job.PRS_imputed_snkmk.sh {input} {output}"
 
+# Reformat
+rule reformat_PRS:
+    input:
+        "data/mdd_prs_imputed.all_score",
+        "data/mdd_prs_imputed_oldGWAS.all_score"
+    output:
+        "data/PRS_all.rds"
+    shell:
+        "Rscript scripts/phewas/PREP.PRS/reformat_PRS.R {input} {output}"
+
 
 # PheWAS data prep =====================================================================
 # Download data dictionary
@@ -136,10 +146,61 @@ rule chunk_activity:
     input:
         "data/Data_Dictionary_Showcase.csv",
         "data/Codings.csv",
-        "data/2021-04-phenotypes-ukb44797/PhysicalActivityMeasurement.rds",
+        "data/2021-04-phenotypes-ukb44797/PhysicalActivityMeasurement.rds"
     output:
         "data/dat.activity_chunk.rds",
         "results/phewas/data_dictionary/fields.final.activity_data_and_QC.txt"
     shell:
         "Rscript scripts/phewas/PREP.phenotype_ukb/process_PhysicalActivity_5.R {input} {output}"
+
+rule chunk_mental_health:
+    input:
+        "data/Data_Dictionary_Showcase.csv",
+        "data/Codings.csv",
+        "data/2021-04-phenotypes-ukb44797/derived/MHQ.1907.ukb24262.Process_MH_Questionnaire_Output.rds",
+        "data/2021-04-phenotypes-ukb44797/derived/ukb24262-mdd.mdd_phenotypes.rds",
+        "data/2021-04-phenotypes-ukb44797/Touchscreen.rds"
+    output:
+        "data/dat.mental_health_chunk.rds",
+        "results/phewas/data_dictionary/fields.final.mental_health.txt"
+    shell:
+        "Rscript scripts/phewas/PREP.phenotype_ukb/process_mental_health_6.R {input} {output}"
+
+rule chunk_loose_field:
+    input:
+        "data/loose_fields",
+        "data/Codings.csv",
+        "data/2021-04-phenotypes-ukb44797/Imaging.rds",
+        "results/phewas/data_dictionary/category_loose_fields"
+    output:
+        "data/dat.loose_field_chunk.rds",
+        "results/phewas/data_dictionary/fields.final.loose_field.txt"
+    shell:
+        "Rscript scripts/phewas/PREP.phenotype_ukb/process_loose_fields_7.R {input} {output}"
+
+rule chunk_additional_covariates:
+    input:
+        "data/Data_Dictionary_Showcase.csv",
+        "data/2021-04-phenotypes-ukb44797/BaselineCharacteristics.rds",
+        "data/2021-04-phenotypes-ukb44797/Recruitment.rds",
+        "data/2021-04-phenotypes-ukb44797/derived/ukb_sqc_qc_WhiteBritishPCs_addPrunedRels_noPGC_noGenScot_v2.covars.rds",
+        "data/2021-04-phenotypes-ukb44797/MentalHealth.rds"
+    output:
+        "data/dat.addional_covariates_chunk.rds",
+        "results/phewas/data_dictionary/fields.final.additional_covariates.txt"
+    shell:
+        "Rscript scripts/phewas/PREP.phenotype_ukb/process_AdditionalCovariates_8.R {input} {output}"
+
+# Models prep ========================================================================
+
+rule models_prep:
+    input:
+        "results/phewas/data_dictionary/fields.final.brain_imaging_QC_cov_phenotype.txt",
+        "data/PRS_all.rds"
+    output:
+        "results/phewas/models.rds"
+    shell:
+        "Rscript scripts/phewas/ANALY/PREP.models.R {input} {output}"
+
+# Run analysis ========================================================================
 
