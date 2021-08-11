@@ -62,11 +62,26 @@ field.activity.output$category = 'Physical activity'
 field.activity.output$category[field.activity.output$FieldID %in% fields.activity.covs$FieldID] = 
   'Physical activity QC and covariates'
 field.activity.output = field.activity.output %>% 
-  mutate(field_tag = FieldID, fields_used = FieldID)
+  mutate(field_tag = paste0('f.',FieldID,'.0.0'), field_used = as.character(FieldID))
+
+update_tag <- function(x,tmp.tag){
+  real.tag = colnames(x) %>%
+    .[grep(paste0('^',tmp.tag,'\\.|^',tmp.tag,'$'),.)]
+  return(real.tag)
+}
+
+tag.update = field.activity.output$field_tag %>%
+  as.list %>%
+  lapply(.,FUN=update_tag,x=activity.output) %>%
+  unlist %>%
+  as.character
+
+field.activity.output$field_tag = tag.update
+
 
 # Save data, covariates and data dictionary -------------------------------
 
 saveRDS(activity.output,file=f.output_data)
 write.table(field.activity.output,
-            file=f.output_dictionary,sep='\t',quote=F,row.names=F,col.names=T)
+            file=f.output_dictionary,sep='\t',quote=T,row.names=F,col.names=T)
 

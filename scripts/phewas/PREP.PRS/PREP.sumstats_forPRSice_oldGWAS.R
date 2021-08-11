@@ -22,11 +22,16 @@ fname.out = opt$out
 
 # Summary statistics  ---------------------------------------------------------------------
 summstats=read.delim(fname.sumstats,stringsAsFactors=F)
+ref=fread('/exports/igmm/eddie/GenScotDepression/shen/bakup.dat/ucsc_annotation/hg19/snp151Common_chr_bp_rs.txt') %>% 
+  rename(CHR=V1,BP=V2,SNP=V3) %>% 
+  filter(CHR!='X',CHR!='Y') %>% 
+  mutate(CHR=gsub('chr','',CHR) %>% as.numeric)
 
 # Reformat and QC   
 summstats=summstats %>% 
   filter(Freq1>0.005,Freq1<0.995) %>% 
-  select(SNP=MarkerName,A1=Allele1,A2=Allele2,SE=StdErr,P=`P-value`,BETA=Effect)
+  select(SNP=MarkerName,A1=Allele1,A2=Allele2,SE=StdErr,P=P.value,BETA=Effect) %>% 
+  left_join(.,ref,by='SNP')
 
 # write summstats
 write_tsv(summstats,fname.out,col_names = T)

@@ -154,8 +154,23 @@ diet.singleinstance.numerised = targetdata
 
 # Output ------------------------------------------------------------------
 
-field.output = fields.diet %>% 
-  mutate(field_tag=FieldID,field_used=paste0(FieldID,'.0-2.0'))
+fields.output = fields.diet %>% 
+  mutate(category='Diet',field_tag=paste0('f.',FieldID),field_used=as.character(FieldID))
+
+update_tag <- function(x,tmp.tag){
+  real.tag = colnames(x) %>%
+    .[grep(paste0('^',tmp.tag,'\\.|^',tmp.tag,'$'),.)]
+  return(real.tag)
+}
+
+tag.update = fields.output$field_tag %>%
+  as.list %>%
+  lapply(.,FUN=update_tag,x=diet.singleinstance.numerised) %>%
+  unlist %>%
+  as.character
+
+fields.output$field_tag = tag.update
+
 
 saveRDS(diet.singleinstance.numerised,file=f.output_data)
-write.table(field.output,file=f.output_dictionary,sep='\t',quote=F,row.names=F,col.names=T)
+write.table(fields.output,file=f.output_dictionary,sep='\t',quote=T,row.names=F,col.names=T)

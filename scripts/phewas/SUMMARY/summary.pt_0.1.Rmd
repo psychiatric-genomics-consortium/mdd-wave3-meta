@@ -1,0 +1,96 @@
+---
+title: "Phewas result"
+author: X Shen  
+date: "\n`r format(Sys.time(), '%d %B, %Y')`"
+output: github_document
+---
+
+```{r library,echo=F}
+library(dplyr)
+library(data.table)
+library(readr)
+library(pbapply)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(here)
+```
+
+------------------------------------------------------------------------
+
+## Load data
+
+Inputs:
+
+```{r inputs}
+f.dat_dir = '/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/results/phewas/phewas_out_Body_MRI.rds'
+f.dic_dir = '/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/results/phewas/data_dictionary/fields.final.brain_imaging_QC_cov_phenotype.txt'
+target.pT = '0.1'
+f.category = '/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/data/phewas_categories.tsv'
+```
+
+Load results:
+
+```{r load results,echo=F}
+pt=target.pT
+target.pT = target.pT %>% 
+  gsub('\\.','\\\\.',.) %>% 
+  paste0('Pt_',.)
+
+d.path = f.dic_dir %>% strsplit(.,'/') %>% unlist %>% 
+  .[1:(length(.)-1)] %>% 
+  paste0(.,collapse = '/')
+
+fields.all = list.files(d.path,pattern='^fields.final',full.names = T,include.dirs = T) %>% 
+  lapply(fread,stringsAsFactors=F,header=T,sep='\t',quote="\"") %>%
+  lapply(as.data.frame) %>% 
+  lapply(mutate,field_used=as.character(field_used),FieldID=as.character(FieldID)) %>% 
+  Reduce(function(dtf1,dtf2) bind_rows(dtf1,dtf2[,colnames(dtf1)]), .)
+
+
+g.path = f.dat_dir %>% strsplit(.,'/') %>% unlist %>% 
+  .[1:(length(.)-1)] %>% 
+  paste0(.,collapse = '/')
+
+res.targetpT = list.files(g.path,pattern='^phewas_out',full.names = T,include.dirs = T) %>% 
+  lapply(readRDS) %>%
+  Reduce(function(dtf1,dtf2) bind_rows(dtf1,dtf2), .) %>% 
+  mutate(p.corrected = p.adjust(p.value,method='fdr')) %>% 
+  mutate(mod_name=as.character(mod_name)) %>% 
+  .[grepl(target.pT,.$factor),] 
+
+ref.category = fread(f.category,header=F,sep='\n') %>% 
+  as.data.frame %>% .$V1
+
+res.targetpT.annot = res.targetpT %>% 
+  left_join(.,fields.all,by=c('dependent'='field_tag')) %>% 
+  arrange(match(.$category,ref.category)) %>% 
+  select(category,Field,field=dependent,factor,beta,std,t.value,p.value,p.corrected)
+```
+
+
+### Summary
+
+At pT=`r pt`
+-  Significant associations with the MDD3 PRS: `r sum(res.targetpT.annot[res.targetpT.annot$factor=='MDD3_Pt_0.1','p.corrected']<0.05)` 
+-  Significant associations with the Howard PRS`r sum(res.targetpT.annot[res.targetpT.annot$factor=='Howard_Pt_0.1','p.corrected']<0.05)`
+
+```{r number of sig assoc, echo=F}
+MDD3.nsig = res.targetpT.annot %>%
+  filter(factor=='MDD3_Pt_0.1') %>% 
+  group_by(category) %>%
+  summarise(MDD3.Nsig = sum(p.corrected<0.05), Npheno = sum(!is.na(p.corrected)))
+Howard.nsig = res.targetpT.annot %>%
+  filter(factor=='Howard_Pt_0.1') %>% 
+  group_by(category) %>%
+  summarise(Howard.Nsig = sum(p.corrected<0.05))
+
+nsig.compare = MDD3.nsig %>% 
+  arrange(match(.$category,ref.category)) %>% 
+  left_join(.,Howard.nsig,by='category') %>% 
+  select(category,Howard.Nsig,MDD3.Nsig,Npheno) %>% 
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+

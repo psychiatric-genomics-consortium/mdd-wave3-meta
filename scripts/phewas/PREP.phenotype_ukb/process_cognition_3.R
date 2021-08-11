@@ -16,16 +16,15 @@ f.cogvar_QCed = args[3]            # file location for QCed variables (non-outco
 f.output_data = args[4]
 f.output_dictionary = args[5]
 
+# f.cog_ac = 'data/2021-04-phenotypes-ukb44797/CognitiveFunction.rds'
+# f.cog_online = 'data/2021-04-phenotypes-ukb44797/CognitiveFunctionOnline.rds'
+# f.cogvar_QCed = 'results/phewas/data_dictionary/fields.cog_after_manual_check.txt'
+
 
 # Load data ---------------------------------------------------------------
 
-cognition=readRDS(f.cog_ac)
-cognition.2=readRDS(f.cog_online) 
-overlap.cols = intersect(colnames(cognition),colnames(cognition.2)) %>% .[!.%in%'f.eid']
-cognition.2=cognition.2 %>% 
-  .[,! colnames(.) %in% overlap.cols]
-
-cognition=merge(cognition,cognition.2,by='f.eid',all.x=T)
+cognition=readRDS(f.cog_ac) %>% 
+  left_join(.,readRDS(f.cog_online),by='f.eid')
 
 ls.fields.available = colnames(cognition) %>% .[!. %in% 'f.eid'] %>% 
   strsplit(., '\\.') %>% 
@@ -33,12 +32,10 @@ ls.fields.available = colnames(cognition) %>% .[!. %in% 'f.eid'] %>%
   t %>% data.frame(.,stringsAsFactors=F) %>% 
   .$X2 %>% as.numeric
 
-fields.cog.outcome=read.delim(f.cogvar_QCed,header=T,stringsAsFactors=T) %>% 
-  .[.$FieldID %in% ls.fields.available,]
+fields.cog=read.delim(f.cogvar_QCed,header=T,stringsAsFactors=F) %>% 
+  .[.$FieldID %in% ls.fields.available,] %>%
+  select(-rls)
 
-
-
-  
 
 # Extract task list and fields to include  --------------------------------------------------------------------
 # remove_category <- function(x,kw,col.n,exact=F){
@@ -64,7 +61,7 @@ fields.cog.outcome=read.delim(f.cogvar_QCed,header=T,stringsAsFactors=T) %>%
 
 cog_functions_raw = 
   cognition %>%
-  select(matches(paste(paste0('f.',fields.cog.outcome$FieldID), collapse="|")))
+  select(matches(paste(paste0('f.',fields.cog$FieldID), collapse="|")))
 
 # find unique list of task * instances
 ls.task_instance = colnames(cog_functions_raw) %>% 
@@ -73,9 +70,10 @@ ls.task_instance = colnames(cog_functions_raw) %>%
   bind_cols %>% 
   t
 rownames(ls.task_instance)=NULL
-ls.fields_findblock <- apply(ls.task_instance[,1:3],1,paste,collapse=".") %>% unique %>% paste0(.,'.')
+ls.fields_findblock <- apply(ls.task_instance[,1:3],1,paste,collapse=".") %>% 
+  unique %>% paste0(.,'.')
 
-# collapse block data
+# collapse block data: extract mean
 # find fields that have blocks 
 # n.fields_block = apply(data.frame(f=ls.fields_findblock),1, function(f) length(grep(f,colnames(cog_functions_raw))))
 
@@ -136,46 +134,60 @@ extract_pheno <- function(field_dat,dat.dic,instances=0:2){
   output.pheno=list('phenotype'=tmp.dat,'count'=count.n.record)
   return(output.pheno)  
 }
-field.input=data.frame(field.id=fields.cog.outcome$FieldID,dat='cog_functions_noblock',stringsAsFactors=F) %>%
+field.input=data.frame(field.id=fields.cog$FieldID,dat='cog_functions_noblock',stringsAsFactors=F) %>%
   split(., seq(nrow(.)))
-fields.cog.toprocess = pblapply(field.input,FUN=extract_pheno,dat.dic=fields.cog.outcome)
-
-for (d in fields.cog.toprocess){
-  if(colnames(d$phenotype)[1]==colnames(fields.cog.toprocess[[1]]$phenotype)[1]){
-    dat.cog=d$phenotype[,c(2,1)]
-    count.n=d$count
-    count.n$type=rownames(count.n)
-  }else{
-    tmp.pheno=d$phenotype
-    dat.cog=merge(dat.cog,tmp.pheno,by='f.eid',all.x=T)
-    tmp.count.n=d$count
-    tmp.count.n$type=rownames(tmp.count.n)
-    count.n=merge(count.n,tmp.count.n,by='type',all.x=T)
-  }
-}
-
-#saveRDS(count.n,file='data/countn.cognition.rds')
+dat.cog.singleinstance = pblapply(field.input,FUN=extract_pheno,dat.dic=fields.cog) %>% 
+  pblapply(.,function(x) x$phenotype) %>% 
+  Reduce(function(dtf1,dtf2) merge(dtf1,dtf2,by="f.eid"), .)
 
 # calculate trail making outcomes ----------------------------------------------------------------------------
 
-dat.cog$f.20157.diffs=dat.cog$f.20157-dat.cog$f.20156
-dat.cog$f.20248.diffs=dat.cog$f.20248-dat.cog$f.20247
-dat.cog$f.20155.diffs=dat.cog$f.20155-dat.cog$f.20149
-dat.cog$f.20148.diffs=dat.cog$f.20148-dat.cog$f.20147
+# Data
+dat.cog.singleinstance = dat.cog.singleinstance %>% 
+  mutate(f.20157.diffs = f.20157-f.20156,
+         f.20248.diffs = f.20248-f.20247,
+         f.20155.diffs = f.20155-f.20149,
+         f.20148.diffs = f.20148-f.20147)
 
-ls.trailmaking = paste0('f.',fields.cog.outcome$FieldID[fields.cog.outcome$Path=='Online follow-up > Cognitive function online > Trail making'])
-dat.cog = dat.cog[,!(colnames(dat.cog) %in% ls.trailmaking)]
+ls.trailmaking = paste0('f.',fields.cog$FieldID[fields.cog$Path=='Online follow-up > Cognitive function online > Trail making'])
+dat.cog.singleinstance = dat.cog.singleinstance %>% 
+  .[,!(colnames(.) %in% ls.trailmaking)]
 
-saveRDS(dat.cog,file=f.output_data)
+# Update data dictionary
+fields.cog.newTrailMaking = fields.cog %>% 
+  .[.$Path!='Online follow-up > Cognitive function online > Trail making',] %>% 
+  rbind(.,fields.cog[grep('20157|20248|20155|20148',fields.cog$FieldID),])
 
-# Data dictionary ----------------------------------------------------------------------------
-fields.cog.new = fields.cog.outcome[fields.cog.outcome$Path!='Online follow-up > Cognitive function online > Trail making',]
-fields.cog.new = rbind(fields.cog.new,fields.cog.outcome[grep('20157|20248|20155|20148',fields.cog.outcome$FieldID),])
+fields.cog.newTrailMaking =fields.cog.newTrailMaking %>% 
+  mutate(category='Cognition',field_tag=paste0('f.',FieldID),field_used=FieldID)
+fields.cog.newTrailMaking$field_tag[fields.cog.newTrailMaking$FieldID %in% c(20157,20248,20155,20148)]=
+  paste0(fields.cog.newTrailMaking$field_tag[fields.cog.newTrailMaking$FieldID %in% c(20157,20248,20155,20148)],'.diffs')
+fields.cog.newTrailMaking$field_used[fields.cog.newTrailMaking$FieldID %in% c(20157,20248,20155,20148)]=
+  c('20157,20156','20248,20247','20155,20149','20148,20147')
 
-fields.cog.new$category='Cognition'
-fields.cog.new$field_tag=fields.cog.new$FieldID
-fields.cog.new$field_tag[fields.cog.new$FieldID %in% c(20157,20248,20155,20148)]=paste0(fields.cog.new$field_tag[fields.cog.new$FieldID %in% c(20157,20248,20155,20148)],'.diffs')
-fields.cog.new$field_used=fields.cog.new$FieldID
-fields.cog.new$field_used[fields.cog.new$FieldID %in% c(20157,20248,20155,20148)]=c('20157,20156','20248,20247','20155,20149','20148,20147')
+fields.cog.newTrailMaking$Field[fields.cog.newTrailMaking$FieldID %in% c(20157,20248,20155,20148)]=
+  gsub('trail #2','trail2-trail1',
+       fields.cog.newTrailMaking$Field[fields.cog.newTrailMaking$FieldID %in% c(20157,20248,20155,20148)])
 
-write.table(fields.cog.new,file=f.output_dictionary,sep='\t',quote=F,row.names=F,col.names=T)
+fields.cog.newTrailMaking = fields.cog.newTrailMaking %>% 
+  mutate(field_used=as.character(field_used))
+# Update field tag
+update_tag <- function(x,tmp.tag){
+  real.tag = colnames(x) %>%
+    .[grep(paste0('^',tmp.tag,'\\.|^',tmp.tag,'$'),.)]
+  return(real.tag)
+}
+
+tag.update = fields.cog.newTrailMaking$field_tag %>%
+  as.list %>%
+  lapply(.,FUN=update_tag,x=dat.cog.singleinstance) %>%
+  unlist %>%
+  as.character
+
+fields.cog.newTrailMaking$field_tag = tag.update
+
+
+# Save data and dictionary ------------------------------------------------
+
+saveRDS(dat.cog.singleinstance,file=f.output_data)
+write.table(fields.cog.newTrailMaking,file=f.output_dictionary,sep='\t',quote=T,row.names=F,col.names=T)
