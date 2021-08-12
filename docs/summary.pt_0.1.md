@@ -5,17 +5,6 @@ X Shen
 
 -----
 
-### Load data
-
-Inputs:
-
-``` r
-f.dat_dir = '/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/results/phewas/phewas_out_Body_MRI.rds'
-f.dic_dir = '/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/results/phewas/data_dictionary/fields.final.brain_imaging_QC_cov_phenotype.txt'
-target.pT = '0.1'
-f.category = '/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/data/phewas_categories.tsv'
-```
-
 -----
 
 ### Summary
