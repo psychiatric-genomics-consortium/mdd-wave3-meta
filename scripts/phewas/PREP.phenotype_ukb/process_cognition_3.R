@@ -190,4 +190,4 @@ fields.cog.newTrailMaking$field_tag = tag.update
 # Save data and dictionary ------------------------------------------------
 
 saveRDS(dat.cog.singleinstance,file=f.output_data)
-write.table(fields.cog.newTrailMaking,file=f.output_dictionary,sep='\t',quote=T,row.names=F,col.names=T)
+write.table(fields.cog.newTrailMaking,file=f.output_dictionary,sep='\t',quote=F,row.names=F,col.names=T)

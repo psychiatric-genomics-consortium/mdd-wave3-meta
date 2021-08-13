@@ -173,4 +173,4 @@ fields.output$field_tag = tag.update
 
 
 saveRDS(diet.singleinstance.numerised,file=f.output_data)
-write.table(fields.output,file=f.output_dictionary,sep='\t',quote=T,row.names=F,col.names=T)
+write.table(fields.output,file=f.output_dictionary,sep='\t',quote=F,row.names=F,col.names=T)

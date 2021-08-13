@@ -96,6 +96,15 @@ rule data_coding:
     shell:
         "cp {input} {output}"
 
+rule manual_list:
+    input:
+         
+    output:
+        "data/Codings.csv"
+    shell:
+        "cp {input} {output}"
+
+
 rule loose_pheno:
     input:
         "data/Data_Dictionary_Showcase.csv",
@@ -204,3 +213,6 @@ rule models_prep:
 
 # Run analysis ========================================================================
 
+rule run_analysis:
+    shell:
+        "bash scripts/phewas/ANALY/runjob_phewas.sh"

@@ -172,4 +172,4 @@ tag.update = fields.BrainImaging$field_tag %>%
 
 fields.BrainImaging$field_tag = tag.update
 
-write.table(fields.BrainImaging,file=f.output_dictionary,sep='\t',quote=T,row.names=F,col.names=T)
+write.table(fields.BrainImaging,file=f.output_dictionary,sep='\t',quote=F,row.names=F,col.names=T)

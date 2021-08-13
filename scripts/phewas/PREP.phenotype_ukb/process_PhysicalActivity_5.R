@@ -83,5 +83,5 @@ field.activity.output$field_tag = tag.update
 
 saveRDS(activity.output,file=f.output_data)
 write.table(field.activity.output,
-            file=f.output_dictionary,sep='\t',quote=T,row.names=F,col.names=T)
+            file=f.output_dictionary,sep='\t',quote=F,row.names=F,col.names=T)
 

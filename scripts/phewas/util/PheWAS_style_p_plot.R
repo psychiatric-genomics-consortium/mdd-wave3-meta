@@ -63,30 +63,7 @@ p_plot<-function(TargetResult,color_theme_usr='Shen',shape_sig=T,sig_nominal=F,
     pt.color='grey'
   }
 
-  
-  # Reorder result table by category and add another column of category
-  # tmp.result.table=TargetResult
-  # tmp.result.table$category=''
-  # add_category <- function(ls.capture,category.name,targetMat,col.tocap){
-  #   loc.tocap=grep(ls.capture,targetMat[,col.tocap])
-  #   targetMat[loc.tocap,'category']=category.name
-  #   return(targetMat)
-  # }
-  # for (i in 1:nrow(category.input)){
-  #   if (i==1){
-  #     tmp.result.table=add_category(category.input[i,1],category.input[i,2],
-  #                                   targetMat = TargetResult, col.tocap = 'dependent')
-  #   }else{
-  #     tmp.result.table=add_category(category.input[i,1],category.input[i,2],
-  #                           targetMat = tmp.result.table, col.tocap = 'dependent')
-  #   }
-  # }
-  # tmp.result.table$category=factor(tmp.result.table$category,
-  #                              levels=category.input[,2])
-  #tmp.result.table=tmp.result.table[order(as.numeric(tmp.result.table$category),
-  #                                        decreasing = F),]
-  #TargetResult=tmp.result.table
-  
+    
   # Add labels
   if (sum(!is.na(labels_annot))>0){
     TargetResult$labels=rep(99999,nrow(TargetResult))
@@ -105,7 +82,7 @@ p_plot<-function(TargetResult,color_theme_usr='Shen',shape_sig=T,sig_nominal=F,
   # Set x axis to print categories
   axis.set <- TargetResult %>% 
     group_by(category) %>% 
-    summarize(center = (max(ord) + min(ord)) / 2-3) %>% 
+    summarize(center = (max(ord) + min(ord)) / 2-8) %>% 
     as.data.frame
   
   # Make the plot
@@ -115,9 +92,9 @@ p_plot<-function(TargetResult,color_theme_usr='Shen',shape_sig=T,sig_nominal=F,
                alpha=0.5)+
     scale_colour_manual(values = cl.theme)+
     geom_text_repel(box.padding = unit(0.5,'lines'),segment.size = 0.2,
-                    max.iter = 2000, max.overlaps = 10,position = position_dodge(0.5))+
+                    max.iter = 2000, max.overlaps = 15,position = position_dodge(0.5))+
     theme(axis.title.x=element_blank(),
-          axis.text.x=element_text(angle = 90, size = 12,hjust=1, vjust = 1, face='bold'),
+          axis.text.x=element_text(angle = 90, size = 13,hjust=1, vjust = 1, face='bold'),
           axis.ticks.x=element_blank(),
           legend.position = 'none',
           panel.grid.major = element_blank(), 

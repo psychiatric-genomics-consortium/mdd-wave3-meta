@@ -269,5 +269,5 @@ fields.mh.output = fields.mh.output %>%
 
 saveRDS(mh.output,file=f.output_data)
 write.table(fields.mh.output,
-            file=f.output_dictionary,sep='\t',quote=T,row.names=F,col.names=T)
+            file=f.output_dictionary,sep='\t',quote=F,row.names=F,col.names=T)
 
