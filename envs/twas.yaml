@@ -37,3 +37,5 @@ dependencies:
   - scipy
   - pandas >=0.23.0
   - pandas-plink
+  - plink
+  - plink2
