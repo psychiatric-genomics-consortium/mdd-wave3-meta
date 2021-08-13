@@ -12,8 +12,9 @@ rule reformat_sumstats_PRSice:
         "results/distribution/daner_pgc_mdd_noUKBB_eur_hg19_v3.49.24.05.rp.gz"
     output:
         "data/mdd_noUKB_forPRSice"
-    shell:
-        "Rscript script/phewas/PREP.PRS/PREP.sumstats_forPRSice.R --sumstats {input} --out {output}"
+    run:
+        shell("mkdir data")
+        shell("Rscript script/phewas/PREP.PRS/PREP.sumstats_forPRSice.R --sumstats {input} --out {output}")
 
 # Prep dummy phenotype
 rule dummypheno_PRSice:
@@ -85,8 +86,10 @@ rule ukb_data_dictionary:
          HTTP.remote("https://biobank.ctsu.ox.ac.uk/~bbdatan/Data_Dictionary_Showcase.csv")
     output:
         "data/Data_Dictionary_Showcase.csv"
-    shell:
-        "cp {input} {output}"
+    run:
+        shell("cp {input} {output}")
+        shell("mkdir results/phewas")
+        shell("cp -r scripts/phewas/data_dictionary results/phewas/")
 
 rule data_coding:
     input:
@@ -95,15 +98,6 @@ rule data_coding:
         "data/Codings.csv"
     shell:
         "cp {input} {output}"
-
-rule manual_list:
-    input:
-         
-    output:
-        "data/Codings.csv"
-    shell:
-        "cp {input} {output}"
-
 
 rule loose_pheno:
     input:
