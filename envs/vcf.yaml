@@ -9,7 +9,7 @@ dependencies:
   - marshmallow==2.19.5
   - numpy==1.15.4
   - Cython==0.29.17
-  - r-base =4.0.2
+  - r-base =4.0.5
   - r-essentials
   - r-devtools
   - r-biocmanager
@@ -26,8 +26,10 @@ dependencies:
   - bioconductor-rsamtools
   - r-tidyr
   - r-stringr
+  - r-glue
   - r-magrittr
-  - r-dplyr
+  - r-dplyr =1.0.6
+  - r-readr =1.4.0
   - r-jsonlite
   - r-coloc
   - r-testthat

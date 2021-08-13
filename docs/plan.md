@@ -25,6 +25,7 @@ Plans for analyses to include in primary and who is involved:
 - Hi-C (chromosome conformation) ([H-MAGMA](https://github.com/thewonlab/H-MAGMA)) _(Pathak)_
 - cell type analysis _(Yao, Lu)_
 - TWAS / gene-set enrichment _(Pain)_
+- [SMR](https://cnsgenomics.com/software/smr/#Overview) _(Pathak, Wray)_
 - Gene annotation: _(Coleman, Howard, ter Kuile, Pathak, Schulte)_
  
 ## Prediction
@@ -37,5 +38,5 @@ Plans for analyses to include in primary and who is involved:
   - Two-sample MR of brain and behavior _(Shen, Choi)_
   - latent-causal analysis ([gLVC](https://github.com/lukejoconnor/LCV)) _(Pathak)_
   - MR-PRESSO _(Lin)_
-  - [SMR](https://cnsgenomics.com/software/smr/#Overview) (summary-data-based Mendelian Randomization) _(Pathak, Wray)_
 - Cross-ancestries prediction _(Meng, Huang, Chundru)_
+- Adolescence and developmental trajectories  _(Kwong)_
