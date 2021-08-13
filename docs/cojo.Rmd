@@ -1,0 +1,21 @@
+---
+title: Conditional and Joint Analysis
+output: github_document
+---
+
+```{r echo=FALSE}
+qc <- snakemake@params$qc
+```
+
+We ran a [conditional and joint analysis](https://www.nature.com/articles/ng.2213) using [GCTA](https://cnsgenomics.com/software/gcta/#COJO) to refine the list of independent loci.
+
+- Final meta-analysed SNPs from the Ricopili pipeline were used.
+- Ricopili was used for initial clumping with index SNPs identified with $p <$ `r qc$clu_p1` and $r^2 <$ `r qc$clu_r2` within `r qc$clu_kb`kb windows. The extended MHC region was clumped as a single region.
+- Sumstats were filtered for MAF >= `r qc$clu_maf` and INFO > `r qc$clu_info`
+- Regions with a genome-wide significant SNP (p < 5-e8) were identified from the clumped results. Regions within `r qc$cojo_kb`kb of each other were merged.
+- SNPs from these regions were extracted filtered to unrelated of self- and genotype-identified European ancestry participants from UK Biobank.
+- A conditional analysis was performed on each region using the filtered sumstats superimposed on the UK Biobank LD structure.
+
+```{r echo=F, results='asis'}
+cat(paste('- ', readLines(snakemake@input$log)[-1], '\n'))
+```
