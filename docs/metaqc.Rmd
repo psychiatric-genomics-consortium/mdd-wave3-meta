@@ -1,7 +1,7 @@
 ---
 title: "PGC MDD3 sumstats QC checks for meta-analysis"
 output:
-    html_document:
+    github_document:
         toc: true
         toc_depth: 2
 ---
@@ -395,6 +395,8 @@ corrplot(gcov_int_mat, is.corr=FALSE, diag=FALSE)
 
 rg_mat <- diag(length(cohort_names))
 dimnames(rg_mat) <- list(cohort_names, cohort_names)
+rg_se_mat <- diag(x=0, nrow=length(cohort_names), ncol=length(cohort_names))
+dimnames(rg_se_mat) <- list(cohort_names, cohort_names)
 
 for(i in seq.int(nrow(meta_qc_ldsc_pairs_mdd3))) {
 	cohort1 <- meta_qc_ldsc_pairs_mdd3$cohort1[i]
@@ -407,22 +409,41 @@ for(i in seq.int(nrow(meta_qc_ldsc_pairs_mdd3))) {
 	# if rg is NA, substitute 0 (average)
 
 	rg <- meta_qc_ldsc_pairs_mdd3$rg[i]
+    rg_se <- meta_qc_ldsc_pairs_mdd3$se[i]
 
 	rg_mat[cohort_name1,cohort_name2] <- rg	
 	rg_mat[cohort_name2,cohort_name1] <- rg
+    rg_se_mat[cohort_name1,cohort_name2] <- rg_se
+    rg_se_mat[cohort_name2,cohort_name1] <- rg_se
 }
 
 ```
 
-```{r rg_mat_corr, fig.width=9, fig.height=9}
+```{r rg_mat_corr, fig.width=12, fig.height=12}
 
 rg_mat_1 <- rg_mat
 rg_mat_1[which(rg_mat_1 > 1)] <- 1
 rg_mat_1[which(rg_mat_1 < -1)] <- -1
 
+rg_lowCI <- rg_mat + qnorm(0.025)*rg_se_mat
+rg_uppCI <- rg_mat + qnorm(0.975)*rg_se_mat
+
+rg_lowCI_1 <- rg_lowCI
+rg_lowCI_1[which(rg_lowCI_1 > 1)] <- 1
+rg_lowCI_1[which(rg_lowCI_1 < -1)] <- -1
+
+rg_uppCI_1 <- rg_uppCI
+rg_uppCI_1[which(rg_uppCI_1 > 1)] <- 1
+rg_uppCI_1[which(rg_uppCI_1 < -1)] <- -1
+
+
+
+
 has_rg_idx <- rowSums(!is.na(rg_mat_1)) > 1
 
-corrplot(rg_mat_1[has_rg_idx,has_rg_idx], na.label='.')
-
+corrplot.mixed(rg_mat_1[has_rg_idx,has_rg_idx],
+               lowCI=rg_lowCI_1[has_rg_idx,has_rg_idx],
+               uppCI=rg_uppCI_1[has_rg_idx,has_rg_idx],
+               na.label='.', tl.pos='lt', diag='u', plotCI='rect', number.cex=0.75)
 
 ```
