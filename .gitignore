@@ -14,6 +14,7 @@ fields.ukb
 # Logs
 logs/
 slurm-*.out
+/*.log
 
 # History files
 .Rhistory
