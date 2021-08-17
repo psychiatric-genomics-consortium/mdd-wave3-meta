@@ -1,19 +1,24 @@
 # Structured meta-analysis in GenomicSEM
 
 # study types
-# Clinically assessed
-meta_clin=['MDD49', 'GenScot', 'lgic2', 'tkda1']
+# Clinical interview assessed (genotyped and sumstats)
+meta_clin_geno=['gep3', 'grdg', 'grnd', 'gsk2', 'gsmse', 'gsrdf', 'gsrdg', 'gsrdi', 'gsrdp', 'i2b3', 'ihseu', 'jjp2', 'mazdr', 'mmi2', 'mmo4', 'mrive', 'muen2', 'muspc', 'nes1', 'pfm2', 'qi3c', 'qi6c', 'qio2', 'rad3', 'rage', 'rai2', 'rau2', 'rde4', 'roc3', 'rot4', 'shp0', 'shpt', 'stm2', 'topmd', 'trail', 'twg2', 'yapeu']
+meta_clin_sums=['GenScot', 'lgic2', 'tkda1']
 
 # Health register/EHR
-meta_ehr = ['iPSYCH', 'deCODE', 'HUNT', 'BioVU', 'PBK', 'SHARE', 'MoBa', 'MVP', 'GERA', 'DBDS', 'EXCEED', 'FinnGen', 'PREFECT', 'ESTBB']
+meta_ehr_geno=['iruts']
+meta_ehr_sums = ['iPSYCH', 'deCODE', 'HUNT', 'BioVU', 'PBK', 'SHARE', 'MoBa', 'MVP', 'GERA', 'DBDS', 'EXCEED', 'FinnGen', 'PREFECT', 'ESTBB']
 
-# questionnaire
-meta_quest = ['AGDS', 'ALSPAC', 'BASIC', 'STAGE', 'UKBB']
+# questionnaire derived diagnosis
+meta_quest_geno = ['prote']
+meta_quest_sums = ['AGDS', 'ALSPAC', 'BASIC', 'STAGE', 'UKBB']
 
-# self-declared
-meta_self = ['23andMe', 'Airwave']
+# self-reported diagnosis
+meta_selfrep_geno = []
+meta_selfrep_sums = ['23andMe', 'Airwave']
 
-meta_structured_groups = {'clin': meta_clin, 'ehr': meta_ehr, 'quest': meta_quest, 'self': meta_self}
+meta_structured_groups_geno = {'Clin': meta_clin_geno, 'EHR': meta_ehr_geno, 'Quest': meta_quest_geno, 'SelfRep': meta_selfrep_geno}
+meta_structured_groups_sums = {'Clin': meta_clin_sums, 'EHR': meta_ehr_sums, 'Quest': meta_quest_sums, 'SelfRep': meta_selfrep_sums}
 
 # create reference info file linking to imputation panel
 rule meta_gsem_refdir:
@@ -22,28 +27,42 @@ rule meta_gsem_refdir:
     shell: "cd results/meta/gsem; impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
     
 rule meta_gsem_sumstats:
-    input: sumstats="results/sumstats/filtered/{cohort}.gz"
-    output: "results/meta/gsem/{cohort}.gz"
+    input: sumstats="results/sumstats/filtered/{cohort}.qc.gz"
+    output: "results/meta/gsem/{cohort}.qc.gz"
     log: "logs/meta/{cohort}.log"
     shell: "ln -sv $(readlink -f {input.sumstats}) {output} > {log}"
+    
+rule meta_gsem_single_sumstats:
+    input: sumstats=expand("{single_sumstats}/daner_mdd_{{cohort}}_{{ancestries}}_{{qc}}.hg19.ch.fl.gz", single_sumstats=config['single_sumstats'])
+    output: "results/meta/gsem/daner_mdd_{cohort}_{ancestries}_{qc}.hg19.ch.fl.gz"
+    shell: "ln -sv $(readlink -f {input.sumstats}) {output}"
 
 def meta_gsem_cohorts(group, ancestry):
-    cohorts = meta_structured_groups[group]
+    cohorts = meta_structured_groups_sums[group]
     if(ancestry == 'eur'):
         cohorts_releases = [cohort for cohort in cohorts_eur if cohort[0] in cohorts]
     if(ancestry == 'eas'):
         cohorts_releases = [cohort for cohort in cohorts_eas if cohort[0] in cohorts]
     return(cohorts_releases)
+    
+    
+def meta_gsem_cohorts_single(group, ancestry):
+    cohorts = meta_structured_groups_geno[group]
+    if(ancestry == 'eur'):
+        cohorts_releases = [cohort for cohort in cohorts_geno_eur if cohort[0] in cohorts]
+    if(ancestry == 'eas'):
+        cohorts_releases = [cohort for cohort in cohorts_geno_eas if cohort[0] in cohorts]
+    return(cohorts_releases)
 
 # Ricopili results dataset list for eur structured 
 rule meta_gsem_dataset_eur:
-    input: lambda wildcards: expand("results/meta/gsem/daner_mdd_{cohort}.eur.hg19.{release}.qc.gz", zip, cohort=[cohort[0] for cohort in meta_gsem_cohorts(wildcards.cohorts, 'eur')], release=[cohort[1] for cohort in meta_gsem_cohorts(wildcards.cohorts, 'eur')])
+    input: lambda wildcards: expand("results/meta/gsem/daner_mdd_{cohort}_eur_{release}.hg19.ch.fl.gz", zip, cohort=[cohort[0] for cohort in meta_gsem_cohorts_single(wildcards.cohorts, 'eur')], release=[cohort[1] for cohort in meta_gsem_cohorts_single(wildcards.cohorts, 'eur')]), lambda wildcards: expand("results/meta/gsem/daner_mdd_{cohort}.eur.hg19.{release}.qc.gz", zip, cohort=[cohort[0] for cohort in meta_gsem_cohorts(wildcards.cohorts, 'eur')], release=[cohort[1] for cohort in meta_gsem_cohorts(wildcards.cohorts, 'eur')])
     output: "results/meta/gsem/dataset_{cohorts}_eur_v{version}"
     log: "logs/meta/gsem/dataset_{cohorts}_eur_v{version}.log"
     shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
     
 rule meta_gsem_datasets_eur:
-    input: expand("results/meta/gsem/dataset_{cohorts}_eur_v{version}", cohorts=meta_structured_groups.keys(), version=analysis_version)
+    input: expand("results/meta/gsem/dataset_{cohorts}_eur_v{version}", cohorts=meta_structured_groups_sums.keys(), version=analysis_version)
     
 # Ricopili submission
 rule meta_gsem_postimp:
@@ -61,7 +80,7 @@ rule install_gsem:
 	shell: """Rscript -e 'devtools::install_github("GenomicSEM/GenomicSEM", upgrade="never")' 2>&1 > {output}"""
 	
 rule meta_gsem:
-	input: eur_sumstats=expand("results/meta/gsem/distribution/pgc_mdd_clin_eur_hg19_v3.49.24.05/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.gz.ldsc.sumstats.gz", cohorts=meta_structured_groups.keys(), version=analysis_version)
+	input: eur_sumstats=expand("results/meta/gsem/distribution/pgc_mdd_clin_eur_hg19_v3.49.24.05/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.gz.ldsc.sumstats.gz", cohorts=meta_structured_groups_sums.keys(), version=analysis_version)
 	output: "docs/gsem.md"
 	conda: "../envs/gsem.yaml"
 	script: "docs/gsem.Rmd"
