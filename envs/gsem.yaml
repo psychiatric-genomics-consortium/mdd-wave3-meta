@@ -28,4 +28,6 @@ dependencies:
   - r-r.oo
   - r-vroom
   - r-r.utils
-  
+  - r-readxl
+  - r-ggplot2
+  - r-corrplot

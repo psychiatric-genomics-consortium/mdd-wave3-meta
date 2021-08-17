@@ -26,7 +26,6 @@ body {
 <body>
 
 <h1 id="conditional-and-joint-analysis">Conditional and Joint Analysis</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>qc <span class="ot">&lt;-</span> snakemake<span class="sc">@</span>params<span class="sc">$</span>qc</span></code></pre></div>
 <p>We ran a <a href="https://www.nature.com/articles/ng.2213">conditional and joint analysis</a> using <a href="https://cnsgenomics.com/software/gcta/#COJO">GCTA</a> to refine the list of independent loci.</p>
 <ul>
 <li><p>Final meta-analysed SNPs from the Ricopili pipeline were used.</p></li>
@@ -36,7 +35,7 @@ body {
 <li><p>SNPs from these regions were extracted filtered to unrelated of self- and genotype-identified European ancestry participants from UK Biobank.</p></li>
 <li><p>A conditional analysis was performed on each region using the filtered sumstats superimposed on the UK Biobank LD structure.</p></li>
 <li><p>Sumstats: results/cojo/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp.qc.gz</p></li>
-<li><p>Clump file: results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.gz.p4.clump.areator.sorted.1mhc</p></li>
+<li><p>Clump file: results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp.gz.p4.clump.areator.sorted.1mhc</p></li>
 <li><p>COJO regions: 549</p></li>
 <li><p>Clumped SNPs: 738</p></li>
 <li><p>COJO Selected SNPs: 594</p></li>

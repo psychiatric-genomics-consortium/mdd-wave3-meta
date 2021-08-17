@@ -1,10 +1,6 @@
 Conditional and Joint Analysis
 ================
 
-``` r
-qc <- snakemake@params$qc
-```
-
 We ran a [conditional and joint
 analysis](https://www.nature.com/articles/ng.2213) using
 [GCTA](https://cnsgenomics.com/software/gcta/#COJO) to refine the list
@@ -33,7 +29,7 @@ of independent loci.
     results/cojo/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp.qc.gz  
 
 -   Clump file:
-    results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.gz.p4.clump.areator.sorted.1mhc  
+    results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp.gz.p4.clump.areator.sorted.1mhc  
 
 -   COJO regions: 549  
 

@@ -3,7 +3,7 @@ title: Conditional and Joint Analysis
 output: github_document
 ---
 
-```{r}
+```{r echo=FALSE}
 qc <- snakemake@params$qc
 ```
 
