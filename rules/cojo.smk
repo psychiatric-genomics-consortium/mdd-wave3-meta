@@ -170,13 +170,27 @@ rule cojo_table_eur:
     input: expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.rp.cojo", version=analysis_version)
     output: "docs/tables/meta_snps_{cohorts}_{ancestries}.cojo.txt"
     shell: "cp {input} {output}"
-
+    
+# run all COJO analyses
 rule cojo_analyse:
     input: "docs/tables/meta_snps_full_eur.cojo.txt"
     
+# copy COJO log into the repository
+rule cojo_log:
+    input: expand("logs/cojo/pgc_mdd_full_eur_hg19_v{version}.rp.log", version=analysis_version)
+    output: "docs/objects/meta_snps_full_eur.cojo.log"
+    shell: "cp {input} {output}"
+    
+# download top SNPs from Howard 2019
+rule cojo_howard:
+    input: HTTP.remote("https://static-content.springer.com/esm/art%3A10.1038%2Fs41593-018-0326-7/MediaObjects/41593_2018_326_MOESM3_ESM.xlsx", keep_local=False)
+    output: "resources/sumstats/howard2019_table_s1.xlsx"
+    shell: "cp {input} {output}"
+        
+    
 rule cojo_docs:
-    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log=expand("logs/cojo/pgc_mdd_full_eur_hg19_v{version}.rp.log", version=analysis_version), rmd="docs/cojo.Rmd"
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", howard="resources/sumstats/howard2019_table_s1.xlsx", levey="resources/sumstats/levey2021_223snps.txt", rp_clump="results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.gz.p4.clump.areator.sorted.1mhc", mc_clump="results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.mc.gz.p4.clump.areator.sorted.1mhc", rmd="docs/cojo.Rmd"
     params: qc=meta_qc_params
     output: "docs/cojo.md"
-    conda: "../envs/reports.yaml"
+    conda: "../envs/meta.yaml"
     script: "../docs/cojo.Rmd"
