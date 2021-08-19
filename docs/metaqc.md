@@ -7,6 +7,7 @@ PGC MDD3 sumstats QC checks for meta-analysis
     cohorts](#genetic-correlation-with-clinical-cohorts)
 -   [Genetic correlation with previous meta
     analysis](#genetic-correlation-with-previous-meta-analysis)
+-   [Heritabilities](#heritabilities)
 -   [Genetic covariance intercepts](#genetic-covariance-intercepts)
     -   [Clustering](#clustering)
     -   [Genetic correlations](#genetic-correlations)
@@ -44,7 +45,7 @@ meta_qc_align <- read_tsv(snakemake@input$meta_qc_align)
 ```
 
     ## 
-    ## ── Column specification ────────────────────────────────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   cohort = col_character(),
@@ -60,7 +61,7 @@ cohorts_mdd <- read_tsv(snakemake@input$cohorts_mdd)
     ## Warning: Missing column names filled in: 'X7' [7]
 
     ## 
-    ## ── Column specification ────────────────────────────────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────
     ## cols(
     ##   Dataset = col_character(),
     ##   N_cases = col_double(),
@@ -203,7 +204,7 @@ mutate(se.mdd2=as.numeric(str_remove_all(se.mdd2, "[\\(\\)]")),
 ```
 
     ## 
-    ## ── Column specification ────────────────────────────────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────
     ## cols(
     ##   cohort = col_character(),
     ##   release = col_character(),
@@ -283,6 +284,51 @@ coord_flip()
 
 ![](metaqc_files/figure-gfm/metq_qc_ldsc_gcov_mdd2-1.png)<!-- -->
 
+# Heritabilities
+
+Convert observed scale to liability scale with a range of population
+prevalences:
+
+``` r
+meta_qc_h2_samp_prev <- 
+meta_qc_ldsc %>%
+transmute(cohort, release=str_sub(release, 2, -2), h2_obs, h2_obs_se) %>%
+left_join(meta_qc_align %>%
+            filter(ancestries == 'eur') %>%
+            select(cohort, release, N_cases, N_controls),
+          by=c('cohort', 'release')) %>%
+mutate(samp_prev=N_cases / (N_cases + N_controls)) %>%
+filter(!is.nan(h2_obs))
+
+pop_prevs <- round(seq(0.05, 0.2, by=0.05), 2)
+
+meta_qc_h2_liab <- 
+plyr::adply(pop_prevs, 1, function(K) {
+    meta_qc_h2_liab_pop <- 
+    meta_qc_h2_samp_prev %>% mutate(K=K) %>%
+    # normal distribution at pop prev threshold point
+    mutate(zg=dnorm(qnorm(K))) %>%
+    # call sample prevalence P
+    mutate(P=samp_prev) %>%
+    # liability scale h2
+    mutate(h2_liab=h2_obs * K^2 * ( 1 - K)^2 / P / (1-P) / zg^2,
+           h2_liab_se=h2_obs_se * K^2 * ( 1 - K)^2 / P / (1-P) / zg^2)
+    return(meta_qc_h2_liab_pop)
+}) %>%
+mutate(h2_liab_low=h2_liab+qnorm(0.025)*h2_liab_se,
+       h2_liab_upp=h2_liab+qnorm(0.975)*h2_liab_se)
+
+ggplot(meta_qc_h2_liab %>% filter(K==0.1), aes(x=reorder(cohort, h2_liab), y=h2_liab, ymin=h2_liab_low, ymax=h2_liab_upp, group=cohort)) +
+geom_hline(yintercept=c(0, 1), colour='gray') + 
+geom_pointrange(position=position_dodge2()) +
+coord_flip(ylim=c(-0.2, 1.5)) +
+theme_minimal()
+```
+
+    ## Warning: Width not defined. Set with `position_dodge2(width = ?)`
+
+![](metaqc_files/figure-gfm/meta_qc_h2_liab-1.png)<!-- -->
+
 # Genetic covariance intercepts
 
 Pairwise LDSC genetic covariance intercepts between all cohorts
@@ -292,7 +338,7 @@ meta_qc_ldsc_pairs <- read_tsv(snakemake@input$meta_qc_ldsc_pairs)
 ```
 
     ## 
-    ## ── Column specification ────────────────────────────────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────
     ## cols(
     ##   cohort1 = col_character(),
     ##   subcohort1 = col_character(),
