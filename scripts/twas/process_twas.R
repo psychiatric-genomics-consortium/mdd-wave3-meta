@@ -70,12 +70,11 @@ weights<-c('Adrenal_Gland', 'Brain_Amygdala', 'Brain_Anterior_cingulate_cortex_B
 #Get all pos files within the SNP-weight sets and bind them 
 FUSION_pos<-NULL
 for(i in weights){
-  FUSION_pos_temp<-read.table(paste('/mnt/lustre/groups/biomarkers-brc-mh/TWAS_resource/FUSION/SNP-weights/',i, '/',i, '.pos',sep=''), header=T, stringsAsFactors=F)   #repeating i twice with / in the middle is to get one folder further 
+  FUSION_pos_temp<-read.table(paste('resources/twas/fusion_data/',i, '/',i, '.pos',sep=''), header=T, stringsAsFactors=F)   #repeating i twice with / in the middle is to get one folder further
   FUSION_pos<-rbind(FUSION_pos, FUSION_pos_temp)
 }
 
-PsychENCODE_pos<-read.table('/scratch/groups/biomarkers-brc-mh/TWAS_resource/PsychEncode/PEC_TWAS_weights/PEC_TWAS_weights.pos', header=T, stringsAsFactors=F)
-PsychENCODE_pos$PANEL<-'PsychENCODE'
+PsychENCODE_pos<-read.table('resources/twas/psychencode_data/PEC_TWAS_weights/PEC_TWAS_weights.pos', header=T, stringsAsFactors=F)
 
 # Combine pos files
 FUSION_pos<-rbind(FUSION_pos, PsychENCODE_pos)
@@ -87,8 +86,8 @@ write.table(FUSION_pos,'results/twas/twas_results/PGC_MDD3_twas.pos', col.names=
 ###
 
 #the pos file and the output file do not have the same columns with the same information. We therefore need to slightly modify the TWAS columns 
-twas_sub$tmp<-gsub('.*biomarkers-brc-mh/TWAS_resource/FUSION/SNP-weights/','',twas_sub$FILE)
-twas_sub$tmp<-gsub('.*biomarkers-brc-mh/TWAS_resource/PsychEncode/PEC_TWAS_weights/','',twas_sub$tmp)
+twas_sub$tmp<-gsub('.*resources/twas/fusion_data/','',twas_sub$FILE)
+twas_sub$tmp<-gsub('.*resources/twas/psychencode_data/','',twas_sub$tmp)
 #to delete the full pathway of the file and just keep the important information 
 twas_sub$PANEL<-sub('/.*','', twas_sub$tmp)
 twas_sub$Feature<-gsub('.*/','',twas_sub$tmp)

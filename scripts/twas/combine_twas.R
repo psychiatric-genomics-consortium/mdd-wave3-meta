@@ -14,7 +14,7 @@ library(biomaRt)
 weights<-c("Adrenal_Gland","Brain_Amygdala","Brain_Anterior_cingulate_cortex_BA24","Brain_Caudate_basal_ganglia","Brain_Cerebellar_Hemisphere","Brain_Cerebellum","Brain_Cortex","Brain_Frontal_Cortex_BA9","Brain_Hippocampus","Brain_Hypothalamus","Brain_Nucleus_accumbens_basal_ganglia","Brain_Putamen_basal_ganglia","Brain_Substantia_nigra","CMC.BRAIN.RNASEQ","CMC.BRAIN.RNASEQ_SPLICING","NTR.BLOOD.RNAARR","Pituitary","Thyroid","Whole_Blood","YFS.BLOOD.RNAARR")
 
 # Write out this list of SNP-weights as this might be useful elsewhere
-write.table(c(weights,'PsychENCODE'), '/users/k1806347/brc_scratch/Software/mdd-meta/results/twas/list_of_weights.txt', col.names=F, row.names=F, quote=F) 
+write.table(c(weights,'PsychENCODE'), 'results/twas/list_of_weights.txt', col.names=F, row.names=F, quote=F) 
 
 all<-NULL
 

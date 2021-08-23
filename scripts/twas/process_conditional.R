@@ -24,10 +24,10 @@ for(i in unique(report$CHR)){
   margin_i<-read.table(paste0('results/twas/conditional/PGC_MDD3_TWAS_conditional_chr',i,'.joint_dropped.dat'), header=T,stringsAsFactors=F)
   
   joint_i$path<-gsub('/[^/]+$','',joint_i$FILE)
-    joint_i$path<-gsub('/[^/]+$','',joint_i$path)
-    joint_i$WGT<-NA
-    for(j in 1:dim(joint_i)[1]){
-      joint_i$WGT[j]<-gsub(paste0(joint_i$path[j],'/'),'',joint_i$FILE[j])
+  joint_i$path<-gsub('/[^/]+$','',joint_i$path)
+  joint_i$WGT<-NA
+  for(j in 1:dim(joint_i)[1]){
+    joint_i$WGT[j]<-gsub(paste0(joint_i$path[j],'/'),'',joint_i$FILE[j])
   }
 
   if(dim(margin_i)[1] > 0){
