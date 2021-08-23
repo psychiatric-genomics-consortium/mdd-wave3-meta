@@ -5,7 +5,7 @@ jobname=$(echo $targetfile | sed "s/ /_/g")
 
 if [ ! -f ${fname} ]
    then
-     qsub scripts/phewas/ANALY/job.phewas.sh "${targetfile}" 
+     qsub scripts/phewas/ANALY.PRS_phewas/job.phewas.sh "${targetfile}" 
      echo $fname
 fi
 

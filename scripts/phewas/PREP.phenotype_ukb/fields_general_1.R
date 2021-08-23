@@ -67,5 +67,5 @@ rm.others=read.csv(f.experiment_procedure,header=T,sep='\t',stringsAsFactors=F) 
 
 fields.loose=fields.loose[!fields.loose$FieldID %in% as.numeric(rm.others$field_name),]
 
-write.csv(fields.loose,file=f.output,quote=T,row.names = F,col.names = T)
+write.table(fields.loose,file=f.output,quote=F,sep='\t',row.names = F,col.names = T)
 

@@ -26,7 +26,7 @@ p_plot<-function(TargetResult,color_theme_usr='Shen',shape_sig=T,sig_nominal=F,
                  add_category_name=F,fig_size=c(24,20),y_lim=40){
   
   # Add label for some regions to have a different shape
-
+  TargetResult$p.value[TargetResult$p.value==0]=1e-308
   TargetResult$shape=1
   if (shape_sig==T){
     TargetResult$shape[TargetResult$p.corrected<0.05]=19
@@ -102,9 +102,15 @@ p_plot<-function(TargetResult,color_theme_usr='Shen',shape_sig=T,sig_nominal=F,
           panel.background = element_blank(),
           axis.line = element_line(colour = "grey"),
           axis.line.x = element_blank(),
-          plot.title=element_text(lineheight = 1,face='bold'))+
+          plot.title=element_text(lineheight = 1,face='bold'),
+          plot.margin = unit(c(1,3,1,1), "lines"))+
     geom_hline(yintercept=0 , color = "grey", size=0.5)+
     geom_hline(yintercept=pt, linetype="dashed", color = pt.color, size=1)+
+    geom_hline(yintercept=308, linetype="dashed", color = 'light grey', size=0.5)+
+    annotate(
+      "text", label = paste0("p < 10^308"),
+      x = max(TargetResult$ord)-10, y = 308, size = 7, colour = "dark grey",alpha = 0
+    )+
     ylab('-log10(p)')+
     ylim(c(0,y_lim))
   if (!is.na(plot_title)){
