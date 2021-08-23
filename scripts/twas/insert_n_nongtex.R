@@ -8,6 +8,8 @@ library(data.table)
 
 for(i in panels$panel){
   pos<-fread(paste0('resources/twas/fusion_data/',i,'/',i,'.pos'))
+  pos$PANEL<-i
   pos$N<-panels$N[panels$panel == i]
+  pos<-pos[,c('PANEL','WGT','ID','CHR','P0','P1','N'), with=F]
   write.table(pos, paste0('resources/twas/fusion_data/',i,'/',i,'.pos'), quote=F, col.names=T, row.names=F)
 }

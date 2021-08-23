@@ -10,6 +10,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 library(knitr)
 library(data.table)
 ```
@@ -80,7 +81,7 @@ The GWAS summary statistics were munged using the FOCUS software using default s
 
 <details><summary>Show FOCUS munge log file</summary>
 ```{bash, eval=T, echo=F}
-cat ../results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged.log
+cat ../../results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged.log
 ```
 </details>
 
@@ -94,7 +95,7 @@ The weights pertained to the following 5 RNA reference samples: NTR (Netherlands
 
 <details><summary>Show a list of SNP-weight panels in the TWAS</summary>
 ```{r, eval=T, echo=F}
-panels<-read.table('../results/twas/list_of_weights.txt')
+panels<-read.table('../../results/twas/list_of_weights.txt')
 names(panels)<-'Panel'
 kable(panels, row.names = FALSE, caption='SNP-weight panels used in MDD TWAS')
 ```
@@ -141,8 +142,8 @@ To determine whether
 ## TWAS
 
 ```{R, eval=T, echo=F}
-process_twas_log<-readLines('../logs/process_twas_')
-res_twas<-fread('../results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_TWSig.txt')
+process_twas_log<-readLines('../../logs/process_twas_')
+res_twas<-fread('../../results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_TWSig.txt')
 res_twas_nomhc<-res_twas[!(res_twas$CHR == 6 & res_twas$P0 > 26e6 & res_twas$P1 < 34e6),]
 ```
 
@@ -150,7 +151,7 @@ res_twas_nomhc<-res_twas[!(res_twas$CHR == 6 & res_twas$P0 > 26e6 & res_twas$P1 
 
 <details><summary>Show number of features for each panel</summary>
 ```{R, echo=F, eval=T}
-res<-read.csv('../results/twas/twas_results/PGC_MDD3_twas_panel_N.csv')
+res<-read.csv('../../results/twas/twas_results/PGC_MDD3_twas_panel_N.csv')
 kable(res, row.names = FALSE, caption='Number of features for each panel', digits = 32)
 ```
 
@@ -173,12 +174,12 @@ kable(res_twas, row.names = FALSE, caption='Transcriptome-wide significant assoc
 <details><summary>Show Manhattan plots</summary>
 
 ```{bash, eval=T, echo=F}
-cp ../results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_Manhattan.png images/twas/
+cp ../../results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_Manhattan.png ../../docs/figures/
 ```
 
 <center>
 
-![MDD TWAS Manhattan Plot with transcriptome-wide signficance](images/twas/PGC_MDD3_twas_AllTissues_GW_Manhattan.png)
+![MDD TWAS Manhattan Plot with transcriptome-wide signficance](../../docs/figures/PGC_MDD3_twas_AllTissues_GW_Manhattan.png)
 
 \center
 
@@ -189,7 +190,7 @@ cp ../results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_Manhattan.png images
 ## Colocalisation
 
 ```{R, echo=F, eval=T}
-res_coloc<-read.csv('../results/twas/twas_results/PGC_MDD3_TWAS_colocalisation.csv')
+res_coloc<-read.csv('../../results/twas/twas_results/PGC_MDD3_TWAS_colocalisation.csv')
 res_coloc_nomhc<-res_coloc[(res_coloc$ID %in% res_twas_nomhc$ID),]
 ```
 
@@ -209,12 +210,12 @@ kable(res_coloc, row.names = FALSE, caption='MDD TWAS Colocalisation Results', d
 ## Conditional analysis
 
 ```{R, echo=F, eval=T}
-process_conditional_log<-readLines('../logs/process_conditional_')
+process_conditional_log<-readLines('../../logs/process_conditional_')
 
-res_cond_full<-read.csv('../results/twas/conditional/PGC_MDD3_TWAS_Conditional_table_full.csv')
+res_cond_full<-read.csv('../../results/twas/conditional/PGC_MDD3_TWAS_Conditional_table_full.csv')
 names(res_cond_full)<-c("CHR","BP","Jointly sign. Features (SNP-weight set)","Marginally sign. Features (SNP-weight set)","Top TWAS p-value","Top GWAS p-value","Variance Explained")
 
-res_cond_brief<-read.csv('../results/twas/conditional/PGC_MDD3_TWAS_Conditional_table_brief.csv')
+res_cond_brief<-read.csv('../../results/twas/conditional/PGC_MDD3_TWAS_Conditional_table_brief.csv')
 names(res_cond_brief)<-c("CHR","BP","Jointly sign. Features (SNP-weight set)","N Marginal","Top TWAS p-value","Top GWAS p-value","Variance Explained")
 ```
 
@@ -242,7 +243,7 @@ Of the `r gsub('\\.','',gsub(' .*','',process_conditional_log[grepl('novel assoc
 
 <details><summary>Show novelty over GWAS table</summary>
 ```{R, echo=F, eval=T}
-res<-read.csv('../results/twas/conditional/PGC_MDD3_TWAS_Conditional_table_novelty.csv')
+res<-read.csv('../../results/twas/conditional/PGC_MDD3_TWAS_Conditional_table_novelty.csv')
 res<-res[,c('CHR','BP','ID','PANEL_clean','WGT','TWAS.P','BEST.GWAS.P','TOP.SNP.COR','Type','Novel')]
 names(res)<-c('CHR','BP','ID','PANEL','WGT','TWAS.P','BEST.GWAS.P','TOP.SNP.COR','TYPE','NOVEL')
 res$BEST.GWAS.P<-format(res$BEST.GWAS.P, scientific = TRUE, digits = 3)
@@ -257,7 +258,7 @@ kable(res, row.names = FALSE, caption='MDD TWAS Results Novelty compared to GWAS
 ## FOCUS
 
 ```{R, echo=F, eval=T}
-res_focus<-read.csv('../results/twas/focus/p_1e-4/PGC_MDD3_TWAS.TWSig.FOCUS.results.csv')
+res_focus<-read.csv('../../results/twas/focus/p_1e-4/PGC_MDD3_TWAS.TWSig.FOCUS.results.csv')
 res_focus_nomhc<-res_focus[(res_focus$ID %in% res_twas_nomhc$ID),]
 ```
 
@@ -275,7 +276,7 @@ kable(res_focus, row.names = FALSE, caption='MDD TWAS Results with FOCUS', digit
 ## High-confidence associations
 
 ```{R, eval=T, echo=F}
-high_conf_res<-fread('../results/twas/PGC3_MDD_TWAS_HighConf_results.csv')
+high_conf_res<-fread('../../results/twas/PGC3_MDD_TWAS_HighConf_results.csv')
 ```
 
 After filtering associations by TWAS.P < 3.685926e-08, colocalisation PP4 > 0.8, and PIP<0.5, `r nrow(high_conf_res)` associations are identified as high-confidence.
@@ -297,7 +298,7 @@ kable(high_conf_res_brief, row.names = FALSE, caption='MDD TWAS Results with FOC
 ## MESC
 
 ```{R, echo=F, eval=T}
-res_mesc<-fread('../results/twas/mesc/PGC_MDD3_TWAS.MESC.all.h2med', data.table = F)
+res_mesc<-fread('../../results/twas/mesc/PGC_MDD3_TWAS.MESC.all.h2med', data.table = F)
 
 # Convert heritability estimates to the liability scale assuming population prevelance of 15%
 h2l_R2 <- function(k, r2, p) {
@@ -365,7 +366,7 @@ kable(res_mesc, row.names = FALSE, caption='MESC results', digits = 32)
 </br>
 
 ```{R, echo=F, eval=T}
-res_mesc_set<-fread('../results/twas/mesc/PGC_MDD3_TWAS.MESC.sets.categories.h2med', data.table = F)
+res_mesc_set<-fread('../../results/twas/mesc/PGC_MDD3_TWAS.MESC.sets.categories.h2med', data.table = F)
 
 res_mesc_set<-res_mesc_set[,c("Gene_category", "Num_genes", "h2med_enrichment", "SE(h2med_enrichment)", "h2med_enrichment_pvalue")]
 

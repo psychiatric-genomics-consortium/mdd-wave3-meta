@@ -87,7 +87,7 @@ rule install_mesc:
 ####
 
 # Create a list of FUSION weights
-weights=["Adrenal_Gland","Brain_Amygdala","Brain_Anterior_cingulate_cortex_BA24","Brain_Caudate_basal_ganglia","Brain_Cerebellar_Hemisphere","Brain_Cerebellum","Brain_Cortex","Brain_Frontal_Cortex_BA9","Brain_Hippocampus","Brain_Hypothalamus","Brain_Nucleus_accumbens_basal_ganglia","Brain_Putamen_basal_ganglia","Brain_Substantia_nigra","CMC.BRAIN.RNASEQ","CMC.BRAIN.RNASEQ_SPLICING","NTR.BLOOD.RNAARR","YFS.BLOOD.RNAARR"]
+weights=["Adrenal_Gland","Brain_Amygdala","Brain_Anterior_cingulate_cortex_BA24","Brain_Caudate_basal_ganglia","Brain_Cerebellar_Hemisphere","Brain_Cerebellum","Brain_Cortex","Brain_Frontal_Cortex_BA9","Brain_Hippocampus","Brain_Hypothalamus","Brain_Nucleus_accumbens_basal_ganglia","Brain_Putamen_basal_ganglia","Brain_Substantia_nigra","Pituitary","Thyroid","Whole_Blood","CMC.BRAIN.RNASEQ","CMC.BRAIN.RNASEQ_SPLICING","NTR.BLOOD.RNAARR","YFS.BLOOD.RNAARR"]
 
 # Create list of FUSION SNP-weight sets from GTEx
 gtex_weights=["Adrenal_Gland","Brain_Amygdala","Brain_Anterior_cingulate_cortex_BA24","Brain_Caudate_basal_ganglia","Brain_Cerebellar_Hemisphere","Brain_Cerebellum","Brain_Cortex","Brain_Frontal_Cortex_BA9","Brain_Hippocampus","Brain_Hypothalamus","Brain_Nucleus_accumbens_basal_ganglia","Brain_Putamen_basal_ganglia","Brain_Substantia_nigra","Pituitary","Thyroid","Whole_Blood"]
@@ -195,15 +195,17 @@ rule download_mesc_score_sets:
 ###
 
 # Create list of chromosome numbers
-chr=range(1, 22)
+chr=range(1, 23)
 
 rule prep_1kg:
+  resources:
+    mem_mb=20000
   output:
     expand("resources/twas/1kg/EUR/EUR_phase3.MAF_001.chr{chr}.bed",chr=chr)
   conda:
     "../envs/twas.yaml"
   shell:
-    "Rscript scripts/twas/prep_1kg.R"
+    "Rscript scripts/twas/1kg_prep.R"
 
 ###
 # Format PsychENCODE SNP-weights
@@ -214,7 +216,7 @@ rule format_psychencode:
     psychencode_data=rules.download_psychENCODE_weights.output, 
     weights_pipe=rules.install_snp_weight_pipe.output
   output:
-    "resources/twas/psychencode_data/PEC_TWAS_weights/PEC_TWAS_weights.pos"
+    touch("resources/twas/psychencode_data/format_psychencode.done")
   conda: 
     "../envs/twas.yaml"
   shell:
@@ -291,14 +293,12 @@ rule run_twas:
     gtex_weights=rules.gtex_weights.input,
     non_gtex_weights=rules.insert_n_nongtex.output,
     prep_1kg=rules.prep_1kg.output
-  params:
-    Neff_num=lambda wildcards, input: float(open(input.neff_txt, "r").read())
   output:
     "results/twas/PGC_MDD3_twas_{weight}_chr{chr}"
   conda: 
     "../envs/twas.yaml"
   shell:
-    "Rscript resources/twas/fusion/FUSION.assoc_test.R \
+    "Neff=$(cat results/twas/median_Neff.txt); Rscript resources/twas/fusion/FUSION.assoc_test.R \
     --sumstats {input.sumstats} \
     --weights resources/twas/fusion_data/{wildcards.weight}/{wildcards.weight}.pos \
     --weights_dir resources/twas/fusion_data/{wildcards.weight} \
@@ -306,7 +306,7 @@ rule run_twas:
     --out {output} \
     --chr {wildcards.chr} \
     --coloc_P 1e-3 \
-    --GWASN {params.Neff_num}"
+    --GWASN ${{Neff}}"
 
 rule fusion_twas:
     input: expand("results/twas/PGC_MDD3_twas_{weight}_chr{chr}", weight=weights, chr=chr)
@@ -321,14 +321,12 @@ rule run_psychencode_twas:
     plink2R=rules.install_plink2R.output,
     format_psychencode=rules.format_psychencode.output,
     prep_1kg=rules.prep_1kg.output
-  params:
-    Neff_num=lambda wildcards, input: float(open(input.neff_txt, "r").read()) 
   output:
     "results/twas/psychencode/PGC_MDD3_twas_psychencode_chr{chr}"
   conda: 
     "../envs/twas.yaml"
   shell:
-    "Rscript resources/twas/fusion/FUSION.assoc_test.R \
+    "Neff=$(cat results/twas/median_Neff.txt); Rscript resources/twas/fusion/FUSION.assoc_test.R \
     --sumstats {input.sumstats} \
     --weights resources/twas/psychencode_data/PEC_TWAS_weights/PEC_TWAS_weights.pos \
     --weights_dir resources/twas/psychencode_data/PEC_TWAS_weights \
@@ -336,7 +334,7 @@ rule run_psychencode_twas:
     --out {output} \
     --chr {wildcards.chr} \
     --coloc_P 1e-3 \
-    --GWASN {params.Neff_num}"
+    --GWASN ${{Neff}}"
 
 rule psychencode_twas:
     input: expand("results/twas/psychencode/PGC_MDD3_twas_psychencode_chr{chr}", chr=chr)
@@ -371,7 +369,7 @@ rule make_manhattan:
     "../envs/twas.yaml"
   shell:
     "Rscript resources/twas/TWAS-plotter/TWAS-plotter.V1.0.r \
-    --twas {input.results} \
+    --twas results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW.txt \
     --sig_p 1.368572e-06 \
     --output results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_Manhattan \
     --width 5000 \
@@ -441,7 +439,7 @@ rule process_twas:
 
 rule run_plot_loci:
   input:
-    twas_res=rules.combine_twas_res.output,
+    twas_res=rules.conditional.input,
     glist=rules.download_glist.output,
     process_twas=rules.process_twas.output,
     fusion=rules.install_twas_plotter.output
@@ -451,7 +449,7 @@ rule run_plot_loci:
     "../envs/twas.yaml"
   shell:
     "Rscript resources/twas/TWAS-plotter/TWAS-locus-plotter.V1.0.r \
-      --twas {input.twas_res} \
+      --twas results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW.txt \
       --pos results/twas/twas_results/PGC_MDD3_twas.pos \
       --window 500000 \
       --gene_loc {input.glist} \
@@ -513,6 +511,7 @@ rule run_focus:
 rule focus:
     input: expand("results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.tsv", chr=chr)
 
+# Run FOCUS using only genome-wide significance threshold out of interest
 rule run_focus_gw:
   input: 
     sumstats=rules.focus_munge.output,
@@ -536,7 +535,8 @@ rule focus_gw:
 # Process the FOCUS results
 rule process_focus:
   input: 
-    rules.focus_gw.input
+    rules.focus.input,
+    rules.process_twas.output
   output:
     "results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.results.csv"
   conda:
@@ -693,4 +693,4 @@ rule create_report:
   conda:
     "../envs/twas.yaml"
   shell:
-    "Rscript -e \"rmarkdown::render(\'resources/scripts/twas_report.Rmd\', output_file = \'../../docs/twas_report.html)\""
+    "Rscript -e \"rmarkdown::render(\'scripts/twas/twas_report.Rmd\', output_file = \'../../docs/twas_report.html\')\""
