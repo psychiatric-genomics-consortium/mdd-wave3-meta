@@ -30,5 +30,6 @@ include: "rules/metaqc.smk"
 include: "rules/cojo.smk"
 include: "rules/distribution.smk"
 include: "rules/finemapping.smk"
+include: "rules/open_gwas.smk"
 include: "rules/reports.smk"
 
