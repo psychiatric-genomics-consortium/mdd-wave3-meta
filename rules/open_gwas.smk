@@ -22,19 +22,19 @@ rule open_gwas_install_gwasvcf:
 #  ieugwasr::get_access_token()
 # in R
 rule open_gwas_phewas_lookup:
-    input: "docs/tables/meta_snps_full_eur.cojo.txt"
+    input: "docs/tables/meta_snps_full_eur.cojo.txt", ieugwas="resources/open_gwas/install_ieugwasr.done"
     output: phewas="results/open_gwas/phewas.txt", gwasinfo="results/open_gwas/gwasinfo.txt"
     conda: "../envs/open.yaml"
     script: "../scripts/open/phewas.R"
     
 # fetch sumstats VCF files for GWAS matched by phewas query by dataset ID
 rule open_gwas_fetch_dataset:
-    input: dataset=HTTP.remote("https://gwas.mrcieu.ac.uk/files/{dataset}/{dataset}.vcf.gz"), phewas="results/open_gwas/phewas.txt"
+    input: dataset=HTTP.remote("https://gwas.mrcieu.ac.uk/files/{dataset}/{dataset}.vcf.gz"), phewas="results/open_gwas/phewas.txt", gwasinfo="results/open_gwas/gwasinfo.txt"
     output: temp("resources/open_gwas/datasets/{dataset}.vcf.gz")
     shell: "cp {input.dataset} {output}"
     
 rule open_gwas_fetch_dataset_index:
-    input: dataset=HTTP.remote("https://gwas.mrcieu.ac.uk/files/{dataset}/{dataset}.vcf.gz.tbi"), phewas="results/open_gwas/phewas.txt"
+    input: dataset=HTTP.remote("https://gwas.mrcieu.ac.uk/files/{dataset}/{dataset}.vcf.gz.tbi"), phewas="results/open_gwas/phewas.txt", gwasinfo="results/open_gwas/gwasinfo.txt"
     output: temp("resources/open_gwas/datasets/{dataset}.vcf.gz.tbi")
     shell: "cp {input.dataset} {output}"
 
@@ -64,10 +64,14 @@ rule open_gwas_ldsc_rg:
 # return ids of GWAS datasets with SNP counts >= 2M
 def open_gwas_parse_dataset_ids(gwasinfo_txt, min_snps=2e6):
     import pandas as pd
-    gwasinfo = pd.read_table(gwasinfo_txt)
-    return(gwasinfo[gwasinfo.nsnp >= min_snps].id.values)
+    import os.path
+    if(os.path.exists(gwasinfo_txt)):
+        gwasinfo = pd.read_table(gwasinfo_txt)
+        return(gwasinfo[gwasinfo.nsnp >= min_snps].id.values)
+    else:
+        return([])
     
 # list all IDs to fetch
 rule open_gwas_rg_all_datasets:
-    input: expand("results/open_gwas/ldsc/full_eur_v{version}_{dataset}.rg.log", version=analysis_version, dataset=open_gwas_parse_dataset_ids("results/open_gwas/gwasinfo.txt"))
+    input: expand("results/open_gwas/ldsc/full_eur_v{version}_{dataset}.rg.log", version=analysis_version, dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo))
 
