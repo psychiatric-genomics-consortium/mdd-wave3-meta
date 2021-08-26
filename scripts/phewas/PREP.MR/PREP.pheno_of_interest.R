@@ -58,12 +58,11 @@ res.targetpT = res.targetpT %>%
   .[grepl('^MDD3',.$factor),]
 
 # Annotate results
-ref.category = fread(f.category,header=F,sep='\n') %>% 
-  as.data.frame %>% .$V1
+# ref.category = fread(f.category,header=F,sep='\n') %>% 
+#   as.data.frame %>% .$V1
 
 res.targetpT.annot = res.targetpT %>% 
   left_join(.,fields.all,by=c('dependent'='field_tag')) %>% 
-  dplyr::arrange(match(.$category,ref.category)) %>% 
   select(category,Field,FieldID,field_used,field_tag=dependent,factor,beta,std,t.value,p.value,p.corrected) %>% 
   filter(p.corrected<0.05) %>% 
   filter(category!='Mental health')

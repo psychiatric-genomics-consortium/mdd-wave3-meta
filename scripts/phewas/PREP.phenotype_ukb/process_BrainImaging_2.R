@@ -9,13 +9,20 @@ parse <- OptionParser()
 
 args = commandArgs(trailingOnly=TRUE)
 
-f.dictionary = args[1]             # f.dictionary = 'data/Data_Dictionary_Showcase.csv'
-f.brain_category = args[2]         # f.brain_category = 'results/phewas/data_dictionary/fields.imaging_phenotype.txt'
-f.IDP = args[3]                    # f.IDP = 'data/2021-04-phenotypes-ukb44797/Imaging.rds'
-f.IDP_qccov = args[4]              # f.IDP_qccov = 'results/phewas/data_dictionary/fields.brain_imaging_QC_cov.txt'
-f.recruit = args[5]                # f.recruit = 'data/2021-04-phenotypes-ukb44797/Recruitment.rds'
+f.dictionary = args[1]             # 
+f.brain_category = args[2]         # 
+f.IDP = args[3]                    # 
+f.IDP_qccov = args[4]              # 
+f.recruit = args[5]                # 
 f.output_data = args[6]
 f.output_dictionary = args[7]
+
+# f.dictionary = 'data/Data_Dictionary_Showcase.csv'
+# f.brain_category = 'results/phewas/data_dictionary/fields.imaging_phenotype.txt'
+# f.IDP = 'data/2021-04-phenotypes-ukb44797/Imaging.rds'
+# f.IDP_qccov = 'results/phewas/data_dictionary/fields.brain_imaging_QC_cov.txt'
+# f.recruit = 'data/2021-04-phenotypes-ukb44797/Recruitment.rds'
+
 
 # Load data ---------------------------------------------------------------
 
@@ -87,10 +94,28 @@ IDP.phenotype = IDP %>%
 # Data: IDP.lnr
 # Dictionary: fields.category.process.lnr
 
-left.fields=fields.category.process$FieldID[grep('left',fields.category.process$Field)]
-right.fields<- gsub('left','right',x=fields.category.process$Field[grep('left',fields.category.process$Field)]) %>%
-  match(.,fields.category.process$Field) %>%
-  (function(x) fields.category.process$FieldID[x])
+find_right<-function(x,tmp.ref){
+  left.Field=x$Field
+  right.Field=gsub('left','right',left.Field)
+  left.Category=x$Category
+  right.ref=tmp.ref %>% 
+    filter(Category==left.Category) %>% 
+    filter(Field==right.Field)
+  if(nrow(right.ref)>1){cat('Too many matching fields')}else if(nrow(right.ref)==1){
+    return(right.ref)
+  }
+}
+
+left.ref=fields.category.process[grep('left',fields.category.process$Field),]
+
+right.ref = left.ref %>% 
+  split(.,seq(nrow(.))) %>% 
+  lapply(.,find_right,tmp.ref=fields.category.process) %>% 
+  bind_rows
+
+left.fields=left.ref$FieldID
+right.fields=right.ref$FieldID
+
 targetdata=IDP.phenotype
 left.dat=targetdata[,paste0('f.',left.fields,'.2.0')]
 right.dat=targetdata[,paste0('f.',right.fields,'.2.0')]

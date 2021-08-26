@@ -213,11 +213,29 @@ loose_field.singleinstance.numerised = targetdata
 
 # Combine left n right data -----------------------------------------------
 
-left.fields=fields.loose.nonblock$FieldID[grep('(left)',fields.loose.nonblock$Field)]
-right.fields<- gsub('(left)','right',
-                    x=fields.loose.nonblock$Field[grep('(left)',fields.loose.nonblock$Field)]) %>%
-  match(.,fields.loose.nonblock$Field) %>%
-  (function(x) fields.loose.nonblock$FieldID[x])
+find_right<-function(x,tmp.ref){
+  left.Field=x$Field
+  right.Field=gsub('left','right',left.Field)
+  left.Category=x$Category
+  right.ref=tmp.ref %>% 
+    filter(Category==left.Category) %>% 
+    filter(Field==right.Field)
+  if(nrow(right.ref)>1){cat('Too many matching fields')}else if(nrow(right.ref)==1){
+    return(right.ref)
+  }
+}
+
+left.ref=fields.loose.nonblock[grep('left',fields.loose.nonblock$Field),]
+
+right.ref = left.ref %>% 
+  split(.,seq(nrow(.))) %>% 
+  lapply(.,find_right,tmp.ref=fields.loose.nonblock) %>% 
+  bind_rows
+
+left.fields=left.ref$FieldID
+right.fields=right.ref$FieldID
+
+
 targetdata=loose_field.singleinstance.numerised
 left.dat=targetdata[,paste0('f.',left.fields)]
 right.dat=targetdata[,paste0('f.',right.fields)]

@@ -41,10 +41,10 @@ phewas.dat = fs %>% lapply(readRDS) %>%
   Reduce(function(dtf1,dtf2) merge(dtf1,dtf2,by="f.eid",all=T), .) %>% 
   right_join(.,readRDS(f.PRS),by='f.eid')
 
-#n.rm = colSums(!is.na(phewas.dat))<2000 
-#ls.rm = colnames(phewas.dat)[n.rm] %>% .[!. %in% 'f.eid']
-#phewas.dat = phewas.dat %>% 
-#  .[,!colnames(.) %in% ls.rm]
+n.rm = colSums(!is.na(phewas.dat))<2000 
+ls.rm = colnames(phewas.dat)[n.rm] %>% .[!. %in% 'f.eid']
+phewas.dat = phewas.dat %>% 
+  .[,!colnames(.) %in% ls.rm]
 
 PRS = readRDS(f.PRS)
 
