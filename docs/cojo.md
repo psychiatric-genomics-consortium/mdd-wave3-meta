@@ -7,6 +7,7 @@ library(readxl)
 library(readr)
 library(dplyr)
 library(stringr)
+library(ggplot2)
 ```
 
 # Methods
@@ -79,7 +80,7 @@ cojo <- read_tsv(snakemake@input$cojo)
 ```
 
     ## 
-    ## ── Column specification ────────────────────────────────────────────────────────────────
+    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   SNP = col_character(),
@@ -98,7 +99,7 @@ rp <- read_table2(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
 ```
 
     ## 
-    ## ── Column specification ────────────────────────────────────────────────────────────────
+    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   SNP = col_character(),
@@ -118,7 +119,7 @@ mc <- read_table2(snakemake@input$mc_clump) %>% filter(P <= 5e-8)
 ```
 
     ## 
-    ## ── Column specification ────────────────────────────────────────────────────────────────
+    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   SNP = col_character(),
@@ -355,6 +356,22 @@ rp_genes_dist %>% filter(SNP %in% cojo_new$SNP) %>% group_by(SNP) %>% filter(dis
     ##  9 NTRK3   
     ## 10 GTF2IRD1
     ## # … with 251 more rows
+
+``` r
+frq_u_col <- str_subset(names(cojo), 'FRQ_U')
+
+cojo_known_novel <- bind_rows(
+mutate(cojo_known, assoc='Known'),
+mutate(cojo_new, assoc='Novel')) %>%
+mutate(BETA=log(OR)) %>%
+select(assoc, BETA, FRQ=starts_with('FRQ_U'))
+
+ggplot(cojo_known_novel, aes(x=FRQ, y=abs(BETA), colour=assoc)) + 
+geom_point() +
+scale_y_continuous(limits=c(0, 0.065))
+```
+
+![](cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
 
 ## Comparison between pre-COJO and post-COJO
 
