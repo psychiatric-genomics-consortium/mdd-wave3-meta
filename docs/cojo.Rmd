@@ -9,6 +9,7 @@ library(readxl)
 library(readr)
 library(dplyr)
 library(stringr)
+library(ggplot2)
 ```
 
 
@@ -180,6 +181,22 @@ rp_gwas_catalog_entries %>% filter(SNP %in% cojo_new$SNP) %>% count(phenotype) %
 
 ```{r}
 rp_genes_dist %>% filter(SNP %in% cojo_new$SNP) %>% group_by(SNP) %>% filter(dist2index == min(dist2index)) %>% ungroup() %>% select(gene) %>% distinct()
+```
+
+```{r cojo_known_novel}
+
+frq_u_col <- str_subset(names(cojo), 'FRQ_U')
+
+cojo_known_novel <- bind_rows(
+mutate(cojo_known, assoc='Known'),
+mutate(cojo_new, assoc='Novel')) %>%
+mutate(BETA=log(OR)) %>%
+select(assoc, BETA, FRQ=starts_with('FRQ_U'))
+
+ggplot(cojo_known_novel, aes(x=FRQ, y=abs(BETA), colour=assoc)) + 
+geom_point() +
+scale_y_continuous(limits=c(0, 0.065))
+
 ```
 
 ## Comparison between pre-COJO and post-COJO
