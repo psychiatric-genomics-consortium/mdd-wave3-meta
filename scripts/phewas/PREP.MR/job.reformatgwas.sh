@@ -1,15 +1,15 @@
 #!/bin/sh
-#$ -N phenotype_correction
+#$ -N reformat_gwas
 #$ -cwd
 #$ -m beas
 #$ -l h_vmem=8G
 #$ -pe sharedmem 4
-#$ -l h_rt=48:00:00
+#$ -l h_rt=10:00:00
 . /etc/profile.d/modules.sh
 
 module load igmm/apps/R/3.6.1
 
-Rscript scripts/phewas/PREP.MR/PREP.gwas_sumstats_meta.R \
+Rscript scripts/phewas/PREP.MR/PREP.gwas_sumstats_format_for_meta.R \
 data/MR/MR_pheno_ls_UKB.RData \
 data/MR/meta.ls.rds \
 data/MR/MR_sumstats/meta \

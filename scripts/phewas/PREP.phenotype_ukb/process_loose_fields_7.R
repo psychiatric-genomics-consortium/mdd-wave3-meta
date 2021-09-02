@@ -191,6 +191,11 @@ ls.numerise = fields.loose.nonblock %>%
   .$FieldID %>% 
   paste0('f.',.)
 
+ls.pain = fields.loose.nonblock %>% 
+  .[.$Category %in% 154,] %>% 
+  .$FieldID %>% 
+  paste0('f.',.)
+
 targetdata = loose_field.singleinstance.dat
 for (i in 2:ncol(targetdata)){
   tmp.dat = targetdata[,i]
@@ -202,6 +207,9 @@ for (i in 2:ncol(targetdata)){
     targetdata[,i]=tmp.dat
   }else if((colnames(targetdata)[i] %in% ls.numerise) & !is.factor(targetdata[,i])){
     tmp.dat[tmp.dat<0]=NA
+    targetdata[,i]=tmp.dat
+  }else if((colnames(targetdata)[i] %in% ls.pain)){
+    tmp.dat[tmp.dat==-100]=0
     targetdata[,i]=tmp.dat
   }else{
     targetdata[,i]=tmp.dat

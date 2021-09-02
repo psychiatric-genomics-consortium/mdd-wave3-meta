@@ -46,6 +46,8 @@ ls.rm = colnames(phewas.dat)[n.rm] %>% .[!. %in% 'f.eid']
 phewas.dat = phewas.dat %>% 
   .[,!colnames(.) %in% ls.rm]
 
+
+
 PRS = readRDS(f.PRS)
 
 # Data dictionary
@@ -121,3 +123,22 @@ ls.models$covs[ls.models$dependent %in% c(1009,1010)]=
 
 saveRDS(ls.models,file = f.output_data)
 saveRDS(fields.toi,file = 'data/fields_toi.rds')
+
+case_n <- function(x,tmp.name){
+  tmp.dat = x[,tmp.name]
+  if(length(table(tmp.dat))>2){
+    output=NA
+  }else{
+    output=table(tmp.dat) %>% min
+  }
+  return(output)
+}
+
+if (!file.exists('data/phe_count.rds')){
+  phe.count = colSums(!is.na(phewas.dat))
+  phe.count = data.frame(pheno=colnames(phewas.dat),n=as.vector(phe.count),stringsAsFactors = F) 
+  
+  phe.count$case_n = phe.count$pheno %>% pbsapply(case_n,x=phewas.dat)
+  
+  saveRDS(phe.count,file='data/phe_count.rds')
+}

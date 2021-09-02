@@ -20,7 +20,7 @@ source(here::here('scripts/phewas/util/PheWAS_style_p_plot.R'))
 ```
 
 ```{r rendering docs, eval=F,echo=F}
-render('scripts/phewas/SUMMARY/summary.pt_0.1.Rmd',output_dir='docs/',output_file='summary.pt_0.1.md')
+render('scripts/phewas/SUMMARY/summary.prs_phewas.Rmd',output_dir='docs/',output_file='summary.prs_phewas.md')
 ```
 
 
@@ -31,16 +31,10 @@ render('scripts/phewas/SUMMARY/summary.pt_0.1.Rmd',output_dir='docs/',output_fil
 ```{r inputs,echo=F}
 f.dat_dir = '/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/results/phewas/phewas_out_Body_MRI.rds'
 f.dic_dir = '/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/results/phewas/data_dictionary/fields.final.brain_imaging_QC_cov_phenotype.txt'
-target.pT = '0.1'
 f.category = '/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/data/phewas_categories.tsv'
 ```
 
 ```{r load results,echo=F,warning=F}
-pt=target.pT
-target.pT = target.pT %>% 
-  gsub('\\.','\\\\.',.) %>% 
-  paste0('Pt_',.)
-
 d.path = f.dic_dir %>% strsplit(.,'/') %>% unlist %>% 
   .[1:(length(.)-1)] %>% 
   paste0(.,collapse = '/')
@@ -61,8 +55,20 @@ res.targetpT = list.files(g.path,pattern='^phewas_out',full.names = T,include.di
   lapply(readRDS) %>%
   Reduce(function(dtf1,dtf2) bind_rows(dtf1,dtf2), .) %>% 
   mutate(p.corrected = p.adjust(p.value,method='fdr')) %>% 
-  mutate(mod_name=as.character(mod_name)) %>% 
+  mutate(mod_name=as.character(mod_name))
+
+# Find the pT most predictive of MDD CIDI --
+tmp.findpt = res.targetpT %>% filter(dependent=='MDD_CIDI') %>% 
+  .[grepl('MDD3',.$factor),] %>% 
+  .[order(.$beta,decreasing = T),]
+pt=tmp.findpt$factor %>% head(n=1) %>% gsub('MDD3_Pt_','',.)
+target.pT = pt %>% 
+  gsub('\\.','\\\\.',.) %>% 
+  paste0('Pt_',.)
+
+res.targetpT = res.targetpT %>% 
   .[grepl(target.pT,.$factor),] 
+# --
 
 ref.category = fread(f.category,header=F,sep='\n') %>% 
   as.data.frame %>% .$V1
@@ -79,17 +85,17 @@ res.targetpT.annot = res.targetpT %>%
 
 At pT=`r pt`
 
--   Significant associations with the MDD3 PRS: `r sum(res.targetpT.annot[res.targetpT.annot$factor=='MDD3_Pt_0.1','p.corrected']<0.05)`
+-   Significant associations with the MDD3 PRS: `r sum(res.targetpT.annot[grepl('MDD3',res.targetpT.annot$factor),'p.corrected']<0.05)`
 
--   Significant associations with the Howard PRS: `r sum(res.targetpT.annot[res.targetpT.annot$factor=='Howard_Pt_0.1','p.corrected']<0.05)`
+-   Significant associations with the Howard PRS: `r sum(res.targetpT.annot[grepl('Howard',res.targetpT.annot$factor),'p.corrected']<0.05)`
 
 ```{r number of sig assoc, echo=F}
 MDD3.nsig = res.targetpT.annot %>%
-  filter(factor=='MDD3_Pt_0.1') %>% 
+  filter(grepl('MDD3',factor)) %>% 
   group_by(category) %>%
   summarise(MDD3.Nsig = sum(p.corrected<0.05), Npheno = sum(!is.na(p.corrected)))
 Howard.nsig = res.targetpT.annot %>%
-  filter(factor=='Howard_Pt_0.1') %>% 
+  filter(grepl('Howard',factor)) %>%
   group_by(category) %>%
   summarise(Howard.Nsig = sum(p.corrected<0.05))
 
@@ -125,7 +131,7 @@ fig.howard=
     plot.margin=unit(c(1,1,1,3),'mm')) +
   ylab("No. of significant associations") + xlab("\n\n") +
   #scale_y_continuous(limits=c(0,57))+
-  scale_y_reverse(lim=c(110,0))+
+  scale_y_reverse(lim=c(125,0))+
   scale_x_discrete(position='top')+
   geom_hline(yintercept=0,size=0.5,color='grey')+
   coord_flip()
@@ -145,11 +151,11 @@ fig.mdd3=
         strip.text = element_text(size=8)) +
   ylab("No. of significant associations")  +
   geom_hline(yintercept=0,size=0.5,color='grey')+
-  ylim(0,110) +
+  ylim(0,125) +
   coord_flip()
 
 Fig.total=ggarrange(fig.howard,fig.mdd3,
-                 widths = c(1,1.7),
+                 widths = c(1,1.8),
                  nrow = 1, ncol=2, align='h')
 
 ggsave(Fig.total,filename = here::here('results/phewas/figs/Nsig_Howard_MDD3.png'),width = 10,height = 4,units = 'in',device = 'png')
@@ -185,7 +191,7 @@ res.targetpT.annot.forplot$Field = res.targetpT.annot.forplot$Field %>%
   unlist
   
 plot.dat = res.targetpT.annot.forplot %>%
-  filter(factor=='MDD3_Pt_0.1')  %>% 
+  filter(grepl('MDD3',factor)) %>% 
   rename(dependent=field) 
 
 ls.label = plot.dat %>%
@@ -200,7 +206,7 @@ ls.label = plot.dat %>%
 
 fig.MDD3=p_plot(TargetResult=plot.dat,color_theme_usr='Shen',
                 shape_sig=T,sig_nominal=F,
-           plot_title='MDD3 PRS (pT=0.1)',y_lim=310,
+           plot_title=paste0('MDD3 PRS (pT=',pt,')'),y_lim=310,
            labels_annot=ls.label,add_category_name=T)
 
 fig.MDD3
@@ -212,7 +218,7 @@ ggsave(fig.MDD3,filename = here::here('results/phewas/figs/pplot_MDD3.png'),widt
 
 ```{r pplot Howard,echo=F,warning=F,fig.height=16,fig.width=18}
 plot.dat = res.targetpT.annot.forplot %>%
-  filter(factor=='Howard_Pt_0.1')  %>% 
+  filter(grepl('Howard',factor)) %>% 
   rename(dependent=field)
 
 
@@ -227,7 +233,7 @@ ls.label = plot.dat %>%
 
 fig.Howard=p_plot(TargetResult=plot.dat,color_theme_usr='Shen',
                 shape_sig=T,sig_nominal=F,
-           plot_title='Howard PRS (pT=0.1)',y_lim=310,
+           plot_title=paste0('Howard PRS (pT=',pt,')'),y_lim=310,
            labels_annot=ls.label,add_category_name=T)
 
 fig.Howard
@@ -244,19 +250,19 @@ Phenotypes are included if:
 
 and
 
--   CI for MDD3 PRS and Howard et al PRS do not overlap (CI=beta+/-std)
+-   CI for MDD3 PRS and Howard et al PRS do not overlap (CI=beta+/-1.5std)
 
 ```{r,warning=F,echo=F}
 res.mdd3 = res.targetpT.annot %>%
-  filter(factor=='MDD3_Pt_0.1') %>% 
-  mutate(mdd3.CI.low = beta-std,mdd3.CI.high=beta+std) %>% 
+  filter(grepl('MDD3',factor)) %>%
+  mutate(mdd3.CI.low = beta-1.5*std,mdd3.CI.high=beta+1.5*std) %>% 
   rename(mdd3.beta=beta,mdd3.std=std,
          mdd3.p.value=p.value,mdd3.p.corrected=p.corrected,
          mdd3.t.value=t.value)
 
 res.howard = res.targetpT.annot %>%
-  filter(factor=='Howard_Pt_0.1') %>% 
-  mutate(howard.CI.low = beta-std,howard.CI.high=beta+std) %>% 
+  filter(grepl('Howard',factor)) %>% 
+  mutate(howard.CI.low = beta-1.5*std,howard.CI.high=beta+1.5*std) %>% 
   rename(howard.beta=beta,howard.std=std,
          howard.p.value=p.value,howard.p.corrected=p.corrected,
          howard.t.value=t.value) %>% 

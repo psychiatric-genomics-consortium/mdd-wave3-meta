@@ -13,7 +13,8 @@ args = commandArgs(trailingOnly=TRUE)
 f.fields = args[1] 
 f.Neale = args[2]
 f.BIG40 = args[3]
-d.output = args[4]
+f.phecount = args[4]
+d.output = args[5]
 
 # Neale list: https://docs.google.com/spreadsheets/d/1kvPoupSzsSFBNSztMzl04xMoSC3Kcx3CrjVf4yBmESU/edit#gid=178908679
 # BIG40 list: https://open.win.ox.ac.uk/ukbiobank/big40/BIG40-IDPs_v4/IDPs.html
@@ -22,6 +23,7 @@ d.output = args[4]
 # f.fields = 'data/MR/MR_pheno_ls_UKB.RData'
 # f.Neale = 'data/MR/UKBB_GWAS_Imputed_v3_201807.tsv'
 # f.BIG40 = 'data/MR/BIG40_GWAS.csv'
+# f.phecount = 'data/phe_count.rds'
 # d.output = 'data/MR/MR_sumstats'
 
 # Load data ---------------------------------------------------------------
@@ -110,6 +112,14 @@ ls.single.neale$`wget command` %>%
   as.list %>% 
   pblapply(.,system)
 
+ls.single = ls.single.neale %>%
+  select(wget_command,field_used,file_loc) %>%
+  rbind(ls.single.big40[,c('wget_command','field_used','file_loc')]) %>% 
+  left_join(.,fields.all[,c('field_used','field_tag')],by='field_used')
+
+saveRDS(ls.single,file=paste0('data/MR/single.ls.rds'))
+
+
 
 # Download GWAS for meta-analysis -----------------------------------------
 
@@ -157,6 +167,47 @@ ls.multiple.neale$`wget command` %>%
 
 ls.multiple = ls.multiple.neale %>%
   select(wget_command,field_used,file_loc) %>%
-  rbind(ls.multiple.big40[,c('wget_command','field_used','file_loc')])
+  rbind(ls.multiple.big40[,c('wget_command','field_used','file_loc')]) 
 
 saveRDS(ls.multiple,file=paste0('data/MR/meta.ls.rds'))
+
+
+# Update local gwas list --------------------------------------------------
+
+pheno.smallN = readRDS(f.phecount) %>%
+  mutate(smallN=ifelse(n<20000|case_n<3000,1,0)) %>% 
+  filter(smallN==1) %>% 
+  .$pheno
+
+pheno.smallN = fields.all$FieldID[fields.all$field_tag %in% pheno.smallN]
+
+# Single field
+ls.single.webgwas = c(ls.single.neale$field_used,
+                      ls.single.big40$field_used) %>% 
+  paste0('^',.,'$',collapse = '|')
+
+
+local.single = fields.single %>% 
+  .[!.$field_used %in% pheno.smallN,] %>% 
+  .[!grepl(ls.single.webgwas,.$field_used),]
+
+# Multiple fields
+# ls.multiple.webgwas = c(ls.multiple.neale$field_used,
+#                       ls.multiple.big40$field_used)
+# 
+# local.multiple = fields.multiple %>% 
+#   .[!.$field_used_1 %in% pheno.smallN,] %>%
+#   .[!.$field_used_2 %in% pheno.smallN,] %>%
+#   .[!.$field_used_1 %in% ls.multiple.webgwas,] %>% 
+#   .[!.$field_used_2 %in% ls.multiple.webgwas,]
+
+# All local gwas add category info
+
+total.local = rbind(local.single,
+                    fields.localgwas[,c('Field','FieldID','field_used')]) %>% 
+  left_join(.,fields.all[,c('field_used','category','field_tag','Category')],by='field_used') %>% 
+  left_join(.,readRDS(f.phecount),by=c('field_tag'='pheno')) %>% 
+  mutate(category=ifelse(Category==154,paste0(category,' pain'),category))
+
+saveRDS(total.local,'data/MR/local.gwas.rds')
+

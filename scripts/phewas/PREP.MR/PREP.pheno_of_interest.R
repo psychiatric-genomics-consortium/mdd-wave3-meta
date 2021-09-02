@@ -94,4 +94,4 @@ fields.localgwas = res.targetpT.annot %>%
 
 
 # Save poi list -----------------------------------------------------------
-save(fields.single,fields.multiple,fields.localgwas,file=f.output_data)
+save(fields.single,fields.multiple,fields.localgwas,fields.all,file=f.output_data)
