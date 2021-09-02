@@ -1,0 +1,81 @@
+---
+title: LD Score Genetic Correlations
+output: github_document
+---
+
+```{r}
+library(readr)
+library(dplyr)
+library(stringr)
+library(ggplot2)
+```
+
+Read in LDSC rg tables
+```{r}
+
+
+ldsc_rg_info <- read_tsv(snakemake@input$full)
+ldsc_noukbb_rg_info <- read_tsv(snakemake@input$noukbb)
+ldsc_rg_mr_candidates <- read_tsv(snakemake@input$mr)
+
+```
+
+Plot size of genetic correlation versus covariance intercept
+
+```{r ldsc_rg_gcov}
+
+ggplot(ldsc_rg_info, aes(x=abs(rg), y=gcov_int)) +
+geom_point()
+
+```
+
+Compare genetic covariance for `full` versus `noUKBB` sumstats
+
+```{r ldsc_noukbb_gcov_point}
+
+ldsc_full_vs_noukbb_gcov <-
+inner_join(
+ldsc_rg_info %>% transmute(id, trait, gcov_int.full=gcov_int),
+ldsc_noukbb_rg_info %>% transmute(id, trait, gcov_int.noUKBB=gcov_int),
+by=c('id', 'trait')
+) %>%
+mutate(ukb=str_detect(id, 'ukb'))
+
+ggplot(ldsc_full_vs_noukbb_gcov, aes(x=gcov_int.full, y=gcov_int.noUKBB, colour=ukb)) +
+geom_point() + 
+facet_grid(~ukb) +
+coord_equal()
+
+```
+
+```{r ldsc_noukbb_gcov_hist}
+
+ldsc_full_noukbb_gcov <-
+bind_rows(
+ldsc_rg_info %>% transmute(id, trait, gcov_int, cohorts='full'),
+ldsc_noukbb_rg_info %>% transmute(id, trait, gcov_int=gcov_int, cohorts='noUKBB')
+) %>%
+mutate(ukb=if_else(str_detect(id, 'ukb'), 'sumstats from UKBB', 'other sumstats'))
+
+ggplot(ldsc_full_noukbb_gcov, aes(x=gcov_int, fill=cohorts)) +
+geom_density() +
+facet_grid(cohorts~ukb)
+
+ldsc_full_noukbb_gcov %>%
+group_by(cohorts, ukb) %>%
+summarize(max_gov=max(abs(gcov_int)))
+
+```
+
+FDR corrected associations, removing phenotypes from UKB and with large genetic covariance intercepts
+
+```{r}
+
+ldsc_rg_mr_candidates %>%
+group_by(subcategory) %>%
+filter(rg==max(rg)) %>%
+filter(p==min(p)) %>%
+select(-id)
+
+```
+
