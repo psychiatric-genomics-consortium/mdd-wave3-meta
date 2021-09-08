@@ -11,6 +11,7 @@ daner=$(dirname $daner_gz)/$(basename $daner_gz .gz)
 
 
 # release: ICDdep_AllSex_202101
+
 # 1	rsid
 # 2	CHR:BP
 # 3	CHR
@@ -72,3 +73,4 @@ if [[ $text_gz =~ 4_0ICDdep_202106 ]]; then
 	zcat $text_gz | awk -v OFS='\t' 'NR > 1 {print $3, $1, $4, $5, $6, $7, $7, $8, $11, $12, $16}' >> $daner
 	gzip -f --verbose $daner 2>> $log
 fi
+
