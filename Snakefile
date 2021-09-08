@@ -26,5 +26,8 @@ include: "rules/meta_carpa.smk"
 include: "rules/meta_mtag.smk"
 include: "rules/meta_metal.smk"
 include: "rules/metaqc.smk"
+include: "rules/cojo.smk"
 include: "rules/distribution.smk"
+include: "rules/finemapping.smk"
 include: "rules/reports.smk"
+

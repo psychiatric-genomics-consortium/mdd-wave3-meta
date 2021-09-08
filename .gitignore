@@ -3,10 +3,13 @@ resources/
 results/
 *.gz
 config.yaml
-*.yaml
-*.yml
+/*.yaml
 *.tbl
 *.tbl.info
+fields.ukb
+
+# environments
+!envs/*.yaml
 
 # Logs
 logs/
