@@ -15,7 +15,7 @@ wildcard_constraints:
     
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count].[Revision]
-analysis_version = ["3.49.24.05"]
+analysis_version = ["3.49.24.06"]
 
 include: "rules/resources.smk"
 include: "rules/ldsc.smk"
