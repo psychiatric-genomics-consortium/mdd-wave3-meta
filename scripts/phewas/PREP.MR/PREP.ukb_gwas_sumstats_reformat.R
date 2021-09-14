@@ -45,7 +45,7 @@ load_sumstats <- function(tmp.field,tmp.path){
       as.data.frame
     dat.gwas = dat.gwas %>% 
       mutate(p=10^(-LOG10P),Freq1=1-A1FREQ) %>% 
-      select(SNP=ID,Allele1=ALLELE0,Allele2=ALLELE1,Effect=BETA,se=SE,
+      select(SNP=ID,Allele1=ALLELE1,Allele2=ALLELE0,Effect=BETA,se=SE,
              p,Freq1,CHR=CHROM,BP=GENPOS,N) %>% 
       as.data.frame
     write_tsv(dat.gwas,paste0(d.output,'/',tmp.field,'.regenie.gz'))

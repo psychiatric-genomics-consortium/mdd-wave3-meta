@@ -23,7 +23,6 @@ option_list <- list(
                help="Location of info file for Neale lab", action='store'),
    make_option('--interexp', type='character', 
                help='Folder for intermediate files', action='store')
-   
 )
 
 args = commandArgs(trailingOnly=TRUE)
@@ -115,7 +114,7 @@ process_gwas <- function(tmp.input,tmp_process.exposure,tmp_process.outcome,ls.s
             left_join(.,ref.neale,by='variant') %>% 
             filter(chr!='X') %>%
             mutate(chr=as.numeric(chr)) %>% 
-            select(SNP=rsid,Allele1=A1,Allele2=A2,
+            select(SNP=rsid,Allele1=A2,Allele2=A1,
                    Effect=beta,se,p=pval,Freq1=freq,CHR=chr,BP=pos) %>% 
             mutate(N=tmp.n) 
          

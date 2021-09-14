@@ -1,0 +1,362 @@
+---
+title: "MR phewas result"
+author: X Shen  
+date: "\n`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+always_allow_html: true
+---
+
+```{r library,echo=F}
+library(dplyr)
+library(tidyverse)
+library(data.table)
+library(readr)
+library(pbapply)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(here)
+library(ggpubr)
+
+source(here::here('scripts/phewas/util/PheWAS_style_p_plot.R'))
+source(here::here('scripts/phewas/util/beta_p_plots_sig.R'))
+```
+
+```{r rendering docs, eval=F,echo=F}
+render('scripts/phewas/SUMMARY/summary.mr_phewas.Rmd',output_dir='docs/',output_file='summary.mr_phewas.md')
+```
+
+------------------------------------------------------------------------
+
+## UKB MR PheWAS
+
+### Methods
+
+MDD GWAS:
+
+-   noUKBB GWAS was used for MR to keep consistent with the PRS PheWAS analysis.
+
+-   OR was log-transformed.
+
+Phenotypes were selected if it satisfies all conditions below:
+
+-   Associated with the PRS that is the most predictive of MDD CIDI
+
+-   With \>10 independent genetic instruments
+
+GWAS sumstats were obtained from:
+
+-   [The Neale lab UKB GWAS sumstas round 2](https://docs.google.com/spreadsheets/d/1kvPoupSzsSFBNSztMzl04xMoSC3Kcx3CrjVf4yBmESU/edit#gid=227859291)
+
+-   [BIG40 GWAS sumstats for IDPs](https://open.win.ox.ac.uk/ukbiobank/big40/BIG40-IDPs_v4/IDPs.html)
+
+-   Local GWAS using [regenie](https://rgcgithub.github.io/regenie/recommendations/) on all European participants in UKB (see details here)
+
+-   Note: phenotypes that have two separate measures for left/right side of body/brain were combined in the PRS PheWAS. For consistency, GWAS sumstats for these traits were meta-analysed using [mtag](https://github.com/JonJala/mtag/wiki/Tutorial-1:-The-Basics) (with the --h2_equal and --perfect_gencov [flags](https://github.com/JonJala/mtag/wiki/Tutorial-2:-Special-Options)).
+
+Details about MR analysis:
+
+-   R package ([TwoSampleMR v0.5.6](https://mrcieu.github.io/TwoSampleMR/articles/index.html), under R v3.6.1)
+
+-   MR methods: IVW, weighted median, MR Egger
+
+The flow chart below shows the steps of obtaining GWAS sumstats:
+
+![](/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/docs/figures/mr_flowchart1.PNG))
+
+The flow chart below shows the steps of extracting instruments from GWAS sumstats:
+
+![](/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/docs/figures/mr_flowchar2.PNG)
+
+/newline
+
+### Results
+
+```{r load refs and categories, warning=F, echo=F}
+f.category = 'data/phewas_categories.tsv'
+ref.category = fread(here::here(f.category),header=F,sep='\n') %>% 
+  as.data.frame %>% .$V1
+
+ls.neale.gwas = readRDS(here::here('data/fields.neale.rds'))
+```
+
+```{r load ukb mr phewas results, warning=F,echo=F,error=F}
+mr.ukb=read_tsv(here::here('results/phewas/MR/ukb/ALL_mr_res.tsv')) %>% 
+  .[grepl('^Inverse variance weighted$|^MR Egger$|Weighted median',.$method),] %>% 
+  mutate(label_exposure=label_exposure %>% gsub(' (left)','',.,fixed = T) %>% 
+           gsub( '(left hemisphere)','',.,fixed = T) %>%
+           gsub( '(right hemisphere)','',.,fixed = T) %>%
+           gsub(' (whole brain)','',.,fixed = T)) %>% 
+  mutate(label_outcome=label_outcome %>% gsub(' (left)','',.,fixed = T) %>% 
+           gsub( '(left hemisphere)','',.,fixed = T) %>%
+           gsub( '(right hemisphere)','',.,fixed = T) %>%
+           gsub(' (whole brain)','',.,fixed = T))
+
+ref.two_level.category = data.frame(lv2=ref.category,stringsAsFactors = F) %>%
+  mutate(lv1=ifelse(grepl('Mental health',lv2),'Mental health',
+                    ifelse(grepl('Early life|Socio|Lifestyle|Diet|Physical activity',lv2),'Environment',
+                           ifelse(grepl('Physical health|Physical|Blood|Body MRI',lv2),'Self-reported and assessed physical condition',
+                           'Brain and cognition'))))
+
+mr.ukb = mr.ukb %>% 
+  left_join(.,ref.two_level.category,by=c('category'='lv2')) %>% 
+  mutate(b=ifelse(exposure %in% ls.neale.gwas,-b,b)) %>% 
+  mutate(b=ifelse(outcome %in% ls.neale.gwas,-b,b))
+```
+
+Valid causal effects are displayed if **ALL** of the following four criteria are met:
+
+-   IVW: pFDR \<0.05
+
+-   Weighted median: pFDR \< 0.05
+
+-   MR Egger: pFDR \< 0.05 **OR** pFDR for Egger intercept \> 0.05
+
+-   Effect sizes for all three methods in the same direction
+
+```{r define function for screening significant tests, warning=F,echo=F}
+
+find_sig <- function(x.res,x.pheno,target.column){
+  x.res = x.res %>% 
+    filter(get(target.column)==x.pheno)
+  sig.output = ifelse(x.res$p.fdr[x.res$method=='Inverse variance weighted']<0.05,1,0)+
+    ifelse(x.res$egger_p.fdr[x.res$method=='MR Egger']>0.05,1,
+           ifelse(x.res$p.fdr[x.res$method=='MR Egger']<0.05,1,0))+
+    ifelse(x.res$Q_p.fdr[x.res$method=='Weighted median']>0.05,1,
+           ifelse(x.res$p.fdr[x.res$method=='Weighted median']<0.05,1,0))+
+    ifelse(abs(sum(sign(x.res$b)))==3,1,0)
+  output = sig.output==4
+  output = data.frame(pheno=unique(x.res[,target.column]),sig.output,is.valid=output)
+  return(output)
+}
+
+```
+
+#### MDD as exposure {.tabset}
+
+```{r,warning=F,echo=F}
+mr.ukb.mdd_to_pheno = mr.ukb %>% filter(exposure=='MDD') %>% 
+  group_by(method) %>% 
+  mutate(p.fdr = p.adjust(pval,method='fdr'),
+         Q_p.fdr = p.adjust(Q_pval,method='fdr'),
+         egger_p.fdr = p.adjust(egger_pval,method='fdr'))
+ls.sig.mdd_to_pheno = mr.ukb.mdd_to_pheno$outcome %>% unique %>% as.list %>% 
+  pblapply(.,find_sig,x.res=mr.ukb.mdd_to_pheno,target.column='outcome') %>% 
+  bind_rows %>% 
+  filter(is.valid==T)
+  
+mr.sig.ukb.mdd_to_pheno = mr.ukb.mdd_to_pheno %>% 
+  .[.$outcome %in% ls.sig.mdd_to_pheno$outcome,] %>% 
+  as.data.frame %>% 
+  select(-id.exposure,-id.outcome) 
+
+# mr.sig.ukb.mdd_to_pheno %>%
+#   kbl() %>%
+#   kable_material(c("striped", "hover"))
+
+dat.fig = mr.sig.ukb.mdd_to_pheno %>% 
+  mutate(Field=label_outcome) 
+
+dat.fig$category = dat.fig$category %>% as.list %>% 
+  lapply(.,strwrap,width=25) %>% 
+  lapply(.,paste0,collapse='\n') %>% 
+  unlist
+dat.fig$Field = dat.fig$Field %>% as.list %>% 
+  lapply(.,strwrap,width=50) %>% 
+  lapply(.,paste0,collapse='\n') %>% 
+  unlist
+
+figs.ukb.mdd_to_pheno=mr.sig.ukb.mdd_to_pheno$lv1 %>% unique %>% 
+  as.list %>% 
+  lapply(., beta_fig,tmp.dat.fig=dat.fig)
+```
+
+##### Environment
+
+```{r,echo=F,warning=F,fig.height=6,fig.width=10}
+figs.ukb.mdd_to_pheno[[1]]
+```
+
+##### Physical health
+
+```{r,echo=F,warning=F,fig.height=5,fig.width=10}
+figs.ukb.mdd_to_pheno[[2]]
+```
+
+##### Brain MRI
+
+```{r,echo=F,warning=F,fig.height=5,fig.width=10}
+figs.ukb.mdd_to_pheno[[3]]
+```
+
+#### MDD as outcome {.tabset}
+
+```{r,echo=F,warning=F}
+mr.ukb.pheno_to_mdd = mr.ukb %>% filter(outcome=='MDD',nsnp>=30) %>% 
+  group_by(method) %>% 
+  mutate(p.fdr = p.adjust(pval,method='fdr'),
+         Q_p.fdr = p.adjust(Q_pval,method='fdr'),
+         egger_p.fdr = p.adjust(egger_pval,method='fdr'))
+
+ls.sig.pheno_to_mdd = mr.ukb.pheno_to_mdd$exposure %>% unique %>% as.list %>% 
+  pblapply(.,find_sig,x.res=mr.ukb.pheno_to_mdd,target.column='exposure') %>% 
+  bind_rows %>% 
+  filter(is.valid==T)
+
+mr.sig.ukb.pheno_to_mdd = mr.ukb.pheno_to_mdd %>% 
+  .[.$exposure %in% ls.sig.pheno_to_mdd$exposure,] %>% 
+  as.data.frame %>% 
+  select(-id.exposure,-id.outcome) 
+
+# ls.sig.pheno_to_mdd %>%
+#   kbl() %>%
+#   kable_material(c("striped", "hover"))
+
+dat.fig = mr.sig.ukb.pheno_to_mdd %>% 
+  mutate(Field=label_exposure) 
+
+dat.fig$category = dat.fig$category %>% as.list %>% 
+  lapply(.,strwrap,width=25) %>% 
+  lapply(.,paste0,collapse='\n') %>% 
+  unlist
+dat.fig$Field = dat.fig$Field %>% as.list %>% 
+  lapply(.,strwrap,width=50) %>% 
+  lapply(.,paste0,collapse='\n') %>% 
+  unlist
+
+figs.ukb.pheno_to_mdd=mr.sig.ukb.pheno_to_mdd$lv1 %>% unique %>% 
+  as.list %>% 
+  lapply(., beta_fig,tmp.dat.fig=dat.fig)
+
+```
+
+##### Environment
+
+```{r,echo=F,warning=F,fig.height=4,fig.width=10}
+figs.ukb.pheno_to_mdd[[1]]
+```
+
+##### Physical health
+
+```{r,echo=F,warning=F,fig.height=5,fig.width=10}
+figs.ukb.pheno_to_mdd[[2]]
+```
+
+------------------------------------------------------------------------
+
+## MR-base PheWAS
+
+### Methods
+
+MDD GWAS:
+
+-   noUKBB GWAS was used for MR to keep consistent with the UKB MR and PRS PheWAS analyses.
+
+-   OR was log-transformed.
+
+Phenotypes were selected if it satisfies all conditions below (list available [here](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/gsem/docs/tables/ldsc_open_mr_candidates.txt)):
+
+-   Available in the [Open GWAS Database](https://gwas.mrcieu.ac.uk/).
+
+-   Show significant genetic correlation with MDD
+
+-   Low absolute gcov_int (range from -0.024 to 0.024)
+
+GWAS sumstats:
+
+Extracted directly in TwoSampleMR using their unique ieu IDs. Code available [here](https://mrcieu.github.io/TwoSampleMR/articles/perform_mr.html#multivariable-mr-1).
+
+Details about MR analysis:
+
+-   R package ([TwoSampleMR v0.5.6](https://mrcieu.github.io/TwoSampleMR/articles/index.html), under R v3.6.1)
+
+-   MR methods: IVW, weighted median, MR Egger
+
+### Results
+
+```{r load mr-base mr phewas results, warning=F,echo=F,error=F}
+mr.mr_base=read_tsv(here::here('results/phewas/MR/mr_base/ALL_mr_res.tsv')) %>% 
+  .[grepl('^Inverse variance weighted$|^MR Egger$|Weighted median',.$method),] 
+
+```
+
+Valid causal effects are displayed if **ALL** of the following four criteria are met:
+
+-   IVW: pFDR \<0.05
+
+-   Weighted median: pFDR \< 0.05
+
+-   MR Egger: pFDR \< 0.05 **OR** pFDR for Egger intercept \> 0.05
+
+-   Effect sizes for all three methods in the same direction
+
+#### MDD as exposure
+
+```{r, warning=F, echo=F,fig.height=13,fig.width=10}
+mr.mr_base.mdd_to_pheno = mr.mr_base %>% filter(exposure=='MDD') %>% 
+  group_by(method) %>% 
+  mutate(p.fdr = p.adjust(pval,method='fdr'),
+         Q_p.fdr = p.adjust(Q_pval,method='fdr'),
+         egger_p.fdr = p.adjust(egger_pval,method='fdr'))
+
+ls.sig.mdd_to_pheno = mr.mr_base.mdd_to_pheno$outcome %>% unique %>% as.list %>% 
+  pblapply(.,find_sig,x.res=mr.mr_base.mdd_to_pheno,target.column='outcome') %>% 
+  bind_rows %>% 
+  filter(is.valid==T)
+  
+mr.sig.mr_base.mdd_to_pheno = mr.mr_base.mdd_to_pheno %>% 
+  .[.$outcome %in% ls.sig.mdd_to_pheno$outcome,] %>% 
+  as.data.frame %>% 
+  select(-id.exposure,-id.outcome) 
+
+# mr.sig.mr_base.mdd_to_pheno %>%
+#   kbl() %>%
+#   kable_material(c("striped", "hover"))
+
+dat.fig = mr.sig.mr_base.mdd_to_pheno %>% 
+  mutate(Field=outcome) 
+
+dat.fig$Field = dat.fig$Field %>% as.list %>% 
+  lapply(.,strwrap,width=50) %>% 
+  lapply(.,paste0,collapse='\n') %>% 
+  unlist
+
+figs.mr_base.mdd_to_pheno=beta_fig(tmp.dat.fig=dat.fig,is.allres=T)
+
+figs.mr_base.mdd_to_pheno
+```
+
+#### MDD as outcome
+
+```{r,echo=F,warning=F,fig.height=4.5,fig.width=10}
+mr.mr_base.pheno_to_mdd = mr.mr_base %>% filter(outcome=='MDD',nsnp>=30) %>% 
+  group_by(method) %>% 
+  mutate(p.fdr = p.adjust(pval,method='fdr'),
+         Q_p.fdr = p.adjust(Q_pval,method='fdr'),
+         egger_p.fdr = p.adjust(egger_pval,method='fdr'))
+
+ls.sig.pheno_to_mdd = mr.mr_base.pheno_to_mdd$exposure %>% unique %>% as.list %>% 
+  pblapply(.,find_sig,x.res=mr.mr_base.pheno_to_mdd,target.column='exposure') %>% 
+  bind_rows %>% 
+  filter(is.valid==T)
+
+mr.sig.mr_base.pheno_to_mdd = mr.mr_base.pheno_to_mdd %>% 
+  .[.$exposure %in% ls.sig.pheno_to_mdd$exposure,] %>% 
+  as.data.frame %>% 
+  select(-id.exposure,-id.outcome) 
+
+# ls.sig.pheno_to_mdd %>%
+#   kbl() %>%
+#   kable_material(c("striped", "hover"))
+
+dat.fig = mr.sig.mr_base.pheno_to_mdd %>% 
+  mutate(Field=exposure) 
+
+dat.fig$Field = dat.fig$Field %>% as.list %>% 
+  lapply(.,strwrap,width=50) %>% 
+  lapply(.,paste0,collapse='\n') %>% 
+  unlist
+
+figs.mr_base.pheno_to_mdd=beta_fig(tmp.dat.fig=dat.fig,is.allres=T)
+figs.mr_base.pheno_to_mdd
+```

@@ -18,4 +18,6 @@
   --pred ${3} \
   --bsize 400 \
   --threads 10 \
+    --no-split \
+     --gz \
   --out ${4}_${5}

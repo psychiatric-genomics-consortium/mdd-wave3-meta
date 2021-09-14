@@ -1,5 +1,5 @@
 ---
-title: "Phewas result"
+title: "PRS Phewas result"
 author: X Shen  
 date: "\n`r format(Sys.time(), '%d %B, %Y')`"
 output: github_document

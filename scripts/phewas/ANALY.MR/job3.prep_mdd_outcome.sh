@@ -9,6 +9,6 @@
 
 module load igmm/apps/R/3.6.1
 
-Rscript scripts/phewas/ANALY.MR/PREP.outcome_MDD.R --exposure data/MR/MR_InterFiles/ \
+Rscript scripts/phewas/ANALY.MR/PREP.MDD_outcome.R --exposure data/MR/MR_InterFiles/pheno_exposure_outcome \
 --summout results/distribution/daner_pgc_mdd_noUKBB_eur_hg19_v3.49.24.05.rp.gz \
---interout data/MR/MR_InterFiles/mdd_outcome/
+--interout data/MR/MR_InterFiles/mdd_exposure_outcome/
