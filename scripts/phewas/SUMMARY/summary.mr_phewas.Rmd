@@ -6,7 +6,7 @@ output: github_document
 always_allow_html: true
 ---
 
-```{r library,echo=F}
+```{r library,echo=F,warning=F}
 library(dplyr)
 library(tidyverse)
 library(data.table)
