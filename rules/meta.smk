@@ -121,6 +121,12 @@ rule refdir:
 	log: "logs/meta/reference_info.log"
 	shell: "cd results/meta; impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
 
+# create reference info for X imputation panel
+rule refdirx:
+    output: "results/meta/X/reference_info"
+    log: "logs/meta/reference_info_x.log"
+    shell: "cd results/meta/X; impute_dirsub --refdir {config[refdir]}/chr23 --reference_info --outname metax"
+
 # merged imputation panel SNPs
 rule impute_frq2:
 	input: ref="results/meta/reference_info", cups="resources/liftOver/FASTA_BED.ALL_GRCh37.novel_CUPs.bed"
