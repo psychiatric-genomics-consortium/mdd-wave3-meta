@@ -1,6 +1,7 @@
 library(dplyr)
 library(readr)
 library(rtracklayer)
+library(TwoSampleMR)
 library(stringr)
 library(glue)
 
@@ -73,7 +74,36 @@ daner %>% dplyr::slice(sumstats_impute_align_idx_nodups$queryHits) %>%
 bind_cols(impute_frq2 %>% dplyr::slice(sumstats_impute_align_idx_nodups$subjectHits) %>% rename_with(~ paste0(., '.ref'))) %>%
 # shorter variable names for frequency columns
 mutate(frq_a=.data[[frq_a_col]],
-	   frq_u=.data[[frq_u_col]])%>%
+	   frq_u=.data[[frq_u_col]])
+       
+# use harmonise function from TwoSampleMR.
+# code reference as exposure
+reference_dat <- daner_merged %>%
+transmute(SNP=SNP.ref,
+          beta.exposure=0,
+          se.exposure=0,
+          effect_allele.exposure=A1.ref,
+          other_allele.exposure=A2.ref,
+          eaf.exposure=FA1.ref,
+          exposure='REF',
+          id.exposure='ref')
+
+sumstats_dat <- daner_merged %>%
+transmute(SNP=SNP,
+          beta.outcome=log(OR),
+          se.outcome=SE,
+          effect_allele.outcome=A1,
+          other_allele.outcome=A2,
+          eaf.outcome=frq_u,
+          id.outcome='mdd',
+          outcome="MDD") 
+
+harmon_dat <- harmonise_data(reference_dat, sumstats_dat, action = 2)
+
+
+# code sumstats as outcome
+       
+        %>%
 # flipped allele values
 mutate(A1.flip=flip(A1), A2.flip=flip(A2))
 
