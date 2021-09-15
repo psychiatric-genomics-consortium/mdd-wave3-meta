@@ -11,7 +11,7 @@
 cohorts_eur = [["MDD49", "29w2_20w3_1504"], 
 ["23andMe", "v7_2_202012"],      
 ["deCODE", "DEPALL_FINAL_WHEAD"],
-["GenScot", "1215a"],            
+["GenScot", "SCID_0721a"],            
 ["GERA", "0915a_mds5"],    
 ["UKBB", "MD_glm_202107"], 
 ["iPSYCH", "2012_HRC"],        
@@ -84,7 +84,7 @@ rule hg_chain:
 		 outputName = os.path.basename(input[0])
 		 shell("gunzip -c {input} > {output}")
 		 
-# download GRCh37/GRCh38 conversion-unstable positions (CUPs) https://github.com/cathaloruaidh/genomeBuildConversionls
+# download GRCh37/GRCh38 conversion-unstable positions (CUPs) https://github.com/cathaloruaidh/genomeBuildConversion
 rule hg_cups:
 	input: HTTP.remote("raw.githubusercontent.com/cathaloruaidh/genomeBuildConversion/master/CUP_FILES/FASTA_BED.ALL_GRCh{build}.novel_CUPs.bed")
 	log: "logs/resources/liftOver/GRCh{build}.novel_CUPs.log"
@@ -210,15 +210,6 @@ rule meta_vcf_merge_eas:
 	conda: "../envs/vcf.yaml"
 	output: "results/sumstats/mdd_cohorts_eas.vcf.gz"
 	shell: "bcftools merge -O z -o {output} {input}"
-	
-
-# table of alignment checks
-align_logs, = glob_wildcards("logs/sumstats/aligned/{cohort}.log")
-rule meta_qc_align:
-	input: expand("logs/sumstats/aligned/{cohort}.log", cohort=align_logs)
-	output: "docs/tables/meta_qc_align.txt"
-	conda: "../envs/meta.yaml"
-	script: "../scripts/meta/align_qc_table.R"
 
 # munge sumstats for ldsc regression
 rule meta_ldsc_munge:

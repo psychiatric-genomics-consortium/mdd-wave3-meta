@@ -154,4 +154,4 @@ rule meta_qc:
 		"docs/metaqc.html"	
 		
 # batch submission example to re-run alignment on LISA:
-## $ sbatch -t 4:00:00 --wrap "snakemake -j4 --use-conda --cluster 'sbatch -t 20 -n 16' docs/tables/meta_qc_align.txt --groups hg19=group0 daner=group0 align=group0 meta_align_qc=group1 --group-components group0=6 group1=1"
+## $ sbatch -t 4:00:00 --wrap "snakemake -j4 --use-conda --cluster 'sbatch -t 20 -n 16' docs/tables/meta_qc_align.txt --groups text2daner=group0 hg19=group0 daner=group0 align=group0 filter=group0 meta_align_qc=group1 --group-components group0=4 group1=1"
