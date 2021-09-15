@@ -125,7 +125,7 @@ filter(abs(frq_u - 0.5) > qc_secure/2 & abs(FA1.ref - 0.5) > qc_secure/2)
 N_snps_ambiguous_flips <- nrow(daner_ambiguous_flips)
 logging(glue("{N_snps_ambiguous_flips} SNPs with ambiguous strand flips detected"))
 
-if(N_snps_unambiguous_flips > 0) {
+if(N_snps_unambiguous_flips > 0 | N_snps_ambiguous_flips > 0) {
 	logging("Align while resolving strand orientation")
 	resolve_strand <- TRUE
 } else {
