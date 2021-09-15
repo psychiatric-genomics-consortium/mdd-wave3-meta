@@ -130,6 +130,13 @@ rule impute_frq2:
 	log: "logs/sumstats/impute_frq2.{ancestries}.log"
 	conda: "../envs/meta.yaml"
 	script: "../scripts/meta/impute_frq2.R"
+    
+# install TwoSampleMR for QC utilities
+rule meta_twosamplemr:
+    output: "resources/sumstats/vendor/r-twosamplemr"
+    log: "logs/sumstats/install_github.log"
+    conda: "../envs/meta.yaml"
+    shell: """Rscript -e 'remotes::install_github("MRCIEU/TwoSampleMR", upgrade="never")' 2>&1 > {output}"""
 
 # align to imputation panel
 rule align:
@@ -154,7 +161,7 @@ rule filter:
 	log: "logs/sumstats/filtered/daner_mdd_{cohort}.{ancestries}.{build}.{release}.qc.log"
 	conda: "../envs/meta.yaml" 
 	script: "../scripts/meta/filter.R"
-	
+    
 # Convert OR to Log-Odds
 rule meta_vcf_logOR:
 	input: "results/sumstats/filtered/daner_{sumstats}.qc.gz"
