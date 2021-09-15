@@ -23,16 +23,24 @@ qc_maf <- snakemake@params$maf
 pop <- toupper(snakemake@wildcards$ancestries)
 
 # conversion-unstable positions file of ranges to remove
+# Reference files uses '23' for X chromosome
 novel_cups <- read_table2(cup_path, col_names=c('chr', 'start', 'end')) %>%
-mutate(chr=str_replace(chr, 'chr', ''))
+mutate(chr=str_replace(chr, 'chr', '')) %>%
+mutate(chr=case_when(chr == 'X' ~ '23',
+                     chr == 'Y' ~ '24',
+                     TRUE ~ chr))
 
 # list reference files for given ancestries group
-impute_frq2_files <- list.files(reference_dir, pattern=paste('*', pop, 'frq2.gz', sep='.'), full.names=T)
+frq2_gz <- paste('*', pop, 'frq2.gz', sep='.')
+impute_frq2_files <- list.files(reference_dir, pattern=frq2_gz, full.names=T)
+
+# list reference files for chromosome X for given ancestries group
+impute_X_frq2_files <- list.files(file.path(reference_dir, 'chr23'), pattern=frq2_gz, full.names=T)
 
 # read in, merge, and remove markers with duplicate positions
 impute_frq2 <-
 bind_rows(
-lapply(impute_frq2_files,
+lapply(c(impute_frq2_files, impute_X_frq2_files),
 	   function(frq2_file)
 		 read_table2(frq2_file,
 					 col_types=cols(SNP = col_character(),
@@ -57,7 +65,7 @@ cups_gr <- with(novel_cups, GRanges(seqname=chr, ranges=IRanges(start=start, end
 cups_overlaps <- findOverlaps(impute_gr, cups_gr)
 
 impute_frq2_nodups <-
-impute_frq2 %>% dplyr::slice(-duplicate_hits$queryHits, -cups_overlaps@from)
+impute_frq2 %>% dplyr::slice(-duplicate_hits$queryHits)
 
 saveRDS(impute_frq2_nodups, impute_frq2_rds)
 
