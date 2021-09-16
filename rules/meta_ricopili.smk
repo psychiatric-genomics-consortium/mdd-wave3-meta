@@ -102,7 +102,7 @@ rule postimpX:
         dataset=lambda wildcards, input: os.path.basename(input.dataset)
     output: touch("results/meta/X/{cohorts}_{ancestries}_v{version}.done")
     log: "logs/meta/X/pgc_mdd_meta_{cohorts}_{ancestries}_hg19_v{version}.postimp_navi.log"
-    shell: "cd results/meta/X; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --no_neff_filter --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
+    shell: "cd results/meta/X; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --noldsc --no_neff_filter --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
     
     
 rule postimp_eur_X:
