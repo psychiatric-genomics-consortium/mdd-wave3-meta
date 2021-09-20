@@ -82,8 +82,8 @@ rule install_gsem:
 	
 # Create LDSC covstruct in GenomicSEM
 rule meta_gsem_ldsc:
-	input: sumstats=expand("results/meta/gsem/distribution/pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}.gz.ldsc.sumstats.gz", cohorts=meta_structured_groups.keys(), version=analysis_version), samples=expand("results/meta/gsem/distribution/pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", cohorts=meta_structured_groups.keys(), version=analysis_version), w_ld_chr="resources/ldsc/{ancestries}_w_ld_chr/", gsem="resources/ldsc/install_genomicsem.done"
-	params: cohorts=meta_structured_groups.keys()
+	input: sumstats=expand("results/meta/gsem/distribution/pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}.gz.ldsc.sumstats.gz", cohorts=meta_structured_groups_geno.keys(), version=analysis_version), samples=expand("results/meta/gsem/distribution/pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", cohorts=meta_structured_groups_geno.keys(), version=analysis_version), w_ld_chr="resources/ldsc/{ancestries}_w_ld_chr/", gsem="resources/ldsc/install_genomicsem.done"
+	params: cohorts=meta_structured_groups_geno.keys()
 	output: covstruct="docs/objects/covstruct.{ancestries}.R", ldsc_table="docs/tables/meta_gsem_ldsc.{ancestries}.txt"
 	conda: "../envs/gsem.yaml"
 	script: "../scripts/meta/gsem_ldsc.R"
