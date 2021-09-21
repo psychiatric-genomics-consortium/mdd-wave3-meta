@@ -32,7 +32,7 @@ cohorts_eur = [["MDD49", "29w2_20w3_1504"],
 ["BASIC", "202011"],        
 ["BioVU", "NoCov_SAIGE_051821"],
 ["EXCEED", "202010"],          
-["MVP", "4_0ICDdep_202106"],
+["MVP", "rel4icdDEP_Geno_202109"],
 ["tkda1", "run1"],           
 ["DBDS", "FINAL202103"],
 ["SHARE", "godartsshare_842021"]]
