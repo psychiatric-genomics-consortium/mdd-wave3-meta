@@ -120,13 +120,18 @@ sumstats_cohort <- snakemake@wildcards$cohort
 sumstats_ancestries <- snakemake@wildcards$ancestries
 sumstats_release <- snakemake@wildcards$release
 
+# median OR, SE limited to MAF > 0.01
+daner_filtered_maf <- daner_qc %>% filter(QC == 'PASS', between(frq_a, 0.01, 0.99), between(frq_u, 0.01, 0.99)) %>% select(OR, SE)
+median_or01 <- median(daner_filtered_maf$OR)
+median_se01 <- median(daner_filtered_maf$SE)
+
 qc_table <- data.frame(cohort=sumstats_cohort, ancestries=sumstats_ancestries, release=sumstats_release,
 		                N_cases=n_cases, N_controls=n_controls,
 						median_fst=signif(median_fst, 3), max_fst=signif(max_fst, 3),
 						var_fst=signif(var_fst, 3),
 						snps_kept=N_snps_kept,
-						median_or=round(median_or, 4), max_OR=round(max_or, 4),
-						median_SE=round(median_se, 4), max_SE=round(max_se, 4))
+						median_OR=round(median_or, 4), max_OR=round(max_or, 4), median_OR01=round(median_or01, 4),
+						median_SE=round(median_se, 4), max_SE=round(max_se, 4), median_SE01=round(median_se01, 4))
 
 logging(glue("Writing qc table to {qc_txt}"))
 write_tsv(qc_table, file=qc_txt)
