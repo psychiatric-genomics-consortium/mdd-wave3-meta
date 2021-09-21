@@ -2,11 +2,11 @@
 title: "MR phewas result"
 author: X Shen  
 date: "\n`r format(Sys.time(), '%d %B, %Y')`"
-output: github_document
+output: html_document
 always_allow_html: true
 ---
 
-```{r library,echo=F,warning=F}
+```{r library,echo=F,warning=F,error=F}
 library(dplyr)
 library(tidyverse)
 library(data.table)
