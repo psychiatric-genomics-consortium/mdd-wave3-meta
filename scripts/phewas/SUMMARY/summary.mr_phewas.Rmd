@@ -2,7 +2,7 @@
 title: "MR phewas result"
 author: X Shen  
 date: "\n`r format(Sys.time(), '%d %B, %Y')`"
-output: html_document
+output: md_document
 always_allow_html: true
 ---
 
@@ -27,6 +27,7 @@ render('scripts/phewas/SUMMARY/summary.mr_phewas.Rmd',output_dir='docs/',output_
 ```
 
 ------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 ## UKB MR PheWAS
 
@@ -41,6 +42,8 @@ MDD GWAS:
 Phenotypes were selected if it satisfies all conditions below:
 
 -   Associated with the PRS that is the most predictive of MDD CIDI
+
+-   Not a direct measure of any mental health condition
 
 -   With \>10 independent genetic instruments
 
@@ -62,17 +65,18 @@ Details about MR analysis:
 
 The flow chart below shows the steps of obtaining GWAS sumstats:
 
-![](/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/docs/figures/mr_flowchart1.PNG))
+![](/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/docs/figures/mr_flowchart1.PNG)
 
 The flow chart below shows the steps of extracting instruments from GWAS sumstats:
 
-![](/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/docs/figures/mr_flowchar2.PNG)
+![](/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/docs/figures/mr_flowchart2.PNG)
 
-/newline
+
+------------------------------------------------------------------------
 
 ### Results
 
-```{r load refs and categories, warning=F, echo=F}
+```{r load refs and categories, warning=F, echo=F,message=F,error=F}
 f.category = 'data/phewas_categories.tsv'
 ref.category = fread(here::here(f.category),header=F,sep='\n') %>% 
   as.data.frame %>% .$V1
@@ -80,7 +84,7 @@ ref.category = fread(here::here(f.category),header=F,sep='\n') %>%
 ls.neale.gwas = readRDS(here::here('data/fields.neale.rds'))
 ```
 
-```{r load ukb mr phewas results, warning=F,echo=F,error=F}
+```{r load ukb mr phewas results, warning=F,echo=F,error=F,message=F}
 mr.ukb=read_tsv(here::here('results/phewas/MR/ukb/ALL_mr_res.tsv')) %>% 
   .[grepl('^Inverse variance weighted$|^MR Egger$|Weighted median',.$method),] %>% 
   mutate(label_exposure=label_exposure %>% gsub(' (left)','',.,fixed = T) %>% 
@@ -132,7 +136,10 @@ find_sig <- function(x.res,x.pheno,target.column){
 
 ```
 
-#### MDD as exposure {.tabset}
+
+------------------------------------------------------------------------
+
+#### MDD as exposure
 
 ```{r,warning=F,echo=F}
 mr.ukb.mdd_to_pheno = mr.ukb %>% filter(exposure=='MDD') %>% 
@@ -189,7 +196,9 @@ figs.ukb.mdd_to_pheno[[2]]
 figs.ukb.mdd_to_pheno[[3]]
 ```
 
-#### MDD as outcome {.tabset}
+------------------------------------------------------------------------
+
+#### MDD as outcome
 
 ```{r,echo=F,warning=F}
 mr.ukb.pheno_to_mdd = mr.ukb %>% filter(outcome=='MDD',nsnp>=30) %>% 
@@ -243,6 +252,7 @@ figs.ukb.pheno_to_mdd[[2]]
 ```
 
 ------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 ## MR-base PheWAS
 
@@ -272,12 +282,15 @@ Details about MR analysis:
 
 -   MR methods: IVW, weighted median, MR Egger
 
+------------------------------------------------------------------------
+
 ### Results
 
-```{r load mr-base mr phewas results, warning=F,echo=F,error=F}
+```{r load mr-base mr phewas results, warning=F,echo=F,error=F,message=F}
 mr.mr_base=read_tsv(here::here('results/phewas/MR/mr_base/ALL_mr_res.tsv')) %>% 
-  .[grepl('^Inverse variance weighted$|^MR Egger$|Weighted median',.$method),] 
-
+  .[grepl('^Inverse variance weighted$|^MR Egger$|Weighted median',.$method),] %>% 
+  mutate(subcategory=ifelse(!is.na(subcategory),subcategory,'Other')) %>% 
+  filter(abs(b)<3)
 ```
 
 Valid causal effects are displayed if **ALL** of the following four criteria are met:
@@ -289,6 +302,21 @@ Valid causal effects are displayed if **ALL** of the following four criteria are
 -   MR Egger: pFDR \< 0.05 **OR** pFDR for Egger intercept \> 0.05
 
 -   Effect sizes for all three methods in the same direction
+
+```{r mr base two level category, echo=F,warning=F,message=F}
+ref.two_level.category = data.frame(lv2=unique(mr.mr_base$subcategory),
+                                    stringsAsFactors = F) %>%
+  mutate(lv1=ifelse(grepl('Psychiatry',lv2),'Mental health',
+                    ifelse(grepl('Behavioural|Sleeping|Education',lv2),'Environment and others',
+                           ifelse(grepl('Other',lv2),'Environment',
+                           'Self-reported and assessed physical condition'))))
+
+mr.mr_base = mr.mr_base %>% 
+  left_join(.,ref.two_level.category,by=c('subcategory'='lv2')) %>% 
+  mutate(category=subcategory)
+```
+
+------------------------------------------------------------------------
 
 #### MDD as exposure
 
@@ -316,19 +344,30 @@ mr.sig.mr_base.mdd_to_pheno = mr.mr_base.mdd_to_pheno %>%
 dat.fig = mr.sig.mr_base.mdd_to_pheno %>% 
   mutate(Field=outcome) 
 
-dat.fig$Field = dat.fig$Field %>% as.list %>% 
-  lapply(.,strwrap,width=50) %>% 
-  lapply(.,paste0,collapse='\n') %>% 
-  unlist
+dat.fig$Field = dat.fig$Field  
 
-figs.mr_base.mdd_to_pheno=beta_fig(tmp.dat.fig=dat.fig,is.allres=T)
-
-figs.mr_base.mdd_to_pheno
+figs.mr_base.mdd_to_pheno=mr.sig.mr_base.mdd_to_pheno$lv1 %>% unique %>% 
+  as.list %>% 
+  lapply(., beta_fig,tmp.dat.fig=dat.fig)
 ```
+
+##### Environment and others
+
+```{r,echo=F,warning=F,fig.height=8,fig.width=11}
+figs.mr_base.mdd_to_pheno[[1]]
+```
+
+##### Physical health
+
+```{r,echo=F,warning=F,fig.height=4,fig.width=11}
+figs.mr_base.mdd_to_pheno[[2]]
+```
+
+------------------------------------------------------------------------
 
 #### MDD as outcome
 
-```{r,echo=F,warning=F,fig.height=4.5,fig.width=10}
+```{r,echo=F,warning=F,fig.height=4.5,fig.width=11}
 mr.mr_base.pheno_to_mdd = mr.mr_base %>% filter(outcome=='MDD',nsnp>=30) %>% 
   group_by(method) %>% 
   mutate(p.fdr = p.adjust(pval,method='fdr'),
@@ -345,18 +384,16 @@ mr.sig.mr_base.pheno_to_mdd = mr.mr_base.pheno_to_mdd %>%
   as.data.frame %>% 
   select(-id.exposure,-id.outcome) 
 
-# ls.sig.pheno_to_mdd %>%
-#   kbl() %>%
-#   kable_material(c("striped", "hover"))
-
 dat.fig = mr.sig.mr_base.pheno_to_mdd %>% 
   mutate(Field=exposure) 
-
-dat.fig$Field = dat.fig$Field %>% as.list %>% 
-  lapply(.,strwrap,width=50) %>% 
-  lapply(.,paste0,collapse='\n') %>% 
-  unlist
+  
 
 figs.mr_base.pheno_to_mdd=beta_fig(tmp.dat.fig=dat.fig,is.allres=T)
+```
+
+
+
+```{r,echo=F,warning=F,fig.height=3,fig.width=10}
 figs.mr_base.pheno_to_mdd
 ```
+

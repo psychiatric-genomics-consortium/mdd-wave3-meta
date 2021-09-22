@@ -28,12 +28,12 @@ beta_fig <- function(tmp.dat.fig,target.cat=NA,fig.output='results/phewas/figs/'
   #scale_y_reverse()+
   scale_x_discrete(position='top')+
   geom_hline(yintercept=0,color = "black", size=0.3)+
-  ggtitle(target.cat)+
   coord_flip()
   
   if(!is.na(target.cat)){
     fig.tmp=fig.tmp+
-      facet_grid(rows = vars(category),scales = "free_y",space = "free_y")
+      facet_grid(rows = vars(category),scales = "free_y",space = "free_y")+
+      ggtitle(target.cat)
   }
   
   if(!is.na(fig.output)&(sum(nchar(cat.dat$Field)>50)>5)){
