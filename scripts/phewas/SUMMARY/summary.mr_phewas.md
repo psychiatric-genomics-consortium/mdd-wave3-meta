@@ -50,12 +50,12 @@ Details about MR analysis:
 
 The flow chart below shows the steps of obtaining GWAS sumstats:
 
-![](docs/figures/mr_flowchart1.PNG)
+![](../../../docs/figures/mr_flowchart1.PNG)
 
 The flow chart below shows the steps of extracting instruments from GWAS
 sumstats:
 
-![](docs/figures/mr_flowchart2.PNG)
+![](../../../docs/figures/mr_flowchart2.PNG)
 
 ------------------------------------------------------------------------
 
