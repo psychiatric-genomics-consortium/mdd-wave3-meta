@@ -1,0 +1,48 @@
+##fileFormat=PGCsumstatsVCFv1.0
+##fileDate="{filedate}"
+##preparedBy="{analyst}"
+##manuscript=<ID=BIORXIV,REF="{biorxiv}">
+##manuscript=<ID=PMID,REF="{pmid}">
+##manuscript=<ID=PMCID,REF="{pmcid}">
+##DOI=<ID=BIORXIV,REF="{biorxiv}">
+##DOI=<ID=JOURNAL,REF="{doi}">
+##sumstatsLINK=<ID=SUMSTATS,REF="{url}">
+##genomeReference="GRCh37"
+##imputationReference="Haplotype Reference Consortium v1.0"
+##analysisProgram="Ricopili 2019_Jun_18.001"
+##metaAnalysisProgram="Ricopili 2019_Jun_18.001"
+##shortName="pgc-mdd2021-{cohorts}"
+##version="{version}"
+##dependentVariable="major depressive disorder"
+##dependentVariableType="discrete"
+##model="dependentVariable=SNPi+PC1-PC5"
+##methodsParagraph="{methods}"
+##acknowledgments="{acknowledgments}"
+##abstract="{abstract}"
+##termsOfUse="These data are provided *as is*, and without warranty, for scientific and educational use only. If you download these data, you acknowledge that these data will be used only for non-commercial research purposes; that the investigator is in compliance with all applicable state, local, and federal laws or regulations and institutional policies regarding human subjects and genetics research; that secondary distribution of the data without registration by secondary parties is prohibited; and that the investigator will cite the appropriate publications in any communications or publications arising directly or indirectly from these data."
+{contig}
+##nCase="{ncase}"
+##nControl="{ncontrol}"
+##nTrio="{ntrio}"
+##nCohort="{ncohort}"
+##cohortList="{cohort_list}"
+##nCaseByCohort="{cases_by_cohort}"
+##nControlByCohort="{controls_by_cohort}"
+##nTrioByCohort="{trios_by_cohort}"
+##SNPsPassPostImputeByCohort="{snps_by_cohort}"
+##ProcessedByCoreTeam="{processed_by_core}"
+##referencePopulation="{ancestries}"
+##INFO=<ID=A1,Number=1,Type=Character,Description="SNP reference allele for freq and ln(OR) (effect allele)">
+##INFO=<ID=A2,Number=1,Type=Character,Description="SNP alternate allele (non-effect allele)">
+##INFO=<ID=BETA,Number=1,Type=Float,Description="ln(OR) of A1">
+##INFO=<ID=SE,Number=1,Type=Float,Description="standard error of ln(OR)">
+##INFO=<ID=PVAL,Number=1,Type=Float,Description="P-value, uncorrected">
+##INFO=<ID=NGT,Number=1,Type=Integer,Description="number of cohorts genotyped">
+##INFO=<ID=FCAS,Number=1,Type=Float,Description="frequency of A1 in cases">
+##INFO=<ID=FCON,Number=1,Type=Float,Description="frequency of A1 in controls">
+##INFO=<ID=IMPINFO,Number=1,Type=Float,Description="imputation INFO score">
+##INFO=<ID=NEFFDIV2,Number=1,Type=Float,Description="half effective sample size">
+##INFO=<ID=NCAS,Number=1,Type=Integer,Description="total sample size cases">
+##INFO=<ID=NCON,Number=1,Type=Integer,Description="total sample size controls">
+##INFO=<ID=DIRE,Number=1,Type=String,Description="direction of effects by cohort">
+##nVariants={variants}

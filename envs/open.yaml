@@ -2,15 +2,19 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - bcftools
-  - pytest==5.3.5
-  - biopython==1.72
-  - pysam==0.15.2
-  - marshmallow==2.19.5
-  - numpy==1.15.4
-  - Cython==0.29.17
   - r-base =4.0.5
   - r-essentials
+  - r-testthat
+  - r-knitr
+  - r-pander
+  - r-microbenchmark
+  - r-rmarkdown
+  - r-magrittr
+  - r-googleauthr
+  - r-dplyr
+  - r-httr
+  - r-jsonlite
+  - r-rlang
   - r-devtools
   - r-biocmanager
   - bioconductor-biocgenerics
