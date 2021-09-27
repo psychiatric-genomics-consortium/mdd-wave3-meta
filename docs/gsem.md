@@ -3,10 +3,10 @@ Structure Meta-Analysis with GenomicSEM
 
 Summary statistics were grouped based on phenotype, then meta-analysed:
 
--   `clin`: Clinical assessment
--   `ehr`: Electronic health records
--   `quest`: Questionnaire
--   `self`: Single-item self report
+-   `Clin`: Clinical assessment
+-   `EHR`: Electronic health records
+-   `Quest`: Questionnaire
+-   `SelfRep`: Single-item self report
 
 The LDSC covariance structure of the four MDD phenotype was calcuted
 using [GenomicSEM](https://github.com/GenomicSEM/GenomicSEM).
@@ -30,27 +30,35 @@ LDSC statistics
 ldsc_table <- read_tsv(snakemake@input$ldsc_table)
 ```
 
-    ## Rows: 4 Columns: 14
-
-    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────
-    ## Delimiter: "\t"
-    ## chr  (2): pheno, ancestries
-    ## dbl (12): N_cases, N_controls, sample_prev, pop_prev, LambdaGC, MeanChiSq, L...
-
     ## 
-    ## ℹ Use `spec()` to retrieve the full column specification for this data.
-    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────
+    ## cols(
+    ##   pheno = col_character(),
+    ##   ancestries = col_character(),
+    ##   N_cases = col_double(),
+    ##   N_controls = col_double(),
+    ##   sample_prev = col_double(),
+    ##   pop_prev = col_double(),
+    ##   LambdaGC = col_double(),
+    ##   MeanChiSq = col_double(),
+    ##   LambdaGCldsc = col_double(),
+    ##   ldsc_intercept = col_double(),
+    ##   h2_obs = col_double(),
+    ##   h2_se_obs = col_double(),
+    ##   h2_liab = col_double(),
+    ##   h2_se_liab = col_double()
+    ## )
 
 ``` r
 knitr::kable(ldsc_table)
 ```
 
-| pheno | ancestries | N\_cases | N\_controls | sample\_prev | pop\_prev | LambdaGC | MeanChiSq | LambdaGCldsc | ldsc\_intercept | h2\_obs | h2\_se\_obs | h2\_liab | h2\_se\_liab |
-|:------|:-----------|---------:|------------:|-------------:|----------:|---------:|----------:|-------------:|----------------:|--------:|------------:|---------:|-------------:|
-| clin  | eur        |    30722 |       59954 |      0.33880 |      0.15 |    1.124 |    1.1484 |       1.1490 |          1.0214 |  0.0680 |      0.0071 |   0.0908 |       0.0095 |
-| ehr   | eur        |   310522 |      876421 |      0.26160 |      0.15 |    1.444 |    1.7548 |       1.5807 |          1.0279 |  0.0313 |      0.0011 |   0.0485 |       0.0018 |
-| quest | eur        |    55519 |      346777 |      0.13800 |      0.15 |    1.194 |    1.2725 |       1.2266 |          1.0156 |  0.0328 |      0.0018 |   0.0824 |       0.0045 |
-| self  | eur        |   114992 |     1789651 |      0.06037 |      0.15 |    1.453 |    1.9058 |       1.6485 |          0.9803 |  0.0240 |      0.0009 |   0.1265 |       0.0049 |
+| pheno   | ancestries | N_cases | N_controls | sample_prev | pop_prev | LambdaGC | MeanChiSq | LambdaGCldsc | ldsc_intercept | h2_obs | h2_se_obs | h2_liab | h2_se_liab |
+|:--------|:-----------|--------:|-----------:|------------:|---------:|---------:|----------:|-------------:|---------------:|-------:|----------:|--------:|-----------:|
+| Clin    | eur        |   21654 |      44593 |     0.32690 |     0.15 |    1.097 |    1.1087 |       1.1112 |         1.0227 | 0.0625 |    0.0085 |  0.0850 |     0.0115 |
+| EHR     | eur        |  311491 |     877110 |     0.26210 |     0.15 |    1.516 |    1.7737 |       1.5956 |         1.0306 | 0.0317 |    0.0011 |  0.0491 |     0.0017 |
+| Quest   | eur        |   70887 |     339597 |     0.17270 |     0.15 |    1.230 |    1.3224 |       1.2730 |         1.0161 | 0.0383 |    0.0020 |  0.0803 |     0.0041 |
+| SelfRep | eur        |  114992 |    1789651 |     0.06037 |     0.15 |    1.645 |    1.9634 |       1.7100 |         1.0040 | 0.0245 |    0.0009 |  0.1291 |     0.0050 |
 
 Genetic correlations
 
@@ -63,7 +71,7 @@ corrplot(cov2cor(mdd_covstruct$S), method='number')
 ## Common factor model
 
 ``` r
-common.model <- "A =~ NA*clin + ehr + quest + self
+common.model <- "A =~ NA*Clin + EHR + Quest + SelfRep
 A ~~ 1*A"
 
 common.fit <- usermodel(covstruc=mdd_covstruct, estimation='DWLS', model=common.model)
@@ -74,15 +82,15 @@ common.fit <- usermodel(covstruc=mdd_covstruct, estimation='DWLS', model=common.
     ## [1] "Calculating Standardized Results"
     ## [1] "Calculating SRMR"
     ## elapsed 
-    ##   0.182
+    ##   0.562
 
 ``` r
 knitr::kable(common.fit$modelfit)
 ```
 
-|     |    chisq |  df |  p\_chisq |      AIC | CFI |      SRMR |
+|     |    chisq |  df |   p_chisq |      AIC | CFI |      SRMR |
 |:----|---------:|----:|----------:|---------:|----:|----------:|
-| df  | 0.612646 |   2 | 0.7361488 | 16.61265 |   1 | 0.0075507 |
+| df  | 1.776247 |   2 | 0.4114271 | 17.77625 |   1 | 0.0141556 |
 
 ``` r
 common.fit.results <- common.fit$results %>%
@@ -98,17 +106,17 @@ common.fit.results <- common.fit$results %>%
 knitr::kable(common.fit.results, digits=4)
 ```
 
-|     | lhs   | op   | rhs   | Unstand\_Est | Unstand\_SE | STD\_Genotype | STD\_Genotype\_SE | STD\_All | p\_value |
-|:----|:------|:-----|:------|-------------:|------------:|--------------:|------------------:|---------:|---------:|
-| 1   | A     | =\~  | clin  |       0.2930 |      0.0121 |        0.9724 |            0.0403 |   0.9724 |   0.0000 |
-| 2   | A     | =\~  | ehr   |       0.2074 |      0.0044 |        0.9417 |            0.0200 |   0.9417 |   0.0000 |
-| 3   | A     | =\~  | quest |       0.2758 |      0.0082 |        0.9609 |            0.0285 |   0.9609 |   0.0000 |
-| 4   | A     | =\~  | self  |       0.2945 |      0.0087 |        0.8282 |            0.0245 |   0.8282 |   0.0000 |
-| 6   | clin  | \~\~ | clin  |       0.0049 |      0.0078 |        0.0544 |            0.0854 |   0.0544 |   0.5246 |
-| 7   | ehr   | \~\~ | ehr   |       0.0055 |      0.0015 |        0.1132 |            0.0318 |   0.1132 |   0.0004 |
-| 8   | quest | \~\~ | quest |       0.0063 |      0.0043 |        0.0767 |            0.0520 |   0.0767 |   0.1400 |
-| 9   | self  | \~\~ | self  |       0.0397 |      0.0037 |        0.3140 |            0.0293 |   0.3140 |   0.0000 |
-| 5   | A     | \~\~ | A     |       1.0000 |          NA |        1.0000 |                NA |   1.0000 |       NA |
+|     | lhs     | op   | rhs     | Unstand_Est | Unstand_SE | STD_Genotype | STD_Genotype_SE | STD_All | p_value |
+|:----|:--------|:-----|:--------|------------:|-----------:|-------------:|----------------:|--------:|--------:|
+| 1   | A       | =\~  | Clin    |      0.2906 |     0.0113 |       0.9968 |          0.0388 |  0.9968 |  0.0000 |
+| 2   | A       | =\~  | EHR     |      0.2040 |     0.0045 |       0.9210 |          0.0203 |  0.9210 |  0.0000 |
+| 3   | A       | =\~  | Quest   |      0.2674 |     0.0081 |       0.9441 |          0.0285 |  0.9441 |  0.0000 |
+| 4   | A       | =\~  | SelfRep |      0.3076 |     0.0101 |       0.8561 |          0.0280 |  0.8561 |  0.0000 |
+| 6   | Clin    | \~\~ | Clin    |      0.0005 |     0.0100 |       0.0063 |          0.1172 |  0.0063 |  0.9570 |
+| 7   | EHR     | \~\~ | EHR     |      0.0074 |     0.0016 |       0.1517 |          0.0323 |  0.1517 |  0.0000 |
+| 8   | Quest   | \~\~ | Quest   |      0.0087 |     0.0045 |       0.1087 |          0.0558 |  0.1087 |  0.0513 |
+| 9   | SelfRep | \~\~ | SelfRep |      0.0345 |     0.0055 |       0.2670 |          0.0427 |  0.2670 |  0.0000 |
+| 5   | A       | \~\~ | A       |      1.0000 |         NA |       1.0000 |              NA |  1.0000 |      NA |
 
 ## GWAS-by-subtraction
 
@@ -117,15 +125,15 @@ decompose variance into that of minimally-phenotyped depression shared
 with maximal phenotypes versus specific to maximal phenotypes.
 
 ``` r
-md.model <- "MD =~ NA*self + clin + ehr + quest
-MDD =~ NA*clin + ehr + quest
+md.model <- "MIN =~ NA*SelfRep + Clin + EHR + Quest
+MAX =~ NA*Clin + EHR + Quest
 
-MD ~~ 1*MD
-MDD ~~ 1*MDD
-MD ~~ 0*MDD
+MIN ~~ 1*MIN
+MAX ~~ 1*MAX
+MIN ~~ 0*MAX
 
-self ~~ 0*clin + 0*ehr + 0*quest
-self ~~ 0*self"
+SelfRep ~~ 0*Clin + 0*EHR + 0*Quest
+SelfRep ~~ 0*SelfRep"
 ```
 
 ``` r
@@ -137,7 +145,7 @@ md.fit <- usermodel(covstruc=mdd_covstruct, estimation='DWLS', model=md.model)
     ## [1] "Calculating Standardized Results"
     ## [1] "Calculating SRMR"
     ## elapsed 
-    ##    0.18 
+    ##   0.325 
     ## [1] "Model fit statistics are all printed as NA as you have specified a fully saturated model (i.e., df = 0)"
 
 ``` r
@@ -154,22 +162,22 @@ mutate(Unstand_SE=as.numeric(Unstand_SE),
 knitr::kable(md.fit.results, digits=4)
 ```
 
-|     | lhs   | op   | rhs   | Unstand\_Est | Unstand\_SE | STD\_Genotype | STD\_Genotype\_SE | STD\_All | p\_value |
-|:----|:------|:-----|:------|-------------:|------------:|--------------:|------------------:|---------:|---------:|
-| 6   | MD    | =\~  | self  |       0.3556 |      0.0069 |        1.0000 |            0.0194 |   1.0000 |   0.0000 |
-| 3   | MD    | =\~  | clin  |       0.2459 |      0.0119 |        0.8162 |            0.0393 |   0.8162 |   0.0000 |
-| 4   | MD    | =\~  | ehr   |       0.1707 |      0.0045 |        0.7752 |            0.0203 |   0.7752 |   0.0000 |
-| 5   | MD    | =\~  | quest |       0.2286 |      0.0082 |        0.7966 |            0.0287 |   0.7966 |   0.0000 |
-| 9   | MDD   | =\~  | clin  |       0.1523 |      0.0208 |        0.5056 |            0.0691 |   0.5056 |   0.0000 |
-| 10  | MDD   | =\~  | ehr   |       0.1238 |      0.0135 |        0.5622 |            0.0614 |   0.5622 |   0.0000 |
-| 11  | MDD   | =\~  | quest |       0.1502 |      0.0162 |        0.5235 |            0.0563 |   0.5235 |   0.0000 |
-| 1   | clin  | \~\~ | clin  |       0.0071 |      0.0082 |        0.0782 |            0.0899 |   0.0782 |   0.3843 |
-| 2   | ehr   | \~\~ | ehr   |       0.0040 |      0.0028 |        0.0831 |            0.0582 |   0.0831 |   0.1534 |
-| 13  | quest | \~\~ | quest |       0.0075 |      0.0052 |        0.0913 |            0.0635 |   0.0913 |   0.1506 |
-| 7   | MD    | \~\~ | MD    |       1.0000 |          NA |        1.0000 |                NA |   1.0000 |       NA |
-| 12  | MDD   | \~\~ | MDD   |       1.0000 |          NA |        1.0000 |                NA |   1.0000 |       NA |
-| 8   | MD    | \~\~ | MDD   |       0.0000 |          NA |        0.0000 |                NA |   0.0000 |       NA |
-| 14  | self  | \~\~ | clin  |       0.0000 |          NA |        0.0000 |                NA |   0.0000 |       NA |
-| 15  | self  | \~\~ | ehr   |       0.0000 |          NA |        0.0000 |                NA |   0.0000 |       NA |
-| 16  | self  | \~\~ | quest |       0.0000 |          NA |        0.0000 |                NA |   0.0000 |       NA |
-| 17  | self  | \~\~ | self  |       0.0000 |          NA |        0.0000 |                NA |   0.0000 |       NA |
+|     | lhs     | op   | rhs     | Unstand_Est | Unstand_SE | STD_Genotype | STD_Genotype_SE | STD_All | p_value |
+|:----|:--------|:-----|:--------|------------:|-----------:|-------------:|----------------:|--------:|--------:|
+| 10  | MIN     | =\~  | SelfRep |      0.3593 |     0.0069 |       1.0000 |          0.0193 |  1.0000 |  0.0000 |
+| 7   | MIN     | =\~  | Clin    |      0.2503 |     0.0130 |       0.8585 |          0.0447 |  0.8585 |  0.0000 |
+| 8   | MIN     | =\~  | EHR     |      0.1727 |     0.0052 |       0.7796 |          0.0233 |  0.7796 |  0.0000 |
+| 9   | MIN     | =\~  | Quest   |      0.2322 |     0.0079 |       0.8195 |          0.0279 |  0.8195 |  0.0000 |
+| 3   | MAX     | =\~  | Clin    |      0.1408 |     0.0297 |       0.4831 |          0.1018 |  0.4831 |  0.0000 |
+| 4   | MAX     | =\~  | EHR     |      0.1240 |     0.0190 |       0.5598 |          0.0859 |  0.5598 |  0.0000 |
+| 5   | MAX     | =\~  | Quest   |      0.1182 |     0.0222 |       0.4171 |          0.0784 |  0.4171 |  0.0000 |
+| 1   | Clin    | \~\~ | Clin    |      0.0025 |     0.0106 |       0.0295 |          0.1243 |  0.0295 |  0.8123 |
+| 2   | EHR     | \~\~ | EHR     |      0.0039 |     0.0040 |       0.0789 |          0.0812 |  0.0789 |  0.3314 |
+| 13  | Quest   | \~\~ | Quest   |      0.0124 |     0.0049 |       0.1544 |          0.0611 |  0.1544 |  0.0115 |
+| 12  | MIN     | \~\~ | MIN     |      1.0000 |         NA |       1.0000 |              NA |  1.0000 |      NA |
+| 6   | MAX     | \~\~ | MAX     |      1.0000 |         NA |       1.0000 |              NA |  1.0000 |      NA |
+| 11  | MIN     | \~\~ | MAX     |      0.0000 |         NA |       0.0000 |              NA |  0.0000 |      NA |
+| 14  | SelfRep | \~\~ | Clin    |      0.0000 |         NA |       0.0000 |              NA |  0.0000 |      NA |
+| 15  | SelfRep | \~\~ | EHR     |      0.0000 |         NA |       0.0000 |              NA |  0.0000 |      NA |
+| 16  | SelfRep | \~\~ | Quest   |      0.0000 |         NA |       0.0000 |              NA |  0.0000 |      NA |
+| 17  | SelfRep | \~\~ | SelfRep |      0.0000 |         NA |       0.0000 |              NA |  0.0000 |      NA |

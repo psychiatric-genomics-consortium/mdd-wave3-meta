@@ -17,7 +17,7 @@ trait_names=snakemake@params$cohorts
 ld=snakemake@input$w_ld_chr
 
 # Prevalences
-# Calculate sample prelalences from Ricopili output
+# Calculate sample prevalences from Ricopili output
 basic_xls <- snakemake@input$samples
 names(basic_xls) <- trait_names
 
