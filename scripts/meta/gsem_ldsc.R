@@ -16,8 +16,7 @@ trait_names=snakemake@params$cohorts
 # LD score directory
 ld=snakemake@input$w_ld_chr
 
-# Prevalences
-# Calculate sample prevalences from Ricopili output
+# Sample sizes
 basic_xls <- snakemake@input$samples
 names(basic_xls) <- trait_names
 
@@ -25,10 +24,12 @@ basic <- lapply(basic_xls, read_excel)
 
 basic_sum <- bind_rows(lapply(basic, function(b) b %>% filter(Dataset == 'SUM')))
 
-sample_prev <- signif(basic_sum$N_cases / (basic_sum$N_cases + basic_sum$N_controls), 4)
+# Prevalences
+# Sample was input as effective sample size so sample prevalence = 0.5
+sample_prev <- rep(0.5, times=length(trait_names))
 
 # pop prevalence = 15%
-pop_prev = rep(0.15, times=length(sample_prev))
+pop_prev = rep(0.15, times=length(trait_names))
 
 covstruct_capture <-
 capture.output(cohorts_covstruct <-

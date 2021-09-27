@@ -84,14 +84,71 @@ rule install_gsem:
 	output: "resources/ldsc/install_genomicsem.done"
 	conda: "../envs/gsem.yaml"
 	shell: """Rscript -e 'devtools::install_github("GenomicSEM/GenomicSEM", upgrade="never")' 2>&1 > {output}"""
+    
+# sumstats to munge with Neff as sample size
+# Neff as input sample size allows unbiased estimates of ldsc h2: https://www.medrxiv.org/content/10.1101/2021.09.22.21263909v1
+rule meta_gsem_neff:
+    input: "results/meta/gsem/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
+    output: "results/meta/gsem/neff/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.txt"
+    shell: """zcat {input} | awk '{{if(NR == 1) {{print $1, $2, $3, $4, $5, "MAF", $8, $9, $10, $11, "N"}} else {{print $1, $2, $3, $4, $5, $7, $8, $9, $10, $11, 2*$19}}}}' > {output}"""
+    
+rule meta_gsem_munge:
+    input: sumstats="results/meta/gsem/neff/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.txt", hm3="resources/ldsc/w_hm3.snplist"
+    params: prefix="results/meta/gsem/munged/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}"
+    output: "results/meta/gsem/munged/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.sumstats.gz"
+    conda: "../envs/gsem.yaml"
+    script: "../scripts/meta/gsem_munge.R"
+    
 	
 # Create LDSC covstruct in GenomicSEM
 rule meta_gsem_ldsc:
-	input: sumstats=expand("results/meta/gsem/distribution/pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}.gz.ldsc.sumstats.gz", cohorts=meta_structured_groups_geno.keys(), version=analysis_version), samples=expand("results/meta/gsem/distribution/pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", cohorts=meta_structured_groups_geno.keys(), version=analysis_version), w_ld_chr="resources/ldsc/{ancestries}_w_ld_chr/", gsem="resources/ldsc/install_genomicsem.done"
+	input: sumstats=expand("results/meta/gsem/munged/pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}.sumstats.gz", cohorts=meta_structured_groups_geno.keys(), version=analysis_version), samples=expand("results/meta/gsem/distribution/pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", cohorts=meta_structured_groups_geno.keys(), version=analysis_version), w_ld_chr="resources/ldsc/{ancestries}_w_ld_chr/", gsem="resources/ldsc/install_genomicsem.done"
 	params: cohorts=meta_structured_groups_geno.keys()
 	output: covstruct="docs/objects/covstruct.{ancestries}.R", ldsc_table="docs/tables/meta_gsem_ldsc.{ancestries}.txt"
 	conda: "../envs/gsem.yaml"
 	script: "../scripts/meta/gsem_ldsc.R"
+    
+# Sumstats for usergwas
+# Note: ref file downlaoded from https://utexas.box.com/s/vkd36n197m8klbaio3yzoxsee6sxo11v
+rule meta_gsem_prepare_sumstats:
+    input: sumstats=expand("results/meta/gsem/neff/pgc_mdd_{cohorts}_{{ancestries}}_hg19_v{{version}}.neff.txt", cohorts=meta_structured_groups_geno.keys()), ref="resources/gsem/reference.1000G.maf.0.005.txt"
+    params: cohorts=meta_structured_groups_geno.keys()
+    output: "results/meta/gsem/pgc_mdd_{ancestries}_v{version}.gsem.sumstats.gz"
+    conda: "../envs/gsem.yaml"
+    script: "../scripts/meta/gsem_sumstats.R"
+    
+# common factor GWAS, piece-wise
+rule meta_gsem_commonfactor:
+    input: sumstats="results/meta/gsem/pgc_mdd_{ancestries}_v{version}.gsem.sumstats.gz", covstruct="docs/objects/covstruct.{ancestries}.R"
+    conda: "../envs/gsem.yaml"
+    output: "results/meta/gsem/commonfactor/pgc_mdd_{ancestries}_v{version}.gsem.commonfactor.{CHR}-{START}-{STOP}.gz"
+    script: "../scripts/meta/gsem_commonfactor.R"
+    
+def meta_gsem_1000G_regions(ref_file, k=1000):
+    import os
+    if(os.path.exists(ref_file)):
+        import pandas as pd
+        import numpy as np
+        ref = pd.read_table(ref_file, sep='\s+')
+        # remove chr23
+        ref_auto = ref[ref['CHR'] != 23].copy() 
+        n_snps = ref_auto.shape[0]
+        # index to group SNPs into regions
+        region_index = np.arange(n_snps) // (n_snps // k)
+        ref_auto['region'] = region_index[0:n_snps]
+        # get start and stop coordinates of each region
+        regions = ref_auto.groupby(['CHR', 'region']).agg(start=pd.NamedAgg(column="BP", aggfunc="min"), stop=pd.NamedAgg(column="BP", aggfunc="max"))
+        # turn grouping indices into columns
+        regions.reset_index(inplace=True)
+        # concatenate list of CHR-START-STOP regions
+        regions_str = regions['CHR'].map(str) + '-' + regions['start'].map(str) + '-' + regions['stop'].map(str)
+    else:
+        regions_str = ''
+    return(regions_str)
+
+# merge common factor GWAS
+rule meta_gsem_commonfactor_merge:
+    input: sumstats=expand("results/meta/gsem/commonfactor/pgc_mdd_{ancestries}_v{version}.gsem.commonfactor.{region}.gz", region=meta_gsem_1000G_regions(ref_file="resources/gsem/reference.1000G.maf.0.005.txt"), version=analysis_version, ancestries='eur')
     
 # Notebook
 rule meta_gsem:
