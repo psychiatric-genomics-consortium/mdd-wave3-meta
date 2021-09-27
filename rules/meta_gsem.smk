@@ -32,8 +32,13 @@ rule meta_gsem_sumstats:
     log: "logs/meta/{cohort}.log"
     shell: "ln -sv $(readlink -f {input.sumstats}) {output} > {log}"
     
+if 'single_sumstats' in config:
+    config_single_sumstats = config['single_sumstats']
+else:
+    config_single_sumstats = '~'
+    
 rule meta_gsem_single_sumstats:
-    input: sumstats=expand("{single_sumstats}/daner_mdd_{{cohort}}_{{ancestries}}_{{qc}}.hg19.ch.fl.gz", single_sumstats=config['single_sumstats'])
+    input: sumstats=expand("{single_sumstats}/daner_mdd_{{cohort}}_{{ancestries}}_{{qc}}.hg19.ch.fl.gz", single_sumstats=config_single_sumstats)
     output: "results/meta/gsem/daner_mdd_{cohort}_{ancestries}_{qc}.hg19.ch.fl.gz"
     shell: "ln -sv $(readlink -f {input.sumstats}) {output}"
 
