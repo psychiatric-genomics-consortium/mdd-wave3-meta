@@ -11,9 +11,9 @@
 cohorts_eur = [["MDD49", "29w2_20w3_1504"], 
 ["23andMe", "v7_2_202012"],      
 ["deCODE", "DEPALL_FINAL_WHEAD"],
-["GenScot", "1215a"],            
+["GenScot", "SCID_0721a"],            
 ["GERA", "0915a_mds5"],    
-["UKBB", "MD_glm_202012"], 
+["UKBB", "MD_glm_202107"], 
 ["iPSYCH", "2012_HRC"],        
 ["iPSYCH", "2015i_HRC"],       
 ["FinnGen", "R5_18032020"],      
@@ -32,13 +32,63 @@ cohorts_eur = [["MDD49", "29w2_20w3_1504"],
 ["BASIC", "202011"],        
 ["BioVU", "NoCov_SAIGE_051821"],
 ["EXCEED", "202010"],          
-["MVP", "4_0ICDdep_202106"],
+["MVP", "rel4icdDEP_Geno_202109"],
 ["tkda1", "run1"],           
 ["DBDS", "FINAL202103"],
 ["SHARE", "godartsshare_842021"]]
 
 cohorts_eas=[["23andMe","v7_2"],
 ["Taiwan", "20200327"]]
+
+# genotyped cohorts list
+cohorts_geno_eur=[['antpo', 'sa-qc4'],
+['bidi1', 'sr-qc2'],
+['boma', 'sr-qc'],
+['cardm', 'sa-qc2'],
+['cof3', 'sr-qc'],
+['col3', 'sr-qc'],
+['edi2', 'sr-qc'],
+['emcbp', 'sa-qc3'],
+['formm', 'sa-qc2'],
+['gens', 'sr-qc'],
+['gep3', 'sr-qc'],
+['grdg', 'sr-qc'],
+['grnd', 'sr-qc'],
+['gsk2', 'sr-qc'],
+['gsmse', 'sa-qc2'],
+['gsrdf', 'sa-qc3'],
+['gsrdg', 'sa-qc3'],
+['gsrdi', 'sa-qc2'],
+['gsrdp', 'sa-qc2'],
+['i2b3', 'sr-qc'],
+['ihseu', 'sa-qc1'],
+['iruts', 'sa-qc4'],
+['mazdr', 'sa-qc2'],
+['mmi2', 'sr-qc'],
+['mmo4', 'sr-qc'],
+['mrive', 'sa-qc2'],
+['muen2', 'sr-qc'],
+['muspc', 'sa-qc1'],
+['nes1', 'sr-qc2'],
+['pfm2', 'sr-qc2'],
+['prote', 'sa-qc2'],
+['qi3c', 'sr-qc'],
+['qi6c', 'sr-qc'],
+['qio2', 'sr-qc'],
+['rad3', 'sr-qc'],
+['rage', 'sr-qc'],
+['rai2', 'sr-qc'],
+['rau2', 'sr-qc'],
+['rde4', 'sr-qc2'],
+['roc3', 'sr-qc'],
+['rot4', 'sr-qc'],
+['shp0', 'sr-qc'],
+['shpt', 'sr-qc'],
+['stm2', 'sr-qc'],
+['topmd', 'sa-qc2'],
+['trail', 'sa-qc2'],
+['twg2', 'sr-qc'],
+['yapeu', 'sa-qc1']]
 
 # Copy summary statistics listed in config.yaml under sumstats
 # with key FORMAT_COHORT.POP.hgNN.RELEASE
@@ -84,7 +134,7 @@ rule hg_chain:
 		 outputName = os.path.basename(input[0])
 		 shell("gunzip -c {input} > {output}")
 		 
-# download GRCh37/GRCh38 conversion-unstable positions (CUPs) https://github.com/cathaloruaidh/genomeBuildConversionls
+# download GRCh37/GRCh38 conversion-unstable positions (CUPs) https://github.com/cathaloruaidh/genomeBuildConversion
 rule hg_cups:
 	input: HTTP.remote("raw.githubusercontent.com/cathaloruaidh/genomeBuildConversion/master/CUP_FILES/FASTA_BED.ALL_GRCh{build}.novel_CUPs.bed")
 	log: "logs/resources/liftOver/GRCh{build}.novel_CUPs.log"
@@ -120,6 +170,12 @@ rule refdir:
 	output: "results/meta/reference_info"
 	log: "logs/meta/reference_info.log"
 	shell: "cd results/meta; impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
+
+# create reference info for X imputation panel
+rule refdirx:
+    output: "results/meta/X/reference_info"
+    log: "logs/meta/reference_info_x.log"
+    shell: "cd results/meta/X; impute_dirsub --refdir {config[refdir]}/chr23 --reference_info --outname metax"
 
 # merged imputation panel SNPs
 rule impute_frq2:
@@ -210,15 +266,6 @@ rule meta_vcf_merge_eas:
 	conda: "../envs/vcf.yaml"
 	output: "results/sumstats/mdd_cohorts_eas.vcf.gz"
 	shell: "bcftools merge -O z -o {output} {input}"
-	
-
-# table of alignment checks
-align_logs, = glob_wildcards("logs/sumstats/aligned/{cohort}.log")
-rule meta_qc_align:
-	input: expand("logs/sumstats/aligned/{cohort}.log", cohort=align_logs)
-	output: "docs/tables/meta_qc_align.txt"
-	conda: "../envs/meta.yaml"
-	script: "../scripts/meta/align_qc_table.R"
 
 # munge sumstats for ldsc regression
 rule meta_ldsc_munge:
