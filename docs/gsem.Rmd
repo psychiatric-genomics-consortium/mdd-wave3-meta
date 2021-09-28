@@ -19,6 +19,8 @@ library(readr)
 library(corrplot)
 library(dplyr)
 
+save.image()
+
 ```
 
 Read in the covariance structure and the LDSC 

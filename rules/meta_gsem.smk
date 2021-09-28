@@ -148,11 +148,14 @@ def meta_gsem_1000G_regions(ref_file, k=1000):
 
 # merge common factor GWAS
 rule meta_gsem_commonfactor_merge:
-    input: sumstats=expand("results/meta/gsem/commonfactor/pgc_mdd_{ancestries}_v{version}.gsem.commonfactor.{region}.gz", region=meta_gsem_1000G_regions(ref_file="resources/gsem/reference.1000G.maf.0.005.txt"), version=analysis_version, ancestries='eur')
+    input: sumstats=expand("results/meta/gsem/commonfactor/pgc_mdd_{{ancestries}}_v{{version}}.gsem.commonfactor.{region}.gz", region=meta_gsem_1000G_regions(ref_file="resources/gsem/reference.1000G.maf.0.005.txt"))
+    output: "results/meta/gsem/pgc_mdd_{ancestries}_v{version}.gsem.commonfactor.gz"
+    conda: "../envs/gsem.yaml"
+    script: "../scripts/meta/gsem_commonfactor_merge.R"
     
 # Notebook
 rule meta_gsem:
-    input: covstruct_eur="docs/objects/covstruct.eur.R", ldsc_table_eur="docs/tables/meta_gsem_ldsc.eur.txt", notebook="docs/gsem.Rmd", gsem="resources/ldsc/install_genomicsem.done"
+    input: covstruct_eur="docs/objects/covstruct.eur.R", ldsc_table_eur="docs/tables/meta_gsem_ldsc.eur.txt", commonfactor_eur=expand("results/meta/gsem/pgc_mdd_eur_v{version}.gsem.commonfactor.gz", version=analysis_version), notebook="docs/gsem.Rmd", gsem="resources/ldsc/install_genomicsem.done"
     output: "docs/gsem.md"
     conda: "../envs/gsem.yaml"
     script: "../docs/gsem.Rmd"
