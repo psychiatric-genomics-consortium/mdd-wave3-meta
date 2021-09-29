@@ -1,7 +1,7 @@
 ---
 title: "PGC MDD3 sumstats QC checks for meta-analysis"
 output:
-    html_document:
+    github_document:
         toc: true
         toc_depth: 2
 ---
@@ -144,6 +144,47 @@ geom_point() +
 coord_flip()
 ```
 
+# Heritabilities
+
+Convert observed scale to liability scale with a range of population prevalences:
+
+```{r meta_qc_h2_liab}
+
+meta_qc_h2_samp_prev <- 
+meta_qc_ldsc %>%
+transmute(cohort, release=str_sub(release, 2, -2), h2_obs, h2_obs_se) %>%
+left_join(meta_qc_align %>%
+            filter(ancestries == 'eur') %>%
+            select(cohort, release, N_cases, N_controls),
+          by=c('cohort', 'release')) %>%
+mutate(samp_prev=N_cases / (N_cases + N_controls)) %>%
+filter(!is.nan(h2_obs))
+
+pop_prevs <- round(seq(0.05, 0.2, by=0.05), 2)
+
+meta_qc_h2_liab <- 
+plyr::adply(pop_prevs, 1, function(K) {
+    meta_qc_h2_liab_pop <- 
+    meta_qc_h2_samp_prev %>% mutate(K=K) %>%
+    # normal distribution at pop prev threshold point
+    mutate(zg=dnorm(qnorm(K))) %>%
+    # call sample prevalence P
+    mutate(P=samp_prev) %>%
+    # liability scale h2
+    mutate(h2_liab=h2_obs * K^2 * ( 1 - K)^2 / P / (1-P) / zg^2,
+           h2_liab_se=h2_obs_se * K^2 * ( 1 - K)^2 / P / (1-P) / zg^2)
+    return(meta_qc_h2_liab_pop)
+}) %>%
+mutate(h2_liab_low=h2_liab+qnorm(0.025)*h2_liab_se,
+       h2_liab_upp=h2_liab+qnorm(0.975)*h2_liab_se)
+
+ggplot(meta_qc_h2_liab %>% filter(K==0.1), aes(x=reorder(cohort, h2_liab), y=h2_liab, ymin=h2_liab_low, ymax=h2_liab_upp, group=cohort)) +
+geom_hline(yintercept=c(0, 1), colour='gray') + 
+geom_pointrange(position=position_dodge2()) +
+coord_flip(ylim=c(-0.2, 1.5)) +
+theme_minimal()
+
+```
 
 
 # Genetic covariance intercepts
@@ -395,6 +436,8 @@ corrplot(gcov_int_mat, is.corr=FALSE, diag=FALSE)
 
 rg_mat <- diag(length(cohort_names))
 dimnames(rg_mat) <- list(cohort_names, cohort_names)
+rg_se_mat <- diag(x=0, nrow=length(cohort_names), ncol=length(cohort_names))
+dimnames(rg_se_mat) <- list(cohort_names, cohort_names)
 
 for(i in seq.int(nrow(meta_qc_ldsc_pairs_mdd3))) {
 	cohort1 <- meta_qc_ldsc_pairs_mdd3$cohort1[i]
@@ -407,22 +450,41 @@ for(i in seq.int(nrow(meta_qc_ldsc_pairs_mdd3))) {
 	# if rg is NA, substitute 0 (average)
 
 	rg <- meta_qc_ldsc_pairs_mdd3$rg[i]
+    rg_se <- meta_qc_ldsc_pairs_mdd3$se[i]
 
 	rg_mat[cohort_name1,cohort_name2] <- rg	
 	rg_mat[cohort_name2,cohort_name1] <- rg
+    rg_se_mat[cohort_name1,cohort_name2] <- rg_se
+    rg_se_mat[cohort_name2,cohort_name1] <- rg_se
 }
 
 ```
 
-```{r rg_mat_corr, fig.width=9, fig.height=9}
+```{r rg_mat_corr, fig.width=12, fig.height=12}
 
 rg_mat_1 <- rg_mat
 rg_mat_1[which(rg_mat_1 > 1)] <- 1
 rg_mat_1[which(rg_mat_1 < -1)] <- -1
 
+rg_lowCI <- rg_mat + qnorm(0.025)*rg_se_mat
+rg_uppCI <- rg_mat + qnorm(0.975)*rg_se_mat
+
+rg_lowCI_1 <- rg_lowCI
+rg_lowCI_1[which(rg_lowCI_1 > 1)] <- 1
+rg_lowCI_1[which(rg_lowCI_1 < -1)] <- -1
+
+rg_uppCI_1 <- rg_uppCI
+rg_uppCI_1[which(rg_uppCI_1 > 1)] <- 1
+rg_uppCI_1[which(rg_uppCI_1 < -1)] <- -1
+
+
+
+
 has_rg_idx <- rowSums(!is.na(rg_mat_1)) > 1
 
-corrplot(rg_mat_1[has_rg_idx,has_rg_idx], na.label='.')
-
+corrplot.mixed(rg_mat_1[has_rg_idx,has_rg_idx],
+               lowCI=rg_lowCI_1[has_rg_idx,has_rg_idx],
+               uppCI=rg_uppCI_1[has_rg_idx,has_rg_idx],
+               na.label='.', tl.pos='lt', diag='u', plotCI='rect', number.cex=0.75)
 
 ```

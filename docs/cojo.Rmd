@@ -3,9 +3,20 @@ title: Conditional and Joint Analysis
 output: github_document
 ---
 
-```{r}
+```{r warning=FALSE, message=FALSE}
+library(rtracklayer)
+library(readxl)
+library(readr)
+library(dplyr)
+library(stringr)
+```
+
+
+```{r echo=FALSE}
 qc <- snakemake@params$qc
 ```
+
+# Methods
 
 We ran a [conditional and joint analysis](https://www.nature.com/articles/ng.2213) using [GCTA](https://cnsgenomics.com/software/gcta/#COJO) to refine the list of independent loci.
 
@@ -16,6 +27,187 @@ We ran a [conditional and joint analysis](https://www.nature.com/articles/ng.221
 - SNPs from these regions were extracted filtered to unrelated of self- and genotype-identified European ancestry participants from UK Biobank.
 - A conditional analysis was performed on each region using the filtered sumstats superimposed on the UK Biobank LD structure.
 
+## Previous sumstats
+
+Variants from [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions) and [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2)
+
+```{r}
+howard <- read_excel(snakemake@input$howard, skip=2, n_max=102)
+levey <- read_tsv(snakemake@input$levey, col_types=cols(CHR.BP=col_character()))
+```
+
+# Results
+
+## COJO SNP and region counts
+
+List of clumped and COJO SNPs and regions
+
 ```{r echo=F, results='asis'}
 cat(paste('- ', readLines(snakemake@input$log)[-1], '\n'))
 ```
+
+Load list of COJO SNPs
+```{r}
+cojo <- read_tsv(snakemake@input$cojo)
+```
+
+## Clumped results
+
+Clumped results from Ricopili and METACARPA for comparison
+
+```{r}
+rp <- read_table2(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
+mc <- read_table2(snakemake@input$mc_clump) %>% filter(P <= 5e-8)
+```
+
+## Genomic ranges
+
+Construct genomic range objects so that SNPs and regions can be intersected and compared.
+
+```{r}
+cojo_gr <- with(cojo, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=range.right), SNP=SNP))
+rp_gr <- with(rp, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=range.right), SNP=SNP))
+mc_gr <- with(mc, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=range.right), SNP=SNP))
+howard_gr <- with(howard, GRanges(seqnames=Chromosome, ranges=IRanges(start=`Postion (bp)`, width=1)))
+levey_gr <- with(levey, GRanges(seqnames=CHR, ranges=IRanges(start=BP, width=1)))
+```
+
+
+```{r}
+rp_mc_overlaps <- findOverlaps(rp_gr, mc_gr)
+
+rp_and_mc <- rp %>% slice(unique(rp_mc_overlaps@from))
+rp_not_mc <- rp %>% slice(-unique(rp_mc_overlaps@from))
+
+```
+
+## GWAS catalog
+
+Tally entries in the GWAS catalog for each region
+
+```{r}
+
+parse_catalog_entry <- function(catalog_entry) {
+    # extract LD and RSID from first element
+    ld_snp_match <- str_match(catalog_entry[1], "\\((.+)\\)(rs[[:digit:]]+)")
+    ld <- as.numeric(ld_snp_match[,2])
+    snp <- ld_snp_match[,3]
+    # parse rest of elements into phenotype(PubMed ID)(P-value)
+    phenotype_matches <- str_match(catalog_entry[-1], "(.+)\\(([[:digit:]]+)\\)\\((.+)\\)")
+    phenotypes <- phenotype_matches[,2]
+    pubmeds <- as.numeric(phenotype_matches[,3])
+    p_values <- as.numeric(phenotype_matches[,4])
+    
+    return(data.frame(ld, catalogSNP=snp, phenotype=phenotypes, pubmed_id=pubmeds, P=p_values))
+}
+
+
+rp_gwas_catalog_entries <-
+plyr::ddply(filter(rp, gwas_catalog_span.6 != '-'), ~SNP, function(rp_entry) {
+    # get GWAS catalog cell
+    gwas_catalog <- rp_entry$gwas_catalog_span.6
+    # split out into catalog entries (separated by /, removing first empty element)
+    catalog_entries <- str_split(gwas_catalog, "/")[[1]]
+    catalog_entries_complete <- catalog_entries[which(catalog_entries != "")]
+    # split SNP entries by ";"
+    catalog_entries_list <- str_split(catalog_entries_complete, ";")
+    # parse each entry
+    catalog_entries_df <- plyr::ldply(catalog_entries_list, parse_catalog_entry)
+    return(catalog_entries_df)
+}) %>% as_tibble()
+
+```
+
+# Parse gene list
+
+```{r}
+
+rp_genes_dist <- 
+plyr::ddply(filter(rp, `genes.6.50kb(dist2index)` != '-'), ~SNP, function(rp_entry) {
+    genes_dist <- rp_entry$`genes.6.50kb(dist2index)`
+    genes_dist_list <- str_split(genes_dist, ',')[[1]]
+    genes_dist_match <- str_match(genes_dist_list, "(.+)\\((.+)\\)")
+    return(data.frame(gene=genes_dist_match[,2], dist2index=as.numeric(genes_dist_match[,3])))
+}) %>% as_tibble()
+
+```
+
+## Comparison to previous findings
+
+Find which COJO regions overlap with Howard
+
+```{r}
+cojo_howard_overlaps <- findOverlaps(cojo_gr, howard_gr)
+cojo_howard_overlaps
+```
+
+Count number of regions in Howard that overlap:
+
+```{r}
+howard %>% slice(unique(cojo_howard_overlaps@to)) %>% count()
+```
+
+Find which COJO regions overlap with Levey
+
+```{r}
+cojo_levey_overlaps <- findOverlaps(cojo_gr, levey_gr)
+cojo_levey_overlaps
+```
+
+Count number of regions in Levey that overlap:
+
+```{r}
+levey %>% slice(unique(cojo_levey_overlaps@to)) %>% count()
+```
+
+```{r}
+cojo_known <- cojo %>% slice(unique(cojo_levey_overlaps@from))
+
+catalog_known <- rp_gwas_catalog_entries %>% filter(SNP %in% cojo_known$SNP) %>% count(phenotype) %>% arrange(desc(n))
+catalog_known
+```
+
+Newly discovered regions
+
+```{r}
+cojo_new <- cojo %>% slice(unique(-cojo_levey_overlaps@from)) %>% arrange(P)
+cojo_new
+```
+
+```{r}
+rp_gwas_catalog_entries %>% filter(SNP %in% cojo_new$SNP) %>% count(phenotype) %>% arrange(desc(n)) %>% filter(!phenotype %in% catalog_known$phenotype)
+```
+
+```{r}
+rp_genes_dist %>% filter(SNP %in% cojo_new$SNP) %>% group_by(SNP) %>% filter(dist2index == min(dist2index)) %>% ungroup() %>% select(gene) %>% distinct()
+```
+
+## Comparison between pre-COJO and post-COJO
+
+```{r}
+
+rp_genes_dist %>% filter(!SNP %in% cojo$SNP)
+
+```
+
+## Comparison between Ricopili and METACARPA clumped results
+
+Shared regions and regions not significant in the METACARPA analysis.
+
+```{r}
+rp_and_mc_phenotypes <- rp_gwas_catalog_entries %>% filter(SNP %in% rp_and_mc$SNP) %>% count(phenotype) %>% arrange(desc(n))
+rp_not_mc_phenotypes <- rp_gwas_catalog_entries %>% filter(SNP %in% rp_not_mc$SNP) %>% count(phenotype) %>% arrange(desc(n))
+
+rp_not_mc_phenotypes %>% filter(!phenotype %in% rp_and_mc_phenotypes$phenotype)
+```
+
+```{r}
+
+rp_genes_dist %>% group_by(SNP) %>% filter(dist2index == min(dist2index)) %>% ungroup() %>% select(gene) %>% distinct()
+
+rp_genes_dist %>% filter(SNP %in% rp_and_mc$SNP) %>% group_by(SNP) %>% filter(dist2index == min(dist2index)) %>% ungroup() %>% select(gene) %>% distinct()
+
+rp_genes_dist %>% filter(SNP %in% rp_not_mc$SNP) %>% group_by(SNP) %>% filter(dist2index == min(dist2index)) %>% ungroup() %>% select(gene) %>% distinct()
+
+```
+
