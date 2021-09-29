@@ -39,3 +39,4 @@ Plans for analyses to include in primary and who is involved:
   - latent-causal analysis ([gLVC](https://github.com/lukejoconnor/LCV)) _(Pathak)_
   - MR-PRESSO _(Lin)_
 - Cross-ancestries prediction _(Meng, Huang, Chundru)_
+- Adolescence and developmental trajectories  _(Kwong)_

@@ -24,13 +24,13 @@ rule cojo_qctool:
 
 # QC sumstats to MAF <= 0.01, INFO >= 0.6
 rule cojo_daner_qc:
-    input: "results/distribution/daner_{analysis}.rp.gz"
-    output: "results/cojo/daner_{analysis}.rp.qc.gz"
+    input: "results/distribution/daner_{analysis}.gz"
+    output: "results/cojo/daner_{analysis}.qc.gz"
     shell: "zcat {input} | awk '{{if(NR == 1 || ($7 >= 0.01 && $7 <= 0.99 && $8 >= 0.6)) {{print $0}}}}' | gzip -c > {output}"
     
 # sumstats for input into GCTA
 rule cojo_ma:
-    input: "results/cojo/daner_{analysis}.rp.qc.gz"
+    input: "results/cojo/daner_{analysis}.qc.gz"
     output: "results/cojo/{analysis}.ma"
     shell: """zcat {input} | awk '{{if(NR == 1) {{print "SNP", "A1", "A2", "freq", "b", "se", "p", "N"}} else {{print $2, $4, $5, $7, log($9), $10, $11, 2*$19}}}}' > {output}"""
     
@@ -40,6 +40,12 @@ rule cojo_regions:
     input: "results/distribution/daner_{analysis}.gz.p4.clump.areator.sorted.1mhc"
     output: "results/cojo/{analysis}.regions"
     shell: "cat {input} | awk 'NR > 1 && $4 <= 5e-8 {{print $2, $14, $15}}' > {output}"
+
+# regularise analysis name of "rp" version of clumped file
+rule cojo_regions_rp:
+    input: "results/distribution/daner_{analysis}.gz.p4.clump.areator.sorted.1mhc"
+    output: "results/distribution/daner_{analysis}.rp.gz.p4.clump.areator.sorted.1mhc"
+    shell: "cp {input} {output}"
 
 # symlink to UKB bgen and sample files
 rule cojo_ukb_bgen:
@@ -120,14 +126,14 @@ def cojo_parse_regions(regions_file, kb=50):
 # Extract region from the BGEN file
 rule cojo_region_bgen:
     input: bgen="resources/cojo/ukb/ukb_imp_chr{chr}_v3.bgen", bgi="resources/cojo/ukb/ukb_imp_chr{chr}_v3.bgen.bgi", regions="results/cojo/{analysis}.regions"
-    output: "results/cojo/{analysis}/{chr}:{start}-{stop}.bgen"
+    output: temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bgen")
     params: chr0=lambda wildcards: wildcards.chr.zfill(2)
     conda: "../envs/cojo.yaml"
     shell: "bgenix -g {input.bgen} -incl-range {params.chr0}:{wildcards.start}-{wildcards.stop} > {output}"
     
 # Extract SNPs for each region
 rule cojo_snplists:
-    input: "results/distribution/daner_{analysis}.rp.gz"
+    input: "results/distribution/daner_{analysis}.gz"
     output: "results/cojo/{analysis}/{chr}:{start}-{stop}.snplist"
     shell: """zcat {input} | awk '{{if(NR > 1 && $1 == {wildcards.chr} && {wildcards.start} <= $3 && $3 <= {wildcards.stop}) {{print $2}}}}' > {output}"""
     
@@ -154,23 +160,37 @@ rule cojo_slct:
 # parse regions from the region list file to determine inputs
 # cojo_parse_regions() returns a list ["CHR:START-STOP", "CHR:START-STOP", ...]
 rule cojo_regions_analyse:
-    input: cojo=lambda wildcards: expand("results/cojo/{analysis}/{region}.jma.cojo", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), bim=lambda wildcards: expand("results/cojo/{analysis}/{region}.bim", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), daner="results/cojo/daner_{analysis}.rp.qc.gz", clump="results/distribution/daner_{analysis}.gz.p4.clump.areator.sorted.1mhc"
+    input: cojo=lambda wildcards: expand("results/cojo/{analysis}/{region}.jma.cojo", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), bim=lambda wildcards: expand("results/cojo/{analysis}/{region}.bim", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), daner="results/cojo/daner_{analysis}.qc.gz", clump="results/distribution/daner_{analysis}.gz.p4.clump.areator.sorted.1mhc"
     conda: "../envs/meta.yaml"
     log: "logs/cojo/{analysis}.log"
-    output: "results/cojo/{analysis}.cojo"
+    output: cojo="results/cojo/{analysis}.cojo", singletons="results/cojo/{analysis}.singleton.cojo"
     script: "../scripts/meta/cojo.R"
     
 rule cojo_table_eur:
-    input: expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.cojo", version=analysis_version)
+    input: expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.rp.cojo", version=analysis_version)
     output: "docs/tables/meta_snps_{cohorts}_{ancestries}.cojo.txt"
     shell: "cp {input} {output}"
-
+    
+# run all COJO analyses
 rule cojo_analyse:
     input: "docs/tables/meta_snps_full_eur.cojo.txt"
     
+# copy COJO log into the repository
+rule cojo_log:
+    input: expand("logs/cojo/pgc_mdd_full_eur_hg19_v{version}.rp.log", version=analysis_version)
+    output: "docs/objects/meta_snps_full_eur.cojo.log"
+    shell: "cp {input} {output}"
+    
+# download top SNPs from Howard 2019
+rule cojo_howard:
+    input: HTTP.remote("https://static-content.springer.com/esm/art%3A10.1038%2Fs41593-018-0326-7/MediaObjects/41593_2018_326_MOESM3_ESM.xlsx", keep_local=False)
+    output: "resources/sumstats/howard2019_table_s1.xlsx"
+    shell: "cp {input} {output}"
+        
+    
 rule cojo_docs:
-    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log=expand("logs/cojo/pgc_mdd_full_eur_hg19_v{version}.log", version=analysis_version), rmd="docs/cojo.Rmd"
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", howard="resources/sumstats/howard2019_table_s1.xlsx", levey="resources/sumstats/levey2021_223snps.txt", rp_clump="results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.gz.p4.clump.areator.sorted.1mhc", mc_clump="results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.mc.gz.p4.clump.areator.sorted.1mhc", rmd="docs/cojo.Rmd"
     params: qc=meta_qc_params
     output: "docs/cojo.md"
-    conda: "../envs/reports.yaml"
+    conda: "../envs/meta.yaml"
     script: "../docs/cojo.Rmd"
