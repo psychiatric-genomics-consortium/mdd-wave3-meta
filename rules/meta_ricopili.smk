@@ -3,6 +3,16 @@
 ###################################
 
 ###
+### Cohorts sets
+###
+    
+# cohort sets for analysts
+cohorts_analyst = ["full", "noUKBB", "noALSPAC"]
+
+# cohort sets for public
+cohorts_public = ["no23andMe"]
+
+###
 ### Split and X
 ###
 
@@ -130,28 +140,4 @@ rule postimp_clump:
 	output: touch("results/meta/{cohorts}_{ancestries}_v{version}.reclump.done")
 	shell: "cd results/meta; clump_nav3 --pfile {params.pfile} --refdir {params.refdir}/pop_{params.popname} --clu_p1 {params.p1} --clu_p2 {params.p2} --clu_r2 {params.r2} --clu_window {params.window} --popname {params.popname} --outname {params.outname} --debug --serial --sepa 16"
 	
-###
-### Cohorts sets
-###
-    
-# cohort sets for analysts
-cohorts_analyst = ["full", "noUKBB", "noALSPAC"]
 
-# cohort sets for public
-cohorts_public = ["no23andMe"]
-
-###
-### Post processing
-###
-
-# check Ricopili output for complete rows and duplicates
-rule postimp_rp:
-	input: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.gz"
-	log: "logs/meta/distribution/{analysis}.rp.log"
-	conda: "../envs/meta.yaml"
-	output: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.rp.gz"
-	script: "../scripts/meta/rp.R"
-	
-# inputs for postimp_rp
-rule postimp_rp_all:
-	input: expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.rp.gz", cohorts=cohorts_analyst, ancestries=['eur'], version=analysis_version)
