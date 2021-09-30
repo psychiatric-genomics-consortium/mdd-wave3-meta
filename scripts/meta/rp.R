@@ -1,5 +1,4 @@
-# Check Ricopili output
-
+# Check and merge Ricopili output
 library(dplyr)
 library(readr)
 library(rtracklayer)
@@ -9,8 +8,12 @@ library(stringr)
 log_path <- snakemake@log[[1]]
 
 # read daner file
-daner_gz <- snakemake@input[[1]]
-daner <- read_table2(daner_gz, col_types=cols("SNP"=col_character()))
+daner_gz <- snakemake@input$autosome
+daner <- read_tsv(daner_gz, col_types=cols("SNP"=col_character()))
+
+# read daner X file
+daner_x_gz <- snakemake@input$xsome
+daner_x <- read_tsv(daner_x_gz, col_types=cols("SNP"=col_character()))
 
 # remove problem rows
 if(nrow(problems(daner)) > 0) {
@@ -21,6 +24,21 @@ if(nrow(problems(daner)) > 0) {
 	daner_patch <- daner %>%
 		arrange(CHR, BP)
 }
+
+if(nrow(problems(daner_x)) > 0) {
+    daner_x_patch <- daner_x %>%
+        dplyr::slice(-problems(daner_x)$row) %>%
+        arrange(CHR, BP)
+} else {
+    daner_x_patch <- daner_x %>%
+        arrange(CHR, BP)
+}
+
+# merge autosome and X together
+
+# update X column names
+names(daner_x_patch)[6:7] <- names(daner_patch)[6:7]
+daner_complete <- bind_rows(daner_patch, daner_x_patch)
 
 # check for duplicate SNPs and CPIDs
 
