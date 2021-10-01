@@ -8,7 +8,7 @@
 ##
 ## Cohort lists. List of cohort + subcohort/release pairs
 ## 
-cohorts_eur = [["MDD49", "29w2_20w3_1504"], 
+cohorts_eur = [["MDD49", "29w2_20w3_X28w2_19w3"], 
 ["23andMe", "v7_2_202012"],      
 ["deCODE", "DEPALL_FINAL_WHEAD"],
 ["GenScot", "SCID_0721a"],            
