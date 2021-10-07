@@ -252,8 +252,8 @@ rule pre_munge:
   conda:
     "../envs/twas.yaml"
   shell:
-    "zcat {input} | cut -f 1-5,8-11,19 | sed -e 's/Neff_half/N/g' | gzip -c > {output}"
-
+    "Rscript scripts/twas/pre_munge.R"
+    
 # munge sumstats using FOCUS munge function
 rule focus_munge:
   input:
@@ -271,6 +271,7 @@ rule focus_munge:
 ###
 
 # Calculate median effective sample size
+# FUSION requires this parameter to be specified despite having the N column in the sumstats
 rule retrieve_Neff:
   input:
     rules.focus_munge.output
