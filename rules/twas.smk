@@ -55,15 +55,6 @@ rule install_twas_plotter:
   shell:
     "git clone git@github.com:opain/TWAS-plotter.git {output}"
 
-# Install TWAS-GSEA
-rule install_twas_gsea:
-  output:
-    directory("resources/twas/TWAS-GSEA/")
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "git clone git@github.com:opain/TWAS-GSEA.git {output}"
-
 # Install SNP-weights pipeline repo
 rule install_snp_weight_pipe:
   output:
@@ -138,35 +129,6 @@ rule download_psychENCODE_weights:
     "../envs/twas.yaml"
   shell:
     "wget -O resources/twas/psychencode_data/PEC_TWAS_weights.tar.gz http://resource.psychencode.org/Datasets/Derived/PEC_TWAS_weights.tar.gz; mkdir -p resources/twas/psychencode_data/SNP-weights/PEC_TWAS_weights; tar xvzf resources/twas/psychencode_data/PEC_TWAS_weights.tar.gz -C resources/twas/psychencode_data/SNP-weights/PEC_TWAS_weights; rm resources/twas/psychencode_data/PEC_TWAS_weights.tar.gz"
-
-# Download gene-sets
-rule download_c2_sets:
-  output:
-    "resources/twas/gsea/c2.all.v7.4.entrez.gmt"
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "wget -O resources/twas/gsea/c2.all.v7.4.entrez.gmt --no-check-certificate 'https://docs.google.com/uc?export=download&id=1msbXzWTqBNa3pxVqzOwCjb7SSgpXykik'"
-    
-rule download_c5_sets:
-  output:
-    "resources/twas/gsea/c5.all.v7.4.entrez.gmt"
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "wget -O resources/twas/gsea/c5.all.v7.4.entrez.gmt --no-check-certificate 'https://docs.google.com/uc?export=download&id=1lzpZP4TtZjIr94rKjNbwWQYLgH7u70gL'"
-    
-# Combine gene-sets into a single file
-rule combine_gene_sets:
-  input:
-    c2="resources/twas/gsea/c2.all.v7.4.entrez.gmt", 
-    c5="resources/twas/gsea/c5.all.v7.4.entrez.gmt"
-  output:
-    "resources/twas/gsea/c2_and_c5.all.v7.4.entrez.gmt"
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "cat {input.c2} {input.c5} > resources/twas/gsea/c2_and_c5.all.v7.4.entrez.gmt"
 
 # Download MESC expression scores
 rule download_mesc_score:
@@ -559,93 +521,6 @@ rule process_high_conf:
     "../envs/twas.yaml"
   shell:
     "Rscript scripts/twas/create_high_conf.R"
-
-########
-# TWAS-GSEA (non-directional)
-########
-
-# Split twas results by tissue type
-rule prep_for_gsea:
-  input: 
-    rules.combine_twas_res.output
-  output:
-    "results/twas/twas_results/PGC_MDD3_twas_BLOOD_GW.txt",
-    "results/twas/twas_results/PGC_MDD3_twas_BRAIN_GW.txt",
-    "results/twas/twas_results/PGC_MDD3_twas_HPA_GW.txt",
-    "results/twas/twas_results/PGC_MDD3_twas_HPT_GW.txt"
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "Rscript scripts/twas/prep_for_gsea.R"
-
-# Run twas-gsea across results
-rule run_twas_gsea:
-  resources: 
-    mem_mb=30000, 
-    cpus=3
-  input: 
-    ss="results/twas/twas_results/PGC_MDD3_twas_{set}_GW.txt", 
-    gmt=rules.combine_gene_sets.output,
-    process_twas=rules.process_twas.output,
-    twas_gsea=rules.install_twas_gsea.output
-  output:
-    "results/twas/gsea/PGC_MDD3_twas_{set}_GSEA.log"
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "Rscript {input.twas_gsea}/TWAS-GSEA.V1.2.R \
-      --twas_results {input.ss} \
-      --pos results/twas/twas_results/PGC_MDD3_twas.pos \
-      --gmt_file {input.gmt} \
-      --qqplot F \
-      --expression_ref /users/k1806347/brc_scratch/Analyses/Lorenza/Clean/TWAS-GSEA/FUSION_PsychENCODE_FeaturePredictions.csv.gz \
-      --self_contained F \
-      --min_r2 0.05 \
-      --linear_p_thresh 1 \
-      --n_cores 3 \
-      --competitive T \
-      --covar GeneLength,NSNP \
-      --output results/twas/gsea/PGC_MDD3_twas_{wildcards.set}_GSEA"
-
-rule twas_gsea:
-    input: expand("results/twas/gsea/PGC_MDD3_twas_{set}_GSEA.log", set=["Adrenal_Gland","Brain_Amygdala","Brain_Anterior_cingulate_cortex_BA24","Brain_Caudate_basal_ganglia","Brain_Cerebellar_Hemisphere","Brain_Cerebellum","Brain_Cortex","Brain_Frontal_Cortex_BA9","Brain_Hippocampus","Brain_Hypothalamus","Brain_Nucleus_accumbens_basal_ganglia","Brain_Putamen_basal_ganglia","Brain_Substantia_nigra","CMC.BRAIN.RNASEQ","CMC.BRAIN.RNASEQ_SPLICING","NTR.BLOOD.RNAARR","Pituitary","Thyroid","Whole_Blood","YFS.BLOOD.RNAARR","AllTissues","BRAIN","BLOOD","HPA","HPT"])
-
-
-########
-# TWAS-GSEA (directional)
-########
-
-# Run twas-gsea across results
-rule run_twas_gsea_directional:
-  resources: 
-    mem_mb=30000, 
-    cpus=3
-  input: 
-    ss="results/twas/twas_results/PGC_MDD3_twas_{set}_GW.txt", 
-    gmt=rules.combine_gene_sets.output,
-    process_twas=rules.process_twas.output,
-    twas_gsea=rules.install_twas_gsea.output
-  output:
-    "results/twas/gsea_directional/PGC_MDD3_twas_{set}_GSEA_directional.log"
-  conda:
-    "../envs/twas.yaml"
-  shell:
-    "Rscript /scratch/groups/biomarkers-brc-mh/TWAS_resource/FUSION/Scripts/Git/opain/TWAS-GSEA/TWAS-GSEA.V1.2.directional.R \
-      --twas_results {input.ss} \
-      --pos results/twas/twas_results/PGC_MDD3_twas.pos \
-      --gmt_file {input.gmt} \
-      --qqplot F \
-      --expression_ref /users/k1806347/brc_scratch/Analyses/Lorenza/Clean/TWAS-GSEA/FUSION_PsychENCODE_FeaturePredictions.csv.gz \
-      --self_contained F \
-      --min_r2 0.05 \
-      --linear_p_thresh 1 \
-      --n_cores 3 \
-      --competitive T \
-      --covar GeneLength,NSNP \
-      --output results/twas/gsea_directional/PGC_MDD3_twas_{wildcards.set}_GSEA_directional"
-
-rule twas_gsea_directional:
-    input: expand("results/twas/gsea_directional/PGC_MDD3_twas_{set}_GSEA_directional.log", set=["Adrenal_Gland","Brain_Amygdala","Brain_Anterior_cingulate_cortex_BA24","Brain_Caudate_basal_ganglia","Brain_Cerebellar_Hemisphere","Brain_Cerebellum","Brain_Cortex","Brain_Frontal_Cortex_BA9","Brain_Hippocampus","Brain_Hypothalamus","Brain_Nucleus_accumbens_basal_ganglia","Brain_Putamen_basal_ganglia","Brain_Substantia_nigra","CMC.BRAIN.RNASEQ","CMC.BRAIN.RNASEQ_SPLICING","NTR.BLOOD.RNAARR","Pituitary","Thyroid","Whole_Blood","YFS.BLOOD.RNAARR","AllTissues","BRAIN","BLOOD","HPA","HPT"])
 
 ########
 # Run MESC
