@@ -1,0 +1,182 @@
+---
+title: "SMR using eQTLGen"
+author: "Oliver Pain"
+date: "04/10/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Download SMR
+
+```{bash, eval=F, echo=T}
+cd /users/k1806347/brc_scratch/Software
+wget -c --tries=0 --read-timeout=20 --no-check-certificate https://cnsgenomics.com/software/smr/download/smr_Linux.zip
+mv smr_Linux.zip.1 smr_Linux.zip
+unzip smr_Linux.zip
+rm smr_Linux.zip
+```
+
+# Download eQTLGen data in SMR formatv
+
+```{bash, echo=T, eval=F}
+# Download eQTLGen data
+cd /users/k1806347/brc_scratch/Data
+mkdir -p eQTLGen/SMR
+cd eQTLGen/SMR
+wget https://molgenis26.gcc.rug.nl/downloads/eqtlgen/cis-eqtl/SMR_formatted/cis-eQTL-SMR_20191212.tar.gz
+tar -xvzf cis-eQTL-SMR_20191212.tar.gz
+rm cis-eQTL-SMR_20191212.tar.gz
+gunzip *
+```
+
+# Format GWAS for SMR
+
+```{R, eval=F, echo=T}
+library(data.table)
+gwas<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp.gz')
+
+gwas<-gwas[,c('SNP','A1','A2','FRQ_A_511755','FRQ_U_3072803','OR','SE','P','Nco','Nca'), with=F]
+
+gwas$FREQ<-((gwas$FRQ_A_511755 * gwas$Nca) + (gwas$FRQ_U_3072803 * gwas$Nco)) / (gwas$Nca + gwas$Nco)
+gwas$FRQ_A_511755<-NULL
+gwas$FRQ_U_3072803<-NULL
+gwas$BETA<-log(gwas$OR)
+gwas$OR<-NULL
+gwas$N<-gwas$Nca+gwas$Nco
+
+gwas<-gwas[,c('SNP','A1','A2','FREQ','BETA','SE','P','N'), with=F]
+names(gwas)<-c('SNP','A1','A2','freq','b','se','p','N')
+
+fwrite(gwas, '/users/k1806347/brc_scratch/Software/mdd-meta/results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_COJO.txt', quote=F, na='NA', sep=' ')
+
+```
+
+# Run SMR
+
+```{bash, echo=T, eval=F}
+work_dir=/users/k1806347/brc_scratch/Software/mdd-meta
+
+mkdir ${work_dir}/results/twas/eqtlgen_smr
+
+for chr in $(seq 1 22); do
+/users/k1806347/brc_scratch/Software/smr_Linux \
+  --bfile /users/k1806347/brc_scratch/Software/mdd-meta/resources/twas/1kg/all_phase3.chr${chr} \
+  --keep /users/k1806347/brc_scratch/Software/mdd-meta/resources/twas/1kg/super_pop_keep_files/EUR_samples.keep \
+  --gwas-summary ${work_dir}/results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_COJO.txt \
+  --beqtl-summary /users/k1806347/brc_scratch/Data/eQTLGen/SMR/cis-eQTLs-full_eQTLGen_AF_incl_nr_formatted_20191212.new.txt_besd-dense \
+  --out ${work_dir}/results/twas/eqtlgen_smr/eqtlgen_smr_res_chr${chr} \
+  --thread-num 5 
+done
+
+```
+
+## Process SMR results
+
+```{R, eval=F, echo=T}
+library(data.table)
+
+smr_res<-NULL
+for(i in 1:22){
+  smr_res<-rbind(smr_res,fread(paste0('/users/k1806347/brc_scratch/Software/mdd-meta/results/twas/eqtlgen_smr/eqtlgen_smr_res_chr',i,'.smr')))
+}
+
+nrow(smr_res) # 15668
+
+# Insert gene names
+# The Ensembl version 71 (used by eQTLGen) is not available on biomaRt so 89 genes do not have IDs
+# To get a perfect match, download the significant eQTL table to link Ensembl IDs to gene names
+setwd('/users/k1806347/brc_scratch/Software/mdd-meta/resources/twas')
+system(paste0('wget https://molgenis26.gcc.rug.nl/downloads/eqtlgen/cis-eqtl/2019-12-11-cis-eQTLsFDR0.05-ProbeLevel-CohortInfoRemoved-BonferroniAdded.txt.gz'))
+eqtlres<-fread('2019-12-11-cis-eQTLsFDR0.05-ProbeLevel-CohortInfoRemoved-BonferroniAdded.txt.gz')
+eqtlres<-eqtlres[!duplicated(eqtlres$Gene),]
+eqtlres<-eqtlres[,c('Gene','GeneSymbol'), with=F]
+system(paste0('rm 2019-12-11-cis-eQTLsFDR0.05-ProbeLevel-CohortInfoRemoved-BonferroniAdded.txt.gz'))
+setwd('/users/k1806347/brc_scratch/Software/mdd-meta')
+
+smr_res<-merge(smr_res, eqtlres, by.x='probeID', by.y='Gene', all.x=T)
+
+# Estimate Bonferroni significance threshold and correct p-values
+0.05/nrow(smr_res) # 3.191218e-06
+smr_res$p_SMR_bonf<-p.adjust(smr_res$p_SMR, method="bonferroni")
+
+smr_res_sig<-smr_res[smr_res$p_SMR < (0.05/nrow(smr_res)),]
+nrow(smr_res_sig) # 273
+
+# Remove genes with significant HEIDI (p<0.05)
+smr_res_sig_noHet<-smr_res_sig[smr_res_sig$p_HEIDI > 0.05,]
+nrow(smr_res_sig_noHet) # 65
+
+# Save the full SMR results
+write.csv(smr_res, '/users/k1806347/brc_scratch/Software/mdd-meta/results/twas/eqtlgen_smr/eqtlgen_smr_res_GW_withIDs.csv', row.names=F, quote=F)
+
+```
+
+
+## Compare SMR results with TWAS blood results
+
+```{R, eval=F, echo=T}
+library(data.table)
+
+# Read in the SMR results
+smr_res<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/results/twas/eqtlgen_smr/eqtlgen_smr_res_GW_withIDs.csv')
+  
+# Read in the TWAS results
+twas_res<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/results/twas/twas_results/PGC_MDD3_twas_AllTissues_CLEAN.txt')
+
+# Subset the blood panels
+twas_res_blood<-twas_res[grepl('YFS|NTR|Blood', twas_res$PANEL_clean)]
+
+# Count the number of unique and shared significant associations
+sum(smr_res$GeneSymbol[smr_res$p_SMR_bonf < 0.05] %in% twas_res_blood$ID[twas_res_blood$TWAS.P < 1.56E-06])
+sum(!(smr_res$GeneSymbol[smr_res$p_SMR_bonf < 0.05] %in% twas_res_blood$ID[twas_res_blood$TWAS.P < 1.56E-06]))
+sum(!(twas_res_blood$ID[twas_res_blood$TWAS.P < 1.56E-06] %in% smr_res$GeneSymbol[smr_res$p_SMR_bonf < 0.05]))
+
+# Count the number of unique and shared significant colocalised associations
+sum(smr_res$GeneSymbol[smr_res$p_SMR_bonf < 0.05 & smr_res$p_HEIDI > 0.05] %in% twas_res_blood$ID[twas_res_blood$TWAS.P < 1.56E-06 & twas_res_blood$COLOC.PP4 > 0.8])
+
+sum(!(smr_res$GeneSymbol[smr_res$p_SMR_bonf < 0.05 & smr_res$p_HEIDI > 0.05] %in% twas_res_blood$ID[twas_res_blood$TWAS.P < 1.56E-06 & twas_res_blood$COLOC.PP4 > 0.8]))
+
+sum(!(twas_res_blood$ID[twas_res_blood$TWAS.P < 1.56E-06 & twas_res_blood$COLOC.PP4 > 0.8] %in% smr_res$GeneSymbol[smr_res$p_SMR_bonf < 0.05 & smr_res$p_HEIDI > 0.05]))
+
+# Merge the results
+both<-merge(twas_res_blood, smr_res, by.x='ID', by.y='GeneSymbol')
+
+cor(both$b_SMR, both$TWAS.Z) # 0.5273181
+
+both[(both$TWAS.P < 1.56E-06 & both$COLOC.PP4 > 0.8) & !(both$p_SMR_bonf < 0.05 & both$p_HEIDI > 0.05),]
+
+for_plot<-list(
+  TWAS_P=twas_res_blood$ID[twas_res_blood$TWAS.P < 1.56E-06],
+  COLOC=twas_res_blood$ID[which(twas_res_blood$TWAS.P < 1.56E-06 & twas_res_blood$COLOC.PP4 > 0.8)],
+  SMR_P=smr_res$GeneSymbol[smr_res$p_SMR_bonf < 0.05],
+  HEIDI=smr_res$GeneSymbol[smr_res$p_SMR_bonf < 0.05 & smr_res$p_HEIDI > 0.01]
+)
+
+library(ggvenn)
+ggvenn(
+  for_plot, 
+  fill_color = c("#0073C2FF", "#EFC000FF", "#868686FF", "#CD534CFF"),
+  stroke_size = 0.5, set_name_size = 4
+  )
+dev.off()
+
+for_plot<-list(
+  TWAS=twas_res_blood$ID,
+  SMR=smr_res$GeneSymbol
+)
+
+library(ggvenn)
+ggvenn(
+  for_plot, 
+  fill_color = c("#0073C2FF", "#EFC000FF", "#868686FF", "#CD534CFF"),
+  stroke_size = 0.5, set_name_size = 4
+  )
+dev.off()
+
+```
+
+
+

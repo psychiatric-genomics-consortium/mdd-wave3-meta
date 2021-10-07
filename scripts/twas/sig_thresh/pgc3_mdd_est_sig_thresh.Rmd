@@ -1,0 +1,317 @@
+---
+title: "Estimating transcriptome-wide significance"
+author: "Oliver Pain"
+date: "04/10/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+To help decide the optimal tradeoff between inclusion of many gene expression panels and statistical power to detect associations, we will esitmate the transcriptome-wide significance threshold using difference collections of gene expression panels.
+
+The expression panels can be split into 5 groups:
+
+1. PsychENCODE
+2. CMC
+3. GTEx brain
+4. Non-brain HPA/HPT (Pituitary, Adrenal, Thyroid)
+5. Blood
+
+## Create a file grouping expression panels
+
+```{R, eval=F, echo=T}
+setwd('/mnt/lustre/users/k1806347/Software/mdd-meta')
+
+panels_all<-data.frame(PANEL=c('Adrenal_Gland','Brain_Amygdala','Brain_Anterior_cingulate_cortex_BA24','Brain_Caudate_basal_ganglia','Brain_Cerebellar_Hemisphere','Brain_Cerebellum','Brain_Cortex','Brain_Frontal_Cortex_BA9','Brain_Hippocampus','Brain_Hypothalamus','Brain_Nucleus_accumbens_basal_ganglia','Brain_Putamen_basal_ganglia','Brain_Substantia_nigra','CMC.BRAIN.RNASEQ','CMC.BRAIN.RNASEQ_SPLICING','NTR.BLOOD.RNAARR','Pituitary','Thyroid','Whole_Blood','YFS.BLOOD.RNAARR','PsychENCODE'))
+
+panels_all$GROUP<-NA
+panels_all$GROUP[grepl('PsychENCODE', panels_all$PANEL)]<-'PsychENCODE'
+panels_all$GROUP[grepl('CMC.BRAIN.RNASEQ', panels_all$PANEL)]<-'CMC'
+panels_all$GROUP[grepl('Brain_', panels_all$PANEL)]<-'GTEx_brain'
+panels_all$GROUP[grepl('Thyroid|Adrenal|Pituitary', panels_all$PANEL)]<-'Pitu_Adre_Thry'
+panels_all$GROUP[grepl('YFS|NTR|Blood', panels_all$PANEL)]<-'Blood'
+
+write.table(panels_all, 'scripts/twas/sig_thresh/panel_groups.txt', col.names=T, row.names=F, quote=F)
+
+##
+# Create a file specifying desired combinations
+##
+write.table(paste('PsychENCODE', sep=' '), 'scripts/twas/sig_thresh/panel_group_combinations.txt', col.names=F, row.names=F, quote=F)
+
+write.table(paste('PsychENCODE','CMC', sep=' '), 'scripts/twas/sig_thresh/panel_group_combinations.txt', col.names=F, row.names=F, quote=F, append=T)
+write.table(paste('PsychENCODE','GTEx_brain', sep=' '), 'scripts/twas/sig_thresh/panel_group_combinations.txt', col.names=F, row.names=F, quote=F, append=T)
+write.table(paste('PsychENCODE','CMC','GTEx_brain', sep=' '), 'scripts/twas/sig_thresh/panel_group_combinations.txt', col.names=F, row.names=F, quote=F, append=T)
+
+write.table(paste('PsychENCODE','Pitu_Adre_Thry', sep=' '), 'scripts/twas/sig_thresh/panel_group_combinations.txt', col.names=F, row.names=F, quote=F, append=T)
+write.table(paste('PsychENCODE','CMC','GTEx_brain','Pitu_Adre_Thry', sep=' '), 'scripts/twas/sig_thresh/panel_group_combinations.txt', col.names=F, row.names=F, quote=F, append=T)
+write.table(paste('PsychENCODE','CMC','Pitu_Adre_Thry', sep=' '), 'scripts/twas/sig_thresh/panel_group_combinations.txt', col.names=F, row.names=F, quote=F, append=T)
+write.table(paste('PsychENCODE','GTEx_brain','Pitu_Adre_Thry', sep=' '), 'scripts/twas/sig_thresh/panel_group_combinations.txt', col.names=F, row.names=F, quote=F, append=T)
+
+write.table(paste('PsychENCODE','Blood', sep=' '), 'scripts/twas/sig_thresh/panel_group_combinations.txt', col.names=F, row.names=F, quote=F, append=T)
+write.table(paste('PsychENCODE','CMC','GTEx_brain','Blood', sep=' '), 'scripts/twas/sig_thresh/panel_group_combinations.txt', col.names=F, row.names=F, quote=F, append=T)
+write.table(paste('PsychENCODE','GTEx_brain','Blood', sep=' '), 'scripts/twas/sig_thresh/panel_group_combinations.txt', col.names=F, row.names=F, quote=F, append=T)
+write.table(paste('PsychENCODE','CMC','Blood', sep=' '), 'scripts/twas/sig_thresh/panel_group_combinations.txt', col.names=F, row.names=F, quote=F, append=T)
+
+write.table(paste('PsychENCODE','CMC','GTEx_brain','Pitu_Adre_Thry','Blood', sep=' '), 'scripts/twas/sig_thresh/panel_group_combinations.txt', col.names=F, row.names=F, quote=F, append=T)
+
+```
+
+## Run null TWAS
+
+Run TWAS using predicted expression in EUR 1KG reference and random phenotype, collecting the minimum p-value each time. Collect the mimumum p-value when using each combination of panel groups. To run this in parallel will create an R script to do this.
+
+```{R, eval=F, echo=T}
+#!/usr/bin/Rscript
+###############################################################
+# Estimate transcriptome-wide significance threshold for PGC3 MDD TWAS
+###############################################################
+
+suppressMessages(library("optparse"))
+
+option_list = list(
+make_option("--output", action="store", default=NA, type='character',
+	help="output name [required]"),
+make_option("--nperm", action="store", default=100, type='numeric',
+	help="number of permutations [required]"),
+make_option("--weights", action="store", default=NA, type='character',
+	help="path to file containing a list of SNP-weight sets to be included [required]"),
+make_option("--combinations", action="store", default=NA, type='character',
+	help="list of weight group combinations to include [optional]"),
+make_option("--ncore", action="store", default=1, type='character',
+	help="number of cores for parallel computing [required]"),
+make_option("--seed", action="store", default=1, type='numeric',
+	help="Seed number [required]")
+)
+
+opt = parse_args(OptionParser(option_list=option_list))
+
+# Open library for parallel computing
+library(foreach)
+library(doMC) 
+
+# Set up parallel environment, specifying the nimber of cores to use
+registerDoMC(opt$ncore)
+
+# Load libraries for quickly reading files and regression
+library(RcppEigen)
+library(data.table)
+
+# Read in list of SNP-weight sets to be included
+groups<-fread(opt$weights)
+sets<-groups$PANEL
+
+# Read in combinations
+if(!is.na(opt$combinations)){
+  combinations<-readLines(opt$combinations)
+}
+
+# Read in predicted expression levels for all features in the FUSION 1KG reference
+if(sum(grepl('PsychENCODE', sets)) == 0){
+	GeneX_all<-fread('/mnt/lustre/groups/biomarkers-brc-mh/TWAS_resource/FUSION/Predicted_expression/FUSION_1KG/FUSION_1KG_Expr_AllSets.csv.gz')
+} else {
+	GeneX_FUSION<-fread('/mnt/lustre/groups/biomarkers-brc-mh/TWAS_resource/FUSION/Predicted_expression/FUSION_1KG/FUSION_1KG_Expr_AllSets.csv.gz')
+	GeneX_PsychENCODE<-fread('/scratch/groups/biomarkers-brc-mh/TWAS_resource/PsychEncode/Predicted_expression/FeaturePredictions.csv.gz')
+
+	GeneX_all<-merge(GeneX_FUSION, GeneX_PsychENCODE, by=c('FID','IID'))
+}
+
+# Read in WGT column from pos files for all SNP-weight sets
+pos_all<-NULL
+for(i in sets){
+	if(i == 'PsychENCODE'){
+		pos_temp<-data.frame(WGT=fread('/scratch/groups/biomarkers-brc-mh/TWAS_resource/PsychEncode/PEC_TWAS_weights/PEC_TWAS_weights.pos')$WGT,PANEL=i)
+
+	} else {
+		pos_temp<-data.frame(WGT=fread(paste0('/mnt/lustre/groups/biomarkers-brc-mh/TWAS_resource/FUSION/SNP-weights/',i,'/',i,'.pos'))$WGT,PANEL=i)
+	}
+	pos_all<-rbind(pos_all, pos_temp)
+}
+
+# Convert WGT column to match the column names in the predicted expression file
+pos_all$ID<-gsub('.*/','',pos_all$WGT)
+pos_all$ID<-gsub('.wgt.RDat','',pos_all$ID)
+pos_all$ID<-gsub(':','.',pos_all$ID)
+pos_all$ID<-gsub('-','.',pos_all$ID)
+
+# Extract features that are to be included in the TWAS
+GeneX_incl<-GeneX_all[,(names(GeneX_all) %in% c('FID','IID',pos_all$ID)), with=F]
+
+rm(GeneX_all)
+gc()
+
+# Remove features with zero variance (these won't be in the TWAS either)
+zeroVar2 <- function(dat) {
+  out <- lapply(dat, function(x) length(unique(x)))
+  want <- which(out > 1)
+  unlist(want)
+}
+
+GeneX_incl<-cbind(GeneX_incl[,1:2], GeneX_incl[,-1:-2][,zeroVar2(GeneX_incl[,-1:-2]),with=F])
+
+# See how many genes are being considered
+dim(GeneX_incl)[2]-2
+
+# Choose the number of permutations
+Nperm<-opt$nperm
+
+# Create progress bar
+pb <- txtProgressBar(min = 0, max = Nperm, style = 3)
+
+# Record start time to see how long the permutation procedure takes
+start.time <- Sys.time()
+start.time
+
+# Each loop is a permutation which generates a random phenotype, test for an association between the random phenotype and every genes. At the end it saves the minimum p-value from each permutation (i.e. null TWAS).
+set.seed(opt$seed)
+pVal_min<-foreach(j=1:Nperm, .combine=rbind) %dopar% {
+	GeneX_incl$Pheno<-rnorm(dim(GeneX_incl)[1])
+	
+	pVal<-apply(GeneX_incl[,3:(dim(GeneX_incl)[2]-1)], 2, function(x) coef(summary(RcppEigen::fastLm(y=GeneX_incl$Pheno, X=x)))[1,4])
+
+	setTxtProgressBar(pb, j)
+	print(Sys.time())
+	
+	if(!is.na(opt$combinations)){
+	  res<-NULL
+	  for(i in 1:length(combinations)){
+	    combinations_i_vec<-unlist(strsplit(combinations[i],' '))
+	    combination_i_feat<-pos_all[(pos_all$PANEL %in% groups$PANEL[(groups$GROUP %in% combinations_i_vec)]),]
+	    if(sum((names(pVal) %in% combination_i_feat$ID)) == 0){
+	      res<-c(res,NA)
+	    } else {
+	      res<-c(res,min(pVal[(names(pVal) %in% combination_i_feat$ID)]))
+	    }
+	  }
+	  tmp<-data.frame(t(res))
+	  names(tmp)<-paste0('combination_',1:length(combinations))
+	  tmp
+	} else {
+	  tmp<-data.frame(min(pVal))
+    tmp
+	}
+}
+
+# Record when permutation procedure finished and print the time taken.
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+
+# Save the minimum p value from each permutation.
+write.table(pVal_min, paste0(opt$output,'.Min_P.',Nperm,'_perm.txt'), col.names=T, row.names=F, quote=F)
+
+```
+
+Now run the script:
+
+```{bash, echo=T, eval=F}
+work_dir=/mnt/lustre/users/k1806347/Software/mdd-meta
+mkdir -p ${work_dir}/results/twas/sig_thresh/min_P
+
+for batch in $(seq 1 20); do
+sbatch -p brc,shared -n 1 --mem=10G /users/k1806347/brc_scratch/Software/Rscript.sh ${work_dir}/scripts/twas/sig_thresh/TWASPermuThr.R \
+--nperm 50 \
+--ncore 1 \
+--weights ${work_dir}/scripts/twas/sig_thresh/panel_groups.txt \
+--combinations ${work_dir}/scripts/twas/sig_thresh/panel_group_combinations.txt \
+--seed ${batch} \
+--output ${work_dir}/results/twas/sig_thresh/min_P/Batch_${batch}
+done
+
+```
+
+## Compute significance thresholds
+
+```{R, eval=F, echo=T}
+library(data.table)
+library(MKmisc)
+
+# Create list of files containing minimum p values
+batches<-list.files(path='/mnt/lustre/users/k1806347/Software/mdd-meta/results/twas/sig_thresh/min_P',pattern='Batch*')
+
+# Combine all the minimum p-values
+min_P_all<-NULL
+for(batch in batches){      
+    min_P_all<-rbind(min_P_all,fread(paste0('/mnt/lustre/users/k1806347/Software/mdd-meta/results/twas/sig_thresh/min_P/',batch), header=T))
+}
+
+# Read in the combinations
+combinations<-readLines('/mnt/lustre/users/k1806347/Software/mdd-meta/scripts/twas/sig_thresh/panel_group_combinations.txt')
+
+# For each combination
+thresh_all<-NULL
+for(i in names(min_P_all)){
+  min_P_all_i<-min_P_all[[i]]
+  # Calculate the 5th percentile of the minimum p-values
+  TWalpha<-MKmisc::quantileCI(x=min_P_all_i, prob=0.05, method="exact",conf.level=0.95)
+
+  # Calculate the 0.1th percentile which will be needed for the high-confidence associations section
+  TWalpha_001<-MKmisc::quantileCI(x=min_P_all_i, prob=0.001, method="exact",conf.level=0.99)
+
+  thresh_all<-rbind(thresh_all, data.frame(Test=i,
+                                         alpha_05=TWalpha$estimate,
+                                         alpha_001=TWalpha_001$estimate))
+}
+
+# Calculate effective number of tests
+thresh_all$eff_n_test<-0.05/thresh_all$alpha_05
+
+# Insert combination descriptions
+thresh_all$panels<-gsub(' ', ', ',combinations)
+
+write.csv(thresh_all, '/mnt/lustre/users/k1806347/Software/mdd-meta/results/twas/sig_thresh/sig_thresholds.csv', row.names=F, quote=T)
+
+# The number of independent tests increases substantially as more panels are included.
+
+########
+# Read in PGC MDD TWAS results
+########
+
+library(data.table)
+
+thresh_all<-fread('/mnt/lustre/users/k1806347/Software/mdd-meta/results/twas/sig_thresh/sig_thresholds.csv')
+
+pgc2_res<-fread('/users/k1806347/brc_scratch/Analyses/Lorenza/Clean/TWAS/MDD_TWAS_AllTissues_CLEAN.txt')
+
+pgc2_res$Group<-NA
+pgc2_res$Group[grepl('PsychENCODE', pgc2_res$PANEL_clean)]<-'PsychENCODE'
+pgc2_res$Group[grepl('GTEx', pgc2_res$PANEL_clean)]<-'GTEx_brain'
+pgc2_res$Group[grepl('CMC', pgc2_res$PANEL_clean)]<-'CMC'
+pgc2_res$Group[grepl('CMC DLPFC Splic', pgc2_res$PANEL_clean)]<-'CMC_splice'
+pgc2_res$Group[grepl('Adrenal|Thryoid|Pituitary', pgc2_res$PANEL_clean)]<-'Pitu_Adre_Thry'
+pgc2_res$Group[grepl('Blood', pgc2_res$PANEL_clean)]<-'Blood'
+
+group_hits<-data.frame(Group=unique(pgc2_res$Group))
+for(i in group_hits$Group){
+  group_hits$N_feat[group_hits$Group == i]<-sum(pgc2_res$Group == i)
+  group_hits$N_sig[group_hits$Group == i]<-sum(pgc2_res$Group == i & pgc2_res$TWAS.P < 1.558855e-06)
+  group_hits$N_sig_coloc[group_hits$Group == i]<-sum(pgc2_res$Group == i & pgc2_res$TWAS.P < 1.558855e-06 & pgc2_res$COLOC.PP4 > 0.8)
+
+  if(i == 'PsychENCODE'){
+    group_hits$N_sig_PsychENCODE_only[group_hits$Group == i]<-sum(pgc2_res$Group == i & pgc2_res$TWAS.P < 8.579923e-06)
+  } else {
+    group_hits$N_sig_PsychENCODE_only[group_hits$Group == i]<-NA
+  }
+  
+  group_hits$N_sig_notPsychENCODE[group_hits$Group == i]<-sum(!(pgc2_res$ID[pgc2_res$Group == i & pgc2_res$TWAS.P < 1.558855e-06] %in% pgc2_res$ID[pgc2_res$Group == 'PsychENCODE' & pgc2_res$TWAS.P < 1.558855e-06]))
+  group_hits$N_sig_coloc_notPsychENCODE[group_hits$Group == i]<-sum(!(pgc2_res$ID[pgc2_res$Group == i & pgc2_res$TWAS.P < 1.558855e-06 & pgc2_res$COLOC.PP4 > 0.8] %in% pgc2_res$ID[pgc2_res$Group == 'PsychENCODE' & pgc2_res$TWAS.P < 1.558855e-06 & pgc2_res$COLOC.PP4 > 0.8]))
+  
+  group_hits$N_sig_notPsychENCODE_only[group_hits$Group == i]<-sum(!(pgc2_res$ID[pgc2_res$Group == i & pgc2_res$TWAS.P < 1.558855e-06] %in% pgc2_res$ID[pgc2_res$Group == 'PsychENCODE' & pgc2_res$TWAS.P < 8.579923e-06]))
+  group_hits$N_sig_coloc_notPsychENCODE_only[group_hits$Group == i]<-sum(!(pgc2_res$ID[pgc2_res$Group == i & pgc2_res$TWAS.P < 1.558855e-06 & pgc2_res$COLOC.PP4 > 0.8] %in% pgc2_res$ID[pgc2_res$Group == 'PsychENCODE' & pgc2_res$TWAS.P < 8.579923e-06 & pgc2_res$COLOC.PP4 > 0.8]))
+
+}
+
+group_hits$Prop_sig<-paste0(round(100*(group_hits$N_sig/group_hits$N_feat),3),'%')
+group_hits$Prop_sig_coloc<-paste0(round(100*(group_hits$N_sig_coloc/group_hits$N_feat),3),'%')
+
+write.csv(group_hits, '/mnt/lustre/users/k1806347/Software/mdd-meta/results/twas/sig_thresh/pgc2_mdd_twas_insights_across_panels.csv', row.names=F, quote=T)
+
+```
+
+
+
+
+
+
+
