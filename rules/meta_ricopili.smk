@@ -83,6 +83,18 @@ rule dataset_eur_X:
     fi;
     done
     """
+    
+rule dataset_eas_X:
+    input: expand("results/meta/X/daner_mdd_{cohort}.eas.hg19.{release}.qc.gz", zip, cohort=[cohort[0] for cohort in cohorts_eas], release=[cohort[1] for cohort in cohorts_eas])
+    output: "results/meta/X/dataset_full_eas_v{analysis}"
+    log: "logs/meta/X/dataset_full_eas_v{analysis}.log"
+    shell: """for daner in {input}; do 
+    headn=$(zcat $daner | awk '$1 == 23' | head | wc -l)
+    if ((headn > 0)); then
+        echo $(basename $daner) >> {output}; 
+    fi;
+    done
+    """
 
 ###
 ### Run Ricopili
@@ -99,10 +111,10 @@ rule postimp:
 	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --no_neff_filter --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
 
 rule postimp_eur:
-	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
+	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version_eur)
 	
 rule postimp_eas:
-	input: expand("results/meta/full_eas_v{version}.done", version=["3.00.02"])
+	input: expand("results/meta/full_eas_v{version}.done", version=analysis_version_eas)
 	
 # Ricopili submission chrX
 rule postimpX:
