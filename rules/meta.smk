@@ -38,7 +38,9 @@ cohorts_eur = [["MDD49", "29w2_20w3_X28w2_19w3"],
 ["SHARE", "godartsshare_842021"]]
 
 cohorts_eas=[["23andMe","v7_2"],
-["Taiwan", "20200327"]]
+["Taiwan", "20200327"],
+["CONVERGE", "10640"],
+["BBJ", "hum0197v3_Depv1_2020"]]
 
 # genotyped cohorts list
 cohorts_geno_eur=[['antpo', 'sa-qc4'],
