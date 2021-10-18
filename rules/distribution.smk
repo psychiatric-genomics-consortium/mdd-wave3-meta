@@ -10,7 +10,7 @@
 # extensions and prefixes of Ricopili distribution output files
 # daner_pgc_mdd_full_eur_hg19_v{version}.EXT
 # Sumstats files
-distribution_daner_ext = ["gz", "rp.gz", "gz.ldsc.sumstats.gz", "gz.p3.gz"]
+distribution_daner_ext = ["gz", "rp.gz", "neff.gz", "gz.ldsc.sumstats.gz", "gz.p3.gz"]
 # Clumped summary files
 distribution_daner_p4_ext = ["gz.p4.clump.areator.sorted.1mhc", "gz.p4.clump.areator.sorted.1mhc.pvsorted", "gz.p4.clump.areator.sorted.1mhc.pvsorted.regs.txt", "gz.p4.clump.areator.sorted.1mhc.summary", "gz.p4.clump.areator.sorted.1mhc.xls", "het.gz.p4.clump.areator.sorted.1mhc", "het.gz.p4.clump.areator.sorted.1mhc.xls"]
 
