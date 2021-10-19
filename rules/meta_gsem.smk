@@ -153,6 +153,13 @@ rule meta_gsem_commonfactor_merge:
     conda: "../envs/gsem.yaml"
     script: "../scripts/meta/gsem_commonfactor_merge.R"
     
+# reformat as daner
+rule meta_gsem_commonfactor_daner:
+    input: gsem="results/meta/gsem/pgc_mdd_{ancestries}_v{version}.gsem.commonfactor.gz", daner="results/distribution/daner_pgc_mdd_full_{ancestries}_hg19_v{version}.rp.gz"
+    output: "results/meta/gsem/daner_pgc_mdd_full_{ancestries}_v{version}.gsem.commonfactor.gz"
+    conda: "../envs/gsem.yaml"
+    script: "../scripts/meta/gsem_daner.R"
+    
 # Notebook
 rule meta_gsem:
     input: covstruct_eur="docs/objects/covstruct.eur.R", ldsc_table_eur="docs/tables/meta_gsem_ldsc.eur.txt", commonfactor_eur=expand("results/meta/gsem/pgc_mdd_eur_v{version}.gsem.commonfactor.gz", version=analysis_version), notebook="docs/gsem.Rmd", gsem="resources/ldsc/install_genomicsem.done"
