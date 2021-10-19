@@ -66,7 +66,6 @@ sig_thresh<-1.368572e-06
 
 This study uses the same SNP-weights of gene expression as our previous MDD TWAS (Dall'Aglio et al. 2020, Bio. Psych.). We will use the same transcriptome-wide significance threshold as this previous study (p=`r sig_thresh`), estimated using a permutation based procedure, similar to that used to estimate the genome-wide significance threshold (Dudbridge et al. 2008. Genet. Epidemiol.). The code used by Dall'Aglio et al. can be found [here](https://opain.github.io/MDD-TWAS/MDD_TWAS.html#1_estimating_transcriptome-wide_significance_threshold).
 
-
 ***
 
 ## TWAS
@@ -111,7 +110,8 @@ The 1000 Genomes Phase 3 European LD reference with MAF >1% (N = 503) was used a
 
 ### Conditional analysis
 
-To determine whether 
+To determine whether TWAS associations within a given locus represent independent associations, and the proportion of SNP associations explained by TWAS associations, we performed conditional analysis. This analysis is performed using the FUSION 
+'FUSION.post_process.R' script using a locus window (--locus_win) of 500000bp.
 
 ***
 
@@ -119,19 +119,25 @@ To determine whether
 
 ***
 
+### Colocalisation
+
+Colocalisation was performed within FUSION using the coloc R package. This analysis tests compares the pattern of SNP associations in the GWAS and eQTL data to determine whether the association with each trait is driven by the same causal variant (colocalisation, vertical pleiotropy), or whether different causal variants are driving the association with each trait (horizontal pleiotropy/linkage).
+
+***
+
 ### TWAS-based finemapping (FOCUS)
 
-***
-
-### Gene-set enrichment analysis
+In loci where multiple features are associated with the GWAS trait, fine-mapping is used to determine which (if any) feature is most likely causal for the association. Similar to colocalisation, this analysis compares the pattern of SNP associations between the GWAS and eQTL data, but then compares the results across genes to help identify genes that are most likely causal.
 
 ***
 
-#### TWAS-GSEA
+### MESC
 
-***
+MESC is used to estimate the proportion of SNP-based heritability mediated by cis-heritable gene expression. Furthermore, MESC can test for enrichment of expression-mediated heritability across gene-sets, to identify gene-sets that are differentially expressed between cases and controls.
 
-#### MESC
+### SMR
+
+SMR (summary based mendelian randomisation)
 
 ***
 

@@ -551,7 +551,170 @@ rule est_h2med_sets:
     "../envs/mesc.yaml"
   shell: 
     "resources/twas/mesc/run_mesc.py --h2med {input.ss} --exp-chr {input.expr_score_sets}/All_Tissues --out results/twas/mesc/PGC_MDD3_TWAS.MESC.sets"
+
+########
+# SMR using eQTLGen and MetaBrain
+########
+
+# Download SMR
+rule download_smr:
+  output: 
+    directory("resources/twas/smr")
+  conda: 
+    "../envs/mesc.yaml"
+  shell: 
+    "mkdir resources/twas/smr; wget -c --tries=0 --read-timeout=20 --no-check-certificate -O resources/twas/smr/smr_Linux.zip https://cnsgenomics.com/software/smr/download/smr_Linux.zip; unzip resources/twas/smr/smr_Linux.zip -d resources/twas/smr/; rm resources/twas/smr/smr_Linux.zip"
   
+# Download eQTLGen data in SMR format
+rule download_eQTLGen:
+  output: 
+    directory("resources/twas/eQTLGen")
+  conda: 
+    "../envs/mesc.yaml"
+  shell: 
+    "mkdir resources/twas/eQTLGen; wget -O resources/twas/eQTLGen/cis-eQTL-SMR_20191212.tar.gz https://molgenis26.gcc.rug.nl/downloads/eqtlgen/cis-eqtl/SMR_formatted/cis-eQTL-SMR_20191212.tar.gz; tar -xvzf resources/twas/eQTLGen/cis-eQTL-SMR_20191212.tar.gz -C resources/twas/eQTLGen/; rm resources/twas/eQTLGen/cis-eQTL-SMR_20191212.tar.gz; gunzip resources/twas/eQTLGen/*"
+
+##
+# Download MetaBrain data in SMR format
+##
+
+# Basalganglia
+rule download_MetaBrain_Basalganglia:
+  output: 
+    directory("resources/twas/MetaBrain/Basalganglia")
+  conda: 
+    "../envs/mesc.yaml"
+  shell: 
+    "mkdir -p resources/twas/MetaBrain/Basalganglia; wget -O resources/twas/MetaBrain/Basalganglia/2020-05-26-Basalganglia-EUR-smr.zip https://download.metabrain.nl/2020-05-26-CisEQTLSummaryStats/2020-05-26-Basalganglia-EUR/2020-05-26-Basalganglia-EUR-smr.zip; unzip -d resources/twas/MetaBrain/Basalganglia/ resources/twas/MetaBrain/Basalganglia/2020-05-26-Basalganglia-EUR-smr.zip; rm resources/twas/MetaBrain/Basalganglia/2020-05-26-Basalganglia-EUR-smr.zip"
+
+# Cerebellum
+rule download_MetaBrain_Cerebellum:
+  output: 
+    directory("resources/twas/MetaBrain/Cerebellum")
+  conda: 
+    "../envs/mesc.yaml"
+  shell: 
+    "mkdir -p resources/twas/MetaBrain/Cerebellum; wget -O resources/twas/MetaBrain/Cerebellum/2020-05-26-Cerebellum-EUR-smr.zip https://download.metabrain.nl/2020-05-26-CisEQTLSummaryStats/2020-05-26-Cerebellum-EUR/2020-05-26-Cerebellum-EUR-smr.zip; unzip -d resources/twas/MetaBrain/Cerebellum/ resources/twas/MetaBrain/Cerebellum/2020-05-26-Cerebellum-EUR-smr.zip; rm resources/twas/MetaBrain/Cerebellum/2020-05-26-Cerebellum-EUR-smr.zip"
+
+# Cortex
+rule download_MetaBrain_Cortex:
+  output: 
+    directory("resources/twas/MetaBrain/Cortex")
+  conda: 
+    "../envs/mesc.yaml"
+  shell: 
+    "mkdir -p resources/twas/MetaBrain/Cortex; wget -O resources/twas/MetaBrain/Cortex/2020-05-26-Cortex-EUR-smr.zip https://download.metabrain.nl/2020-05-26-CisEQTLSummaryStats/2020-05-26-Cortex-EUR/2020-05-26-Cortex-EUR-smr.zip; unzip -d resources/twas/MetaBrain/Cortex/ resources/twas/MetaBrain/Cortex/2020-05-26-Cortex-EUR-smr.zip; rm resources/twas/MetaBrain/Cortex/2020-05-26-Cortex-EUR-smr.zip"
+
+# Hippocampus
+rule download_MetaBrain_Hippocampus:
+  output: 
+    directory("resources/twas/MetaBrain/Hippocampus")
+  conda: 
+    "../envs/mesc.yaml"
+  shell: 
+    "mkdir -p resources/twas/MetaBrain/Hippocampus; wget -O resources/twas/MetaBrain/Hippocampus/2020-05-26-Hippocampus-EUR-smr.zip https://download.metabrain.nl/2020-05-26-CisEQTLSummaryStats/2020-05-26-Hippocampus-EUR/2020-05-26-Hippocampus-EUR-smr.zip; unzip -d resources/twas/MetaBrain/Hippocampus/ resources/twas/MetaBrain/Hippocampus/2020-05-26-Hippocampus-EUR-smr.zip; rm resources/twas/MetaBrain/Hippocampus/2020-05-26-Hippocampus-EUR-smr.zip"
+
+# Spinalcord
+rule download_MetaBrain_Spinalcord:
+  output: 
+    directory("resources/twas/MetaBrain/Spinalcord")
+  conda: 
+    "../envs/mesc.yaml"
+  shell: 
+    "mkdir -p resources/twas/MetaBrain/Spinalcord; wget -O resources/twas/MetaBrain/Spinalcord/2020-05-26-Spinalcord-EUR-smr.zip https://download.metabrain.nl/2020-05-26-CisEQTLSummaryStats/2020-05-26-Spinalcord-EUR/2020-05-26-Spinalcord-EUR-smr.zip; unzip -d resources/twas/MetaBrain/Spinalcord/ resources/twas/MetaBrain/Spinalcord/2020-05-26-Spinalcord-EUR-smr.zip; rm resources/twas/MetaBrain/Spinalcord/2020-05-26-Spinalcord-EUR-smr.zip"
+
+rule download_MetaBrain_all:
+  input: 
+    rules.download_MetaBrain_Basalganglia.output,
+    rules.download_MetaBrain_Cerebellum.output,
+    rules.download_MetaBrain_Cortex.output,
+    rules.download_MetaBrain_Hippocampus.output,
+    rules.download_MetaBrain_Spinalcord.output
+  output:
+    touch('resources/twas/MetaBrain_download.out')
+
+# Update variant IDs in MetaBrain SMR files
+rule format_metabrain_esi:
+  output: 
+    touch("resources/twas/MetaBrain/format_MetaBrain_esi.out")
+  conda: 
+    "../envs/twas.yaml"
+  shell: 
+    "Rscript scripts/twas/format_metabrain_esi.R"
+
+# Convert sumstats to COJO format
+rule daner_to_cojo:
+  output:
+    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_COJO.txt"
+  conda: 
+    "../envs/twas.yaml"
+  shell:
+    "Rscript scripts/twas/daner_to_cojo.R"
+
+# Run SMR with eQTLGen
+rule smr_analysis_eQTLGen:
+  resources:
+    mem_mb=15000 
+  input:
+    rules.prep_1kg.output,
+    rules.daner_to_cojo.output,
+    rules.download_eQTLGen.output,
+    rules.download_smr.output
+  output:
+    "results/twas/eqtlgen_smr/eqtlgen_smr_res_chr{chr}.smr"
+  conda: 
+    "../envs/twas.yaml"
+  shell:
+    "/users/k1806347/brc_scratch/Software/smr_Linux \
+      --bfile resources/twas/1kg/all_phase3.chr{wildcards.chr} \
+      --keep resources/twas/1kg/super_pop_keep_files/EUR_samples.keep \
+      --gwas-summary results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_COJO.txt \
+      --beqtl-summary resources/twas/eQTLGen/cis-eQTLs-full_eQTLGen_AF_incl_nr_formatted_20191212.new.txt_besd-dense \
+      --out results/twas/eqtlgen_smr/eqtlgen_smr_res_chr{wildcards.chr} \
+      --thread-num 1"
+
+rule run_smr_analysis_eQTLGen:
+  input: expand('results/twas/eqtlgen_smr/eqtlgen_smr_res_chr{chr}.smr', chr=chr)
+  output: touch('results/twas/eqtlgen_smr/smr_eQTLGen_complete.out')
+
+# Run SMR with MetaBrain
+rule smr_analysis_MetaBrain:
+  resources:
+    mem_mb=15000 
+  input:
+    rules.prep_1kg.output,
+    rules.daner_to_cojo.output,
+    rules.format_metabrain_esi.output,
+    rules.download_smr.output
+  output:
+    "results/twas/metabrain_smr/metabrain_{tissue}_smr_res_chr{chr}.smr"
+  conda: 
+    "../envs/twas.yaml"
+  shell:
+    "/users/k1806347/brc_scratch/Software/smr_Linux \
+      --bfile resources/twas/1kg/all_phase3.chr{wildcards.chr} \
+      --keep resources/twas/1kg/super_pop_keep_files/EUR_samples.keep \
+      --gwas-summary results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_COJO.txt \
+      --beqtl-summary resources/twas/MetaBrain/{wildcards.tissue}/2020-05-26-{wildcards.tissue}-EUR-{wildcards.chr}-SMR-besd \
+      --out results/twas/metabrain_smr/metabrain_{wildcards.tissue}_smr_res_chr{wildcards.chr} \
+      --thread-num 1"
+
+rule run_smr_analysis_MetaBrain:
+  input: expand('results/twas/metabrain_smr/metabrain_{tissue}_smr_res_chr{chr}.smr', chr=chr, tissue=["Basalganglia","Cerebellum","Cortex","Hippocampus","Spinalcord"])
+  output: touch('results/twas/metabrain_smr/smr_metabrain_complete.out')
+
+# Process SMR results
+rule process_smr:
+  input:
+    rules.run_smr_analysis_eQTLGen.output,
+    rules.run_smr_analysis_MetaBrain.output
+  output:
+    "results/twas/eqtlgen_smr/eqtlgen_smr_res_GW_withIDs.csv"
+  conda: 
+    "../envs/twas.yaml"
+  shell:
+    "Rscript scripts/twas/process_smr.R"
+
 ########
 # Create report of the results
 ########
@@ -563,7 +726,8 @@ rule create_report:
     rules.process_high_conf.output,
     rules.plot_loci.input,
     rules.est_h2med.output,
-    rules.est_h2med_sets.output
+    rules.est_h2med_sets.output,
+    rules.process_smr.output
   output:
     "docs/twas_report.html"
   conda:
