@@ -188,6 +188,19 @@ rule impute_frq2:
 	log: "logs/sumstats/impute_frq2.{ancestries}.log"
 	conda: "../envs/meta.yaml"
 	script: "../scripts/meta/impute_frq2.R"
+    
+
+    
+rule meta_ma:
+    input: "results/sumstats/aligned/daner_mdd_{cohort}.aligned.gz"
+    output: "results/sumstats/dentist/ma/mdd_{cohort}.ma"
+    shell: """zcat {input} | awk -v neff=$(zcat {input} | head -n 1 | awk '{{print $6, $7}}' | sed 's/_/ /g' | awk '{{print (4*$3*$6)/($3+$6)}}') '{{if(NR == 1) {{print "SNP", "A1", "A2", "freq", "beta", "se", "p", "N"}} else {{print $2, $4, $5, $7, log($9), $10, $11, neff}}}}' | awk 'NR == 1 || $4 != 0' > {output}"""
+    
+rule dentist:
+    input: "results/sumstats/dentist/ma/mdd_{cohort}.{ancestries}.hg19.{release}.ma"
+    params: popname=lambda wildcards: wildcards.ancestries.upper(), prefix="results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}"
+    output: "results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}.txt"
+    shell: "resources/meta/DENTIST_1.1.0.0 --gwas-summary {input} --bfile {config[refdir]}/pop_{params.popname}/HRC.r1-1.EGA.GRCh37.chr{wildcards.chr}.impute.plink.{params.popname} --chrID {wildcards.chr} --maf 0.001 --delta-MAF 0.15 --out {params.prefix} --thread-num 16"
 
 # align to imputation panel
 rule align:
