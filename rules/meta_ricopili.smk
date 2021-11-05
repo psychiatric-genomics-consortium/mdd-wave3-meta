@@ -108,7 +108,7 @@ rule postimp:
 		dataset=lambda wildcards, input: os.path.basename(input.dataset)
 	output: touch("results/meta/{cohorts}_{ancestries}_v{version}.done")
 	log: "logs/meta/pgc_mdd_meta_{cohorts}_{ancestries}_hg19_v{version}.postimp_navi.log"
-	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --no_neff_filter --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
+	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --noldsc --no_neff_filter --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
 
 rule postimp_eur:
 	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version_eur)

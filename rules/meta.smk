@@ -179,9 +179,9 @@ rule refdirx:
     log: "logs/meta/reference_info_x.log"
     shell: "cd results/meta/X; impute_dirsub --refdir {config[refdir]}/chr23 --reference_info --outname metax"
 
-# merged imputation panel SNPs
+# merged imputation panel plus frequencies from alternative reference
 rule impute_frq2:
-	input: ref="results/meta/reference_info", cups="resources/liftOver/FASTA_BED.ALL_GRCh37.novel_CUPs.bed"
+	input: ref="results/meta/reference_info", cups="resources/liftOver/FASTA_BED.ALL_GRCh37.novel_CUPs.bed", afreq="resources/1kg/phase3.{ancestries}.afreq"
 	output: "results/sumstats/impute_frq2.{ancestries}.rds"
 	params:
 		maf=meta_qc_params['maf']
@@ -200,7 +200,7 @@ rule align:
 	conda: "../envs/meta.yaml" 
 	script: "../scripts/meta/align.R"
     
-# Sumstats in GCTA format for DENTIST   
+# Sumstats in GCTA-COJO format for DENTIST   
 rule meta_ma:
     input: "results/sumstats/aligned/daner_mdd_{cohort}.aligned.gz"
     output: "results/sumstats/dentist/ma/mdd_{cohort}.ma"
@@ -210,8 +210,13 @@ rule meta_ma:
 rule dentist:
     input: "results/sumstats/dentist/ma/mdd_{cohort}.{ancestries}.hg19.{release}.ma"
     params: popname=lambda wildcards: wildcards.ancestries.upper(), prefix="results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}"
-    output: "results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}.txt"
+    output: dentist="results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}.DENTIST.txt", outliers="results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}.DENTIST.outliers.txt"
     shell: "resources/meta/DENTIST_1.1.0.0 --gwas-summary {input} --bfile {config[refdir]}/pop_{params.popname}/HRC.r1-1.EGA.GRCh37.chr{wildcards.chr}.impute.plink.{params.popname} --chrID {wildcards.chr} --maf 0.001 --delta-MAF 0.15 --out {params.prefix} --thread-num 16"
+    
+rule dentist_merge:
+    input: expand("results/sumstats/dentist/{{cohort}}/mdd_{{cohort}}.{{ancestries}}.hg19.{{release}}.{chr}.DENTIST.outliers.txt", chr=range(1, 23))
+    output: "results/sumstats/dentist/mdd_{cohort}.{ancestries}.hg19.{release}.DENTIST.outliers.txt"
+    script: "../scripts/meta/dentist.R"
 	
 # apply QC filters
 rule filter:
