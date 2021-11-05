@@ -20,7 +20,7 @@ if(all(c('Nca', 'Nco') %in% names(daner))) {
     cat('Found Nca, Nco columns', '\n')
     daner_n <- daner
 } else {
-    cat('Adding Nca, Nco from header'. '\n')
+    cat('Adding Nca, Nco from header', '\n')
     daner_n <- daner %>% mutate(Nca=n_cases, Nco=n_controls)
 }
 

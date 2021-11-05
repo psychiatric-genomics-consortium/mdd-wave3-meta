@@ -13,13 +13,17 @@ logging <- function(msg, append=TRUE) {
 # read daner file
 daner_gz <- snakemake@input$daner
 logging(glue("Reading in sumstats {daner_gz}"), append=FALSE)
-daner <- read_table2(daner_gz, col_types=cols("SNP"=col_character()))
+daner <- read_table(daner_gz, col_types=cols("SNP"=col_character()))
 
 N_snps <- nrow(daner)
 logging(glue("{N_snps} SNPs read in."))
 
 # get ancestries superpopulation
 pop <- toupper(snakemake@wildcards$ancestries)
+
+# dentist outliers
+dentist_txt <- snakemake@input$dentist
+outliers <- read_table(dentist_txt, col_names='SNP')
 
 # QC paramaters
 qc_maf <- snakemake@params$maf
@@ -41,7 +45,7 @@ daner_check <- daner %>%
 # shorter variable names for frequency columns
 mutate(frq_a=.data[[frq_a_col]],
 	   frq_u=.data[[frq_u_col]])%>%
-# remove rows with small minor allele counts and frequencies
+# determine MAF
 mutate(maf_a=if_else(frq_a <= 0.5, true=frq_a, false=1-frq_a),
 	   maf_u=if_else(frq_u <= 0.5, true=frq_u, false=1-frq_u)) %>%
 # check for extreme allele frequency differences
@@ -73,6 +77,7 @@ daner_qc <- daner_check %>%
 mutate(QC=case_when(maf_a == 0 | maf_u  == 0 ~ 'MAF',
                     maf_a < qc_maf & maf_u < qc_maf ~ 'MAF',
                     maf_a*n_cases < qc_mac | maf_u*n_controls <= qc_mac ~ 'MAC',
+                    SNP %in% outliers$SNP ~ 'DENTIST',
 					Fst > qc_fst ~ 'FST',
 					frq_u - FA1.ref > qc_diff ~ 'DIFF',
 					INFO < qc_info ~ 'INFO',
@@ -82,6 +87,7 @@ qc_counts <- table(daner_qc$QC)
 
 snps_maf <- coalesce(qc_counts['MAF'], 0)
 snps_mac <- coalesce(qc_counts['MAC'], 0)
+snps_dentist <- coalesce(qc_counts['DENTIST'], 0)
 snps_fst <- coalesce(qc_counts['FST'], 0)
 snps_diff <- coalesce(qc_counts['DIFF'], 0)
 snps_info <- coalesce(qc_counts['INFO'], 0)
@@ -89,6 +95,7 @@ snps_pass <- coalesce(qc_counts['PASS'], 0)
 
 logging(glue('{snps_maf} SNPs removed for MAF < {qc_maf}.'))
 logging(glue('{snps_mac} SNPs removed for MAC < {qc_mac}.'))
+logging(glue('{snps_dentist} SNPs removed for DENTIST outlier'))
 logging(glue('{snps_fst} SNPs removed for Fst > {signif(qc_fst, 4)}'))
 logging(glue('{snps_diff} SNP removed for DIFF > {qc_diff}.'))
 logging(glue('{snps_info} SNP removed for INFO < {qc_info}.'))
