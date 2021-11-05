@@ -179,7 +179,7 @@ rule refdirx:
     log: "logs/meta/reference_info_x.log"
     shell: "cd results/meta/X; impute_dirsub --refdir {config[refdir]}/chr23 --reference_info --outname metax"
 
-# merged imputation panel plus frequencies from alternative reference
+# merged HRC imputation panel plus frequencies from 1KG reference
 rule impute_frq2:
 	input: ref="results/meta/reference_info", cups="resources/liftOver/FASTA_BED.ALL_GRCh37.novel_CUPs.bed", afreq="resources/1kg/phase3.{ancestries}.afreq"
 	output: "results/sumstats/impute_frq2.{ancestries}.rds"
@@ -216,11 +216,11 @@ rule dentist:
 rule dentist_merge:
     input: expand("results/sumstats/dentist/{{cohort}}/mdd_{{cohort}}.{{ancestries}}.hg19.{{release}}.{chr}.DENTIST.outliers.txt", chr=range(1, 23))
     output: "results/sumstats/dentist/mdd_{cohort}.{ancestries}.hg19.{release}.DENTIST.outliers.txt"
-    script: "../scripts/meta/dentist.R"
+    shell: "cat {input} > {output}"
 	
 # apply QC filters
 rule filter:
-	input: daner="results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz", script="scripts/meta/filter.R"
+	input: daner="results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz", dentist="results/sumstats/dentist/mdd_{cohort}.{ancestries}.hg19.{release}.DENTIST.outliers.txt", script="scripts/meta/filter.R"
 	params:
 		maf=meta_qc_params['maf'],
 		info=meta_qc_params['info'],
