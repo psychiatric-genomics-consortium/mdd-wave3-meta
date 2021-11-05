@@ -88,11 +88,12 @@ cat('Merging reference files\n')
 other_freq_nodups <- afreq %>%
 dplyr::slice(-unique(c(ref_overlaps@to, other_duplicate_hits$queryHits))) %>%
 filter(!ID %in% impute_frq2$SNP) %>%
-transmute(SNP=ID, CHR, POS, A1=REF, A2=ALT, FA1=REF_FREQ, NCHROBS=OBS_CT)
+transmute(SNP=ID, CHR, POS, A1=REF, A2=ALT, FA1=REF_FREQ, NCHROBS=OBS_CT, source='1KG')
 
 # merge references
 impute_frq2_nodups <-
 impute_frq2 %>% dplyr::slice(-duplicate_hits$queryHits) %>%
+mutate(source='HRC') %>%
 bind_rows(other_freq_nodups) %>%
 filter(between(FA1, qc_maf, 1-qc_maf)) %>%
 arrange(CHR, POS)
