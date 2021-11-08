@@ -77,10 +77,10 @@ daner_qc <- daner_check %>%
 mutate(QC=case_when(maf_a == 0 | maf_u  == 0 ~ 'MAF',
                     maf_a < qc_maf & maf_u < qc_maf ~ 'MAF',
                     maf_a*n_cases < qc_mac | maf_u*n_controls <= qc_mac ~ 'MAC',
-                    SNP %in% outliers$SNP ~ 'DENTIST',
 					Fst > qc_fst ~ 'FST',
 					frq_u - FA1.ref > qc_diff ~ 'DIFF',
 					INFO < qc_info ~ 'INFO',
+                    SNP %in% outliers$SNP ~ 'DENTIST',
 					TRUE ~ 'PASS'))
 
 qc_counts <- table(daner_qc$QC)
@@ -95,10 +95,10 @@ snps_pass <- coalesce(qc_counts['PASS'], 0)
 
 logging(glue('{snps_maf} SNPs removed for MAF < {qc_maf}.'))
 logging(glue('{snps_mac} SNPs removed for MAC < {qc_mac}.'))
-logging(glue('{snps_dentist} SNPs removed for DENTIST outlier'))
 logging(glue('{snps_fst} SNPs removed for Fst > {signif(qc_fst, 4)}'))
 logging(glue('{snps_diff} SNP removed for DIFF > {qc_diff}.'))
 logging(glue('{snps_info} SNP removed for INFO < {qc_info}.'))
+logging(glue('{snps_dentist} SNPs removed for DENTIST outlier'))
 					
 daner_filtered <- daner_qc %>%
 filter(QC == 'PASS') %>%

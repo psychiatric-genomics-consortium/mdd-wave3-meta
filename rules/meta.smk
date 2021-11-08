@@ -156,7 +156,7 @@ ruleorder: hg19 > hg38to19
 # Meta-analysis QC parameters
 meta_qc_params = {"maf": 0.001,
 				  "info": 0.1,
-				  "mac": 20,
+				  "mac": 5,
 				  "secure_frq": 0.20,
 				  "diff_frq": 0.15,
 			      "clu_p1": 0.0001,
@@ -203,7 +203,7 @@ rule align:
 # Sumstats in GCTA-COJO format for DENTIST   
 rule meta_ma:
     input: "results/sumstats/aligned/daner_mdd_{cohort}.aligned.gz"
-    output: "results/sumstats/dentist/ma/mdd_{cohort}.ma"
+    output: temp("results/sumstats/dentist/ma/mdd_{cohort}.ma")
     conda: "../envs/meta.yaml"
     script: "../scripts/meta/ma.R"
     
