@@ -156,7 +156,7 @@ ruleorder: hg19 > hg38to19
 # Meta-analysis QC parameters
 meta_qc_params = {"maf": 0.001,
 				  "info": 0.1,
-				  "mac": 5,
+				  "mac": 20,
 				  "secure_frq": 0.20,
 				  "diff_frq": 0.15,
 			      "clu_p1": 0.0001,
