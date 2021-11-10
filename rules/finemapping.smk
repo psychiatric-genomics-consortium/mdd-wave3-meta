@@ -33,7 +33,7 @@ rule munge_sumstat:
         --sumstats {input.sumstats} \
         --out {output} \
         --min-info 0.6 \
-        --min-maf 0.001"
+        --min-maf 0.01 "
 
 rule l2reg_sldsc:
     input: sumstats="results/finemapping/munged_{cohorts}_{ancestries}_hg19_v{version}.rp.parquet",
