@@ -8,7 +8,7 @@
 ##DOI=<ID=JOURNAL,REF="{doi}">
 ##sumstatsLINK=<ID=SUMSTATS,REF="{url}">
 ##genomeReference="GRCh37"
-##imputationReference="Haplotype Reference Consortium v1.0"
+##imputationReference="Haplotype Reference Consortium v1.1"
 ##analysisProgram="Ricopili 2019_Jun_18.001"
 ##metaAnalysisProgram="Ricopili 2019_Jun_18.001"
 ##shortName="pgc-mdd2021-{cohorts}"
