@@ -22,10 +22,11 @@ rule cojo_qctool:
     output: "resources/cojo/qctool_v2.0.8-CentOS\\ Linux7.6.1810-x86_64/qctool"
     shell: "tar -xz --directory=resources/cojo -f {input}"
 
-# QC sumstats to MAF <= 0.01, INFO >= 0.6
+# QC sumstats to MAF <= 0.01, INFO >= 0.6 based on Neff > 80% max version
 rule cojo_daner_qc:
-    input: "results/distribution/daner_{analysis}.rp.gz"
+    input: "results/distribution/daner_{analysis}.neff.gz"
     output: "results/cojo/daner_{analysis}.qc.gz"
+    params: qc_neff=0.8
     shell: "zcat {input} | awk '{{if(NR == 1 || ($7 >= 0.01 && $7 <= 0.99 && $8 >= 0.6)) {{print $0}}}}' | gzip -c > {output}"
     
 # sumstats for input into GCTA
@@ -126,22 +127,35 @@ rule cojo_region_bgen:
     shell: "bgenix -g {input.bgen} -incl-range {params.chr0}:{wildcards.start}-{wildcards.stop} > {output}"
     
 # Extract SNPs for each region
-rule cojo_snplists:
+# List of CPIDs and SNP names for renaming SNPs
+rule cojo_varids:
     input: "results/distribution/daner_{analysis}.neff.gz"
+    output: "results/cojo/{analysis}/{chr}:{start}-{stop}.varids"
+    shell: """zcat {input} | awk '{{if(NR > 1 && $1 == {wildcards.chr} && {wildcards.start} <= $3 && $3 <= {wildcards.stop}) {{print $1, $2, 0, $3, $4, $5}}}}' > {output}"""
+ 
+# list of SNPs to keep 
+rule cojo_snplist:
+    input: "results/cojo/{analysis}/{chr}:{start}-{stop}.varids"
     output: "results/cojo/{analysis}/{chr}:{start}-{stop}.snplist"
-    shell: """zcat {input} | awk '{{if(NR > 1 && $1 == {wildcards.chr} && {wildcards.start} <= $3 && $3 <= {wildcards.stop}) {{print $2}}}}' > {output}"""
+    shell: "cat {input} | awk '{{print $2}}' > {output}"
     
     
 # convert UKB BGEN to PLINK BED
 # keep unrelated European ancestries
-# extract SNPs that are in the GWAS in this region
+# extract SNPs in the specified region
+# rename variant IDs based on sumstats
 rule cojo_region_bed:
-    input: bgen="results/cojo/{analysis}/{chr}:{start}-{stop}.bgen", snplist="results/cojo/{analysis}/{chr}:{start}-{stop}.snplist", sample= "resources/cojo/ukb/ukb_imp_chr{chr}_v3.sample", eur_ids="results/cojo/ukb_eur.ids", rel_ids="results/cojo/ukb_rel.dat"
+    input: bgen="results/cojo/{analysis}/{chr}:{start}-{stop}.bgen", varids="results/cojo/{analysis}/{chr}:{start}-{stop}.varids", snplist="results/cojo/{analysis}/{chr}:{start}-{stop}.snplist", sample= "resources/cojo/ukb/ukb_imp_chr{chr}_v3.sample", eur_ids="results/cojo/ukb_eur.ids", rel_ids="results/cojo/ukb_rel.dat"
     conda: "../envs/cojo.yaml"
     params: prefix="results/cojo/{analysis}/{chr}:{start}-{stop}"
-    output: "results/cojo/{analysis}/{chr}:{start}-{stop}.bed", "results/cojo/{analysis}/{chr}:{start}-{stop}.fam", "results/cojo/{analysis}/{chr}:{start}-{stop}.bim"
-    shell: "plink2 --make-bed --bgen {input.bgen} 'ref-first' --sample {input.sample} --double-id --keep {input.eur_ids} --remove {input.rel_ids} --extract {input.snplist} --out {params.prefix} --memory 4000 --threads 1"
-    
+    output: temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bed"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.fam"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bim")
+    shell: """plink2 --make-bed --bgen {input.bgen} 'ref-first' \
+    --sample {input.sample} --double-id \
+    --keep {input.eur_ids} --remove {input.rel_ids} \
+    --recover-var-ids {input.varids} 'partial' \
+    --extract {input.snplist} \
+    --out {params.prefix} --memory 4000 --threads 1"""
+
 # COJO analysis
 # parse CHR, start, and stop from input filename
 rule cojo_slct:
