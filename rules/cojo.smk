@@ -33,7 +33,8 @@ rule cojo_daner_qc:
 rule cojo_ma:
     input: "results/cojo/daner_{analysis}.qc.gz"
     output: "results/cojo/{analysis}.ma"
-    shell: """zcat {input} | awk '{{if(NR == 1) {{print "SNP", "A1", "A2", "freq", "b", "se", "p", "N"}} else {{print $2, $4, $5, $7, log($9), $10, $11, 2*$19}}}}' > {output}"""
+    conda: "../envs/meta.yaml"
+    script: "../scripts/meta/cojo_ma.R"
     
 # regions to analyse
 # Pull regions clumped from Ricopili
@@ -129,7 +130,7 @@ rule cojo_region_bgen:
 # Extract SNPs for each region
 # List of CPIDs and SNP names for renaming SNPs
 rule cojo_varids:
-    input: "results/distribution/daner_{analysis}.neff.gz"
+    input: "results/cojo/daner_{analysis}.qc.gz"
     output: "results/cojo/{analysis}/{chr}:{start}-{stop}.varids"
     shell: """zcat {input} | awk '{{if(NR > 1 && $1 == {wildcards.chr} && {wildcards.start} <= $3 && $3 <= {wildcards.stop}) {{print $1, $2, 0, $3, $4, $5}}}}' > {output}"""
  
