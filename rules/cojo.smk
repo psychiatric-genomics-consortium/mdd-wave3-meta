@@ -197,7 +197,7 @@ rule cojo_howard:
         
     
 rule cojo_docs:
-    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", howard="resources/sumstats/howard2019_table_s1.xlsx", levey="resources/sumstats/levey2021_223snps.txt", rp_clump="results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.gz.p4.clump.areator.sorted.1mhc", mc_clump="results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.mc.gz.p4.clump.areator.sorted.1mhc", rmd="docs/cojo.Rmd"
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", howard="resources/sumstats/howard2019_table_s1.xlsx", levey="resources/sumstats/levey2021_223snps.txt", rp_clump=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc", version=analysis_version), rmd="docs/cojo.Rmd"
     params: qc=meta_qc_params
     output: "docs/cojo.md"
     conda: "../envs/meta.yaml"
