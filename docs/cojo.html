@@ -36,10 +36,11 @@ body {
 <ul>
 <li>Final meta-analysed SNPs from the Ricopili pipeline were used.</li>
 <li>Ricopili was used for initial clumping with index SNPs identified with <em>p</em>&lt; 10^{-4} and <em>r</em><sup>2</sup>&lt; 0.1 within 3000kb windows. The extended MHC region was clumped as a single region.</li>
-<li>Sumstats were filtered for MAF &gt;= 0.01 and INFO &gt; 0.6</li>
+<li>Sumstats were filtered for MAF &gt;= 0.01, INFO &gt; 0.6, and Neff &gt;= 80% of max.</li>
 <li>Regions with a genome-wide significant SNP (p &lt; 5-e8) were identified from the clumped results. Regions within 50kb of each other were merged.</li>
-<li>SNPs from these regions were extracted filtered to unrelated of self- and genotype-identified European ancestry participants from UK Biobank.</li>
+<li>SNPs from these regions were extracted and filtered to unrelated of self- and genotype-identified European ancestry participants from UK Biobank.</li>
 <li>A conditional analysis was performed on each region using the filtered sumstats superimposed on the UK Biobank LD structure.</li>
+<li>Singleton regions (with only one genome-wide significant variant) were removed.</li>
 </ul>
 <h2 id="previous-sumstats">Previous sumstats</h2>
 <p>Variants from <a href="https://www.nature.com/articles/s41593-018-%200326-7">Howard et al 2019</a> (remove first and last rows with table captions) and <a href="https://doi.org/10.1038/s41593-021-00860-2">Levey et al 2021</a></p>
@@ -56,21 +57,21 @@ body {
 <h2 id="cojo-snp-and-region-counts">COJO SNP and region counts</h2>
 <p>List of clumped and COJO SNPs and regions</p>
 <ul>
-<li>Sumstats: results/cojo/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp.qc.gz</li>
-<li>Clump file: results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp.gz.p4.clump.areator.sorted.1mhc</li>
-<li>COJO regions: 549</li>
-<li>Clumped SNPs: 738</li>
-<li>COJO Selected SNPs: 594</li>
-<li>Singleton regions: 63</li>
-<li>COJO+Clump SNPs: 606</li>
-<li>COJO Final SNPs: 543</li>
-<li>COJO Final SNPs p &lt;= 5e-8, pJ &lt;= 5e-8: 512</li>
-<li>COJO Final SNPs p &gt; 5e-8, pJ &lt;= 5e-8: 29</li>
+<li>Sumstats: results/cojo/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.qc.gz</li>
+<li>Clump file: results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.gz.p4.clump.areator.sorted.1mhc</li>
+<li>COJO regions: 577</li>
+<li>Clumped SNPs: 817</li>
+<li>COJO Selected SNPs: 617</li>
+<li>Singleton regions: 65</li>
+<li>COJO+Clump SNPs: 617</li>
+<li>COJO Final SNPs: 552</li>
+<li>COJO Final SNPs p &lt;= 5e-8, pJ &lt;= 5e-8: 543</li>
+<li>COJO Final SNPs p &gt; 5e-8, pJ &lt;= 5e-8: 9</li>
 </ul>
 <p>Load list of COJO SNPs</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cojo <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(snakemake<span class="sc">@</span>input<span class="sc">$</span>cojo)</span></code></pre></div>
 <pre><code>## 
-## ── Column specification ──────────────────────────────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────
 ## cols(
 ##   .default = col_double(),
 ##   SNP = col_character(),
@@ -80,92 +81,81 @@ body {
 ## )
 ## ℹ Use `spec()` for the full column specifications.</code></pre>
 <h2 id="clumped-results">Clumped results</h2>
-<p>Clumped results from Ricopili and METACARPA for comparison</p>
+<p>Clumped results from Ricopili</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rp <span class="ot">&lt;-</span> <span class="fu">read_table2</span>(snakemake<span class="sc">@</span>input<span class="sc">$</span>rp_clump) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(P <span class="sc">&lt;=</span> <span class="fl">5e-8</span>)</span></code></pre></div>
 <pre><code>## 
-## ── Column specification ──────────────────────────────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────
 ## cols(
 ##   .default = col_double(),
 ##   SNP = col_character(),
 ##   A1A2 = col_character(),
 ##   `(Nca,Nco,Neff)Dir` = col_character(),
-##   ngt = col_character(),
 ##   `LD-friends(0.1).p0.001` = col_character(),
 ##   `LD-friends(0.6).p0.001` = col_character(),
 ##   gwas_catalog_span.6 = col_character(),
 ##   `genes.6.50kb(dist2index)` = col_character(),
 ##   N.genes.6.50kb = col_character()
 ## )
-## ℹ Use `spec()` for the full column specifications.</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mc <span class="ot">&lt;-</span> <span class="fu">read_table2</span>(snakemake<span class="sc">@</span>input<span class="sc">$</span>mc_clump) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(P <span class="sc">&lt;=</span> <span class="fl">5e-8</span>)</span></code></pre></div>
-<pre><code>## 
-## ── Column specification ──────────────────────────────────────────────────────────────────────
-## cols(
-##   .default = col_double(),
-##   SNP = col_character(),
-##   A1A2 = col_character(),
-##   ngt = col_character(),
-##   `LD-friends(0.1).p0.001` = col_character(),
-##   `LD-friends(0.6).p0.001` = col_character(),
-##   gwas_catalog_span.6 = col_character(),
-##   `genes.6.50kb(dist2index)` = col_character(),
-##   N.genes.6.50kb = col_character()
-## )
-## ℹ Use `spec()` for the full column specifications.</code></pre>
+## ℹ Use `spec()` for the full column specifications.
+
+## Warning: 94 parsing failures.
+##  row col expected actual                                                                                           file
+## 1420 ngt a double      - &#39;results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.gz.p4.clump.areator.sorted.1mhc&#39;
+## 1850 ngt a double      - &#39;results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.gz.p4.clump.areator.sorted.1mhc&#39;
+## 1919 ngt a double      - &#39;results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.gz.p4.clump.areator.sorted.1mhc&#39;
+## 2244 ngt a double      - &#39;results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.gz.p4.clump.areator.sorted.1mhc&#39;
+## 2345 ngt a double      - &#39;results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.gz.p4.clump.areator.sorted.1mhc&#39;
+## .... ... ........ ...... ..............................................................................................
+## See problems(...) for more details.</code></pre>
 <h2 id="genomic-ranges">Genomic ranges</h2>
 <p>Construct genomic range objects so that SNPs and regions can be intersected and compared.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cojo_gr <span class="ot">&lt;-</span> <span class="fu">with</span>(cojo, <span class="fu">GRanges</span>(<span class="at">seqnames=</span>CHR, <span class="at">ranges=</span><span class="fu">IRanges</span>(<span class="at">start=</span>range.left, <span class="at">end=</span>range.right), <span class="at">SNP=</span>SNP))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>rp_gr <span class="ot">&lt;-</span> <span class="fu">with</span>(rp, <span class="fu">GRanges</span>(<span class="at">seqnames=</span>CHR, <span class="at">ranges=</span><span class="fu">IRanges</span>(<span class="at">start=</span>range.left, <span class="at">end=</span>range.right), <span class="at">SNP=</span>SNP))</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>mc_gr <span class="ot">&lt;-</span> <span class="fu">with</span>(mc, <span class="fu">GRanges</span>(<span class="at">seqnames=</span>CHR, <span class="at">ranges=</span><span class="fu">IRanges</span>(<span class="at">start=</span>range.left, <span class="at">end=</span>range.right), <span class="at">SNP=</span>SNP))</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>howard_gr <span class="ot">&lt;-</span> <span class="fu">with</span>(howard, <span class="fu">GRanges</span>(<span class="at">seqnames=</span>Chromosome, <span class="at">ranges=</span><span class="fu">IRanges</span>(<span class="at">start=</span><span class="st">`</span><span class="at">Postion (bp)</span><span class="st">`</span>, <span class="at">width=</span><span class="dv">1</span>)))</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>levey_gr <span class="ot">&lt;-</span> <span class="fu">with</span>(levey, <span class="fu">GRanges</span>(<span class="at">seqnames=</span>CHR, <span class="at">ranges=</span><span class="fu">IRanges</span>(<span class="at">start=</span>BP, <span class="at">width=</span><span class="dv">1</span>)))</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>rp_mc_overlaps <span class="ot">&lt;-</span> <span class="fu">findOverlaps</span>(rp_gr, mc_gr)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>rp_and_mc <span class="ot">&lt;-</span> rp <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="fu">unique</span>(rp_mc_overlaps<span class="sc">@</span>from))</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>rp_not_mc <span class="ot">&lt;-</span> rp <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="sc">-</span><span class="fu">unique</span>(rp_mc_overlaps<span class="sc">@</span>from))</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cojo_gr <span class="ot">&lt;-</span> <span class="fu">with</span>(cojo, <span class="fu">GRanges</span>(<span class="at">seqnames=</span>CHR, <span class="at">ranges=</span><span class="fu">IRanges</span>(<span class="at">start=</span>range.left, <span class="at">end=</span>range.right), <span class="at">SNP=</span>SNP))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>rp_gr <span class="ot">&lt;-</span> <span class="fu">with</span>(rp, <span class="fu">GRanges</span>(<span class="at">seqnames=</span>CHR, <span class="at">ranges=</span><span class="fu">IRanges</span>(<span class="at">start=</span>range.left, <span class="at">end=</span>range.right), <span class="at">SNP=</span>SNP))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>howard_gr <span class="ot">&lt;-</span> <span class="fu">with</span>(howard, <span class="fu">GRanges</span>(<span class="at">seqnames=</span>Chromosome, <span class="at">ranges=</span><span class="fu">IRanges</span>(<span class="at">start=</span><span class="st">`</span><span class="at">Postion (bp)</span><span class="st">`</span>, <span class="at">width=</span><span class="dv">1</span>)))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>levey_gr <span class="ot">&lt;-</span> <span class="fu">with</span>(levey, <span class="fu">GRanges</span>(<span class="at">seqnames=</span>CHR, <span class="at">ranges=</span><span class="fu">IRanges</span>(<span class="at">start=</span>BP, <span class="at">width=</span><span class="dv">1</span>)))</span></code></pre></div>
 <h2 id="gwas-catalog">GWAS catalog</h2>
 <p>Tally entries in the GWAS catalog for each region</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>parse_catalog_entry <span class="ot">&lt;-</span> <span class="cf">function</span>(catalog_entry) {</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># extract LD and RSID from first element</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    ld_snp_match <span class="ot">&lt;-</span> <span class="fu">str_match</span>(catalog_entry[<span class="dv">1</span>], <span class="st">&quot;</span><span class="sc">\\</span><span class="st">((.+)</span><span class="sc">\\</span><span class="st">)(rs[[:digit:]]+)&quot;</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    ld <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ld_snp_match[,<span class="dv">2</span>])</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    snp <span class="ot">&lt;-</span> ld_snp_match[,<span class="dv">3</span>]</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># parse rest of elements into phenotype(PubMed ID)(P-value)</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    phenotype_matches <span class="ot">&lt;-</span> <span class="fu">str_match</span>(catalog_entry[<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;(.+)</span><span class="sc">\\</span><span class="st">(([[:digit:]]+)</span><span class="sc">\\</span><span class="st">)</span><span class="sc">\\</span><span class="st">((.+)</span><span class="sc">\\</span><span class="st">)&quot;</span>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    phenotypes <span class="ot">&lt;-</span> phenotype_matches[,<span class="dv">2</span>]</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    pubmeds <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(phenotype_matches[,<span class="dv">3</span>])</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    p_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(phenotype_matches[,<span class="dv">4</span>])</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">data.frame</span>(ld, <span class="at">catalogSNP=</span>snp, <span class="at">phenotype=</span>phenotypes, <span class="at">pubmed_id=</span>pubmeds, <span class="at">P=</span>p_values))</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>rp_gwas_catalog_entries <span class="ot">&lt;-</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>plyr<span class="sc">::</span><span class="fu">ddply</span>(<span class="fu">filter</span>(rp, gwas_catalog_span<span class="fl">.6</span> <span class="sc">!=</span> <span class="st">&#39;-&#39;</span>), <span class="sc">~</span>SNP, <span class="cf">function</span>(rp_entry) {</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get GWAS catalog cell</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    gwas_catalog <span class="ot">&lt;-</span> rp_entry<span class="sc">$</span>gwas_catalog_span<span class="fl">.6</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># split out into catalog entries (separated by /, removing first empty element)</span></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    catalog_entries <span class="ot">&lt;-</span> <span class="fu">str_split</span>(gwas_catalog, <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    catalog_entries_complete <span class="ot">&lt;-</span> catalog_entries[<span class="fu">which</span>(catalog_entries <span class="sc">!=</span> <span class="st">&quot;&quot;</span>)]</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># split SNP entries by &quot;;&quot;</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    catalog_entries_list <span class="ot">&lt;-</span> <span class="fu">str_split</span>(catalog_entries_complete, <span class="st">&quot;;&quot;</span>)</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># parse each entry</span></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    catalog_entries_df <span class="ot">&lt;-</span> plyr<span class="sc">::</span><span class="fu">ldply</span>(catalog_entries_list, parse_catalog_entry)</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(catalog_entries_df)</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>parse_catalog_entry <span class="ot">&lt;-</span> <span class="cf">function</span>(catalog_entry) {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># extract LD and RSID from first element</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    ld_snp_match <span class="ot">&lt;-</span> <span class="fu">str_match</span>(catalog_entry[<span class="dv">1</span>], <span class="st">&quot;</span><span class="sc">\\</span><span class="st">((.+)</span><span class="sc">\\</span><span class="st">)(rs[[:digit:]]+)&quot;</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    ld <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ld_snp_match[,<span class="dv">2</span>])</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    snp <span class="ot">&lt;-</span> ld_snp_match[,<span class="dv">3</span>]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># parse rest of elements into phenotype(PubMed ID)(P-value)</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    phenotype_matches <span class="ot">&lt;-</span> <span class="fu">str_match</span>(catalog_entry[<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;(.+)</span><span class="sc">\\</span><span class="st">(([[:digit:]]+)</span><span class="sc">\\</span><span class="st">)</span><span class="sc">\\</span><span class="st">((.+)</span><span class="sc">\\</span><span class="st">)&quot;</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    phenotypes <span class="ot">&lt;-</span> phenotype_matches[,<span class="dv">2</span>]</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    pubmeds <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(phenotype_matches[,<span class="dv">3</span>])</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    p_values <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(phenotype_matches[,<span class="dv">4</span>])</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">data.frame</span>(ld, <span class="at">catalogSNP=</span>snp, <span class="at">phenotype=</span>phenotypes, <span class="at">pubmed_id=</span>pubmeds, <span class="at">P=</span>p_values))</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>rp_gwas_catalog_entries <span class="ot">&lt;-</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>plyr<span class="sc">::</span><span class="fu">ddply</span>(<span class="fu">filter</span>(rp, gwas_catalog_span<span class="fl">.6</span> <span class="sc">!=</span> <span class="st">&#39;-&#39;</span>), <span class="sc">~</span>SNP, <span class="cf">function</span>(rp_entry) {</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get GWAS catalog cell</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    gwas_catalog <span class="ot">&lt;-</span> rp_entry<span class="sc">$</span>gwas_catalog_span<span class="fl">.6</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># split out into catalog entries (separated by /, removing first empty element)</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    catalog_entries <span class="ot">&lt;-</span> <span class="fu">str_split</span>(gwas_catalog, <span class="st">&quot;/&quot;</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    catalog_entries_complete <span class="ot">&lt;-</span> catalog_entries[<span class="fu">which</span>(catalog_entries <span class="sc">!=</span> <span class="st">&quot;&quot;</span>)]</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># split SNP entries by &quot;;&quot;</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    catalog_entries_list <span class="ot">&lt;-</span> <span class="fu">str_split</span>(catalog_entries_complete, <span class="st">&quot;;&quot;</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># parse each entry</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    catalog_entries_df <span class="ot">&lt;-</span> plyr<span class="sc">::</span><span class="fu">ldply</span>(catalog_entries_list, parse_catalog_entry)</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(catalog_entries_df)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span></code></pre></div>
 <h1 id="parse-gene-list">Parse gene list</h1>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>rp_genes_dist <span class="ot">&lt;-</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plyr<span class="sc">::</span><span class="fu">ddply</span>(<span class="fu">filter</span>(rp, <span class="st">`</span><span class="at">genes.6.50kb(dist2index)</span><span class="st">`</span> <span class="sc">!=</span> <span class="st">&#39;-&#39;</span>), <span class="sc">~</span>SNP, <span class="cf">function</span>(rp_entry) {</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    genes_dist <span class="ot">&lt;-</span> rp_entry<span class="sc">$</span><span class="st">`</span><span class="at">genes.6.50kb(dist2index)</span><span class="st">`</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    genes_dist_list <span class="ot">&lt;-</span> <span class="fu">str_split</span>(genes_dist, <span class="st">&#39;,&#39;</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    genes_dist_match <span class="ot">&lt;-</span> <span class="fu">str_match</span>(genes_dist_list, <span class="st">&quot;(.+)</span><span class="sc">\\</span><span class="st">((.+)</span><span class="sc">\\</span><span class="st">)&quot;</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">data.frame</span>(<span class="at">gene=</span>genes_dist_match[,<span class="dv">2</span>], <span class="at">dist2index=</span><span class="fu">as.numeric</span>(genes_dist_match[,<span class="dv">3</span>])))</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>rp_genes_dist <span class="ot">&lt;-</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plyr<span class="sc">::</span><span class="fu">ddply</span>(<span class="fu">filter</span>(rp, <span class="st">`</span><span class="at">genes.6.50kb(dist2index)</span><span class="st">`</span> <span class="sc">!=</span> <span class="st">&#39;-&#39;</span>), <span class="sc">~</span>SNP, <span class="cf">function</span>(rp_entry) {</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    genes_dist <span class="ot">&lt;-</span> rp_entry<span class="sc">$</span><span class="st">`</span><span class="at">genes.6.50kb(dist2index)</span><span class="st">`</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    genes_dist_list <span class="ot">&lt;-</span> <span class="fu">str_split</span>(genes_dist, <span class="st">&#39;,&#39;</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    genes_dist_match <span class="ot">&lt;-</span> <span class="fu">str_match</span>(genes_dist_list, <span class="st">&quot;(.+)</span><span class="sc">\\</span><span class="st">((.+)</span><span class="sc">\\</span><span class="st">)&quot;</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">data.frame</span>(<span class="at">gene=</span>genes_dist_match[,<span class="dv">2</span>], <span class="at">dist2index=</span><span class="fu">as.numeric</span>(genes_dist_match[,<span class="dv">3</span>])))</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span></code></pre></div>
 <h2 id="comparison-to-previous-findings">Comparison to previous findings</h2>
 <p>Find which COJO regions overlap with Howard</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cojo_howard_overlaps <span class="ot">&lt;-</span> <span class="fu">findOverlaps</span>(cojo_gr, howard_gr)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>cojo_howard_overlaps</span></code></pre></div>
-<pre><code>## Hits object with 116 hits and 0 metadata columns:
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cojo_howard_overlaps <span class="ot">&lt;-</span> <span class="fu">findOverlaps</span>(cojo_gr, howard_gr)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cojo_howard_overlaps</span></code></pre></div>
+<pre><code>## Hits object with 115 hits and 0 metadata columns:
 ##         queryHits subjectHits
 ##         &lt;integer&gt;   &lt;integer&gt;
 ##     [1]         1           1
@@ -174,23 +164,23 @@ body {
 ##     [4]         8           4
 ##     [5]         9           4
 ##     ...       ...         ...
-##   [112]       521          97
-##   [113]       525          98
-##   [114]       532         100
-##   [115]       534         101
-##   [116]       548         102
+##   [111]       521          97
+##   [112]       525          98
+##   [113]       532         100
+##   [114]       534         101
+##   [115]       548         102
 ##   -------
 ##   queryLength: 552 / subjectLength: 102</code></pre>
 <p>Count number of regions in Howard that overlap:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>howard <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="fu">unique</span>(cojo_howard_overlaps<span class="sc">@</span>to)) <span class="sc">%&gt;%</span> <span class="fu">count</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>howard <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="fu">unique</span>(cojo_howard_overlaps<span class="sc">@</span>to)) <span class="sc">%&gt;%</span> <span class="fu">count</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##       n
 ##   &lt;int&gt;
 ## 1    88</code></pre>
 <p>Find which COJO regions overlap with Levey</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>cojo_levey_overlaps <span class="ot">&lt;-</span> <span class="fu">findOverlaps</span>(cojo_gr, levey_gr)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>cojo_levey_overlaps</span></code></pre></div>
-<pre><code>## Hits object with 264 hits and 0 metadata columns:
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>cojo_levey_overlaps <span class="ot">&lt;-</span> <span class="fu">findOverlaps</span>(cojo_gr, levey_gr)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>cojo_levey_overlaps</span></code></pre></div>
+<pre><code>## Hits object with 260 hits and 0 metadata columns:
 ##         queryHits subjectHits
 ##         &lt;integer&gt;   &lt;integer&gt;
 ##     [1]         1         110
@@ -199,175 +189,94 @@ body {
 ##     [4]         8          77
 ##     [5]         8          26
 ##     ...       ...         ...
-##   [260]       537         154
-##   [261]       538         154
-##   [262]       544         120
-##   [263]       548         153
-##   [264]       549         211
+##   [256]       537         154
+##   [257]       538         154
+##   [258]       544         120
+##   [259]       548         153
+##   [260]       549         211
 ##   -------
 ##   queryLength: 552 / subjectLength: 223</code></pre>
 <p>Count number of regions in Levey that overlap:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>levey <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="fu">unique</span>(cojo_levey_overlaps<span class="sc">@</span>to)) <span class="sc">%&gt;%</span> <span class="fu">count</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>levey <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="fu">unique</span>(cojo_levey_overlaps<span class="sc">@</span>to)) <span class="sc">%&gt;%</span> <span class="fu">count</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##       n
 ##   &lt;int&gt;
 ## 1   191</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>cojo_known <span class="ot">&lt;-</span> cojo <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="fu">unique</span>(cojo_levey_overlaps<span class="sc">@</span>from))</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>catalog_known <span class="ot">&lt;-</span> rp_gwas_catalog_entries <span class="sc">%&gt;%</span> <span class="fu">filter</span>(SNP <span class="sc">%in%</span> cojo_known<span class="sc">$</span>SNP) <span class="sc">%&gt;%</span> <span class="fu">count</span>(phenotype) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>catalog_known</span></code></pre></div>
-<pre><code>## # A tibble: 136 × 2
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cojo_known <span class="ot">&lt;-</span> cojo <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="fu">unique</span>(cojo_levey_overlaps<span class="sc">@</span>from))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>catalog_known <span class="ot">&lt;-</span> rp_gwas_catalog_entries <span class="sc">%&gt;%</span> <span class="fu">filter</span>(SNP <span class="sc">%in%</span> cojo_known<span class="sc">$</span>SNP) <span class="sc">%&gt;%</span> <span class="fu">count</span>(phenotype) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>catalog_known</span></code></pre></div>
+<pre><code>## # A tibble: 166 × 2
 ##    phenotype                   n
 ##    &lt;chr&gt;                   &lt;int&gt;
 ##  1 Serum_metabolit...        186
-##  2 Trans_fatty_acid_levels    29
-##  3 Glycerophosphol...         27
-##  4 Schizophrenia              26
-##  5 Depression_(broad)         24
-##  6 Intelligence_(MTAG)        24
-##  7 Autism_spectrum...         18
-##  8 Plasma_omega-3_...         15
-##  9 Plasma_omega-6_...         14
-## 10 Lung_cancer                12
-## # … with 126 more rows</code></pre>
+##  2 Schizophrenia              45
+##  3 Intelligence_(MTAG)        42
+##  4 Trans_fatty_acid_levels    29
+##  5 Waist_circumfer...         29
+##  6 Depression_(broad)         28
+##  7 Glycerophosphol...         27
+##  8 Neuroticism                26
+##  9 Autism_spectrum...         24
+## 10 Depression                 22
+## # … with 156 more rows</code></pre>
 <p>Newly discovered regions</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>cojo_new <span class="ot">&lt;-</span> cojo <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="fu">unique</span>(<span class="sc">-</span>cojo_levey_overlaps<span class="sc">@</span>from)) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(P)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>cojo_new</span></code></pre></div>
-<pre><code>## # A tibble: 360 × 28
-##    region snp_idx   CHR SNP               BP A1    A2    FRQ_A_524857 FRQ_U_3059006
-##     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;         &lt;dbl&gt;
-##  1    487       1    20 rs17805843  51205902 T     A            0.178         0.181
-##  2    174       1     5 rs2926865  153213263 C     T            0.166         0.171
-##  3     49       2     2 rs9309323   60490322 T     G            0.419         0.419
-##  4    166       1     5 rs1375460  120065746 G     A            0.281         0.277
-##  5    211       1     7 rs10499337   3521803 T     C            0.23          0.236
-##  6    362       1    12 rs2363585   60791165 A     T            0.376         0.383
-##  7    310       1    10 rs12778915  77617557 G     A            0.314         0.312
-##  8    374       1    12 rs12579582 121884133 A     G            0.48          0.482
-##  9     81       1     2 rs72931605 212693775 C     T            0.162         0.155
-## 10     76       1     2 rs68022726 198431214 A     G            0.334         0.328
-## # … with 350 more rows, and 19 more variables: INFO &lt;dbl&gt;, OR &lt;dbl&gt;, SE &lt;dbl&gt;,
-## #   P &lt;dbl&gt;, ngt &lt;dbl&gt;, Direction &lt;chr&gt;, HetISqt &lt;dbl&gt;, HetDf &lt;dbl&gt;,
-## #   HetPVa &lt;dbl&gt;, Nca &lt;dbl&gt;, Nco &lt;dbl&gt;, Neff_half &lt;dbl&gt;, bJ &lt;dbl&gt;, bJ_se &lt;dbl&gt;,
-## #   pJ &lt;dbl&gt;, LD_r &lt;dbl&gt;, range.left &lt;dbl&gt;, range.right &lt;dbl&gt;, n_sig_snps &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>rp_gwas_catalog_entries <span class="sc">%&gt;%</span> <span class="fu">filter</span>(SNP <span class="sc">%in%</span> cojo_new<span class="sc">$</span>SNP) <span class="sc">%&gt;%</span> <span class="fu">count</span>(phenotype) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>phenotype <span class="sc">%in%</span> catalog_known<span class="sc">$</span>phenotype)</span></code></pre></div>
-<pre><code>## # A tibble: 19 × 2
-##    phenotype                     n
-##    &lt;chr&gt;                     &lt;int&gt;
-##  1 Hip_circumferen...            5
-##  2 Lymphocyte_perc...            3
-##  3 Ulcerative_colitis            3
-##  4 Birth_weight                  2
-##  5 Mean_platelet_volume          2
-##  6 Monocyte_count                2
-##  7 Advanced_age-re...            1
-##  8 Allergy                       1
-##  9 C-reactive_protein            1
-## 10 C-reactive_protein_levels     1
-## 11 Diastolic_blood_pressure      1
-## 12 Head_circumfere...            1
-## 13 Hip_circumference             1
-## 14 Lymphocyte_counts             1
-## 15 Major_depressiv...            1
-## 16 Obesity                       1
-## 17 Putamen_volume                1
-## 18 Subcortical_bra...            1
-## 19 Type_2_diabetes               1</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>rp_genes_dist <span class="sc">%&gt;%</span> <span class="fu">filter</span>(SNP <span class="sc">%in%</span> cojo_new<span class="sc">$</span>SNP) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(SNP) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dist2index <span class="sc">==</span> <span class="fu">min</span>(dist2index)) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="fu">select</span>(gene) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span></code></pre></div>
-<pre><code>## # A tibble: 158 × 1
-##    gene     
-##    &lt;chr&gt;    
-##  1 MAGI2    
-##  2 AQP12A   
-##  3 SHTN1    
-##  4 VAX1     
-##  5 MIR3663HG
-##  6 MIR3663  
-##  7 KCNK18   
-##  8 NTM      
-##  9 SLIT1    
-## 10 NBAS     
-## # … with 148 more rows</code></pre>
-<h2 id="comparison-between-pre-cojo-and-post-cojo">Comparison between pre-COJO and post-COJO</h2>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>rp_genes_dist <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>SNP <span class="sc">%in%</span> cojo<span class="sc">$</span>SNP)</span></code></pre></div>
-<pre><code>## # A tibble: 1,319 × 3
-##    SNP        gene     dist2index
-##    &lt;chr&gt;      &lt;chr&gt;         &lt;dbl&gt;
-##  1 rs10027194 PPP3CA          0  
-##  2 rs10027194 MIR1255A        0  
-##  3 rs10027194 FLJ20021        0  
-##  4 rs10064176 CD14          -98.3
-##  5 rs10064176 TMCO6         -86.6
-##  6 rs10064176 NDUFA2        -84.2
-##  7 rs10064176 IK            -69.5
-##  8 rs10064176 MIR3655       -84.1
-##  9 rs10064176 WDR55         -61.1
-## 10 rs10064176 DND1          -58.4
-## # … with 1,309 more rows</code></pre>
-<h2 id="comparison-between-ricopili-and-metacarpa-clumped-results">Comparison between Ricopili and METACARPA clumped results</h2>
-<p>Shared regions and regions not significant in the METACARPA analysis.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>rp_and_mc_phenotypes <span class="ot">&lt;-</span> rp_gwas_catalog_entries <span class="sc">%&gt;%</span> <span class="fu">filter</span>(SNP <span class="sc">%in%</span> rp_and_mc<span class="sc">$</span>SNP) <span class="sc">%&gt;%</span> <span class="fu">count</span>(phenotype) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>rp_not_mc_phenotypes <span class="ot">&lt;-</span> rp_gwas_catalog_entries <span class="sc">%&gt;%</span> <span class="fu">filter</span>(SNP <span class="sc">%in%</span> rp_not_mc<span class="sc">$</span>SNP) <span class="sc">%&gt;%</span> <span class="fu">count</span>(phenotype) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>rp_not_mc_phenotypes <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>phenotype <span class="sc">%in%</span> rp_and_mc_phenotypes<span class="sc">$</span>phenotype)</span></code></pre></div>
-<pre><code>## # A tibble: 10 × 2
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cojo_new <span class="ot">&lt;-</span> cojo <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="fu">unique</span>(<span class="sc">-</span>cojo_levey_overlaps<span class="sc">@</span>from)) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(P)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>cojo_new <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(region, snp_idx, CHR, SNP, BP, P, pJ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(region)</span></code></pre></div>
+<pre><code>## # A tibble: 360 × 7
+## # Groups:   region [342]
+##    region snp_idx   CHR SNP               BP        P       pJ
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1    174       1     5 rs1993739  153215007 5.71e-20 5.72e-20
+##  2    487       1    20 rs17805843  51205902 9.34e-20 9.36e-20
+##  3     49       2     2 rs359247    60477052 2.67e-18 6.60e-17
+##  4    166       1     5 rs6863440  120084621 3.25e-18 3.26e-18
+##  5    211       1     7 rs10499337   3521803 1.19e-17 1.48e-16
+##  6    362       1    12 rs2363585   60791165 1.69e-16 1.69e-16
+##  7    310       1    10 rs12778915  77617557 2.35e-16 2.35e-16
+##  8    374       1    12 rs7962128  121907336 3.68e-16 3.68e-16
+##  9     76       1     2 rs13418032 198413692 9.89e-16 9.90e-16
+## 10     81       1     2 rs72931605 212693775 1.29e-15 1.21e- 9
+## # … with 350 more rows</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>rp_gwas_catalog_entries <span class="sc">%&gt;%</span> <span class="fu">filter</span>(SNP <span class="sc">%in%</span> cojo_new<span class="sc">$</span>SNP) <span class="sc">%&gt;%</span> <span class="fu">count</span>(phenotype) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>phenotype <span class="sc">%in%</span> catalog_known<span class="sc">$</span>phenotype)</span></code></pre></div>
+<pre><code>## # A tibble: 61 × 2
 ##    phenotype                    n
 ##    &lt;chr&gt;                    &lt;int&gt;
-##  1 Menopause_(age_at_onset)     3
-##  2 Mean_corpuscular_volume      2
-##  3 Visceral_adipos...           2
-##  4 Adenocarcinoma               1
-##  5 Hemoglobin                   1
-##  6 Lipoprotein-ass...           1
-##  7 Mean_corpuscula...           1
-##  8 Monobrow                     1
-##  9 Prostate_cancer              1
-## 10 White_blood_cel...           1</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>rp_genes_dist <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(SNP) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dist2index <span class="sc">==</span> <span class="fu">min</span>(dist2index)) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="fu">select</span>(gene) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span></code></pre></div>
-<pre><code>## # A tibble: 790 × 1
-##    gene     
-##    &lt;chr&gt;    
-##  1 PPP3CA   
-##  2 MIR1255A 
-##  3 FLJ20021 
-##  4 CD14     
-##  5 LINC02240
-##  6 SGCZ     
-##  7 NISCH    
-##  8 STAB1    
-##  9 NT5DC2   
-## 10 SMIM4    
-## # … with 780 more rows</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>rp_genes_dist <span class="sc">%&gt;%</span> <span class="fu">filter</span>(SNP <span class="sc">%in%</span> rp_and_mc<span class="sc">$</span>SNP) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(SNP) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dist2index <span class="sc">==</span> <span class="fu">min</span>(dist2index)) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="fu">select</span>(gene) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span></code></pre></div>
-<pre><code>## # A tibble: 679 × 1
-##    gene     
-##    &lt;chr&gt;    
-##  1 PPP3CA   
-##  2 MIR1255A 
-##  3 FLJ20021 
-##  4 CD14     
-##  5 LINC02240
-##  6 SGCZ     
-##  7 NISCH    
-##  8 STAB1    
-##  9 NT5DC2   
-## 10 SMIM4    
-## # … with 669 more rows</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>rp_genes_dist <span class="sc">%&gt;%</span> <span class="fu">filter</span>(SNP <span class="sc">%in%</span> rp_not_mc<span class="sc">$</span>SNP) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(SNP) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dist2index <span class="sc">==</span> <span class="fu">min</span>(dist2index)) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="fu">select</span>(gene) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span></code></pre></div>
-<pre><code>## # A tibble: 118 × 1
-##    gene      
-##    &lt;chr&gt;     
-##  1 UBE2F-SCLY
-##  2 SCLY      
-##  3 ESPNL     
-##  4 KLHL30    
-##  5 ERFE      
-##  6 ILKAP     
-##  7 SHTN1     
-##  8 VAX1      
-##  9 MIR3663HG 
-## 10 MIR3663   
-## # … with 108 more rows</code></pre>
+##  1 Body_mass_index...           9
+##  2 Morning_vs._eve...           5
+##  3 Obesity                      5
+##  4 Hip_circumference            4
+##  5 Diastolic_blood_pressure     3
+##  6 Monocyte_count               3
+##  7 Pulse_pressure               3
+##  8 Ulcerative_colitis           3
+##  9 Waist_circumference          3
+## 10 Adiponectin_levels           2
+## # … with 51 more rows</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>rp_genes_dist <span class="sc">%&gt;%</span> <span class="fu">filter</span>(SNP <span class="sc">%in%</span> cojo_new<span class="sc">$</span>SNP) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(SNP) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dist2index <span class="sc">==</span> <span class="fu">min</span>(dist2index)) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="fu">select</span>(gene) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 374 × 1
+##    gene    
+##    &lt;chr&gt;   
+##  1 NISCH   
+##  2 STAB1   
+##  3 NT5DC2  
+##  4 SMIM4   
+##  5 PBRM1   
+##  6 NTRK3   
+##  7 GTF2IRD1
+##  8 NXPH1   
+##  9 MAGI2   
+## 10 ETV6    
+## # … with 364 more rows</code></pre>
+<h2 id="clumped-results-1">Clumped results</h2>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>cojo_clumped_overlaps <span class="ot">&lt;-</span> <span class="fu">findOverlaps</span>(cojo_gr, rp_gr)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>cojo <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="fu">unique</span>(cojo_clumped_overlaps<span class="sc">@</span>from)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(<span class="sc">!</span>SNP <span class="sc">%in%</span> rp<span class="sc">$</span>SNP) <span class="sc">%&gt;%</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 58 × 0</code></pre>
 
 </body>
 </html>
