@@ -176,14 +176,42 @@ rp_genes_dist %>% filter(SNP %in% cojo_new$SNP) %>% group_by(SNP) %>% filter(dis
 
 ## Clumped results
 
+Find regions overlapping between clumped and COJO results
 ```{r}
 
 cojo_clumped_overlaps <- findOverlaps(cojo_gr, rp_gr)
 
+```
+
+List COJO results where the selected SNP is not in the clumped results
+```{r}
+cojo_newly_selected <- 
 cojo %>% slice(unique(cojo_clumped_overlaps@from)) %>%
 filter(!SNP %in% rp$SNP) %>%
-select()
+select(region, snp_idx, CHR, SNP, P, pJ) 
+cojo_newly_selected
+```
 
+Newly selected SNPs that were not GWsig in the clumped results
+```{r}
+cojo_newly_selected %>%
+filter(P > 5e-8)
+```
+
+List clumped SNPs in retained regions that were not selected by COJO
+```{r}
+rp %>% slice(unique(cojo_clumped_overlaps@to)) %>%
+filter(!SNP %in% cojo$SNP)
+```
+
+
+Line up non-selected SNPs with selected SNPs in the region
+```{r}
+bind_cols(
+select(slice(cojo, cojo_clumped_overlaps@from), region, snp_idx, SNP.cojo=SNP, BP.cojo=BP, P.cojo=P, PJ.cojo=pJ),
+select(slice(rp, cojo_clumped_overlaps@to), SNP.rp=SNP, BP.rp=BP, P.rp=P)
+) %>%
+filter(!SNP.rp %in% cojo$SNP)
 ```
 
 
