@@ -65,7 +65,7 @@ rule dataset_eas:
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
 	
 # Dataset list that exclude a particular cohort
-rule dataset_nocCOHORT_eur:
+rule dataset_noCOHORT_eur:
 	input: "results/meta/dataset_full_eur_v{analysis}"
 	log: "logs/meta/dataset_no{cohort}_eur_v{analysis}"
 	output: "results/meta/dataset_no{cohort}_eur_v{analysis}"
@@ -83,6 +83,13 @@ rule dataset_eur_X:
     fi;
     done
     """
+    
+# Dataset list that exclude a particular X cohort
+rule dataset_noCOHORT_X_eur:
+    input: "results/meta/X/dataset_full_eur_v{analysis}"
+    log: "logs/meta/X/dataset_no{cohort}_eur_v{analysis}"
+    output: "results/meta/X/dataset_no{cohort}_eur_v{analysis}"
+    shell: "cat {input} | grep --invert daner_mdd_{wildcards.cohort} > {output}"
     
 rule dataset_eas_X:
     input: expand("results/meta/X/daner_mdd_{cohort}.eas.hg19.{release}.qc.gz", zip, cohort=[cohort[0] for cohort in cohorts_eas], release=[cohort[1] for cohort in cohorts_eas])
