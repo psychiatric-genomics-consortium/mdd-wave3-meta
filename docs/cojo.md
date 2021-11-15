@@ -343,12 +343,105 @@ rp_genes_dist %>% filter(SNP %in% cojo_new$SNP) %>% group_by(SNP) %>% filter(dis
 
 ## Clumped results
 
+Find regions overlapping between clumped and COJO results
+
 ``` r
 cojo_clumped_overlaps <- findOverlaps(cojo_gr, rp_gr)
-
-cojo %>% slice(unique(cojo_clumped_overlaps@from)) %>%
-filter(!SNP %in% rp$SNP) %>%
-select()
 ```
 
-    ## # A tibble: 58 × 0
+List COJO results where the selected SNP is not in the clumped results
+
+``` r
+cojo_newly_selected <- 
+cojo %>% slice(unique(cojo_clumped_overlaps@from)) %>%
+filter(!SNP %in% rp$SNP) %>%
+select(region, snp_idx, CHR, SNP, P, pJ) 
+cojo_newly_selected
+```
+
+    ## # A tibble: 58 × 6
+    ##    region snp_idx   CHR SNP                P       pJ
+    ##     <dbl>   <dbl> <dbl> <chr>          <dbl>    <dbl>
+    ##  1      1       1     1 rs301806    1.87e-16 1.87e-16
+    ##  2     10       1     1 rs437021    5.70e-11 5.71e-11
+    ##  3     13       1     1 rs3101341   5.22e-27 2.29e-11
+    ##  4     13       2     1 rs2797104   5.84e-32 4.16e-10
+    ##  5     47       1     2 rs858938    3.87e- 8 2.65e-10
+    ##  6     48       2     2 rs56873970  2.76e- 3 1.82e- 8
+    ##  7     49       1     2 rs7576017   1.18e-13 2.96e-12
+    ##  8     50       1     2 rs149044563 7.75e-13 7.76e-13
+    ##  9     53       1     2 rs73949838  5.43e- 9 5.43e- 9
+    ## 10     55       1     2 rs3860446   1.10e-10 3.29e-11
+    ## # … with 48 more rows
+
+Newly selected SNPs that were not GWsig in the clumped results
+
+``` r
+cojo_newly_selected %>%
+filter(P > 5e-8)
+```
+
+    ## # A tibble: 9 × 6
+    ##   region snp_idx   CHR SNP                   P       pJ
+    ##    <dbl>   <dbl> <dbl> <chr>             <dbl>    <dbl>
+    ## 1     48       2     2 rs56873970 0.00276      1.82e- 8
+    ## 2     60       1     2 rs2381462  0.00000896   9.62e-11
+    ## 3     69       2     2 rs1371187  0.0000000835 4.50e-11
+    ## 4    118       1     3 rs13073224 0.0000000573 2.02e- 8
+    ## 5    186       2     6 rs2747467  0.144        1.63e-12
+    ## 6    248       1     8 rs10503484 0.000000367  7.61e- 9
+    ## 7    341       4    11 rs73004019 0.000154     5.15e-10
+    ## 8    386       2    13 rs2329076  0.000000154  3.24e- 8
+    ## 9    412       2    15 rs4774501  0.00000214   6.16e-11
+
+List clumped SNPs in retained regions that were not selected by COJO
+
+``` r
+rp %>% slice(unique(cojo_clumped_overlaps@to)) %>%
+filter(!SNP %in% cojo$SNP)
+```
+
+    ## # A tibble: 246 × 23
+    ##    SNP          CHR       BP        P    OR     SE A1A2  FRQ_A_524857 FRQ_U_3059006
+    ##    <chr>      <dbl>    <dbl>    <dbl> <dbl>  <dbl> <chr>        <dbl>         <dbl>
+    ##  1 rs301817       1  8503379 3.23e-17 1.02  0.0028 C/A         0.419         0.426 
+    ##  2 rs75986133     1 52846058 1.99e- 8 0.967 0.0061 A/G         0.044         0.0458
+    ##  3 rs446952       1 61738636 1.78e-11 1.02  0.0027 T/C         0.465         0.458 
+    ##  4 rs2568957      1 72764430 1.58e-32 0.963 0.0031 A/G         0.176         0.172 
+    ##  5 rs12127789     1 72740073 4.91e-23 1.04  0.0038 T/G         0.119         0.119 
+    ##  6 rs12748090     1 73005277 1.47e-14 1.02  0.003  A/T         0.279         0.277 
+    ##  7 rs75805282     1 73857518 6.32e-13 0.950 0.0071 T/C         0.0301        0.0304
+    ##  8 rs61771936     1 73266056 3.66e-12 0.977 0.0034 A/G         0.156         0.158 
+    ##  9 rs12128239     1 73059446 4.20e-12 0.977 0.0034 G/A         0.163         0.164 
+    ## 10 rs10736420     1 74000649 1.18e-11 1.03  0.0036 C/T         0.12          0.118 
+    ## # … with 236 more rows, and 14 more variables: INFO <dbl>,
+    ## #   (Nca,Nco,Neff)Dir <chr>, ngt <dbl>, LD-friends(0.1).p0.001 <chr>,
+    ## #   range.left <dbl>, range.right <dbl>, span(kb) <dbl>,
+    ## #   LD-friends(0.6).p0.001 <chr>, range.left.6 <dbl>, range.right.6 <dbl>,
+    ## #   span.6(kb) <dbl>, gwas_catalog_span.6 <chr>,
+    ## #   genes.6.50kb(dist2index) <chr>, N.genes.6.50kb <chr>
+
+Line up non-selected SNPs with selected SNPs in the region
+
+``` r
+bind_cols(
+select(slice(cojo, cojo_clumped_overlaps@from), region, snp_idx, SNP.cojo=SNP, BP.cojo=BP, P.cojo=P, PJ.cojo=pJ),
+select(slice(rp, cojo_clumped_overlaps@to), SNP.rp=SNP, BP.rp=BP, P.rp=P)
+) %>%
+filter(!SNP.rp %in% cojo$SNP)
+```
+
+    ## # A tibble: 400 × 9
+    ##    region snp_idx SNP.cojo   BP.cojo   P.cojo  PJ.cojo SNP.rp      BP.rp     P.rp
+    ##     <dbl>   <dbl> <chr>        <dbl>    <dbl>    <dbl> <chr>       <dbl>    <dbl>
+    ##  1      1       1 rs301806   8482078 1.87e-16 1.87e-16 rs301817   8.50e6 3.23e-17
+    ##  2      9       1 rs7413471 52339759 2.96e-15 2.96e-15 rs75986133 5.28e7 1.99e- 8
+    ##  3     10       1 rs437021  61738270 5.70e-11 5.71e-11 rs446952   6.17e7 1.78e-11
+    ##  4     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs2568957  7.28e7 1.58e-32
+    ##  5     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs12127789 7.27e7 4.91e-23
+    ##  6     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs12748090 7.30e7 1.47e-14
+    ##  7     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs75805282 7.39e7 6.32e-13
+    ##  8     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs61771936 7.33e7 3.66e-12
+    ##  9     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs12128239 7.31e7 4.20e-12
+    ## 10     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs10736420 7.40e7 1.18e-11
+    ## # … with 390 more rows
