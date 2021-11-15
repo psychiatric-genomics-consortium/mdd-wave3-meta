@@ -7,6 +7,7 @@ library(readxl)
 library(readr)
 library(dplyr)
 library(stringr)
+library(ggplot2)
 ```
 
 # Methods
@@ -20,8 +21,8 @@ of independent loci.
 -   Ricopili was used for initial clumping with index SNPs identified
     with *p*\< 10^{-4} and *r*<sup>2</sup>\< 0.1 within 3000kb windows.
     The extended MHC region was clumped as a single region.
--   Sumstats were filtered for MAF >= 0.01, INFO > 0.6, and Neff >= 80%
-    of max.
+-   Sumstats were filtered for MAF \>= 0.01, INFO \> 0.6, and Neff \>=
+    80% of max.
 -   Regions with a genome-wide significant SNP (p \< 5-e8) were
     identified from the clumped results. Regions within 50kb of each
     other were merged.
@@ -73,7 +74,7 @@ List of clumped and COJO SNPs and regions
 -   COJO+Clump SNPs: 617  
 -   COJO Final SNPs: 552  
 -   COJO Final SNPs p \<= 5e-8, pJ \<= 5e-8: 543  
--   COJO Final SNPs p > 5e-8, pJ \<= 5e-8: 9
+-   COJO Final SNPs p \> 5e-8, pJ \<= 5e-8: 9
 
 Load list of COJO SNPs
 
@@ -81,16 +82,16 @@ Load list of COJO SNPs
 cojo <- read_tsv(snakemake@input$cojo)
 ```
 
+    ## Rows: 552 Columns: 28
+
+    ## -- Column specification -------------------------------------------------------------------------
+    ## Delimiter: "\t"
+    ## chr  (4): SNP, A1, A2, Direction
+    ## dbl (24): region, snp_idx, CHR, BP, FRQ_A_524857, FRQ_U_3059006, INFO, OR, S...
+
     ## 
-    ## ── Column specification ───────────────────────────────────────────────────────────────
-    ## cols(
-    ##   .default = col_double(),
-    ##   SNP = col_character(),
-    ##   A1 = col_character(),
-    ##   A2 = col_character(),
-    ##   Direction = col_character()
-    ## )
-    ## ℹ Use `spec()` for the full column specifications.
+    ## i Use `spec()` to retrieve the full column specification for this data.
+    ## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 ## Clumped results
 
@@ -100,8 +101,11 @@ Clumped results from Ricopili
 rp <- read_table2(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
 ```
 
+    ## Warning: `read_table2()` was deprecated in readr 2.0.0.
+    ## Please use `read_table()` instead.
+
     ## 
-    ## ── Column specification ───────────────────────────────────────────────────────────────
+    ## -- Column specification -------------------------------------------------------------------------
     ## cols(
     ##   .default = col_double(),
     ##   SNP = col_character(),
@@ -113,7 +117,7 @@ rp <- read_table2(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
     ##   `genes.6.50kb(dist2index)` = col_character(),
     ##   N.genes.6.50kb = col_character()
     ## )
-    ## ℹ Use `spec()` for the full column specifications.
+    ## i Use `spec()` for the full column specifications.
 
     ## Warning: 94 parsing failures.
     ##  row col expected actual                                                                                           file
@@ -216,7 +220,7 @@ Count number of regions in Howard that overlap:
 howard %>% slice(unique(cojo_howard_overlaps@to)) %>% count()
 ```
 
-    ## # A tibble: 1 × 1
+    ## # A tibble: 1 x 1
     ##       n
     ##   <int>
     ## 1    88
@@ -251,7 +255,7 @@ Count number of regions in Levey that overlap:
 levey %>% slice(unique(cojo_levey_overlaps@to)) %>% count()
 ```
 
-    ## # A tibble: 1 × 1
+    ## # A tibble: 1 x 1
     ##       n
     ##   <int>
     ## 1   191
@@ -263,7 +267,7 @@ catalog_known <- rp_gwas_catalog_entries %>% filter(SNP %in% cojo_known$SNP) %>%
 catalog_known
 ```
 
-    ## # A tibble: 166 × 2
+    ## # A tibble: 166 x 2
     ##    phenotype                   n
     ##    <chr>                   <int>
     ##  1 Serum_metabolit...        186
@@ -276,7 +280,7 @@ catalog_known
     ##  8 Neuroticism                26
     ##  9 Autism_spectrum...         24
     ## 10 Depression                 22
-    ## # … with 156 more rows
+    ## # ... with 156 more rows
 
 Newly discovered regions
 
@@ -287,7 +291,7 @@ select(region, snp_idx, CHR, SNP, BP, P, pJ) %>%
 group_by(region)
 ```
 
-    ## # A tibble: 360 × 7
+    ## # A tibble: 360 x 7
     ## # Groups:   region [342]
     ##    region snp_idx   CHR SNP               BP        P       pJ
     ##     <dbl>   <dbl> <dbl> <chr>          <dbl>    <dbl>    <dbl>
@@ -301,13 +305,13 @@ group_by(region)
     ##  8    374       1    12 rs7962128  121907336 3.68e-16 3.68e-16
     ##  9     76       1     2 rs13418032 198413692 9.89e-16 9.90e-16
     ## 10     81       1     2 rs72931605 212693775 1.29e-15 1.21e- 9
-    ## # … with 350 more rows
+    ## # ... with 350 more rows
 
 ``` r
 rp_gwas_catalog_entries %>% filter(SNP %in% cojo_new$SNP) %>% count(phenotype) %>% arrange(desc(n)) %>% filter(!phenotype %in% catalog_known$phenotype)
 ```
 
-    ## # A tibble: 61 × 2
+    ## # A tibble: 61 x 2
     ##    phenotype                    n
     ##    <chr>                    <int>
     ##  1 Body_mass_index...           9
@@ -320,13 +324,13 @@ rp_gwas_catalog_entries %>% filter(SNP %in% cojo_new$SNP) %>% count(phenotype) %
     ##  8 Ulcerative_colitis           3
     ##  9 Waist_circumference          3
     ## 10 Adiponectin_levels           2
-    ## # … with 51 more rows
+    ## # ... with 51 more rows
 
 ``` r
 rp_genes_dist %>% filter(SNP %in% cojo_new$SNP) %>% group_by(SNP) %>% filter(dist2index == min(dist2index)) %>% ungroup() %>% select(gene) %>% distinct()
 ```
 
-    ## # A tibble: 374 × 1
+    ## # A tibble: 374 x 1
     ##    gene    
     ##    <chr>   
     ##  1 NISCH   
@@ -339,9 +343,28 @@ rp_genes_dist %>% filter(SNP %in% cojo_new$SNP) %>% group_by(SNP) %>% filter(dis
     ##  8 NXPH1   
     ##  9 MAGI2   
     ## 10 ETV6    
-    ## # … with 364 more rows
+    ## # ... with 364 more rows
 
-## Clumped results
+``` r
+frq_u_col <- str_subset(names(cojo), 'FRQ_U')
+
+cojo_known_novel <- bind_rows(
+mutate(cojo_known, assoc='Known'),
+mutate(cojo_new, assoc='Novel')) %>%
+mutate(BETA=log(OR)) %>%
+select(assoc, BETA, FRQ=starts_with('FRQ_U')) %>%
+mutate(MAF=if_else(FRQ <= 0.5, true=FRQ, false=1-FRQ))
+
+ggplot(cojo_known_novel, aes(x=MAF, y=abs(BETA), colour=assoc)) + 
+geom_point() +
+scale_y_continuous(limits=c(0, 0.065))
+```
+
+    ## Warning: Removed 1 rows containing missing values (geom_point).
+
+![](cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
+
+## Comparison between pre-COJO and post-COJO
 
 Find regions overlapping between clumped and COJO results
 
@@ -359,7 +382,7 @@ select(region, snp_idx, CHR, SNP, P, pJ)
 cojo_newly_selected
 ```
 
-    ## # A tibble: 58 × 6
+    ## # A tibble: 58 x 6
     ##    region snp_idx   CHR SNP                P       pJ
     ##     <dbl>   <dbl> <dbl> <chr>          <dbl>    <dbl>
     ##  1      1       1     1 rs301806    1.87e-16 1.87e-16
@@ -372,7 +395,7 @@ cojo_newly_selected
     ##  8     50       1     2 rs149044563 7.75e-13 7.76e-13
     ##  9     53       1     2 rs73949838  5.43e- 9 5.43e- 9
     ## 10     55       1     2 rs3860446   1.10e-10 3.29e-11
-    ## # … with 48 more rows
+    ## # ... with 48 more rows
 
 Newly selected SNPs that were not GWsig in the clumped results
 
@@ -381,7 +404,7 @@ cojo_newly_selected %>%
 filter(P > 5e-8)
 ```
 
-    ## # A tibble: 9 × 6
+    ## # A tibble: 9 x 6
     ##   region snp_idx   CHR SNP                   P       pJ
     ##    <dbl>   <dbl> <dbl> <chr>             <dbl>    <dbl>
     ## 1     48       2     2 rs56873970 0.00276      1.82e- 8
@@ -401,20 +424,20 @@ rp %>% slice(unique(cojo_clumped_overlaps@to)) %>%
 filter(!SNP %in% cojo$SNP)
 ```
 
-    ## # A tibble: 246 × 23
-    ##    SNP          CHR       BP        P    OR     SE A1A2  FRQ_A_524857 FRQ_U_3059006
-    ##    <chr>      <dbl>    <dbl>    <dbl> <dbl>  <dbl> <chr>        <dbl>         <dbl>
-    ##  1 rs301817       1  8503379 3.23e-17 1.02  0.0028 C/A         0.419         0.426 
-    ##  2 rs75986133     1 52846058 1.99e- 8 0.967 0.0061 A/G         0.044         0.0458
-    ##  3 rs446952       1 61738636 1.78e-11 1.02  0.0027 T/C         0.465         0.458 
-    ##  4 rs2568957      1 72764430 1.58e-32 0.963 0.0031 A/G         0.176         0.172 
-    ##  5 rs12127789     1 72740073 4.91e-23 1.04  0.0038 T/G         0.119         0.119 
-    ##  6 rs12748090     1 73005277 1.47e-14 1.02  0.003  A/T         0.279         0.277 
-    ##  7 rs75805282     1 73857518 6.32e-13 0.950 0.0071 T/C         0.0301        0.0304
-    ##  8 rs61771936     1 73266056 3.66e-12 0.977 0.0034 A/G         0.156         0.158 
-    ##  9 rs12128239     1 73059446 4.20e-12 0.977 0.0034 G/A         0.163         0.164 
-    ## 10 rs10736420     1 74000649 1.18e-11 1.03  0.0036 C/T         0.12          0.118 
-    ## # … with 236 more rows, and 14 more variables: INFO <dbl>,
+    ## # A tibble: 246 x 23
+    ##    SNP        CHR      BP        P    OR     SE A1A2  FRQ_A_524857 FRQ_U_3059006
+    ##    <chr>    <dbl>   <dbl>    <dbl> <dbl>  <dbl> <chr>        <dbl>         <dbl>
+    ##  1 rs301817     1  8.50e6 3.23e-17 1.02  0.0028 C/A         0.419         0.426 
+    ##  2 rs75986~     1  5.28e7 1.99e- 8 0.967 0.0061 A/G         0.044         0.0458
+    ##  3 rs446952     1  6.17e7 1.78e-11 1.02  0.0027 T/C         0.465         0.458 
+    ##  4 rs25689~     1  7.28e7 1.58e-32 0.963 0.0031 A/G         0.176         0.172 
+    ##  5 rs12127~     1  7.27e7 4.91e-23 1.04  0.0038 T/G         0.119         0.119 
+    ##  6 rs12748~     1  7.30e7 1.47e-14 1.02  0.003  A/T         0.279         0.277 
+    ##  7 rs75805~     1  7.39e7 6.32e-13 0.950 0.0071 T/C         0.0301        0.0304
+    ##  8 rs61771~     1  7.33e7 3.66e-12 0.977 0.0034 A/G         0.156         0.158 
+    ##  9 rs12128~     1  7.31e7 4.20e-12 0.977 0.0034 G/A         0.163         0.164 
+    ## 10 rs10736~     1  7.40e7 1.18e-11 1.03  0.0036 C/T         0.12          0.118 
+    ## # ... with 236 more rows, and 14 more variables: INFO <dbl>,
     ## #   (Nca,Nco,Neff)Dir <chr>, ngt <dbl>, LD-friends(0.1).p0.001 <chr>,
     ## #   range.left <dbl>, range.right <dbl>, span(kb) <dbl>,
     ## #   LD-friends(0.6).p0.001 <chr>, range.left.6 <dbl>, range.right.6 <dbl>,
@@ -431,17 +454,17 @@ select(slice(rp, cojo_clumped_overlaps@to), SNP.rp=SNP, BP.rp=BP, P.rp=P)
 filter(!SNP.rp %in% cojo$SNP)
 ```
 
-    ## # A tibble: 400 × 9
-    ##    region snp_idx SNP.cojo   BP.cojo   P.cojo  PJ.cojo SNP.rp      BP.rp     P.rp
-    ##     <dbl>   <dbl> <chr>        <dbl>    <dbl>    <dbl> <chr>       <dbl>    <dbl>
-    ##  1      1       1 rs301806   8482078 1.87e-16 1.87e-16 rs301817   8.50e6 3.23e-17
-    ##  2      9       1 rs7413471 52339759 2.96e-15 2.96e-15 rs75986133 5.28e7 1.99e- 8
-    ##  3     10       1 rs437021  61738270 5.70e-11 5.71e-11 rs446952   6.17e7 1.78e-11
-    ##  4     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs2568957  7.28e7 1.58e-32
-    ##  5     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs12127789 7.27e7 4.91e-23
-    ##  6     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs12748090 7.30e7 1.47e-14
-    ##  7     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs75805282 7.39e7 6.32e-13
-    ##  8     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs61771936 7.33e7 3.66e-12
-    ##  9     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs12128239 7.31e7 4.20e-12
-    ## 10     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs10736420 7.40e7 1.18e-11
-    ## # … with 390 more rows
+    ## # A tibble: 400 x 9
+    ##    region snp_idx SNP.cojo   BP.cojo   P.cojo  PJ.cojo SNP.rp     BP.rp     P.rp
+    ##     <dbl>   <dbl> <chr>        <dbl>    <dbl>    <dbl> <chr>      <dbl>    <dbl>
+    ##  1      1       1 rs301806   8482078 1.87e-16 1.87e-16 rs301817  8.50e6 3.23e-17
+    ##  2      9       1 rs7413471 52339759 2.96e-15 2.96e-15 rs75986~  5.28e7 1.99e- 8
+    ##  3     10       1 rs437021  61738270 5.70e-11 5.71e-11 rs446952  6.17e7 1.78e-11
+    ##  4     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs25689~  7.28e7 1.58e-32
+    ##  5     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs12127~  7.27e7 4.91e-23
+    ##  6     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs12748~  7.30e7 1.47e-14
+    ##  7     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs75805~  7.39e7 6.32e-13
+    ##  8     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs61771~  7.33e7 3.66e-12
+    ##  9     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs12128~  7.31e7 4.20e-12
+    ## 10     13       1 rs3101341 72747844 5.22e-27 2.29e-11 rs10736~  7.40e7 1.18e-11
+    ## # ... with 390 more rows
