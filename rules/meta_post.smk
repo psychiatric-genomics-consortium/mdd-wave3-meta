@@ -25,4 +25,4 @@ rule postimp_rp_neff:
 
 # inputs for postimp_rp
 rule postimp_rp_all:
-    input: expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.gz", cohorts=cohorts_analyst, ancestries=['eur'], version=analysis_version)
+    input: expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.gz", cohorts=cohorts_analyst + cohorts_public, ancestries=['eur'], version=analysis_version)
