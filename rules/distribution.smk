@@ -43,11 +43,19 @@ rule distribute_local:
 
 # list all files to be uploaded to Dropbox
 rule DBox_dist_analyst:
-	input: DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_analyst, ext=distribution_daner_ext)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_analyst, ext=distribution_daner_p4_ext)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_het_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_analyst, ext=distribution_basic_ext))
+	input: DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_analyst+cohorts_public, ext=distribution_daner_ext)),
+DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_analyst+cohorts_public, ext=distribution_daner_p4_ext)),
+DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_analyst+cohorts_public, prefix=distribution_pdf_prefix)),
+DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_analyst+cohorts_public, prefix=distribution_het_pdf_prefix)),
+DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_analyst+cohorts_public, ext=distribution_basic_ext))
 	
 # list all files to be shared locally (e.g., on LISA)
 rule local_dist_analyst:
-	input: expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, ext=distribution_daner_ext),expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, ext=distribution_daner_p4_ext),expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_pdf_prefix),expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_het_pdf_prefix), expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, ext=distribution_basic_ext)
+	input: expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst+cohorts_public, ext=distribution_daner_ext),
+expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst+cohorts_public, ext=distribution_daner_p4_ext),
+expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst+cohorts_public, prefix=distribution_pdf_prefix),
+expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst+cohorts_public, prefix=distribution_het_pdf_prefix),
+expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst+cohorts_public, ext=distribution_basic_ext)
 
 # Download daner sumstats for downstream analysis
 # Look at config file to determine whether to fetch locally on LISA or remotely
@@ -102,6 +110,7 @@ rule manhattan_full:
 ##
 
 ruleorder: distribute_public > distribute_meta
+#ruleorder: distribute_meta > distribute_public
 
 rule distribute_public:
 	input: "results/meta/distribution/pgc_mdd_no23andMe_eur_hg19_v{version}/{file}"
