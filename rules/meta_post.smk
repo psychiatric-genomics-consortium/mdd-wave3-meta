@@ -14,7 +14,7 @@ rule postimp_rp:
     output: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.rp.gz"
     script: "../scripts/meta/rp.R"
     
-# QC based on INFO score and Neff
+# QC based on Neff
 rule postimp_rp_neff:
     input: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.rp.gz"
     log: "logs/meta/distribution/{analysis}.neff.log"
