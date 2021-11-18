@@ -59,16 +59,16 @@ rule redistribute_daner:
 	shell: "cp {input} {output}"
 
 rule downstream_full:
-	input: expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.rp.gz", version=analysis_version)
+	input: expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.{ext}.gz", version=analysis_version, ext=['rp', 'neff'])
 
 rule downstream_noUKBB:
-	input: expand("results/distribution/daner_pgc_mdd_noUKBB_eur_hg19_v{version}.rp.gz", version=analysis_version)
+	input: expand("results/distribution/daner_pgc_mdd_noUKBB_eur_hg19_v{version}.{ext}.gz", version=analysis_version, ext=['rp', 'neff'])
 	
 rule downstream_noALSPAC:
-	input: expand("results/distribution/daner_pgc_mdd_noALSPAC_eur_hg19_v{version}.rp.gz", version=analysis_version)
+	input: expand("results/distribution/daner_pgc_mdd_noALSPAC_eur_hg19_v{version}.{ext}.gz", version=analysis_version, ext=['rp', 'neff'])
 
 rule downstream_no23andMe:
-	input: expand("results/distribution/daner_pgc_mdd_no23andMe_eur_hg19_v{version}.rp.gz", version=analysis_version)
+	input: expand("results/distribution/daner_pgc_mdd_no23andMe_eur_hg19_v{version}.{ext}.gz", version=analysis_version, ext=['rp', 'neff'])
 
 # Download tables and figures
 rule redistribute_figtabs:
