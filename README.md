@@ -1,8 +1,8 @@
 # PGC MDD3 Meta-analysis
 
-Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium. See table of included studies [here](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts.eur.txt)
+Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium. See table of included [genotype](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts_mdd.eur.txt) and [sumstats](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts.eur.txt) cohorts.
 
-**Current version**: v3.49.24.05 [EUR]
+**Current version**: v3.49.24.09 [EUR]
 
 ![MDD Manhattan plot](docs/figures/manhattan.nog2.eur.png)
 
@@ -12,15 +12,7 @@ These data are private to MDD Working Group. All results found here cannot be sh
 
 ## Project overview
 
-Meta-analysis of cohorts from the [MDD2](https://doi.org/10.1038/s41588-018-0090-3) and [follow-up and replication](https://doi.org/10.1038/s41593-018-0326-7) genome-wide association studies of Major Depressive Disorder:
-
-- PGC clinical cohorts ("MDD29"), [deCODE](http://www.decode.com), [Generation Scotland](https://www.ed.ac.uk/generation-scotland/), [GERA](https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs000674.v1.p1), [iPsych](https://ipsych.dk), [UK Biobank](https://www.ukbiobank.ac.uk)
-
-and the following new cohorts:
-
-- [ALSPAC](http://www.bristol.ac.uk/alspac/), [FinnGen](https://www.finngen.fi/en), [23andMe](https://www.23andme.com/) (v7.2), [Airwave](https://police-health.org.uk), [Partners Biobank](https://biobank.partners.org), [MoBa](https://www.fhi.no/en/studies/moba/), [HUNT](https://www.ntnu.edu/hunt/databank), [Estonian Biobank](https://genomics.ut.ee/en/access-biobank), [AGDS](https://www.geneticsofdepression.org.au), Swedish studies (PREFECT, STAGE, iCBT, Basic), [BioVU](https://victr.vumc.org/biovu-description), [EXCEED](https://exceed.org.uk), [MVP](https://www.research.va.gov/mvp/).
-
-…plus more as they are incorporated into the analysis.
+Meta-analysis of cohorts for genome-wide association studies of Major Depressive Disorder.
 
 Analysis conducted on [LISA](https://geneticcluster.org).
 
