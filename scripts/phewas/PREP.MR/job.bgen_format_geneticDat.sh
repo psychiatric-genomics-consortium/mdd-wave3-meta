@@ -1,8 +1,8 @@
 #$ -l h_rt=48:00:00
 #$ -l h_vmem=2G
 #$ -pe sharedmem 12
-#$ -t 1-22
-#$ -tc 4
+#$ -t 16-22
+#$ -tc 8
 #$ -e logs
 #$ -o logs
 #$ -cwd
