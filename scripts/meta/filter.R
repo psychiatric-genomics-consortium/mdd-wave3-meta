@@ -49,11 +49,9 @@ mutate(frq_a=.data[[frq_a_col]],
 mutate(maf_a=if_else(frq_a <= 0.5, true=frq_a, false=1-frq_a),
 	   maf_u=if_else(frq_u <= 0.5, true=frq_u, false=1-frq_u)) %>%
 # check for extreme allele frequency differences
+# Hudson's Fst at limit of large sample sizes. See Bhatia doi:10.1101/gr.154831.113 Supplementary Material p.24 equation s18
 mutate(frq_diff=abs(frq_u-FA1.ref),
-       M=(frq_u + FA1.ref)/2,
-	   S=(frq_u^2 + FA1.ref^2)/2,
-	   Fst=(S-M^2)/(M*(1-M)),
-	   D=2*2*(S-M^2)/((2-1)*(1+2*S-2*M)))
+       Fst=(frq_u-FA1.ref)^2/(frq_u*(1-FA1.ref) + FA1.ref*(1-frq_u)))
 
 median_fst <- median(daner_check$Fst, na.rm=T)
 max_fst <- max(daner_check$Fst, na.rm=T)
