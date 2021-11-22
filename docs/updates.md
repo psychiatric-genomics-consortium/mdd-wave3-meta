@@ -1,5 +1,9 @@
 # Project updates
 
+# 15 Nov 2021
+
+- **v3.49.25.09**: Update large cohort sumstats to address variation in Neff. Pre-meta checks with DENTIST. 
+
 # 25 June 2021
 
 - **v3.49.24.05**: Update ALSPAC, Fst checks during filtering.
