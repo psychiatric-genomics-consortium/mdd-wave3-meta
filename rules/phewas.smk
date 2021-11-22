@@ -1,5 +1,5 @@
 # Environment: R>3.6, Linux
-# R packages: data.table, dplyr, tidyverse, optparse
+# R packages: data.table, dplyr, tidyverse, optparse, pbapply
 # Other: PRSice 2.0
 # Temporary data stored in the data folder
 
@@ -88,8 +88,7 @@ rule ukb_data_dictionary:
         "data/Data_Dictionary_Showcase.csv"
     run:
         shell("cp {input} {output}")
-        shell("mkdir results/phewas")
-        shell("cp -r scripts/phewas/data_dictionary results/phewas/")
+        shell("#cp -r scripts/phewas/data_dictionary results/phewas/")
 
 rule data_coding:
     input:
@@ -198,15 +197,22 @@ rule chunk_additional_covariates:
 
 rule models_prep:
     input:
+        "data/dat.imaging_chunk.rds",
+        "data/dat.cognition_chunk.rds",
+        "data/dat.diet_chunk.rds",
+        "data/dat.activity_chunk.rds",
+        "data/dat.mental_health_chunk.rds",
+        "data/dat.loose_field_chunk.rds",
+        "data/dat.addional_covariates_chunk.rds",
         "results/phewas/data_dictionary/fields.final.brain_imaging_QC_cov_phenotype.txt",
         "data/PRS_all.rds"
     output:
         "results/phewas/models.rds"
     shell:
-        "Rscript scripts/phewas/ANALY/PREP.models.R {input} {output}"
+        "Rscript scripts/phewas/ANALY.PRS_phewas/PREP.models.R {input} {output}"
 
 # Run analysis ========================================================================
 
 rule run_analysis:
     shell:
-        "bash scripts/phewas/ANALY/runjob_phewas.sh"
+        "bash scripts/phewas/ANALY.PRS_phewas/runjob_phewas.sh"
