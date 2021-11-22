@@ -46,6 +46,7 @@ load(f.fields)
 # Download variant info ---------------------------------------------------
 
 # variants info for Neale's
+system('mkdir data/MR/MR_sumstats/Neale/')
 if (!file.exists('data/MR/MR_sumstats/Neale/variants.tsv.bgz')&
     !file.exists('data/MR/MR_sumstats/Neale/variants.txt')){
   system('wget https://broad-ukb-sumstats-us-east-1.s3.amazonaws.com/round2/annotations/variants.tsv.bgz')
@@ -53,6 +54,7 @@ if (!file.exists('data/MR/MR_sumstats/Neale/variants.tsv.bgz')&
 }
 
 # variants info for BIG40
+system('mkdir data/MR/MR_sumstats/BIG40/')
 if (!file.exists('data/MR/MR_sumstats/BIG40/variants.txt.gz')&
     !file.exists('data/MR/MR_sumstats/BIG40/variants.txt')){
   system('wget https://open.win.ox.ac.uk/ukbiobank/big40/release2/variants.txt.gz')
@@ -107,7 +109,7 @@ ls.single.big40 = big40.gwasls %>%
   .[!.$file_loc %in% ls.downloaded,]
 
 # Download
-ls.single.neale$`wget command` %>% 
+ls.single.neale$wget_command %>% 
   c(.,ls.single.big40$wget_command) %>% 
   as.list %>% 
   pblapply(.,system)
@@ -160,7 +162,7 @@ ls.multiple.big40 = big40.gwasls %>%
   .[!.$file_loc %in% ls.downloaded,]
 
 # Download
-ls.multiple.neale$`wget command` %>% 
+ls.multiple.neale$wget_command %>% 
   c(.,ls.multiple.big40$wget_command) %>% 
   as.list %>% 
   pblapply(.,system)

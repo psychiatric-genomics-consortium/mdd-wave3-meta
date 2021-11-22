@@ -2,7 +2,7 @@
 title: "MR phewas result"
 author: X Shen  
 date: "\n`r format(Sys.time(), '%d %B, %Y')`"
-output: md_document
+output: html_document
 always_allow_html: true
 ---
 

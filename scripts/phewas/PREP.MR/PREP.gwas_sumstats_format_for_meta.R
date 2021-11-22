@@ -49,7 +49,7 @@ fields.meta = fields.multiple %>%
 neale.gwasls = fread(f.Neale)
 ref.neale = fread(paste0(d.output,'/Neale/variants.tsv.gz')) %>% 
   filter(info>0.8,minor_AF>0.0005) %>% 
-  select(variant,A1=ref,A2=alt,rsid,info,freq=AF,chr,pos,n=n_called)
+  select(variant,A1=alt,A2=ref,rsid,info,freq=AF,chr,pos,n=n_called)
   
 
 # BIG40 IDP gwas

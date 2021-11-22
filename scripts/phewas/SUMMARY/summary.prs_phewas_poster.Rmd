@@ -171,6 +171,17 @@ Fig.total
 
 #### MDD3
 
+```{r}
+ref.two_level.category = data.frame(lv2=ref.category,stringsAsFactors = F) %>% 
+  mutate(lv1=ifelse(grepl('Mental health',lv2),'Mental health',
+                    ifelse(grepl('Early life|Socio|Lifestyle|Diet|Physical activity',lv2),'Environment',
+                           ifelse(grepl('Physical health',lv2),'Self-reported physical condition',
+                    ifelse(grepl('Physical|Blood|Body MRI',lv2),'Physical assessment',
+                           'Brain and cognition')))))
+
+```
+
+
 ```{r pplot mdd3,echo=F,warning=F,fig.height=16,fig.width=18}
 res.targetpT.annot.forplot = res.targetpT.annot %>% 
   mutate(category=gsub('Desikan atlas ','',category)) %>% 
@@ -178,7 +189,8 @@ res.targetpT.annot.forplot = res.targetpT.annot %>%
   mutate(category=gsub('tissue measure','tissue',category)) %>% 
   mutate(Field=gsub(' (left hemisphere)','',Field,fixed = T)) %>% 
   mutate(Field=gsub(' (whole brain)','',Field,fixed = T)) %>% 
-  mutate(Field=gsub('_',' ',Field,fixed = T))
+  mutate(Field=gsub('_',' ',Field,fixed = T)) %>% 
+  mutate(Field=gsub('medialorbitofrontal','medial orbito-frontal',Field,fixed = T))
   
 # wrap text if too long: category and Field
 res.targetpT.annot.forplot$category = res.targetpT.annot.forplot$category %>% 
@@ -193,24 +205,27 @@ res.targetpT.annot.forplot$Field = res.targetpT.annot.forplot$Field %>%
   
 plot.dat = res.targetpT.annot.forplot %>%
   filter(grepl('MDD3',factor)) %>% 
-  rename(dependent=field) 
+  rename(dependent=field) %>% 
+  left_join(.,ref.two_level.category,by=c('category'='lv2'))
+
 
 ls.label = plot.dat %>%
   filter(p.corrected<0.05) %>%
   arrange(p.value) %>% 
-  group_by(category) %>% slice(1:3) %>% 
+  group_by(lv1) %>% slice(1:3) %>% 
   arrange(match(category,ref.category)) %>% 
   as.data.frame %>% 
-  select(dependent,Field)
+  select(dependent,Field) %>% 
+  .[!duplicated(.$Field),]
 
-#source(here::here('scripts/phewas/util/PheWAS_style_p_plot.R'))
+source(here::here('scripts/phewas/util/PheWAS_style_p_plot_poster.R'))
 
 fig.MDD3=p_plot(TargetResult=plot.dat,color_theme_usr='Shen',
                 shape_sig=T,sig_nominal=F,
            plot_title=paste0('MDD3 PRS (pT=',pt,')'),y_lim=310,
            labels_annot=ls.label,add_category_name=T)
 
-fig.MDD3
+#fig.MDD3
 
 ggsave(fig.MDD3,filename = here::here('results/phewas/figs/pplot_MDD3.png'),width = 17,height = 10,units = 'in',device = 'png')
 ```
@@ -241,159 +256,3 @@ fig.Howard
 ggsave(fig.Howard,filename = here::here('results/phewas/figs/pplot_Howard.png'),width = 30,height = 15,units = 'in',device = 'png')
 ```
 
-------------------------------------------------------------------------
-
-### Comparison {.tabset}
-
-Phenotypes are included if:
-
--   they are significantly associated with MDD3 PRS
-
-and
-
--   CI for MDD3 PRS and Howard et al PRS do not overlap (CI=beta+/-1.5std)
-
-```{r,warning=F,echo=F}
-res.mdd3 = res.targetpT.annot %>%
-  filter(grepl('MDD3',factor)) %>%
-  mutate(mdd3.CI.low = beta-1.5*std,mdd3.CI.high=beta+1.5*std) %>% 
-  rename(mdd3.beta=beta,mdd3.std=std,
-         mdd3.p.value=p.value,mdd3.p.corrected=p.corrected,
-         mdd3.t.value=t.value)
-
-res.howard = res.targetpT.annot %>%
-  filter(grepl('Howard',factor)) %>% 
-  mutate(howard.CI.low = beta-1.5*std,howard.CI.high=beta+1.5*std) %>% 
-  rename(howard.beta=beta,howard.std=std,
-         howard.p.value=p.value,howard.p.corrected=p.corrected,
-         howard.t.value=t.value) %>% 
-  select(field,starts_with('howard.'))
-
-res.sum = left_join(res.mdd3,res.howard,by='field') %>% 
-  mutate(is.beta.diff = ifelse((mdd3.CI.low>howard.CI.high|howard.CI.low>mdd3.CI.high)&(mdd3.p.corrected<0.05|howard.p.corrected<0.05),1,0))
-```
-
-```{r add top level categories, warning=F,echo=F}
-ref.two_level.category = data.frame(lv2=ref.category,stringsAsFactors = F) %>% 
-  mutate(lv1=ifelse(grepl('Mental health',lv2),'Mental health',
-                    ifelse(grepl('Early life|Socio|Lifestyle|Diet|Physical activity',lv2),'Environment',
-                           ifelse(grepl('Physical health',lv2),'Self-reported physical condition',
-                    ifelse(grepl('Physical|Blood|Body MRI',lv2),'Physical assessment',
-                           'Brain and cognition')))))
-  
-ref.two_level.category$lv1[grepl('subcortical|Subcortical',ref.two_level.category$lv2)]=
-  ref.two_level.category$lv1[grepl('subcortical|Subcortical',ref.two_level.category$lv2)] %>% 
-  paste0(.,' (subcortical)')
-
-res.sum = res.sum %>% 
-  left_join(.,ref.two_level.category,by=c('category'='lv2'))
-
-```
-
-
-
-```{r,warning=F,echo=F}
-ref.keep = res.sum %>% select(field,is.beta.diff,lv1) %>% filter(is.beta.diff==1)
-dat.fig = res.targetpT.annot %>% 
-  mutate(Field=Field %>% gsub(' (left)','',.,fixed = T) %>% 
-           gsub( '(left hemisphere)','',.,fixed = T) %>%
-           gsub( '(right hemisphere)','',.,fixed = T) %>%
-           gsub(' (whole brain)','',.,fixed = T)) %>% 
-  left_join(.,ref.keep,by='field') %>% 
-  filter(is.beta.diff==1) %>% 
-  arrange(match(category,ref.category),beta) %>% 
-  mutate(ord=1:nrow(.),category=as.factor(category)) %>% 
-  rename(PRS=factor)
-
-# wrap text if too long: Field
-dat.fig$Field = dat.fig$Field %>%
-  as.list %>% lapply(.,strwrap,width=50) %>%
-  lapply(.,paste0,collapse='\n') %>%
-  unlist
-# dat.fig$Field[grepl('pial',dat.fig$category)]=
-#   dat.fig$Field[grepl('pial',dat.fig$category)] %>% 
-#   paste0(.,'(pial)')
-# 
-# dat.fig$Field[grepl('grey-white',dat.fig$category)]=
-#   dat.fig$Field[grepl('grey-white',dat.fig$category)] %>% 
-#   paste0(.,'(g-w contrast)')
-
-create_fig <- function(tmp.dat.fig,target.cat,fig.output='results/phewas/figs/'){
-  cat.dat = tmp.dat.fig %>% filter(lv1==target.cat)
-  
-  fig.tmp=
-  ggplot(cat.dat, aes(x=reorder(Field,ord), y=beta,color=PRS)) + 
-  geom_point(position=position_dodge(), stat="identity") +
-  geom_errorbar(aes(ymin=beta-std, ymax=beta+std), width=0.1,
-                position=position_dodge(width=0.9),colour="grey")+
-  theme(
-    panel.background = element_blank(),
-    panel.grid = element_blank(),
-    axis.line.x = element_line(size=0.5),
-    axis.text=element_text(size=10), axis.title=element_text(size=11),
-    plot.title = element_text(lineheight=1, face="bold", vjust=1, hjust=0.5,size=9),
-    strip.text = element_text(size=8),
-    plot.margin=unit(c(1,1,1,3),'mm')) +
-  ylab("Standardised regression coefficient") + xlab("\n\n") +
-  #scale_y_continuous(limits=c(0,3))+
-  #scale_y_reverse()+
-  scale_x_discrete(position='top')+
-  geom_hline(yintercept=0,color = "black", size=0.3)+
-  ggtitle(target.cat)+
-  facet_grid(rows = vars(category),scales = "free_y",space = "free_y")+
-  coord_flip()
-  
-  if(!is.na(fig.output)&(sum(nchar(cat.dat$Field)>50)>5)){
-    fig.output=fig.output %>% paste0(.,'/fig.compare.',target.cat %>% gsub(' ','',.) %>% gsub('(','',.,fixed = T) %>% gsub(')','',.),'.png')
-      ggsave(plot = fig.tmp,filename = here::here(fig.output),
-             device='png',units='cm',width=28,height=2+0.4*nrow(cat.dat))
-  }else if(!is.na(fig.output)){
-    fig.output=fig.output %>% paste0(.,'/fig.compare.',target.cat %>% gsub(' ','',.) %>% gsub('(','',.,fixed = T) %>% gsub(')','',.),'.png')
-    ggsave(plot = fig.tmp,filename = here::here(fig.output),
-             device='png',units='cm',width=28,height=2+0.26*nrow(cat.dat))
-  }
-  
-  return(fig.tmp)
-}
-
-figs=dat.fig$lv1 %>% unique %>% 
-  as.list %>% 
-  lapply(., create_fig,tmp.dat.fig=dat.fig)
-
-```
-
-#### Mental health
-
-```{r,echo=F,warning=F,fig.height=5,fig.width=10}
-figs[[1]]
-```
-
-#### Environment
-
-```{r,echo=F,warning=F,fig.height=4,fig.width=10}
-figs[[2]]
-```
-
-#### Self-reported physical condition
-
-```{r,,echo=F,warning=F,fig.height=8,fig.width=10}
-figs[[3]]
-```
-
-#### Physical assessment
-
-```{r,,echo=F,warning=F,fig.height=4,fig.width=13}
-figs[[4]]
-```
-
-#### Brain and cognition
-
-```{r,,echo=F,warning=F,fig.height=8,fig.width=10}
-figs[[5]]
-```
-
-#### Brain and cognition (subcortical)
-
-```{r,,echo=F,warning=F,fig.height=8,fig.width=10}
-figs[[6]]
-```

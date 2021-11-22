@@ -1,7 +1,43 @@
-Phewas result
+PRS Phewas result
 ================
 X Shen
-27 August, 2021
+30 September, 2021
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+    ## data.table 1.14.0 using 1 threads (see ?getDTthreads).  Latest news: r-datatable.com
+
+    ## 
+    ## Attaching package: 'data.table'
+
+    ## The following objects are masked from 'package:dplyr':
+    ## 
+    ##     between, first, last
+
+    ## 
+    ## Attaching package: 'kableExtra'
+
+    ## The following object is masked from 'package:dplyr':
+    ## 
+    ##     group_rows
+
+    ## here() starts at /gpfs/igmmfs01/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta
+
+    ## 
+    ## Attaching package: 'cowplot'
+
+    ## The following object is masked from 'package:ggpubr':
+    ## 
+    ##     get_legend
 
 -----
 
@@ -11,9 +47,9 @@ X Shen
 
 At pT=0.05
 
-  - Significant associations with the MDD3 PRS: 792
+  - Significant associations with the MDD3 PRS: 794
 
-  - Significant associations with the Howard PRS: 583
+  - Significant associations with the Howard PRS: 566
 
 ![](summary.prs_phewas_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
