@@ -143,7 +143,7 @@ rule postimp_eur_X:
 ###
     
 # Clump results based on workflow params
-rule postimp_clump:
+rule postimp_reclump:
 	input: "results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
 	params:
 		refdir=config['refdir'],
