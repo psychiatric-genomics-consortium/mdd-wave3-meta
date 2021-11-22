@@ -13,13 +13,17 @@ logging <- function(msg, append=TRUE) {
 # read daner file
 daner_gz <- snakemake@input$daner
 logging(glue("Reading in sumstats {daner_gz}"), append=FALSE)
-daner <- read_table2(daner_gz, col_types=cols("SNP"=col_character()))
+daner <- read_table(daner_gz, col_types=cols("SNP"=col_character()))
 
 N_snps <- nrow(daner)
 logging(glue("{N_snps} SNPs read in."))
 
 # get ancestries superpopulation
 pop <- toupper(snakemake@wildcards$ancestries)
+
+# dentist outliers
+dentist_txt <- snakemake@input$dentist
+outliers <- read_table(dentist_txt, col_names='SNP')
 
 # QC paramaters
 qc_maf <- snakemake@params$maf
@@ -41,47 +45,48 @@ daner_check <- daner %>%
 # shorter variable names for frequency columns
 mutate(frq_a=.data[[frq_a_col]],
 	   frq_u=.data[[frq_u_col]])%>%
-# remove rows with small minor allele counts and frequencies
+# determine MAF
 mutate(maf_a=if_else(frq_a <= 0.5, true=frq_a, false=1-frq_a),
 	   maf_u=if_else(frq_u <= 0.5, true=frq_u, false=1-frq_u)) %>%
 # check for extreme allele frequency differences
-mutate(M=(frq_u + FA1.ref)/2,
-	   S=(frq_u^2 + FA1.ref^2)/2,
-	   Fst=(S-M^2)/(M*(1-M)),
-	   D=2*2*(S-M^2)/((2-1)*(1+2*S-2*M)))
+# Hudson's Fst at limit of large sample sizes. See Bhatia doi:10.1101/gr.154831.113 Supplementary Material p.24 equation s18
+mutate(frq_diff=abs(frq_u-FA1.ref),
+       Fst=(frq_u-FA1.ref)^2/(frq_u*(1-FA1.ref) + FA1.ref*(1-frq_u)))
 
 median_fst <- median(daner_check$Fst, na.rm=T)
 max_fst <- max(daner_check$Fst, na.rm=T)
 var_fst <- var(daner_check$Fst, na.rm=T)
 logging(glue('Fst: median = {signif(median_fst, 3)}, max = {signif(max_fst, 3)}, var = {signif(var_fst, 3)}'))
 	   
-logging('Permutation test for Fst')
-permute_frq <- daner_check %>%
-transmute(frq1=sample(frq_u, n()),
-          frq2=sample(FA1.ref, n())) %>%
-mutate(M=(frq1 + frq2)/2,
-       S=(frq1^2 + frq2^2)/2,
-       Fst=(S-M^2)/(M*(1-M)),
-       D=2*2*(S-M^2)/((2-1)*(1+2*S-2*M))) 	  
-	   
-qc_fst <- median(permute_frq$Fst, na.rm=T)
+logging('Find frequency outliers')
+# Fit beta distribution of bottom 99.9% of Fst values
+beta_params <- 
+daner_check %>%
+filter(Fst <= quantile(Fst, 0.999)) %>%
+# method of moments estimator
+summarize(x_bar=mean(Fst), v_bar=var(Fst)) %>%
+mutate(a=x_bar*(x_bar*(1-x_bar)/v_bar - 1),
+       b=(1 - x_bar)*(x_bar*(1- x_bar)/v_bar - 1)) 
 
+qc_fst <- qbeta(0.05/nrow(daner_check), shape1=beta_params$a, shape2=beta_params$b, lower.tail=F)
 
 logging('Applying filters')
 daner_qc <- daner_check %>%
 # Apply QC checks for MAC, MAF, frq different from ref, info
 mutate(QC=case_when(maf_a == 0 | maf_u  == 0 ~ 'MAF',
                     maf_a < qc_maf & maf_u < qc_maf ~ 'MAF',
-                    maf_a*n_cases < qc_mac | maf_u*n_controls <= qc_mac ~ 'MAC',
+                    2*maf_a*n_cases < qc_mac & 2*maf_u*n_controls < qc_mac ~ 'MAC',
 					Fst > qc_fst ~ 'FST',
-					frq_u - FA1.ref > qc_diff ~ 'DIFF',
+					frq_diff > qc_diff ~ 'DIFF',
 					INFO < qc_info ~ 'INFO',
+                    SNP %in% outliers$SNP ~ 'DENTIST',
 					TRUE ~ 'PASS'))
 
 qc_counts <- table(daner_qc$QC)
 
 snps_maf <- coalesce(qc_counts['MAF'], 0)
 snps_mac <- coalesce(qc_counts['MAC'], 0)
+snps_dentist <- coalesce(qc_counts['DENTIST'], 0)
 snps_fst <- coalesce(qc_counts['FST'], 0)
 snps_diff <- coalesce(qc_counts['DIFF'], 0)
 snps_info <- coalesce(qc_counts['INFO'], 0)
@@ -90,12 +95,13 @@ snps_pass <- coalesce(qc_counts['PASS'], 0)
 logging(glue('{snps_maf} SNPs removed for MAF < {qc_maf}.'))
 logging(glue('{snps_mac} SNPs removed for MAC < {qc_mac}.'))
 logging(glue('{snps_fst} SNPs removed for Fst > {signif(qc_fst, 4)}'))
-logging(glue('{snps_diff} SNP removed for DIFF > {qc_diff}.'))
+logging(glue('{snps_diff} SNP removed for DIFF > {signif(qc_diff, 4)}.'))
 logging(glue('{snps_info} SNP removed for INFO < {qc_info}.'))
+logging(glue('{snps_dentist} SNPs removed for DENTIST outlier'))
 					
 daner_filtered <- daner_qc %>%
 filter(QC == 'PASS') %>%
-select(-ends_with('.ref'), -frq_a, -frq_u, -maf_a, -maf_u, -QC, -M, -S, -Fst, -D) %>%
+select(-ends_with('.ref'), -frq_a, -frq_u, -maf_a, -maf_u, -QC, -M, -S, -Fst, -D, -frq_diff) %>%
 arrange(CHR, BP) %>%
 select(CHR, SNP, BP, A1, A2, starts_with('FRQ_A'), starts_with('FRQ_U'), INFO, OR, SE, P, everything())
 
@@ -120,13 +126,18 @@ sumstats_cohort <- snakemake@wildcards$cohort
 sumstats_ancestries <- snakemake@wildcards$ancestries
 sumstats_release <- snakemake@wildcards$release
 
+# median OR, SE limited to MAF > 0.01
+daner_filtered_maf <- daner_qc %>% filter(QC == 'PASS', between(frq_a, 0.01, 0.99), between(frq_u, 0.01, 0.99)) %>% select(OR, SE)
+median_or01 <- median(daner_filtered_maf$OR)
+median_se01 <- median(daner_filtered_maf$SE)
+
 qc_table <- data.frame(cohort=sumstats_cohort, ancestries=sumstats_ancestries, release=sumstats_release,
 		                N_cases=n_cases, N_controls=n_controls,
 						median_fst=signif(median_fst, 3), max_fst=signif(max_fst, 3),
 						var_fst=signif(var_fst, 3),
 						snps_kept=N_snps_kept,
-						median_or=round(median_or, 4), max_OR=round(max_or, 4),
-						median_SE=round(median_se, 4), max_SE=round(max_se, 4))
+						median_OR=round(median_or, 4), max_OR=round(max_or, 4), median_OR01=round(median_or01, 4),
+						median_SE=round(median_se, 4), max_SE=round(max_se, 4), median_SE01=round(median_se01, 4))
 
 logging(glue("Writing qc table to {qc_txt}"))
 write_tsv(qc_table, file=qc_txt)

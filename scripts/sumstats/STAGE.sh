@@ -30,6 +30,7 @@ echo "Converting SWE STAGE to daner from $(basename $text_gz)" > $log
 daner=$(dirname $daner_gz)/$(basename $daner_gz .gz)
 
 # sample sizes
+
 Nca=421
 Nco=9134
 
@@ -39,5 +40,6 @@ echo "Nco: ${Nco}" >> $log
 echo -e "CHR\tSNP\tBP\tA1\tA2\tFRQ_A_${Nca}\tFRQ_U_${Nco}\tINFO\tOR\tSE\tP" > $daner
 
 zcat $text_gz | tail -n +2 | awk -v OFS='\t' '{if($19 != "NA"){print $1, $3, $2, $5, $4, $7, $7, $19, exp($9), $10, $12}}' >> $daner
+
 
 gzip -f --verbose $daner 2>> $log

@@ -1,0 +1,11 @@
+Cojo analysis 
+Sumstats: results/cojo/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.qc.gz 
+Clump file: results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.gz.p4.clump.areator.sorted.1mhc 
+COJO regions: 577 
+Clumped SNPs: 817 
+COJO Selected SNPs: 617 
+Singleton regions: 65 
+COJO+Clump SNPs: 617 
+COJO Final SNPs: 552 
+COJO Final SNPs p <= 5e-8, pJ <= 5e-8: 543 
+COJO Final SNPs p > 5e-8, pJ <= 5e-8: 9 
