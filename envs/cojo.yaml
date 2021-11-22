@@ -1,0 +1,7 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - gcta =1.93.2beta
+  - plink2 =2.00a2.3
+  - bgenix =1.1.7

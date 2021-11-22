@@ -1,0 +1,5 @@
+pheno	ancestries	N_cases	N_controls	sample_prev	pop_prev	LambdaGC	MeanChiSq	LambdaGCldsc	ldsc_intercept	h2_obs	h2_se_obs	h2_liab	h2_se_liab
+Clin	eur	21654	44593	0.5	0.15	1.097	1.1087	1.1116	1.0227	0.0811	0.011	0.097	0.0131
+EHR	eur	311491	877110	0.5	0.15	1.516	1.7737	1.5964	1.0363	0.0532	0.0019	0.0637	0.0023
+Quest	eur	70887	339597	0.5	0.15	1.23	1.3224	1.2716	1.0161	0.0708	0.0036	0.0847	0.0043
+SelfRep	eur	114992	1789651	0.5	0.15	1.645	1.9633	1.7098	1.0042	0.108	0.0042	0.1291	0.005
