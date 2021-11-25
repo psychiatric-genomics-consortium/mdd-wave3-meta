@@ -36,7 +36,7 @@ library(fdrtool)
 library(corrplot)
 ```
 
-    ## corrplot 0.90 loaded
+    ## corrplot 0.89 loaded
 
 # Sample sizes
 
@@ -45,7 +45,7 @@ meta_qc_align <- read_tsv(snakemake@input$meta_qc_align)
 ```
 
     ## 
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   cohort = col_character(),
@@ -61,7 +61,7 @@ cohorts_mdd <- read_tsv(snakemake@input$cohorts_mdd)
     ## Warning: Missing column names filled in: 'X7' [7]
 
     ## 
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   Dataset = col_character(),
     ##   N_cases = col_double(),
@@ -105,7 +105,7 @@ theme(axis.line=element_blank(),
   axis.title.y=element_blank())
 ```
 
-![](metaqc_files/figure-gfm/meta_sample_size-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/meta_sample_size-1.png)<!-- -->
 
 # Reference panel alignment
 
@@ -117,43 +117,46 @@ reference panel and INFO \< 0.1 in the cohort were removed.
 meta_qc_align %>% print(n=Inf)
 ```
 
-    ## # A tibble: 30 × 20
-    ##    cohort  ancestries release             N_cases N_controls    snps snps_merged
-    ##    <chr>   <chr>      <chr>                 <dbl>      <dbl>   <dbl>       <dbl>
-    ##  1 23andMe eas        v7_2                   2727      90220  5.67e6     4596072
-    ##  2 Taiwan  eas        20200327               1348       8392  4.15e6     4153855
-    ##  3 23andMe eur        v7_2_202012          112892    1773938  7.50e6     6042865
-    ##  4 AGDS    eur        202012                12123      12684  7.62e6     7582482
-    ##  5 Airwave eur        0820                   2100      15713  7.49e6     7472104
-    ##  6 ALSPAC  eur        27022020                472       3475  9.09e6     7670548
-    ##  7 BASIC   eur        202011                 1003       1854  7.77e6     7729355
-    ##  8 BioVU   eur        NoCov_SAIGE_051821     7757      24723  6.26e6     6259739
-    ##  9 DBDS    eur        FINAL202103           13347     145996  7.59e6     6712418
-    ## 10 deCODE  eur        DEPALL_FINAL_WHEAD    20000      28000  8.84e6     7565967
-    ## 11 ESTBB   eur        EstBB                 35473      91301  2.69e7    14632453
-    ## 12 EXCEED  eur        202010                  580       2071  8.08e6     8044829
-    ## 13 FinnGen eur        R5_18032020           23424     192220  1.64e7    12556084
-    ## 14 GenScot eur        1215a                   997       6358  7.71e6     7689638
-    ## 15 GERA    eur        0915a_mds5             7162      38307  1.09e7     9018343
-    ## 16 HUNT    eur        gp_hospital_metaca…   11658      42535  8.69e6     7800700
-    ## 17 iPSYCH  eur        2012_HRC              19156      22708  8.81e6     8772167
-    ## 18 iPSYCH  eur        2015i_HRC             10002      15434  8.85e6     8812581
-    ## 19 lgic2   eur        202011                  906       4717  7.76e6     7721426
-    ## 20 MDD49   eur        29w2_20w3_1504        28147      48033  7.71e6     7677489
-    ## 21 MoBa    eur        harvest12               603      10213  6.50e6     6500874
-    ## 22 MoBa    eur        harvest24               367       6122  6.50e6     6500863
-    ## 23 MoBa    eur        rotterdam1              553       8860  6.50e6     6500879
-    ## 24 MVP     eur        4_0ICDdep_202106     151974     226640  6.08e6     5270898
-    ## 25 PBK     eur        2020                   5607      16080  7.35e6     7324393
-    ## 26 PREFECT eur        run1                   1796       3290  8.96e6     8917662
-    ## 27 SHARE   eur        godartsshare_842021    1063       1921  1.36e7    12502949
-    ## 28 STAGE   eur        MDDdx_saige             421       9134  7.43e6     7397331
-    ## 29 tkda1   eur        run1                    672        846  8.86e6     8815537
-    ## 30 UKBB    eur        MD_glm_202012         41500     319630  9.10e6     7512039
-    ## # … with 13 more variables: snps_unambiguous_flips <dbl>, snps_matching <dbl>,
+    ## # A tibble: 32 x 22
+    ##    cohort   ancestries release            N_cases N_controls    snps snps_merged
+    ##    <chr>    <chr>      <chr>                <dbl>      <dbl>   <dbl>       <dbl>
+    ##  1 23andMe  eas        v7_2                  2727      90220  8.24e6     7435677
+    ##  2 BBJ      eas        hum0197v3_Depv1_2…     836     177794  1.34e7     9134473
+    ##  3 CONVERGE eas        10640                 5303       5337  4.64e6     4613760
+    ##  4 Taiwan   eas        20200327              1348       8392  4.15e6     4151124
+    ##  5 23andMe  eur        v7_2_202012         112892    1773938  1.33e7    11375629
+    ##  6 AGDS     eur        202012               12123      12684  7.62e6     7583592
+    ##  7 Airwave  eur        0820                  2100      15713  7.49e6     7473134
+    ##  8 ALSPAC   eur        27022020               472       3475  9.09e6     8616869
+    ##  9 BASIC    eur        202011                1003       1854  7.77e6     7724506
+    ## 10 BioVU    eur        NoCov_SAIGE_051821    7757      24723  6.26e6     6260395
+    ## 11 DBDS     eur        FINAL202103          13347     145996  7.59e6     7496349
+    ## 12 deCODE   eur        DEPALL_FINAL_WHEAD   20000      28000  8.84e6     8693961
+    ## 13 ESTBB    eur        EstBB                35473      91301  2.69e7    12437658
+    ## 14 EXCEED   eur        202010                 580       2071  8.08e6     7939658
+    ## 15 FinnGen  eur        R5_18032020          23424     192220  1.64e7    11691134
+    ## 16 GenScot  eur        SCID_0721a             930       5730  7.80e6     7790053
+    ## 17 GERA     eur        0915a_mds5            7162      38307  1.09e7     9805862
+    ## 18 HUNT     eur        gp_hospital_metac…   11658      42535  8.69e6     8544327
+    ## 19 iPSYCH   eur        2012_HRC             19156      22708  8.81e6     8772696
+    ## 20 iPSYCH   eur        2015i_HRC            10002      15434  8.85e6     8811356
+    ## 21 lgic2    eur        202011                 906       4717  7.76e6     7718824
+    ## 22 MDD49    eur        29w2_20w3_X28w2_1…   28147      48033  7.94e6     7906534
+    ## 23 MoBa     eur        harvest12              603      10213  6.50e6     6501028
+    ## 24 MoBa     eur        harvest24              367       6122  6.50e6     6501017
+    ## 25 MoBa     eur        rotterdam1             553       8860  6.50e6     6501033
+    ## 26 MVP      eur        rel4icdDEP_Geno_2…  151974     226640  1.60e7    12368015
+    ## 27 PBK      eur        2020                  5607      16080  7.35e6     7325140
+    ## 28 PREFECT  eur        run1                  1796       3290  8.96e6     8853251
+    ## 29 SHARE    eur        godartsshare_8420…    1063       1921  1.36e7    11021377
+    ## 30 STAGE    eur        MDDdx_saige            421       9134  7.43e6     7395401
+    ## 31 tkda1    eur        run1                   672        846  8.86e6     8806943
+    ## 32 UKBB     eur        MD_glm_202107        54669     306461  1.19e7    11438712
+    ## # … with 15 more variables: snps_unambiguous_flips <dbl>, snps_matching <dbl>,
     ## #   snps_turned <dbl>, snps_unresolved <dbl>, snps_aligned <dbl>,
     ## #   median_fst <dbl>, max_fst <dbl>, var_fst <dbl>, snps_kept <dbl>,
-    ## #   median_or <dbl>, max_OR <dbl>, median_SE <dbl>, max_SE <dbl>
+    ## #   median_OR <dbl>, max_OR <dbl>, median_OR01 <dbl>, median_SE <dbl>,
+    ## #   max_SE <dbl>, median_SE01 <dbl>
 
 Median odds-ratios with standard error
 
@@ -163,15 +166,15 @@ ggplot(meta_qc_align %>%
               cohort, ancestries, release, 
               sep="."),
         aes(x=reorder(cohort, (4*N_cases*N_controls)/(N_cases + N_controls)),
-            y=median_or,
-            ymax=exp(log(median_or)+median_SE),
-            ymin=exp(log(median_or)-median_SE))) +
+            y=median_OR01,
+            ymax=exp(log(median_OR01)+median_SE01),
+            ymin=exp(log(median_OR01)-median_SE01))) +
 geom_linerange() +
 geom_point() +
 coord_flip(ylim=c(0.8, 1.25))
 ```
 
-![](metaqc_files/figure-gfm/meta_qc_align_mean_OR-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/meta_qc_align_mean_OR-1.png)<!-- -->
 
 Mean standard error versus effective sample size:
 
@@ -181,12 +184,12 @@ ggplot(meta_qc_align %>%
               cohort, ancestries, release, 
               sep=".") %>%
        mutate(Neff=(4*N_cases*N_controls)/(N_cases + N_controls)),
-        aes(x=Neff, y=median_SE, label=cohort)) +
+        aes(x=Neff, y=median_SE01, label=cohort)) +
 geom_text(size=2) +
 scale_x_log10(breaks=c(1, 100, 1000, 5000, 10000, 50000, 100000, 500000))
 ```
 
-![](metaqc_files/figure-gfm/meta_qc_align_Neff_SE-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/meta_qc_align_Neff_SE-1.png)<!-- -->
 
 # Genetic correlation with clinical cohorts
 
@@ -204,7 +207,7 @@ mutate(se.mdd2=as.numeric(str_remove_all(se.mdd2, "[\\(\\)]")),
 ```
 
     ## 
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   cohort = col_character(),
     ##   release = col_character(),
@@ -222,12 +225,6 @@ mutate(se.mdd2=as.numeric(str_remove_all(se.mdd2, "[\\(\\)]")),
     ##   z1z2.mdd29 = col_double()
     ## )
 
-    ## Warning: 3 parsing failures.
-    ## row col   expected    actual                           file
-    ##   4  -- 14 columns 7 columns 'docs/tables/meta_qc_ldsc.txt'
-    ##   5  -- 14 columns 7 columns 'docs/tables/meta_qc_ldsc.txt'
-    ##  20  -- 14 columns 7 columns 'docs/tables/meta_qc_ldsc.txt'
-
 ``` r
 ggplot(meta_qc_ldsc, aes(x=reorder(paste(cohort, release), rg.mdd29), y=rg.mdd29, ymin=rg.mdd29-se.mdd29, ymax=rg.mdd29+se.mdd29)) +
 geom_linerange() +
@@ -235,11 +232,11 @@ geom_point() +
 coord_flip(ylim=c(0, 1.25))
 ```
 
-    ## Warning: Removed 8 rows containing missing values (geom_segment).
+    ## Warning: Removed 6 rows containing missing values (geom_segment).
 
-    ## Warning: Removed 8 rows containing missing values (geom_point).
+    ## Warning: Removed 6 rows containing missing values (geom_point).
 
-![](metaqc_files/figure-gfm/metq_qc_ldsc_rg-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/metq_qc_ldsc_rg-1.png)<!-- -->
 
 Genetic covariance:
 
@@ -250,11 +247,7 @@ geom_point() +
 coord_flip()
 ```
 
-    ## Warning: Removed 3 rows containing missing values (geom_segment).
-
-    ## Warning: Removed 3 rows containing missing values (geom_point).
-
-![](metaqc_files/figure-gfm/metq_qc_ldsc_gcov-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/metq_qc_ldsc_gcov-1.png)<!-- -->
 
 # Genetic correlation with previous meta analysis
 
@@ -265,11 +258,11 @@ geom_point() +
 coord_flip(ylim=c(0, 1.25))
 ```
 
-    ## Warning: Removed 4 rows containing missing values (geom_segment).
+    ## Warning: Removed 6 rows containing missing values (geom_segment).
 
-    ## Warning: Removed 4 rows containing missing values (geom_point).
+    ## Warning: Removed 6 rows containing missing values (geom_point).
 
-![](metaqc_files/figure-gfm/metq_qc_ldsc_rg_mdd2-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/metq_qc_ldsc_rg_mdd2-1.png)<!-- -->
 
 Genetic covariance:
 
@@ -280,9 +273,7 @@ geom_point() +
 coord_flip()
 ```
 
-    ## Warning: Removed 3 rows containing missing values (geom_segment).
-
-![](metaqc_files/figure-gfm/metq_qc_ldsc_gcov_mdd2-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/metq_qc_ldsc_gcov_mdd2-1.png)<!-- -->
 
 # Heritabilities
 
@@ -327,7 +318,7 @@ theme_minimal()
 
     ## Warning: Width not defined. Set with `position_dodge2(width = ?)`
 
-![](metaqc_files/figure-gfm/meta_qc_h2_liab-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/meta_qc_h2_liab-1.png)<!-- -->
 
 # Genetic covariance intercepts
 
@@ -338,7 +329,7 @@ meta_qc_ldsc_pairs <- read_tsv(snakemake@input$meta_qc_ldsc_pairs)
 ```
 
     ## 
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   cohort1 = col_character(),
     ##   subcohort1 = col_character(),
@@ -381,9 +372,9 @@ geom_histogram()
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-    ## Warning: Removed 46 rows containing non-finite values (stat_bin).
+    ## Warning: Removed 19 rows containing non-finite values (stat_bin).
 
-![](metaqc_files/figure-gfm/meta_qc_ldcs_pairs_hist-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/meta_qc_ldcs_pairs_hist-1.png)<!-- -->
 
 Pairwise intercepts
 
@@ -399,19 +390,19 @@ mutate(SDs=abs(gcov_int)/sd(gcov_int, na.rm=T)) %>%
 arrange(desc(gcov_int))
 ```
 
-    ## # A tibble: 378 × 6
-    ##    cohort1 subcohort1                     cohort2 subcohort2      gcov_int   SDs
-    ##    <chr>   <chr>                          <chr>   <chr>              <dbl> <dbl>
-    ##  1 23andMe v7_2_202012                    iPSYCH  2012_HRC          0.0219  3.45
-    ##  2 MoBa    harvest12                      MoBa    rotterdam1        0.0213  3.36
-    ##  3 MDD49   29w2_20w3_1504                 tkda1   run1              0.0212  3.34
-    ##  4 HUNT    gp_hospital_metacarpa_20190625 MoBa    harvest12         0.0203  3.20
-    ##  5 HUNT    gp_hospital_metacarpa_20190625 iPSYCH  2015i_HRC         0.0165  2.60
-    ##  6 HUNT    gp_hospital_metacarpa_20190625 MVP     4_0ICDdep_2021…   0.0165  2.60
-    ##  7 MVP     4_0ICDdep_202106               PBK     2020              0.015   2.36
-    ##  8 AGDS    202012                         iPSYCH  2012_HRC          0.0147  2.32
-    ##  9 HUNT    gp_hospital_metacarpa_20190625 iPSYCH  2012_HRC          0.0146  2.30
-    ## 10 MDD49   29w2_20w3_1504                 PREFECT run1              0.0144  2.27
+    ## # A tibble: 378 x 6
+    ##    cohort1 subcohort1                 cohort2 subcohort2          gcov_int   SDs
+    ##    <chr>   <chr>                      <chr>   <chr>                  <dbl> <dbl>
+    ##  1 23andMe v7_2_202012                iPSYCH  2012_HRC              0.0221  3.66
+    ##  2 HUNT    gp_hospital_metacarpa_201… MoBa    harvest12             0.0194  3.21
+    ##  3 HUNT    gp_hospital_metacarpa_201… iPSYCH  2015i_HRC             0.0166  2.75
+    ##  4 HUNT    gp_hospital_metacarpa_201… MVP     rel4icdDEP_Geno_20…   0.0165  2.73
+    ##  5 UKBB    MD_glm_202107              deCODE  DEPALL_FINAL_WHEAD    0.0158  2.61
+    ##  6 MDD49   29w2_20w3_X28w2_19w3       tkda1   run1                  0.0156  2.58
+    ##  7 MDD49   29w2_20w3_X28w2_19w3       UKBB    MD_glm_202107         0.015   2.48
+    ##  8 HUNT    gp_hospital_metacarpa_201… iPSYCH  2012_HRC              0.0148  2.45
+    ##  9 AGDS    202012                     iPSYCH  2012_HRC              0.0147  2.43
+    ## 10 ALSPAC  27022020                   PREFECT run1                  0.0142  2.35
     ## # … with 368 more rows
 
 ``` r
@@ -421,19 +412,19 @@ mutate(SDs=abs(gcov_int)/sd(gcov_int, na.rm=T)) %>%
 arrange(gcov_int)
 ```
 
-    ## # A tibble: 378 × 6
-    ##    cohort1 subcohort1          cohort2 subcohort2          gcov_int   SDs
-    ##    <chr>   <chr>               <chr>   <chr>                  <dbl> <dbl>
-    ##  1 GERA    0915a_mds5          MoBa    harvest12            -0.0172  2.71
-    ##  2 MVP     4_0ICDdep_202106    lgic2   202011               -0.0127  2.00
-    ##  3 23andMe v7_2_202012         BASIC   202011               -0.0123  1.94
-    ##  4 23andMe v7_2_202012         Airwave 0820                 -0.012   1.89
-    ##  5 SHARE   godartsshare_842021 iPSYCH  2012_HRC             -0.0116  1.83
-    ##  6 EXCEED  202010              MoBa    harvest12            -0.0109  1.72
-    ##  7 GERA    0915a_mds5          iPSYCH  2012_HRC             -0.0109  1.72
-    ##  8 MoBa    harvest12           SHARE   godartsshare_842021  -0.0106  1.67
-    ##  9 23andMe v7_2_202012         ALSPAC  27022020             -0.0103  1.62
-    ## 10 EXCEED  202010              GenScot 1215a                -0.0103  1.62
+    ## # A tibble: 378 x 6
+    ##    cohort1 subcohort1           cohort2 subcohort2           gcov_int   SDs
+    ##    <chr>   <chr>                <chr>   <chr>                   <dbl> <dbl>
+    ##  1 ALSPAC  27022020             MoBa    rotterdam1            -0.0124  2.05
+    ##  2 GERA    0915a_mds5           MoBa    harvest12             -0.0124  2.05
+    ##  3 ALSPAC  27022020             MDD49   29w2_20w3_X28w2_19w3  -0.0123  2.03
+    ##  4 MoBa    harvest12            SHARE   godartsshare_842021   -0.012   1.98
+    ##  5 MDD49   29w2_20w3_X28w2_19w3 MoBa    harvest24             -0.0117  1.94
+    ##  6 23andMe v7_2_202012          Airwave 0820                  -0.0116  1.92
+    ##  7 23andMe v7_2_202012          BASIC   202011                -0.0111  1.84
+    ##  8 EXCEED  202010               MoBa    harvest24             -0.011   1.82
+    ##  9 GERA    0915a_mds5           iPSYCH  2012_HRC              -0.0108  1.79
+    ## 10 SHARE   godartsshare_842021  iPSYCH  2012_HRC              -0.0104  1.72
     ## # … with 368 more rows
 
 Estimate amount of sample overlap as
@@ -469,20 +460,20 @@ arrange(desc(Ns)) %>%
 select(-chisq, -qval, -Ns_pct)
 ```
 
-    ## # A tibble: 332 × 9
+    ## # A tibble: 359 x 9
     ##    cohort1 subcohort1  cohort2 subcohort2 cohortN1 cohortN2    Ns  Ns_l95 Ns_u95
     ##    <chr>   <chr>       <chr>   <chr>         <dbl>    <dbl> <dbl>   <dbl>  <dbl>
-    ##  1 23andMe v7_2_202012 iPSYCH  2012_HRC    1886830    41864 6155.  1.03e3 11278.
-    ##  2 23andMe v7_2_202012 ESTBB   EstBB       1886830   126774 5429. -1.95e3 12810.
-    ##  3 23andMe v7_2_202012 MVP     4_0ICDdep…  1886830   378614 4818. -1.27e4 22377.
-    ##  4 23andMe v7_2_202012 UKBB    MD_glm_20…  1886830   361130 4788. -7.99e3 17569.
-    ##  5 MVP     4_0ICDdep_… UKBB    MD_glm_20…   378614   361130 3106. -2.84e3  9049.
-    ##  6 23andMe v7_2_202012 BioVU   NoCov_SAI…  1886830    32480 2624. -8.69e2  6118.
-    ##  7 23andMe v7_2_202012 GERA    0915a_mds5  1886830    45469 2519. -1.90e3  6939.
-    ##  8 FinnGen R5_18032020 MVP     4_0ICDdep…   215644   378614 2400. -1.86e3  6656.
-    ##  9 HUNT    gp_hospita… MVP     4_0ICDdep…    54193   378614 2363.  3.70e2  4357.
-    ## 10 MDD49   29w2_20w3_… UKBB    MD_glm_20…    76180   361130 2189.  4.38e1  4335.
-    ## # … with 322 more rows
+    ##  1 23andMe v7_2_202012 UKBB    MD_glm_20…  1886830   361130 7759.  -5507. 21026.
+    ##  2 23andMe v7_2_202012 MVP     rel4icdDE…  1886830   378614 7015. -10379. 24409.
+    ##  3 23andMe v7_2_202012 iPSYCH  2012_HRC    1886830    41864 6211.   1033. 11389.
+    ##  4 23andMe v7_2_202012 ESTBB   EstBB       1886830   126774 5820.  -1561. 13201.
+    ##  5 23andMe v7_2_202012 BioVU   NoCov_SAI…  1886830    32480 2674.   -820.  6167.
+    ##  6 ESTBB   EstBB       UKBB    MD_glm_20…   126774   361130 2568.    597.  4539.
+    ##  7 MDD49   29w2_20w3_… UKBB    MD_glm_20…    76180   361130 2488.    342.  4634.
+    ##  8 23andMe v7_2_202012 GERA    0915a_mds5  1886830    45469 2431.  -2047.  6909.
+    ##  9 HUNT    gp_hospita… MVP     rel4icdDE…    54193   378614 2363.    370.  4357.
+    ## 10 MVP     rel4icdDEP… UKBB    MD_glm_20…   378614   361130 2330.  -3323.  7982.
+    ## # … with 349 more rows
 
 Sort (largest-to-smallest) by percentage of overlap to combined sample
 size
@@ -493,20 +484,20 @@ arrange(desc(Ns_pct)) %>%
 select(-cohortN1, -cohortN2, -chisq, -qval)
 ```
 
-    ## # A tibble: 332 × 8
-    ##    cohort1 subcohort1            cohort2 subcohort2      Ns Ns_l95 Ns_u95 Ns_pct
-    ##    <chr>   <chr>                 <chr>   <chr>        <dbl>  <dbl>  <dbl>  <dbl>
-    ##  1 MoBa    harvest12             MoBa    rotterdam1   215.  102.     328.  1.06 
-    ##  2 HUNT    gp_hospital_metacarp… iPSYCH  2015i_HRC    613.  220.    1006.  0.769
-    ##  3 HUNT    gp_hospital_metacarp… MoBa    harvest12    491.  183.     800.  0.756
-    ##  4 HUNT    gp_hospital_metacarp… iPSYCH  2012_HRC     695.   88.6   1302.  0.724
-    ##  5 AGDS    202012                iPSYCH  2012_HRC     474.   50.5    897.  0.711
-    ##  6 STAGE   MDDdx_saige           lgic2   202011        92.4  16.2    168.  0.608
-    ##  7 PREFECT run1                  STAGE   MDDdx_saige   88.5   9.29   168.  0.605
-    ##  8 iPSYCH  2012_HRC              iPSYCH  2015i_HRC    401.    4.84   798.  0.596
-    ##  9 GenScot 1215a                 PBK     2020         172.   52.9    291.  0.591
-    ## 10 GERA    0915a_mds5            MDD49   29w2_20w3_1… 712.   43.1   1381.  0.585
-    ## # … with 322 more rows
+    ## # A tibble: 359 x 8
+    ##    cohort1 subcohort1          cohort2 subcohort2        Ns Ns_l95 Ns_u95 Ns_pct
+    ##    <chr>   <chr>               <chr>   <chr>          <dbl>  <dbl>  <dbl>  <dbl>
+    ##  1 HUNT    gp_hospital_metaca… iPSYCH  2015i_HRC      616.  223.    1009.  0.774
+    ##  2 HUNT    gp_hospital_metaca… iPSYCH  2012_HRC       705.  107.    1302.  0.734
+    ##  3 HUNT    gp_hospital_metaca… MoBa    harvest12      470.  185.     754.  0.722
+    ##  4 AGDS    202012              iPSYCH  2012_HRC       474.   56.9    891.  0.711
+    ##  5 MoBa    harvest24           PREFECT run1            81.6  15.1    148.  0.705
+    ##  6 ALSPAC  27022020            PREFECT run1            63.6  16.2    111.  0.704
+    ##  7 STAGE   MDDdx_saige         lgic2   202011          96.8  29.2    164.  0.637
+    ##  8 PREFECT run1                STAGE   MDDdx_saige     92.7  25.8    160.  0.633
+    ##  9 iPSYCH  2012_HRC            iPSYCH  2015i_HRC      408.    4.97   811.  0.606
+    ## 10 GERA    0915a_mds5          MDD49   29w2_20w3_X28… 718.   60.5   1376.  0.590
+    ## # … with 349 more rows
 
 Sort by *χ*<sup>2</sup> (Wald) test statistics
 
@@ -516,20 +507,20 @@ arrange(desc(chisq)) %>%
 select(-cohortN1, -cohortN2)
 ```
 
-    ## # A tibble: 332 × 10
-    ##    cohort1 subcohort1      cohort2 subcohort2  chisq   qval     Ns Ns_l95 Ns_u95
-    ##    <chr>   <chr>           <chr>   <chr>       <dbl>  <dbl>  <dbl>  <dbl>  <dbl>
-    ##  1 MoBa    harvest12       MoBa    rotterdam1  14.0  0.0380  215.   102.    328.
-    ##  2 MDD49   29w2_20w3_1504  tkda1   run1        13.4  0.0380  228.   106.    350.
-    ##  3 HUNT    gp_hospital_me… MoBa    harvest12    9.75 0.149   491.   183.    800.
-    ##  4 HUNT    gp_hospital_me… iPSYCH  2015i_HRC    9.34 0.166   613.   220.   1006.
-    ##  5 GERA    0915a_mds5      UKBB    MD_glm_202…  8.07 0.225  1820.   564.   3075.
-    ##  6 GenScot 1215a           PBK     2020         8.03 0.227   172.    52.9   291.
-    ##  7 GERA    0915a_mds5      MoBa    harvest12    7.45 0.267  -381.  -655.   -108.
-    ##  8 STAGE   MDDdx_saige     lgic2   202011       5.65 0.414    92.4   16.2   168.
-    ##  9 23andMe v7_2_202012     iPSYCH  2012_HRC     5.55 0.422  6155.  1032.  11278.
-    ## 10 HUNT    gp_hospital_me… MVP     4_0ICDdep_…  5.40 0.433  2363.   370.   4357.
-    ## # … with 322 more rows, and 1 more variable: Ns_pct <dbl>
+    ## # A tibble: 359 x 10
+    ##    cohort1 subcohort1 cohort2 subcohort2 chisq  qval     Ns Ns_l95 Ns_u95 Ns_pct
+    ##    <chr>   <chr>      <chr>   <chr>      <dbl> <dbl>  <dbl>  <dbl>  <dbl>  <dbl>
+    ##  1 HUNT    gp_hospit… MoBa    harvest12  10.5  0.236  470.   185.   754.   0.722
+    ##  2 HUNT    gp_hospit… iPSYCH  2015i_HRC   9.45 0.236  616.   223.  1009.   0.774
+    ##  3 UKBB    MD_glm_20… deCODE  DEPALL_FI…  9.23 0.236 2080.   738.  3422.   0.508
+    ##  4 MDD49   29w2_20w3… tkda1   run1        9    0.236  168.    58.2  277.   0.216
+    ##  5 STAGE   MDDdx_sai… lgic2   202011      7.89 0.303   96.8   29.2  164.   0.637
+    ##  6 GenScot SCID_0721a PBK     2020        7.77 0.310  157.    46.7  268.   0.555
+    ##  7 PREFECT run1       STAGE   MDDdx_sai…  7.37 0.332   92.7   25.8  160.   0.633
+    ##  8 ALSPAC  27022020   PREFECT run1        6.91 0.356   63.6   16.2  111.   0.704
+    ##  9 ESTBB   EstBB      UKBB    MD_glm_20…  6.52 0.375 2568.   597.  4539.   0.526
+    ## 10 ALSPAC  27022020   MDD49   29w2_20w3…  6.30 0.385 -213.  -380.   -46.8 -0.266
+    ## # … with 349 more rows
 
 Test for heterogeniety in covariance intercepts. Calculate *w*, the
 inverse variance of each *g*<sub>covint</sub> standard error, then
@@ -544,10 +535,10 @@ summarise(Q=sum(w*(gcov_int-gcov_int_hat)^2), k=n()) %>%
 mutate(I2=(Q-(k-1))/Q)
 ```
 
-    ## # A tibble: 1 × 3
+    ## # A tibble: 1 x 3
     ##       Q     k    I2
     ##   <dbl> <int> <dbl>
-    ## 1  382.   332 0.135
+    ## 1  413.   359 0.132
 
 There is thus some heterogeneity in genetic covariance intercepts. We
 also want to look at heterogeniety per-cohort. The LDSC intercepts were
@@ -599,35 +590,35 @@ meta_qc_ldsc_pairs_mdd3_all_het %>%
 as.data.frame()
 ```
 
-    ##                                    cohort1         Q  k          I2
-    ## 1                       MoBa.harvest12.eur 46.621464 24  0.50666500
-    ## 2                      GERA.0915a_mds5.eur 41.783675 24  0.44954579
-    ## 3                           tkda1.run1.eur 25.330702 16  0.40783323
-    ## 4                      MoBa.rotterdam1.eur 36.794358 25  0.34772608
-    ## 5                      iPSYCH.2012_HRC.eur 38.242776 26  0.34628177
-    ## 6                         PREFECT.run1.eur 32.263839 24  0.28712761
-    ## 7                 MDD49.29w2_20w3_1504.eur 33.404877 25  0.28154204
-    ## 8                         BASIC.202011.eur 17.585639 14  0.26076046
-    ## 9                    STAGE.MDDdx_saige.eur 32.618193 27  0.20289881
-    ## 10 HUNT.gp_hospital_metacarpa_20190625.eur 28.646211 25  0.16219288
-    ## 11                            PBK.2020.eur 26.601346 24  0.13538210
-    ## 12                       GenScot.1215a.eur 26.688603 25  0.10073973
-    ## 13                 23andMe.v7_2_202012.eur 28.190332 27  0.07769798
-    ## 14                     ALSPAC.27022020.eur 22.647995 22  0.07276559
-    ## 15                        lgic2.202011.eur 25.527596 25  0.05984098
-    ## 16                    iPSYCH.2015i_HRC.eur 24.505461 25  0.02062648
-    ## 17            BioVU.NoCov_SAIGE_051821.eur 22.030323 24 -0.04401557
-    ## 18                         AGDS.202012.eur 22.449600 25 -0.06906135
-    ## 19                  UKBB.MD_glm_202012.eur 21.349864 25 -0.12412893
-    ## 20                MVP.4_0ICDdep_202106.eur 22.981473 27 -0.13134612
-    ## 21           SHARE.godartsshare_842021.eur 18.668701 23 -0.17844299
-    ## 22                       EXCEED.202010.eur 20.083898 25 -0.19498714
-    ## 23                    DBDS.FINAL202103.eur 19.645652 26 -0.27254618
-    ## 24           deCODE.DEPALL_FINAL_WHEAD.eur 17.930019 25 -0.33853733
-    ## 25                         ESTBB.EstBB.eur 17.420034 25 -0.37772407
-    ## 26                 FinnGen.R5_18032020.eur 16.864479 25 -0.42310951
-    ## 27                        Airwave.0820.eur 16.216991 26 -0.54159299
-    ## 28                      MoBa.harvest24.eur  4.183043 10 -1.15154368
+    ##                                    cohort1        Q  k           I2
+    ## 1                      ALSPAC.27022020.eur 33.36750 14  0.610399315
+    ## 2                         PREFECT.run1.eur 44.64276 27  0.417598779
+    ## 3                      iPSYCH.2012_HRC.eur 42.36933 26  0.409950553
+    ## 4           MDD49.29w2_20w3_X28w2_19w3.eur 43.81274 27  0.406565314
+    ## 5                    STAGE.MDDdx_saige.eur 39.81994 27  0.347060863
+    ## 6                      GERA.0915a_mds5.eur 37.61420 26  0.335357478
+    ## 7                   UKBB.MD_glm_202107.eur 34.77955 26  0.281186771
+    ## 8  HUNT.gp_hospital_metacarpa_20190625.eur 30.55206 26  0.181724654
+    ## 9                       MoBa.harvest12.eur 30.53329 26  0.181221507
+    ## 10                            PBK.2020.eur 27.95464 26  0.105694184
+    ## 11                    iPSYCH.2015i_HRC.eur 28.49308 27  0.087497740
+    ## 12                 23andMe.v7_2_202012.eur 28.12160 27  0.075443819
+    ## 13                          tkda1.run1.eur 27.70167 27  0.061428465
+    ## 14                  GenScot.SCID_0721a.eur 25.04846 25  0.041857430
+    ## 15                      MoBa.harvest24.eur 21.97028 23 -0.001352684
+    ## 16                         AGDS.202012.eur 25.62521 27 -0.014625850
+    ## 17                     MoBa.rotterdam1.eur 25.61504 27 -0.015028812
+    ## 18           deCODE.DEPALL_FINAL_WHEAD.eur 22.74923 26 -0.098938141
+    ## 19                        lgic2.202011.eur 21.82638 26 -0.145402852
+    ## 20                       EXCEED.202010.eur 21.54550 26 -0.160335102
+    ## 21                        BASIC.202011.eur 20.29204 25 -0.182729669
+    ## 22         MVP.rel4icdDEP_Geno_202109C.eur 19.58020 25 -0.225727883
+    ## 23                 FinnGen.R5_18032020.eur 20.29129 26 -0.232055624
+    ## 24            BioVU.NoCov_SAIGE_051821.eur 20.25557 26 -0.234228291
+    ## 25                         ESTBB.EstBB.eur 18.85296 26 -0.326052043
+    ## 26           SHARE.godartsshare_842021.eur 18.06839 26 -0.383631880
+    ## 27                        Airwave.0820.eur 18.04168 26 -0.385680047
+    ## 28                    DBDS.FINAL202103.eur 16.36845 26 -0.527328529
 
 ``` r
 # find range to fit all gcov_int values
@@ -642,17 +633,13 @@ facet_grid(cols=vars(cohort1)) +
 coord_flip(ylim=c(gcov_int_min-0.01, gcov_int_max+0.01))
 ```
 
-    ## Warning: Removed 19 rows containing missing values (geom_point).
+    ## Warning: Removed 14 rows containing missing values (geom_point).
 
-    ## Warning: Removed 3 rows containing missing values (geom_segment).
+    ## Warning: Removed 13 rows containing missing values (geom_segment).
 
-    ## Warning: Removed 3 rows containing missing values (geom_segment).
+    ## Warning: Removed 1 rows containing missing values (geom_segment).
 
-    ## Warning: Removed 2 rows containing missing values (geom_segment).
-
-    ## Warning: Removed 11 rows containing missing values (geom_segment).
-
-![](metaqc_files/figure-gfm/plot_cohort_gcov_int-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/plot_cohort_gcov_int-1.png)<!-- -->
 
 ``` r
 ggplot(meta_qc_ldsc_pairs_mdd3_all %>% filter(cohort1 %in% meta_qc_ldsc_pairs_mdd3_all_het$cohort1[5:8]),
@@ -663,17 +650,15 @@ facet_grid(cols=vars(cohort1)) +
 coord_flip(ylim=c(gcov_int_min-0.01, gcov_int_max+0.01))
 ```
 
-    ## Warning: Removed 19 rows containing missing values (geom_point).
-
-    ## Warning: Removed 13 rows containing missing values (geom_segment).
+    ## Warning: Removed 3 rows containing missing values (geom_point).
 
     ## Warning: Removed 1 rows containing missing values (geom_segment).
 
-    ## Warning: Removed 2 rows containing missing values (geom_segment).
+    ## Warning: Removed 1 rows containing missing values (geom_segment).
 
-    ## Warning: Removed 3 rows containing missing values (geom_segment).
+    ## Warning: Removed 1 rows containing missing values (geom_segment).
 
-![](metaqc_files/figure-gfm/plot_cohort_gcov_int2-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/plot_cohort_gcov_int2-1.png)<!-- -->
 
 ## Clustering
 
@@ -726,13 +711,13 @@ and larger values `==` more dissimilar.
 plot(hclust(as.dist(1-gcov_int_mat)))
 ```
 
-![](metaqc_files/figure-gfm/gcov_int_dist-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/gcov_int_dist-1.png)<!-- -->
 
 ``` r
 corrplot(gcov_int_mat, is.corr=FALSE, diag=FALSE)
 ```
 
-![](metaqc_files/figure-gfm/gcov_int_mat_corr-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/gcov_int_mat_corr-1.png)<!-- -->
 
 ## Genetic correlations
 
@@ -789,4 +774,4 @@ corrplot.mixed(rg_mat_1[has_rg_idx,has_rg_idx],
                na.label='.', tl.pos='lt', diag='u', plotCI='rect', number.cex=0.75)
 ```
 
-![](metaqc_files/figure-gfm/rg_mat_corr-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/rg_mat_corr-1.png)<!-- -->

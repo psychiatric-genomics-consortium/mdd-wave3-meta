@@ -22,17 +22,19 @@ rule cojo_qctool:
     output: "resources/cojo/qctool_v2.0.8-CentOS\\ Linux7.6.1810-x86_64/qctool"
     shell: "tar -xz --directory=resources/cojo -f {input}"
 
-# QC sumstats to MAF <= 0.01, INFO >= 0.6
+# QC sumstats to MAF <= 0.01, INFO >= 0.6 based on Neff > 80% max version
 rule cojo_daner_qc:
-    input: "results/distribution/daner_{analysis}.gz"
+    input: "results/distribution/daner_{analysis}.neff.gz"
     output: "results/cojo/daner_{analysis}.qc.gz"
+    params: qc_neff=0.8
     shell: "zcat {input} | awk '{{if(NR == 1 || ($7 >= 0.01 && $7 <= 0.99 && $8 >= 0.6)) {{print $0}}}}' | gzip -c > {output}"
     
 # sumstats for input into GCTA
 rule cojo_ma:
     input: "results/cojo/daner_{analysis}.qc.gz"
     output: "results/cojo/{analysis}.ma"
-    shell: """zcat {input} | awk '{{if(NR == 1) {{print "SNP", "A1", "A2", "freq", "b", "se", "p", "N"}} else {{print $2, $4, $5, $7, log($9), $10, $11, 2*$19}}}}' > {output}"""
+    conda: "../envs/meta.yaml"
+    script: "../scripts/meta/cojo_ma.R"
     
 # regions to analyse
 # Pull regions clumped from Ricopili
@@ -40,12 +42,6 @@ rule cojo_regions:
     input: "results/distribution/daner_{analysis}.gz.p4.clump.areator.sorted.1mhc"
     output: "results/cojo/{analysis}.regions"
     shell: "cat {input} | awk 'NR > 1 && $4 <= 5e-8 {{print $2, $14, $15}}' > {output}"
-
-# regularise analysis name of "rp" version of clumped file
-rule cojo_regions_rp:
-    input: "results/distribution/daner_{analysis}.gz.p4.clump.areator.sorted.1mhc"
-    output: "results/distribution/daner_{analysis}.rp.gz.p4.clump.areator.sorted.1mhc"
-    shell: "cp {input} {output}"
 
 # symlink to UKB bgen and sample files
 rule cojo_ukb_bgen:
@@ -132,22 +128,35 @@ rule cojo_region_bgen:
     shell: "bgenix -g {input.bgen} -incl-range {params.chr0}:{wildcards.start}-{wildcards.stop} > {output}"
     
 # Extract SNPs for each region
-rule cojo_snplists:
-    input: "results/distribution/daner_{analysis}.gz"
+# List of CPIDs and SNP names for renaming SNPs
+rule cojo_varids:
+    input: "results/cojo/daner_{analysis}.qc.gz"
+    output: "results/cojo/{analysis}/{chr}:{start}-{stop}.varids"
+    shell: """zcat {input} | awk '{{if(NR > 1 && $1 == {wildcards.chr} && {wildcards.start} <= $3 && $3 <= {wildcards.stop}) {{print $1, $2, 0, $3, $4, $5}}}}' > {output}"""
+ 
+# list of SNPs to keep 
+rule cojo_snplist:
+    input: "results/cojo/{analysis}/{chr}:{start}-{stop}.varids"
     output: "results/cojo/{analysis}/{chr}:{start}-{stop}.snplist"
-    shell: """zcat {input} | awk '{{if(NR > 1 && $1 == {wildcards.chr} && {wildcards.start} <= $3 && $3 <= {wildcards.stop}) {{print $2}}}}' > {output}"""
+    shell: "cat {input} | awk '{{print $2}}' > {output}"
     
     
 # convert UKB BGEN to PLINK BED
 # keep unrelated European ancestries
-# extract SNPs that are in the GWAS in this region
+# extract SNPs in the specified region
+# rename variant IDs based on sumstats
 rule cojo_region_bed:
-    input: bgen="results/cojo/{analysis}/{chr}:{start}-{stop}.bgen", snplist="results/cojo/{analysis}/{chr}:{start}-{stop}.snplist", sample= "resources/cojo/ukb/ukb_imp_chr{chr}_v3.sample", eur_ids="results/cojo/ukb_eur.ids", rel_ids="results/cojo/ukb_rel.dat"
+    input: bgen="results/cojo/{analysis}/{chr}:{start}-{stop}.bgen", varids="results/cojo/{analysis}/{chr}:{start}-{stop}.varids", snplist="results/cojo/{analysis}/{chr}:{start}-{stop}.snplist", sample= "resources/cojo/ukb/ukb_imp_chr{chr}_v3.sample", eur_ids="results/cojo/ukb_eur.ids", rel_ids="results/cojo/ukb_rel.dat"
     conda: "../envs/cojo.yaml"
     params: prefix="results/cojo/{analysis}/{chr}:{start}-{stop}"
-    output: "results/cojo/{analysis}/{chr}:{start}-{stop}.bed", "results/cojo/{analysis}/{chr}:{start}-{stop}.fam", "results/cojo/{analysis}/{chr}:{start}-{stop}.bim"
-    shell: "plink2 --make-bed --bgen {input.bgen} 'ref-first' --sample {input.sample} --double-id --keep {input.eur_ids} --remove {input.rel_ids} --extract {input.snplist} --out {params.prefix} --memory 4000 --threads 1"
-    
+    output: temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bed"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.fam"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bim")
+    shell: """plink2 --make-bed --bgen {input.bgen} 'ref-first' \
+    --sample {input.sample} --double-id \
+    --keep {input.eur_ids} --remove {input.rel_ids} \
+    --recover-var-ids {input.varids} 'partial' \
+    --extract {input.snplist} \
+    --out {params.prefix} --memory 4000 --threads 1"""
+
 # COJO analysis
 # parse CHR, start, and stop from input filename
 rule cojo_slct:
@@ -167,7 +176,7 @@ rule cojo_regions_analyse:
     script: "../scripts/meta/cojo.R"
     
 rule cojo_table_eur:
-    input: expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.rp.cojo", version=analysis_version)
+    input: expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.cojo", version=analysis_version)
     output: "docs/tables/meta_snps_{cohorts}_{ancestries}.cojo.txt"
     shell: "cp {input} {output}"
     
@@ -177,7 +186,7 @@ rule cojo_analyse:
     
 # copy COJO log into the repository
 rule cojo_log:
-    input: expand("logs/cojo/pgc_mdd_full_eur_hg19_v{version}.rp.log", version=analysis_version)
+    input: expand("logs/cojo/pgc_mdd_full_eur_hg19_v{version}.log", version=analysis_version)
     output: "docs/objects/meta_snps_full_eur.cojo.log"
     shell: "cp {input} {output}"
     
@@ -189,7 +198,7 @@ rule cojo_howard:
         
     
 rule cojo_docs:
-    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", howard="resources/sumstats/howard2019_table_s1.xlsx", levey="resources/sumstats/levey2021_223snps.txt", rp_clump="results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.gz.p4.clump.areator.sorted.1mhc", mc_clump="results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.mc.gz.p4.clump.areator.sorted.1mhc", rmd="docs/cojo.Rmd"
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", howard="resources/sumstats/howard2019_table_s1.xlsx", levey="resources/sumstats/levey2021_223snps.txt", rp_clump=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc", version=analysis_version), rmd="docs/cojo.Rmd"
     params: qc=meta_qc_params
     output: "docs/cojo.md"
     conda: "../envs/meta.yaml"
