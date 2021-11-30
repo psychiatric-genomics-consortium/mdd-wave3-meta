@@ -3,6 +3,16 @@
 ###################################
 
 ###
+### Cohorts sets
+###
+    
+# cohort sets for analysts
+cohorts_analyst = ["full", "noUKBB", "noALSPAC"]
+
+# cohort sets for public
+cohorts_public = ["no23andMe"]
+
+###
 ### Split and X
 ###
 
@@ -55,7 +65,7 @@ rule dataset_eas:
 	shell: "for daner in {input}; do echo $(basename $daner) >> {output}; done"
 	
 # Dataset list that exclude a particular cohort
-rule dataset_nocCOHORT_eur:
+rule dataset_noCOHORT_eur:
 	input: "results/meta/dataset_full_eur_v{analysis}"
 	log: "logs/meta/dataset_no{cohort}_eur_v{analysis}"
 	output: "results/meta/dataset_no{cohort}_eur_v{analysis}"
@@ -66,6 +76,25 @@ rule dataset_eur_X:
     input: expand("results/meta/X/daner_mdd_{cohort}.eur.hg19.{release}.qc.gz", zip, cohort=[cohort[0] for cohort in cohorts_eur], release=[cohort[1] for cohort in cohorts_eur])
     output: "results/meta/X/dataset_full_eur_v{analysis}"
     log: "logs/meta/X/dataset_full_eur_v{analysis}.log"
+    shell: """for daner in {input}; do 
+    headn=$(zcat $daner | awk '$1 == 23' | head | wc -l)
+    if ((headn > 0)); then
+        echo $(basename $daner) >> {output}; 
+    fi;
+    done
+    """
+    
+# Dataset list that exclude a particular X cohort
+rule dataset_noCOHORT_X_eur:
+    input: "results/meta/X/dataset_full_eur_v{analysis}"
+    log: "logs/meta/X/dataset_no{cohort}_eur_v{analysis}"
+    output: "results/meta/X/dataset_no{cohort}_eur_v{analysis}"
+    shell: "cat {input} | grep --invert daner_mdd_{wildcards.cohort} > {output}"
+    
+rule dataset_eas_X:
+    input: expand("results/meta/X/daner_mdd_{cohort}.eas.hg19.{release}.qc.gz", zip, cohort=[cohort[0] for cohort in cohorts_eas], release=[cohort[1] for cohort in cohorts_eas])
+    output: "results/meta/X/dataset_full_eas_v{analysis}"
+    log: "logs/meta/X/dataset_full_eas_v{analysis}.log"
     shell: """for daner in {input}; do 
     headn=$(zcat $daner | awk '$1 == 23' | head | wc -l)
     if ((headn > 0)); then
@@ -86,13 +115,13 @@ rule postimp:
 		dataset=lambda wildcards, input: os.path.basename(input.dataset)
 	output: touch("results/meta/{cohorts}_{ancestries}_v{version}.done")
 	log: "logs/meta/pgc_mdd_meta_{cohorts}_{ancestries}_hg19_v{version}.postimp_navi.log"
-	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --no_neff_filter --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
+	shell: "cd results/meta; postimp_navi --result {params.dataset} --popname {params.popname} --nolahunt --noldsc --no_neff_filter --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
 
 rule postimp_eur:
-	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version)
+	input: expand("results/meta/full_eur_v{version}.done", version=analysis_version_eur)
 	
 rule postimp_eas:
-	input: expand("results/meta/full_eas_v{version}.done", version=["3.00.02"])
+	input: expand("results/meta/full_eas_v{version}.done", version=analysis_version_eas)
 	
 # Ricopili submission chrX
 rule postimpX:
@@ -114,7 +143,7 @@ rule postimp_eur_X:
 ###
     
 # Clump results based on workflow params
-rule postimp_clump:
+rule postimp_reclump:
 	input: "results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
 	params:
 		refdir=config['refdir'],
@@ -130,28 +159,4 @@ rule postimp_clump:
 	output: touch("results/meta/{cohorts}_{ancestries}_v{version}.reclump.done")
 	shell: "cd results/meta; clump_nav3 --pfile {params.pfile} --refdir {params.refdir}/pop_{params.popname} --clu_p1 {params.p1} --clu_p2 {params.p2} --clu_r2 {params.r2} --clu_window {params.window} --popname {params.popname} --outname {params.outname} --debug --serial --sepa 16"
 	
-###
-### Cohorts sets
-###
-    
-# cohort sets for analysts
-cohorts_analyst = ["full", "noUKBB", "noALSPAC"]
 
-# cohort sets for public
-cohorts_public = ["no23andMe"]
-
-###
-### Post processing
-###
-
-# check Ricopili output for complete rows and duplicates
-rule postimp_rp:
-	input: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.gz"
-	log: "logs/meta/distribution/{analysis}.rp.log"
-	conda: "../envs/meta.yaml"
-	output: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.rp.gz"
-	script: "../scripts/meta/rp.R"
-	
-# inputs for postimp_rp
-rule postimp_rp_all:
-	input: expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.rp.gz", cohorts=cohorts_analyst, ancestries=['eur'], version=analysis_version)

@@ -8,7 +8,7 @@
 ##
 ## Cohort lists. List of cohort + subcohort/release pairs
 ## 
-cohorts_eur = [["MDD49", "29w2_20w3_1504"], 
+cohorts_eur = [["MDD49", "29w2_20w3_X28w2_19w3"], 
 ["23andMe", "v7_2_202012"],      
 ["deCODE", "DEPALL_FINAL_WHEAD"],
 ["GenScot", "SCID_0721a"],            
@@ -32,13 +32,15 @@ cohorts_eur = [["MDD49", "29w2_20w3_1504"],
 ["BASIC", "202011"],        
 ["BioVU", "NoCov_SAIGE_051821"],
 ["EXCEED", "202010"],          
-["MVP", "rel4icdDEP_Geno_202109"],
+["MVP", "rel4icdDEP_Geno_202109C"],
 ["tkda1", "run1"],           
 ["DBDS", "FINAL202103"],
 ["SHARE", "godartsshare_842021"]]
 
 cohorts_eas=[["23andMe","v7_2"],
-["Taiwan", "20200327"]]
+["Taiwan", "20200327"],
+["CONVERGE", "10640"],
+["BBJ", "hum0197v3_Depv1_2020"]]
 
 # genotyped cohorts list
 cohorts_geno_eur=[['antpo', 'sa-qc4'],
@@ -177,15 +179,16 @@ rule refdirx:
     log: "logs/meta/reference_info_x.log"
     shell: "cd results/meta/X; impute_dirsub --refdir {config[refdir]}/chr23 --reference_info --outname metax"
 
-# merged imputation panel SNPs
+# merged HRC imputation panel plus frequencies from 1KG reference
 rule impute_frq2:
-	input: ref="results/meta/reference_info", cups="resources/liftOver/FASTA_BED.ALL_GRCh37.novel_CUPs.bed"
+	input: ref="results/meta/reference_info", cups="resources/liftOver/FASTA_BED.ALL_GRCh37.novel_CUPs.bed", afreq="resources/1kg/phase3.{ancestries}.afreq"
 	output: "results/sumstats/impute_frq2.{ancestries}.rds"
 	params:
 		maf=meta_qc_params['maf']
 	log: "logs/sumstats/impute_frq2.{ancestries}.log"
 	conda: "../envs/meta.yaml"
 	script: "../scripts/meta/impute_frq2.R"
+
 
 # align to imputation panel
 rule align:
@@ -196,10 +199,28 @@ rule align:
 	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
 	conda: "../envs/meta.yaml" 
 	script: "../scripts/meta/align.R"
+    
+# Sumstats in GCTA-COJO format for DENTIST   
+rule meta_ma:
+    input: "results/sumstats/aligned/daner_mdd_{cohort}.aligned.gz"
+    output: temp("results/sumstats/dentist/ma/mdd_{cohort}.ma")
+    conda: "../envs/meta.yaml"
+    script: "../scripts/meta/ma.R"
+    
+rule dentist:
+    input: "results/sumstats/dentist/ma/mdd_{cohort}.{ancestries}.hg19.{release}.ma"
+    params: popname=lambda wildcards: wildcards.ancestries.upper(), prefix="results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}"
+    output: dentist="results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}.DENTIST.txt", outliers="results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}.DENTIST.outliers.txt"
+    shell: "resources/meta/DENTIST_1.1.0.0 --gwas-summary {input} --bfile {config[refdir]}/pop_{params.popname}/HRC.r1-1.EGA.GRCh37.chr{wildcards.chr}.impute.plink.{params.popname} --chrID {wildcards.chr} --maf 0.001 --delta-MAF 0.15 --out {params.prefix} --thread-num 16"
+    
+rule dentist_merge:
+    input: expand("results/sumstats/dentist/{{cohort}}/mdd_{{cohort}}.{{ancestries}}.hg19.{{release}}.{chr}.DENTIST.outliers.txt", chr=range(1, 23))
+    output: "results/sumstats/dentist/mdd_{cohort}.{ancestries}.hg19.{release}.DENTIST.outliers.txt"
+    shell: "cat {input} > {output}"
 	
 # apply QC filters
 rule filter:
-	input: daner="results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz", script="scripts/meta/filter.R"
+	input: daner="results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz", dentist="results/sumstats/dentist/mdd_{cohort}.{ancestries}.hg19.{release}.DENTIST.outliers.txt", script="scripts/meta/filter.R"
 	params:
 		maf=meta_qc_params['maf'],
 		info=meta_qc_params['info'],

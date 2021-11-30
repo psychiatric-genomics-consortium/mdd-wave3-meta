@@ -2,7 +2,7 @@
 
 Plans for analyses to include in primary and who is involved:
 
-**Analysts:** Mark Adams, Swapnil Awasthi, Fabian Strait, Oliver Pain, Xueyi Shen, Olga Giannakopoulou, Xiangrui Meng, Alex Kwong, Shuyang Yao, Jackson Thorp, Bochao Lin, Gita Pathak, Abigail ter Kuile, Alish Palmos, Qinqin Huang, Lu Yi, Kartik Chundru, Karmel Choi, Zac Gerring, Eva Schulte, Jonathan Coleman, David Howard, Na Cai, Hilary Martin, Eske Derks, Karoline Kuchenbäcker, Naomi Wray 
+**Analysts:** Mark Adams, Swapnil Awasthi, Fabian Streit, Oliver Pain, Xueyi Shen, Olga Giannakopoulou, Xiangrui Meng, Alex Kwong, Shuyang Yao, Jackson Thorp, Bochao Lin, Gita Pathak, Abigail ter Kuile, Alish Palmos, Qinqin Huang, Lu Yi, Kartik Chundru, Karmel Choi, Zac Gerring, Eva Schulte, Jonathan Coleman, David Howard, Na Cai, Hilary Martin, Eske Derks, Karoline Kuchenbäcker, Naomi Wray 
 
 ## Meta-analysis
 
