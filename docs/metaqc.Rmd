@@ -18,8 +18,7 @@ library(corrplot)
 
 # Sample sizes
 
-```{r meta_sample_size}
-
+```{r meta_sample_size, fig.width=7, fig.height=7}
 meta_qc_align <- read_tsv(snakemake@input$meta_qc_align)
 cohorts_mdd <- read_tsv(snakemake@input$cohorts_mdd)
 

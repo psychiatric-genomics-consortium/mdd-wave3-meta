@@ -8,10 +8,12 @@ rule meta_ldsc_mdd2:
 	conda: "../envs/ldsc.yaml"
 	output: "results/sumstats/rg_mdd/{cohort}.log"
 	shell: "resources/ldsc/ldsc/ldsc.py --rg {input.sumstats},{input.mdd2},{input.mdd29} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"
-	
-rg_mdd_logs, = glob_wildcards("results/sumstats/rg_mdd/{cohort}.log")
+
+# create lists of all munged sumstats
+meta_ldsc_munged_cohorts= expand("{cohort}.{ancestry}.hg19.{release}", zip, cohort=[cohort[0] for cohort in cohorts_eur], ancestry=['eur'] * len(cohorts_eur), release=[cohort[1] for cohort in cohorts_eur])
+
 rule meta_ldsc_mdd2_table:
-	input: expand("results/sumstats/rg_mdd/{cohort}.log", cohort=rg_mdd_logs)
+	input: expand("results/sumstats/rg_mdd/daner_mdd_{cohort}.qc.log", cohort=meta_ldsc_munged_cohorts)
 	output: "docs/tables/meta_qc_ldsc.txt"
 	shell: """
 tmp=$(mktemp)
@@ -52,9 +54,6 @@ rule meta_ldsc_pairwise_rg:
 	output: "results/sumstats/rg_pairs/{cohort1},{cohort2}.log"
 	conda: "../envs/ldsc.yaml"
 	shell: "resources/ldsc/ldsc/ldsc.py --rg {input.sumstats1},{input.sumstats2} --ref-ld-chr {input.w_ld}/ --w-ld-chr {input.w_ld}/ --out {params.prefix}"	
-
-# create pairwise lists of all munged sumstats
-meta_ldsc_munged_cohorts= expand("{cohort}.{ancestry}.hg19.{release}", zip, cohort=[cohort[0] for cohort in cohorts_eur], ancestry=['eur'] * len(cohorts_eur), release=[cohort[1] for cohort in cohorts_eur])
 
 # merge pairwise LDSC genetic correlation logs into a single table
 # we could use expand() here as the input like:
