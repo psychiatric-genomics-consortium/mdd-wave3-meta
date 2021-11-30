@@ -191,6 +191,12 @@ cp ../../results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_Manhattan.png ../
 
 </details>
 
+```{R, eval=T, echo=F}
+# Create plots showing results across tissues
+
+
+```
+
 ***
 
 ## Colocalisation
@@ -415,3 +421,241 @@ kable(res_mesc_set_nom_pos, row.names = FALSE, caption='MESC results', digits = 
 ```
 
 </details>
+
+***
+
+## SMR analysis
+
+In addition to TWAS-based methodology which integrate multi-SNP models predicting gene expression with GWAS, we also used summary-based mendelian randomisation (SMR) to integrate individual eQTL data from recent largescale meta-analyses for blood and brain eQTL data, including eQTLGen and MetaBrain. Here we will summarise the results of SMR analyses, and compare the results between SMR and TWAS-based methods.
+
+<details><summary>Process SMR results</summary>
+
+```{R, eval=T, echo=T}
+library(data.table)
+# Read in the SMR results
+smr_res<-list()
+
+smr_res[['eQTLGen_Blood']]<-fread('../../results/twas/eqtlgen_smr/eqtlgen_smr_res_GW_withIDs.csv')
+
+names(smr_res[['eQTLGen_Blood']])[names(smr_res[['eQTLGen_Blood']]) == 'GeneSymbol']<-'HGNCName'
+smr_res[['eQTLGen_Blood']]$eQTL_source<-'eQTLGen_Blood'
+
+tissue<-c("Basalganglia","Cerebellum","Cortex","Hippocampus","Spinalcord")
+
+for(tissue_i in tissue){
+  smr_res[[tissue_i]]<-fread(paste0('../../results/twas/metabrain_smr/metabrain_',tissue_i,'_smr_res_GW_withIDs.csv'))
+  smr_res[[tissue_i]]$eQTL_source<-paste0('MetaBrain_',tissue_i)
+}
+
+smr_res_dat<-do.call(rbind, smr_res)
+smr_res_dat$p_SMR_bonf_all<-p.adjust(smr_res_dat$p_SMR, method="bonferroni")
+
+summary_by_panel<-NULL
+for(i in unique(smr_res_dat$eQTL_source)){
+  tmp<-smr_res_dat[smr_res_dat$eQTL_source == i,]
+  summary_by_panel<-rbind(summary_by_panel, data.frame(eQTL_source=i,
+                                                       N_sig_pwise=sum(tmp$p_SMR_bonf < 0.05, na.rm=T),
+                                                       N_sig_all=sum(tmp$p_SMR_bonf_all < 0.05, na.rm=T),
+                                                       N_sig_pwise_heidi=sum(tmp$p_SMR_bonf < 0.05 & tmp$p_HEIDI > 0.05, na.rm=T),
+                                                       N_sig_all_heidi=sum(tmp$p_SMR_bonf_all < 0.05 & tmp$p_HEIDI > 0.05, na.rm=T)))
+}
+
+```
+
+</details>
+
+<details><summary>Show number of significant SMR results </summary>
+
+```{r, eval=T, echo=F}
+kable(summary_by_panel, row.names=F , caption='Number of significant SMR results', digits = 32)
+```
+
+Note. N_sig_pwise = The number of significant associations from SMR based on panel-specific bonferroni correction for multiple testing (i.e. number of genes test using eQTLGen data only); N_sig_all = The number of significant associations from SMR based on bonferroni correction for multiple testing when using eQTLGen and MetaBrain data; _heidi columns indicate the number of significant associations that pass the HEIDI test (p>0.05).
+
+I think the most appropriate significant threshold is one that controls for multiple testing across all eQTL datasets (eQTLGen and MetaBrain), similar to how the TWAS significance threshold corrects for test across all TWAS panels.
+
+</details>
+
+<details><summary>Show significant SMR results </summary>
+
+```{r, eval=T, echo=F}
+smr_res_dat_sig<-smr_res_dat[smr_res_dat$p_SMR_bonf_all < 0.05 & smr_res_dat$p_HEIDI > 0.05 ,]
+smr_res_dat_sig<-smr_res_dat_sig[order(smr_res_dat_sig$ProbeChr, smr_res_dat_sig$Probe_bp),]
+smr_res_dat_sig<-smr_res_dat_sig[,c('eQTL_source','HGNCName','ProbeChr','Probe_bp','b_SMR','se_SMR','p_SMR','p_SMR_bonf','p_SMR_bonf_all','p_HEIDI'),with=F]
+
+kable(smr_res_dat_sig, row.names=F , caption='Significant SMR results', digits = 32)
+
+```
+
+</details>
+
+```{R, eval=T, echo=F}
+# Read in the TWAS results
+twas_res<-fread('../../results/twas/twas_results/PGC_MDD3_twas_AllTissues_CLEAN.txt')
+
+```
+
+***
+
+### eQTLGen comparison
+
+<details><summary>Show overlap between genes tested in TWAS-Blood panels and SMR-eQTLGen data</summary>
+```{R, eval=T, echo=F, message=FALSE, warning=FALSE}
+####
+# Comparison between eQTLGen and TWAS blood sets
+####
+
+# Subset the blood panels
+twas_res_blood<-twas_res[grepl('YFS|NTR|Blood', twas_res$PANEL_clean)]
+
+# Merge the results
+both<-merge(twas_res_blood, smr_res_dat[smr_res_dat$eQTL_source == 'eQTLGen_Blood',], by.x='ID', by.y='HGNCName')
+
+# Plot the overlap between different methods
+library(ggvenn)
+
+# Compare all genes tested in TWAS and SMR
+for_plot<-list(
+  TWAS=twas_res_blood$ID,
+  SMR=smr_res_dat[smr_res_dat$eQTL_source == 'eQTLGen_Blood',]$HGNCName
+)
+
+ggvenn(
+  for_plot, 
+  fill_color = c("#0073C2FF", "#EFC000FF", "#868686FF", "#CD534CFF"),
+  stroke_size = 0.5, set_name_size = 4
+)
+```
+</details>
+
+<details><summary>Show overlap of significant genes tested in both TWAS-Blood panels and SMR-eQTLGen data</summary>
+```{R, eval=T, echo=F}
+# Compare TWAS, SMR, COLOC, and HEIDI for genes that were present in both analyses
+for_plot<-list(
+  TWAS_P=twas_res_blood$ID[twas_res_blood$TWAS.P < sig_thresh & twas_res_blood$ID %in% both$ID],
+  COLOC=twas_res_blood$ID[which(twas_res_blood$TWAS.P < sig_thresh & twas_res_blood$COLOC.PP4 > 0.8 & twas_res_blood$ID %in% both$ID)],
+  SMR_P=smr_res_dat$HGNCName[smr_res_dat$eQTL_source == 'eQTLGen_Blood' & smr_res_dat$p_SMR_bonf_all < 0.05 & smr_res_dat$HGNCName %in% both$ID],
+  HEIDI=smr_res_dat$HGNCName[smr_res_dat$eQTL_source == 'eQTLGen_Blood' & smr_res_dat$p_SMR_bonf_all < 0.05 & smr_res_dat$p_HEIDI > 0.05 & smr_res_dat$HGNCName %in% both$ID]
+)
+
+ggvenn(
+  for_plot, 
+  fill_color = c("#0073C2FF", "#EFC000FF", "#868686FF", "#CD534CFF"),
+  stroke_size = 0.5, set_name_size = 4
+  )
+
+```
+</details>
+
+<details><summary>Show table of significant genes in both TWAS-Blood panels and SMR-eQTLGen data</summary>
+```{R, eval=T, echo=F}
+sig_all<-both[which(both$eQTL_source == 'eQTLGen_Blood' & both$p_SMR_bonf_all < 0.05 & both$p_HEIDI > 0.05 & both$TWAS.P < sig_thresh & both$COLOC.PP4 > 0.8),]
+sig_all<-sig_all[,c('ID', 'CHR', 'P0','P1','PANEL_clean','eQTL_source','TWAS.Z','TWAS.P','COLOC.PP4','b_SMR','se_SMR','p_SMR','p_HEIDI'),with=F]
+sig_all<-sig_all[order(sig_all$CHR, sig_all$P0)]
+  
+kable(sig_all, row.names=F , caption='Genes significant in TWAS and SMR which colocalised passed HEIDI', digits = 32)
+
+```
+
+</details>
+
+<details><summary>Show table of significant genes but discordant SMR and coloc results</summary>
+```{R, eval=T, echo=F}
+sig_all<-both[which(both$eQTL_source == 'eQTLGen_Blood' & both$p_SMR_bonf_all < 0.05 & both$p_HEIDI > 0.05 & both$TWAS.P < sig_thresh & both$COLOC.PP4 < 0.8),]
+sig_all<-sig_all[,c('ID', 'CHR', 'P0','P1','PANEL_clean','eQTL_source','TWAS.Z','TWAS.P','COLOC.PP4','b_SMR','se_SMR','p_SMR','p_HEIDI'),with=F]
+sig_all<-sig_all[order(sig_all$CHR, sig_all$P0)]
+  
+kable(sig_all, row.names=F , caption='Genes significant in TWAS and SMR which colocalised passed HEIDI', digits = 32)
+
+```
+
+</details>
+
+***
+
+### MetaBrain comparison
+
+<details><summary>Show overlap between genes tested in TWAS-Brain panels and SMR-MetaBrain data</summary>
+```{R, eval=T, echo=F}
+####
+# Comparison between MetaBrain and TWAS Brain sets
+####
+
+# Subset the blood panels
+twas_res_brain<-twas_res[grepl('CMC|GTEx|PsychENCODE', twas_res$PANEL_clean) & !grepl('Pitui|Thyroid|Adren|Whole', twas_res$PANEL_clean)]
+
+# Merge the results
+both<-merge(twas_res_brain, smr_res_dat[smr_res_dat$eQTL_source != 'eQTLGen_Blood',], by.x='ID', by.y='HGNCName')
+both<-both[both$b_SMR != Inf & both$b_SMR != -Inf,]
+
+# Plot the overlap between different methods
+library(ggvenn)
+
+# Compare all genes tested in TWAS and SMR
+for_plot<-list(
+  TWAS=twas_res_blood$ID,
+  SMR=smr_res_dat[smr_res_dat$eQTL_source != 'eQTLGen_Blood',]$HGNCName
+)
+
+ggvenn(
+  for_plot, 
+  fill_color = c("#0073C2FF", "#EFC000FF", "#868686FF", "#CD534CFF"),
+  stroke_size = 0.5, set_name_size = 4
+)
+
+```
+</details>
+
+<details><summary>Show overlap of significant genes tested in both TWAS-Brain panels and SMR-MetaBrain data</summary>
+```{R, eval=T, echo=F}
+# Compare TWAS, SMR, COLOC, and HEIDI for genes that were present in both analyses
+for_plot<-list(
+  TWAS_P=twas_res_blood$ID[twas_res_blood$TWAS.P < sig_thresh & twas_res_blood$ID %in% both$ID],
+  COLOC=twas_res_blood$ID[which(twas_res_blood$TWAS.P < sig_thresh & twas_res_blood$COLOC.PP4 > 0.8 & twas_res_blood$ID %in% both$ID)],
+  SMR_P=smr_res_dat$HGNCName[smr_res_dat$eQTL_source != 'eQTLGen_Blood' & smr_res_dat$p_SMR_bonf_all < 0.05 & smr_res_dat$HGNCName %in% both$ID],
+  HEIDI=smr_res_dat$HGNCName[smr_res_dat$eQTL_source != 'eQTLGen_Blood' & smr_res_dat$p_SMR_bonf_all < 0.05 & smr_res_dat$p_HEIDI > 0.01 & smr_res_dat$HGNCName %in% both$ID]
+)
+
+ggvenn(
+  for_plot, 
+  fill_color = c("#0073C2FF", "#EFC000FF", "#868686FF", "#CD534CFF"),
+  stroke_size = 0.5, set_name_size = 4
+)
+
+```
+</details>
+
+<details><summary>Show table of significant genes in both TWAS-Brain panels and SMR-MetaBrain data</summary>
+```{R, eval=T, echo=F}
+sig_all<-both[which(both$eQTL_source != 'eQTLGen_Blood' & both$p_SMR_bonf_all < 0.05 & both$p_HEIDI > 0.05 & both$TWAS.P < sig_thresh & both$COLOC.PP4 > 0.8),]
+sig_all<-sig_all[,c('ID', 'CHR', 'P0','P1','PANEL_clean','eQTL_source','TWAS.Z','TWAS.P','COLOC.PP4','b_SMR','se_SMR','p_SMR','p_HEIDI'),with=F]
+sig_all<-sig_all[order(sig_all$CHR, sig_all$P0)]
+  
+kable(sig_all, row.names=F , caption='Genes significant in TWAS and SMR which colocalised passed HEIDI', digits = 32)
+
+```
+
+</details>
+
+<details><summary>Show table of significant genes but discordant SMR and coloc results</summary>
+```{R, eval=T, echo=F}
+sig_all<-both[which(both$eQTL_source != 'eQTLGen_Blood' & both$p_SMR_bonf_all < 0.05 & both$p_HEIDI > 0.05 & both$TWAS.P < sig_thresh & both$COLOC.PP4 < 0.8),]
+sig_all<-sig_all[,c('ID', 'CHR', 'P0','P1','PANEL_clean','eQTL_source','TWAS.Z','TWAS.P','COLOC.PP3','COLOC.PP4','b_SMR','se_SMR','p_SMR','p_HEIDI'),with=F]
+sig_all<-sig_all[order(sig_all$CHR, sig_all$P0)]
+  
+kable(sig_all, row.names=F , caption='Genes significant in TWAS and SMR which not colocalise but passed HEIDI', digits = 32)
+
+sig_all<-both[which(both$eQTL_source != 'eQTLGen_Blood' & both$p_SMR_bonf_all < 0.05 & both$p_HEIDI < 0.05 & both$TWAS.P < sig_thresh & both$COLOC.PP4 > 0.8),]
+sig_all<-sig_all[,c('ID', 'CHR', 'P0','P1','PANEL_clean','eQTL_source','TWAS.Z','TWAS.P','COLOC.PP3','COLOC.PP4','b_SMR','se_SMR','p_SMR','p_HEIDI'),with=F]
+sig_all<-sig_all[order(sig_all$CHR, sig_all$P0)]
+  
+kable(sig_all, row.names=F , caption='Genes significant in TWAS and SMR which colocalised but did not pass HEIDI', digits = 32)
+
+```
+
+</details>
+
+***
+***
+
+
