@@ -1,0 +1,213 @@
+---
+title: "Integrating Gene Finding Analyses"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The PGC3 MDD study is including the following analyses to identify genes associated with MDD:
+
+- GWAS: Nearest gene to lead SNPs in GWAS
+- Finemapping: Nearest gene to finemapped SNP associations
+- MAGMA: Enrichment of SNP associations within gene regions
+- TWAS: Overlapping GWAS and eQTL associations
+- Colocalisation: Colocalised GWAS and eQTL associations
+- FOCUS: Causal model suported for TWAS association
+- SMR: Overlapping GWAS and eQTL association
+- HEIDI: No evidence of horizontal pleitropy in SMR association
+
+# Harmonising data
+
+```{r, eval=T, echo=T}
+library(data.table)
+
+#########
+# Nearest gene to GWAS hits
+#########
+
+# Read in GWAS results
+# Currently we are using results only for lead indepdendant associations from COJO
+# I think this is fine
+indep_hits<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/docs/tables/meta_snps_full_eur.cojo.txt')
+
+# Link SNPs to nearest gene
+# This is already done by FUMA
+# Read in FUMA gene data
+fuma_gene<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/results/fuma/3.49.24.05/genes.txt')
+
+for(i in 1:nrow(indep_hits)){
+  snp<-indep_hits$SNP[i]
+  fuma_gene_snp<-fuma_gene[grepl(paste0(snp,';|',snp,'$'), fuma_gene$IndSigSNPs),]
+  
+  if(nrow(fuma_gene_snp) > 0){
+    dist<-data.frame(start=fuma_gene_snp$start-indep_hits$BP[i],
+                     end=fuma_gene_snp$end-indep_hits$BP[i])
+    
+    dist$position<-F
+    dist$position[dist$start < 0 & dist$end > 0]<-'within'
+    dist$position[dist$start < 0 & dist$end < 0]<-'downstream'
+    dist$position[dist$start > 0 & dist$end > 0]<-'upstream'
+  
+    abs_min<-function(x){
+      return(min(abs(x)))
+    }
+    
+    dist$min<-apply(dist[,c('start','end')], 1, abs_min)
+    dist$min[dist$position == 'within']<-0
+    
+    indep_hits$nearestGene[i]<-paste0(fuma_gene_snp$symbol[dist$min == min(dist$min)], collapse=';')
+    indep_hits$distanceToGene[i]<-paste0(round(dist$min[dist$min == min(dist$min)]/1000),'kb ',dist$position[dist$min == min(dist$min)], collapse=';')
+
+  } else {
+    indep_hits$nearestGene[i]<-NA
+    indep_hits$distanceToGene[i]<-NA
+
+  }
+}
+
+# Many SNPs have no gene linked. This might be because FUMA selects SNPs differently, or because FUMA only list genes within a certain region. It might be more controlled if we use bioMart to obtain gene positions for ourselves.
+
+#########
+# Nearest gene to finemapped SNPs
+#########
+
+# Read in finemapping results
+# These finemapping results only containing results for lead independent SNPs from COJO
+# Really we want full finemapping results to be not be limited to the lead SNPs (some finemapped SNPs won't be the most significant)
+finemap<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/results/finemapping/finemap_PIP.csv')
+
+# Merge SNP data
+finemap<-merge(indep_hits[,c('SNP','CHR','BP','P'),with=F], finemap, by='SNP', all=T)
+finemap<-finemap[!is.na(finemap$P),]
+
+# Extract robust finemapped SNPs
+finemap<-finemap[finemap$Finemapping.Max.PIP > 0.8,]
+
+# Now link SNPs to genes
+# This is already done by FUMA
+# Read in FUMA gene data
+fuma_gene<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/results/fuma/3.49.24.05/genes.txt')
+
+for(i in 1:nrow(finemap)){
+  snp<-finemap$SNP[i]
+  fuma_gene_snp<-fuma_gene[grepl(paste0(snp,';|',snp,'$'), fuma_gene$IndSigSNPs),]
+  
+  if(nrow(fuma_gene_snp) > 0){
+    dist<-data.frame(start=fuma_gene_snp$start-finemap$BP[i],
+                     end=fuma_gene_snp$end-finemap$BP[i])
+    
+    dist$position<-F
+    dist$position[dist$start < 0 & dist$end > 0]<-'within'
+    dist$position[dist$start < 0 & dist$end < 0]<-'downstream'
+    dist$position[dist$start > 0 & dist$end > 0]<-'upstream'
+  
+    abs_min<-function(x){
+      return(min(abs(x)))
+    }
+    
+    dist$min<-apply(dist[,c('start','end')], 1, abs_min)
+    dist$min[dist$position == 'within']<-0
+    
+    finemap$nearestGene[i]<-paste0(fuma_gene_snp$symbol[dist$min == min(dist$min)], collapse=';')
+    finemap$distanceToGene[i]<-paste0(round(dist$min[dist$min == min(dist$min)]/1000),'kb ',dist$position[dist$min == min(dist$min)], collapse=';')
+
+  } else {
+    finemap$nearestGene[i]<-NA
+    finemap$distanceToGene[i]<-NA
+
+  }
+}
+
+#################
+# MAGMA genes
+#################
+
+# Read in MAGMA results
+magma<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/results/fuma/3.49.24.05/magma.genes.out')
+
+# Identify Bonferroni significant associations
+magma<-magma[magma$P < 0.05/nrow(magma),]
+
+#################
+# TWAS genes
+#################
+
+twas<-fread('../../results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_TWSig.txt')
+
+#################
+# Colocalised genes
+#################
+
+coloc<-read.csv('../../results/twas/twas_results/PGC_MDD3_TWAS_colocalisation.csv')
+coloc<-coloc[coloc$COLOC.PP4 > 0.8,]
+
+#################
+# FOCUS genes
+#################
+
+focus<-read.csv('../../results/twas/focus/p_1e-4/PGC_MDD3_TWAS.TWSig.FOCUS.results.csv')
+focus<-focus[focus$FOCUS_pip > 0.5,]
+
+#################
+# SMR genes
+#################
+
+# Read in the SMR results
+smr_res<-list()
+
+smr_res[['eQTLGen_Blood']]<-fread('../../results/twas/eqtlgen_smr/eqtlgen_smr_res_GW_withIDs.csv')
+
+names(smr_res[['eQTLGen_Blood']])[names(smr_res[['eQTLGen_Blood']]) == 'GeneSymbol']<-'HGNCName'
+smr_res[['eQTLGen_Blood']]$eQTL_source<-'eQTLGen_Blood'
+
+tissue<-c("Basalganglia","Cerebellum","Cortex","Hippocampus","Spinalcord")
+
+for(tissue_i in tissue){
+  smr_res[[tissue_i]]<-fread(paste0('../../results/twas/metabrain_smr/metabrain_',tissue_i,'_smr_res_GW_withIDs.csv'))
+  smr_res[[tissue_i]]$eQTL_source<-paste0('MetaBrain_',tissue_i)
+}
+
+smr_res_dat<-do.call(rbind, smr_res)
+smr_res_dat$p_SMR_bonf_all<-p.adjust(smr_res_dat$p_SMR, method="bonferroni")
+
+smr_res_dat<-smr_res_dat[smr_res_dat$p_SMR_bonf_all < 0.05,]
+
+#################
+# HEIDI genes
+#################
+
+heidi<-smr_res_dat[smr_res_dat$p_HEIDI > 0.05,]
+
+#################
+# Create upset plot
+#################
+# This plot will show the number of genes returned by each analysis and the overlap of each analysis
+
+# Create data.frame listing genes with T/F indicating whether it was supported by each analysis 
+gene_overlap<-list()
+gene_overlap[['gwas']]<-indep_hits$nearestGene
+gene_overlap[['finemap']]<-finemap$nearestGene
+gene_overlap[['magma']]<-magma$SYMBOL
+gene_overlap[['twas']]<-twas$ID
+gene_overlap[['coloc']]<-coloc$ID
+gene_overlap[['focus']]<-focus$ID
+gene_overlap[['smr']]<-smr_res_dat$HGNCName
+gene_overlap[['heidi']]<-heidi$HGNCName
+
+library(UpSetR)
+
+upset(fromList(gene_overlap), nsets=10, order.by = "freq")
+
+gene_overlap<-list()
+gene_overlap[['NearestGene to finemap']]<-intersect(finemap$nearestGene, indep_hits$nearestGene)
+gene_overlap[['MAGMA']]<-magma$SYMBOL
+gene_overlap[['TWAS COLOC FOCUS']]<-intersect(twas$ID,intersect(coloc$ID,focus$ID))
+gene_overlap[['SMR-HEIDI']]<-heidi$HGNCName
+
+library(UpSetR)
+
+upset(fromList(gene_overlap), nsets=10, order.by = "freq")
+
+```
