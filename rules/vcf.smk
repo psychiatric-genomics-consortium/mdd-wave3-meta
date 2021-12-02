@@ -1,13 +1,6 @@
 # Store GWAS data in VCF format https://github.com/MRCIEU/gwas-vcf-specification (vcf.gz)
 # and PGC VCF-like format (pgc.gz)
 
-# install the vcfgwas library
-rule vcf_install_github_vcfgwas:
-    output: "resources/vcf/vendor/r-gwasvcf"
-    log: "logs/vcf/install_github.log"
-    conda: "../envs/vcf.yaml"
-    shell: "Rscript -e 'devtools::install_github(\"mrcieu/gwasvcf\", upgrade=\"never\")' 2>&1 > {output}"
-
 # install gwas2vcf
 rule vcf_install_gwas2vcf:
     output: directory("resources/vcf/vendor/gwas2vcf")
@@ -91,15 +84,15 @@ rule vcf:
     
 # VCF-like PGC sumstats file
 rule vcf_daner2pgc:
-    input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{analysis}.rp.gz", fasta_fai="resources/fasta/human_grch37.fasta.fai", genotype_cohorts="docs/tables/cohorts_mdd.eur.txt", sumstats_cohorts="docs/tables/cohorts.eur.txt", cff="CITATION.cff", header_template="scripts/vcf/pgc.glue"
+    input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{analysis}.neff.gz", fasta_fai="resources/fasta/human_grch37.fasta.fai", genotype_cohorts="docs/tables/cohorts_mdd.eur.txt", sumstats_cohorts="docs/tables/cohorts.eur.txt", cff="CITATION.cff", header_template="scripts/vcf/pgc.glue"
     conda: "../envs/vcf.yaml"
-    output: "results/vcf/pgc_mdd{year}_{cohorts}_{ancestries}_v{analysis}.pgc"
+    output: "results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-v{analysis}.pgc"
     script: "../scripts/vcf/pgc.R"
-    
+
 rule vcf_pgc_gz:
-    input: "results/vcf/pgc_mdd{sumstats}.pgc"
-    output: "results/vcf/pgc_mdd{sumstats}.pgc.gz"
-    shell: "gzip -c {input} > {output}"
+    input: "results/vcf/pgc-mdd{sumstats}.pgc"
+    output: "results/vcf/pgc-mdd{sumstats}.pgc.gz"
+    shell: "gzip -c {input} > {output}"  
     
 rule vcf_pgc:
-    input: expand("results/vcf/pgc_mdd{year}_full_eur_v{analysis}.pgc.gz", year=2021, analysis=analysis_version)
+    input: expand("results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-v{analysis}.pgc.gz", year=2022, cohorts=['full', 'no23andMe'], ancestries=['eur'], analysis=analysis_version)
