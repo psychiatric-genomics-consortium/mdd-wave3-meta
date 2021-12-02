@@ -86,7 +86,7 @@ rule vcf:
 rule vcf_daner2pgc:
     input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{analysis}.neff.gz", fasta_fai="resources/fasta/human_grch37.fasta.fai", genotype_cohorts="docs/tables/cohorts_mdd.eur.txt", sumstats_cohorts="docs/tables/cohorts.eur.txt", cff="CITATION.cff", header_template="scripts/vcf/pgc.glue"
     conda: "../envs/vcf.yaml"
-    output: "results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-v{analysis}.pgc"
+    output: temp("results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-v{analysis}.pgc")
     script: "../scripts/vcf/pgc.R"
 
 rule vcf_pgc_gz:
