@@ -97,7 +97,7 @@ ncohort <- length(c(genotype_cohorts, sumstats_cohorts)[keep])
 # number of cases and controls
 cases_by_cohort <- paste(c(genotype_ncases, sumstats_ncases)[keep], collapse=',')
 controls_by_cohort <- paste(c(genotype_ncontrols, sumstats_ncontrols)[keep], collapse=',')
-trios_by_cohort <- paste(rep(0, ncohort)[keep], collapse=',')
+trios_by_cohort <- paste(rep(0, ncohort), collapse=',')
 snps_by_cohort <- paste(c(genotype_nsnps, sumstats_nsnps)[keep], collapse=',')
 processed_by_core <- paste(rep(c(TRUE, FALSE), c(length(genotype_cohorts), length(sumstats_cohorts)))[keep], collapse=',')
 
