@@ -13,6 +13,7 @@
 ##metaAnalysisProgram="Ricopili 2019_Jun_18.001"
 ##shortName="pgc-mdd2022-{cohorts}"
 ##version="{analysis_version}"
+##referencePopulation="{ancestries}"
 ##dependentVariable="major depressive disorder"
 ##dependentVariableType="discrete"
 ##model="dependentVariable=SNPi+PC1-PC5"
@@ -31,7 +32,6 @@
 ##nTrioByCohort="{trios_by_cohort}"
 ##SNPsPassPostImputeByCohort="{snps_by_cohort}"
 ##ProcessedByCoreTeam="{processed_by_core}"
-##referencePopulation="{ancestries}"
 ##INFO=<ID=A1,Number=1,Type=Character,Description="SNP reference allele for freq and ln(OR) (effect allele)">
 ##INFO=<ID=A2,Number=1,Type=Character,Description="SNP alternate allele (non-effect allele)">
 ##INFO=<ID=BETA,Number=1,Type=Float,Description="ln(OR) of A1">
