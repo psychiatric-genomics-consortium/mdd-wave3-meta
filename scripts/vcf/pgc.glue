@@ -1,4 +1,4 @@
-##fileFormat=PGCsumstatsVCFv1.0
+##fileFormat=PGCv1.0
 ##fileDate="{filedate}"
 ##preparedBy="{analyst}"
 ##manuscript=<ID=BIORXIV,REF="{biorxiv}">
