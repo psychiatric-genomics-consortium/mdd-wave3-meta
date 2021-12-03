@@ -1,4 +1,4 @@
-##fileFormat=PGCsumstatsVCFv1.0
+##fileFormat=PGCv1.0
 ##fileDate="{filedate}"
 ##preparedBy="{analyst}"
 ##manuscript=<ID=BIORXIV,REF="{biorxiv}">
@@ -6,13 +6,14 @@
 ##manuscript=<ID=PMCID,REF="{pmcid}">
 ##DOI=<ID=BIORXIV,REF="{biorxiv}">
 ##DOI=<ID=JOURNAL,REF="{doi}">
-##sumstatsLINK=<ID=SUMSTATS,REF="{url}">
+##sumstatsLINK=<ID=SUMSTATS,REF="{sumstats_url}">
 ##genomeReference="GRCh37"
 ##imputationReference="Haplotype Reference Consortium v1.1"
 ##analysisProgram="Ricopili 2019_Jun_18.001"
 ##metaAnalysisProgram="Ricopili 2019_Jun_18.001"
-##shortName="pgc-mdd2021-{cohorts}"
-##version="{version}"
+##shortName="pgc-mdd2022-{cohorts}"
+##version="{analysis_version}"
+##referencePopulation="{ancestries}"
 ##dependentVariable="major depressive disorder"
 ##dependentVariableType="discrete"
 ##model="dependentVariable=SNPi+PC1-PC5"
@@ -31,7 +32,6 @@
 ##nTrioByCohort="{trios_by_cohort}"
 ##SNPsPassPostImputeByCohort="{snps_by_cohort}"
 ##ProcessedByCoreTeam="{processed_by_core}"
-##referencePopulation="{ancestries}"
 ##INFO=<ID=A1,Number=1,Type=Character,Description="SNP reference allele for freq and ln(OR) (effect allele)">
 ##INFO=<ID=A2,Number=1,Type=Character,Description="SNP alternate allele (non-effect allele)">
 ##INFO=<ID=BETA,Number=1,Type=Float,Description="ln(OR) of A1">
@@ -41,8 +41,11 @@
 ##INFO=<ID=FCAS,Number=1,Type=Float,Description="frequency of A1 in cases">
 ##INFO=<ID=FCON,Number=1,Type=Float,Description="frequency of A1 in controls">
 ##INFO=<ID=IMPINFO,Number=1,Type=Float,Description="imputation INFO score">
-##INFO=<ID=NEFFDIV2,Number=1,Type=Float,Description="half effective sample size">
+##INFO=<ID=NEFF,Number=1,Type=Float,Description="effective sample size">
 ##INFO=<ID=NCAS,Number=1,Type=Integer,Description="total sample size cases">
 ##INFO=<ID=NCON,Number=1,Type=Integer,Description="total sample size controls">
 ##INFO=<ID=DIRE,Number=1,Type=String,Description="direction of effects by cohort">
+##INFO=<ID=HETI,Number=1,Type=Float,Description="heterogeneity I^2 statistic">
+##INFO=<ID=HETDF,Number=1,Type=Integer,Description="heterogeneity test degrees-of-freedom">
+##INFO=<ID=HETPVAL,Number=1,Type=Float,Description="heterogeneity test P-value">
 ##nVariants={variants}
