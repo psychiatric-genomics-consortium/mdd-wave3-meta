@@ -70,12 +70,14 @@ rule create_finemapping_jobs:
     conda: "../envs/finemapping.yaml"
     shell: "export PYTHONNOUSERSITE=True && scripts/finemapping/create.sh {params.snpvar} {input.n} {params.outprefix}"
 
-rule run_finemapping_jobs_main:
-    input: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.rp_jobs_chr{chr}.sh", chr=range(1,22,1))
-    output: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.rp.chr{chr}*.gz", chr=range(1, 22, 1))
-    log: expand("logs/finemapping/run_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.rp_jobs_chr{chr}.log", chr=range(1, 22, 1))
-    conda: "../envs/finemapping.yaml"
-    shell: "sh {input}"
+# RULE HASHED - COVERED BY CREATE.SH ABOVE
+#
+# rule run_finemapping_jobs_main:
+#    input: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.rp_jobs_chr{chr}.sh", chr=range(1,22,1))
+#    output: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.rp.chr{chr}*.gz", chr=range(1, 22, 1))
+#    log: expand("logs/finemapping/run_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.rp_jobs_chr{chr}.log", chr=range(1, 22, 1))
+#    conda: "../envs/finemapping.yaml"
+#    shell: "sh {input}"
 
 rule merge_finemapping_jobs:
     input: expand("results/finemapping/results_{{cohorts}}_{{ancestries}}_hg19_v{{version}}.rp.chr{chr}*.gz", chr=range(1, 22, 1))
