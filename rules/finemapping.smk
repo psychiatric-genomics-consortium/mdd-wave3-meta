@@ -86,3 +86,18 @@ rule merge_finemapping_jobs:
     conda: "../envs/finemapping.yaml" 
     shell: "cat ${input} >> ${output} && gunzip -c ${output} | sort -k11,11gr | head | column -t"
 
+rule get_loci:
+    input: "docs/tables/meta_snps_full_eur.cojo.txt"
+    output: "results/finemapping/loci_{cohorts}_{ancestries}_hg19_v{version}.rp"
+    log: "logs/finemapping/loci_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
+    conda: "../envs/finemapping.yaml"
+    shell: "Rscript scripts/finemapping/get_loci.R {input} {output}"
+
+rule credible_causal_sets:
+    input: finemapping="logs/finemapping/create_{cohorts}_{ancestries}_hg19_v{version}.rp.log",
+        loci="results/finemapping/loci_{cohorts}_{ancestries}_hg19_v{version}.rp"
+    output: "results/finemapping/credible_causal_{cohorts}_{ancestries}_hg19_v{version}.rp"
+    params: inprefix="results/finemapping/results_{cohorts}_{ancestries}_hg19_v{version}.rp"
+    log: "logs/finemapping/credible_causal_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
+    conda: "../envs/finemapping.yaml" 
+    shell: "scripts/finemapping/run_credible_causal_sets.bash {input.loci} {params.inprefix}"
