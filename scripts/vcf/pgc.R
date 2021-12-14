@@ -58,21 +58,32 @@ genotype_ncases <- genotype_cohort_counts$N_cases
 genotype_ncontrols <- genotype_cohort_counts$N_controls
 genotype_nsnps <- genotype_cohort_counts$`N-SNPs`
 
+genotype_versions <- str_match(genotype_cohort_counts$Dataset, '_([:alpha:]+-qc[:digit:]*)')[,2]
+
 # Sumstats cohorts
 sumstats_cohort_counts <- read_table(snakemake@input$sumstats_cohorts) %>% filter(Dataset != 'SUM')
 
 # remove PGC MDD from sumstats cohorts list
 # extract cohort name
 # sum sample sizes over cohorts with multiple samples
-sumstats_cohort_noPGC_counts <- sumstats_cohort_counts %>% filter(!str_detect(Dataset, 'mdd_MDD\\d{2}')) %>%
-mutate(cohort=str_match(Dataset, 'mdd_(.+)\\.eur')[,2]) %>%
+sumstats_cohort_counts <- sumstats_cohort_counts %>%
+mutate(cohort=str_match(Dataset, 'mdd_([:alnum:]+)\\.eur')[,2],
+       release=str_match(Dataset, '\\.([[:alnum:]_]+)$')[,2]) %>%
 group_by(cohort) %>%
-summarize(N_cases=sum(N_cases), N_controls=sum(N_controls), `N-SNPs`=max(`N-SNPs`))
+mutate(subcohort=row_number()) %>%
+mutate(maxN=max(subcohort)) %>%
+ungroup() %>%
+mutate(cohortN=if_else(maxN == 1, true=cohort, false=paste0(cohort, subcohort)))
 
-sumstats_cohorts <- sumstats_cohort_noPGC_counts$cohort
+sumstats_cohort_noPGC_counts <- sumstats_cohort_counts %>%
+filter(!str_detect(Dataset, 'mdd_MDD\\d{2}'))
+
+sumstats_cohorts <- sumstats_cohort_noPGC_counts$cohortN
+sumstats_versions <- sumstats_cohort_noPGC_counts$release
 sumstats_ncases <- sumstats_cohort_noPGC_counts$N_cases
 sumstats_ncontrols <- sumstats_cohort_noPGC_counts$N_controls
 sumstats_nsnps <- sumstats_cohort_noPGC_counts$`N-SNPs`
+
 
 # cohort analysed
 cohorts <- snakemake@wildcards$cohort
@@ -92,6 +103,7 @@ if (cohorts == 'full') {
 # cohort lists
 
 cohort_list <- paste(c(genotype_cohorts, sumstats_cohorts)[keep], collapse=',')
+versions_list <- paste(c(genotype_versions, sumstats_versions)[keep], collapse=',')
 ncohort <- length(c(genotype_cohorts, sumstats_cohorts)[keep])
 
 # number of cases and controls

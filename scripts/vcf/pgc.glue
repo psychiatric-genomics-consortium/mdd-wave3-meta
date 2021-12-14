@@ -27,6 +27,7 @@
 ##nTrio="{ntrio}"
 ##nCohort="{ncohort}"
 ##cohortList="{cohort_list}"
+##sumstatsVersionByCohort="{versions_list}"
 ##nCaseByCohort="{cases_by_cohort}"
 ##nControlByCohort="{controls_by_cohort}"
 ##nTrioByCohort="{trios_by_cohort}"
