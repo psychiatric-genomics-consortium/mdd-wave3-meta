@@ -11,23 +11,23 @@ abstract: "We conducted a genome-wide association study of Major Depressive Diso
 references:
     - type: data
       title: "Genome-wide association study summary statistics for Major Depressive Disorder"
-      url:
+      url: https://www.med.unc.edu/pgc/download-results/
     - type: article
       status: in-preparation
       title: ""
-      doi:
-      pmid:
-      pmcid:
-      journal:
+      doi: ""
+      pmid: ""
+      pmcid: ""
+      journal: ""
     - type: article
       status: preprint
-      title:
-      doi:
+      title: ""
+      doi: ""
 keywords: 
   - "major depressive disorder"
   - "genome-wide association study"
 message: "If you use this software, please cite it using these metadata."
 repository-code: "https://github.com/psychiatric-genomics-consortium/mdd-meta"
-title: 
-version: "3.49.24"
+title: "PGC MDD3"
+version: "3.49.24.09"
 ...

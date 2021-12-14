@@ -9,6 +9,8 @@ library(readxl)
 library(readr)
 library(dplyr)
 library(stringr)
+library(tidyr)
+library(UpSetR)
 library(ggplot2)
 ```
 
@@ -31,10 +33,16 @@ We ran a [conditional and joint analysis](https://www.nature.com/articles/ng.221
 
 ## Previous sumstats
 
-Variants from [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions) and [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2)
+Variants from [Wray et al 2018](https://www.nature.com/articles/s41588-018-0090-3/tables/2), [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions), and [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2). Parse out regions from Wray and Howard.
 
 ```{r}
-howard <- read_excel(snakemake@input$howard, skip=2, n_max=102)
+wray <- read_tsv(snakemake@input$wray) %>%
+    separate(`Region (Mb)`, into=c('range.left.Mb', 'range.right.Mb'), sep='–', convert=TRUE) %>%
+    mutate(range.left=range.left.Mb*1e6, range.right=range.right.Mb*1e6)
+
+howard <- read_excel(snakemake@input$howard, skip=2, n_max=102) %>%
+    separate(`Region (bp) of clumped variants (P < 10-4) in linkage disequilibrium (r2 > 0.1) with lead variant`, into=c('range.left', 'range.right'), sep='-', convert=TRUE)
+
 levey <- read_tsv(snakemake@input$levey, col_types=cols(CHR.BP=col_character()))
 ```
 
@@ -68,7 +76,9 @@ Construct genomic range objects so that SNPs and regions can be intersected and 
 ```{r}
 cojo_gr <- with(cojo, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=range.right), SNP=SNP))
 rp_gr <- with(rp, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=range.right), SNP=SNP))
-howard_gr <- with(howard, GRanges(seqnames=Chromosome, ranges=IRanges(start=`Postion (bp)`, width=1)))
+
+wray_gr <- with(wray, GRanges(seqnames=Chr., ranges=IRanges(start=range.left, end=range.right, SNP=SNP)))
+howard_gr <- with(howard, GRanges(seqnames=Chromosome, ranges=IRanges(start=range.left, end=range.right, SNP=`Marker Name`)))
 levey_gr <- with(levey, GRanges(seqnames=CHR, ranges=IRanges(start=BP, width=1)))
 ```
 
@@ -124,6 +134,28 @@ plyr::ddply(filter(rp, `genes.6.50kb(dist2index)` != '-'), ~SNP, function(rp_ent
 ```
 
 ## Comparison to previous findings
+
+Find overlaps between clumped, COJO, and previous results. Append and then reduce all regions
+
+```{r}
+
+all_gr <- reduce(c(cojo_gr, rp_gr, wray_gr, howard_gr, levey_gr))
+
+```
+
+Find overlaps and make lists for an upset plot. Take the index from the combined set as the element, then find which of them are found within each of the sets of SNPs. The upset plot function handles finding each combination of intersections.
+
+```{r upset, fig.width=10, fig.height=8}
+
+hits_upset <- list(COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
+                   Clump=unique(findOverlaps(all_gr, rp_gr)@from),
+                   Wray=unique(findOverlaps(all_gr, wray_gr)@from),
+                   Howard=unique(findOverlaps(all_gr, howard_gr)@from),
+                   Levey=unique(findOverlaps(all_gr, levey_gr)@from))
+                   
+upset(fromList(hits_upset), order.by='freq', text.scale=2)
+
+```
 
 Find which COJO regions overlap with Howard
 
