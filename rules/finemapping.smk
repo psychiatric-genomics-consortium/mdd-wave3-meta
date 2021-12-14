@@ -59,7 +59,7 @@ rule define_n:
     conda: "../envs/finemapping.yaml" 
     shell: "scripts/finemapping/define_n.bash {input} {output}"
 
-rule create_finemapping_jobs:
+rule create_genomewide_finemapping_jobs:
     input: snpvar="logs/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.rp.log",
         n="results/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.rp.out",
 	susie="logs/finemapping/install_susie.log"
@@ -86,18 +86,37 @@ rule merge_finemapping_jobs:
     conda: "../envs/finemapping.yaml" 
     shell: "cat ${input} >> ${output} && gunzip -c ${output} | sort -k11,11gr | head | column -t"
 
-rule get_loci:
+rule get_genomewide_loci:
     input: "docs/tables/meta_snps_full_eur.cojo.txt"
-    output: "results/finemapping/loci_{cohorts}_{ancestries}_hg19_v{version}.rp"
-    log: "logs/finemapping/loci_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
+    output: "results/finemapping/genomewide_loci_{cohorts}_{ancestries}_hg19_v{version}.rp"
+    log: "logs/finemapping/genomewide_loci_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
     conda: "../envs/finemapping.yaml"
-    shell: "Rscript scripts/finemapping/get_loci.R {input} {output}"
+    shell: "Rscript scripts/finemapping/get_genomewide_loci.R {input} {output}"
+
+rule get_cojo_loci:
+    input: "docs/tables/meta_snps_full_eur.cojo.txt"
+    output: "results/finemapping/cojo_loci_{cohorts}_{ancestries}_hg19_v{version}.rp"
+    log: "logs/finemapping/cojo_loci_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
+    conda: "../envs/finemapping.yaml"
+    shell: "awk 'NR > 1 {print $3, $26, $27}' {input} {output}"
 
 rule credible_causal_sets:
     input: finemapping="logs/finemapping/create_{cohorts}_{ancestries}_hg19_v{version}.rp.log",
-        loci="results/finemapping/loci_{cohorts}_{ancestries}_hg19_v{version}.rp"
+        loci="results/finemapping/genomewide_loci_{cohorts}_{ancestries}_hg19_v{version}.rp"
     output: "results/finemapping/credible_causal_{cohorts}_{ancestries}_hg19_v{version}.rp"
     params: inprefix="results/finemapping/results_{cohorts}_{ancestries}_hg19_v{version}.rp"
     log: "logs/finemapping/credible_causal_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
     conda: "../envs/finemapping.yaml" 
     shell: "scripts/finemapping/run_credible_causal_sets.bash {input.loci} {params.inprefix}"
+
+rule finemap_loci:
+    input: snpvar="logs/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.rp.log",
+        n="results/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.rp.out",
+        susie="logs/finemapping/install_susie.log",
+        loci="results/finemapping/cojo_loci_{cohorts}_{ancestries}_hg19_v{version}.rp"
+    output: "results/finemapping/locus_results_{cohorts}_{ancestries}_hg19_v{version}.rp"
+    log: "logs/finemapping/locus_results_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
+    params: snpvar="results/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.rp_chr",
+        outprefix="results/finemapping/locus_results_{cohorts}_{ancestries}_hg19_v{version}.rp"
+    conda: "../envs/finemapping.yaml"
+    shell: "export PYTHONNOUSERSITE=True && scripts/finemapping/finemap_loci.sh {input.loci} {params.snpvar} {input.n} {params.outprefix}"
