@@ -44,7 +44,7 @@
 ##INFO=<ID=NEFF,Number=1,Type=Float,Description="effective sample size">
 ##INFO=<ID=NCAS,Number=1,Type=Integer,Description="total sample size cases">
 ##INFO=<ID=NCON,Number=1,Type=Integer,Description="total sample size controls">
-##INFO=<ID=DIRE,Number=1,Type=String,Description="direction of effects by cohort">
+##INFO=<ID=DIRE,Number=1,Type=String,Description="direction of effects by cohort. because of how data was processed in stages (genotyped cohorts batched together first, then meta-analysed with sumstats cohorts); contributions of multiple files from some cohorts; and data missingness (X chromosome): the number and order of direction effects do not align with the cohortList">
 ##INFO=<ID=HETI,Number=1,Type=Float,Description="heterogeneity I^2 statistic">
 ##INFO=<ID=HETDF,Number=1,Type=Integer,Description="heterogeneity test degrees-of-freedom">
 ##INFO=<ID=HETPVAL,Number=1,Type=Float,Description="heterogeneity test P-value">
