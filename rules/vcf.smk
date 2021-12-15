@@ -83,10 +83,13 @@ rule vcf:
     input: expand("results/vcf/{sumstats}.vcf.gz", sumstats=vcf_sumstats_gz)
     
 # VCF-like PGC sumstats file
+# Pull in daner file for sumstats, fai file for genome build info, basic.num file
+# for genotyped and sumstats cohorts with case/control/allele counts
 rule vcf_daner2pgc:
-    input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{analysis}.neff.gz", fasta_fai="resources/fasta/human_grch37.fasta.fai", genotype_cohorts="docs/tables/cohorts_mdd.eur.txt", sumstats_cohorts="docs/tables/cohorts.eur.txt", cff="CITATION.cff", header_template="scripts/vcf/pgc.glue"
+    input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{major}.{genoN}.{sumN}.{minor}.neff.gz", fasta_fai="resources/fasta/human_grch37.fasta.fai", genotype_cohorts="docs/tables/cohorts/basic.geno.{ancestries}.MDD{genoN}.txt", sumstats_cohorts="docs/tables/cohorts/basic.sumstats.{ancestries}.v{major}.{genoN}.{sumN}.{minor}.txt", cff="CITATION.cff", header_template="scripts/vcf/pgc.glue"
+    params: analysis="{major}.{genoN}.{sumN}.{minor}"
     conda: "../envs/vcf.yaml"
-    output: temp("results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-v{analysis}.pgc")
+    output: temp("results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-v{major}.{genoN}.{sumN}.{minor}.pgc")
     script: "../scripts/vcf/pgc.R"
 
 rule vcf_pgc_gz:

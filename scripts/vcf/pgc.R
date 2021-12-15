@@ -23,7 +23,7 @@ pmcid <- cff$references[[2]]$pmcid
 doi <- cff$doi
 sumstats_url <- cff$references[[1]]$url
 
-analysis_version <- snakemake@wildcards$analysis
+analysis_version <- snakemake@params$analysis
 
 methods <- ""
 acknowledgments <- ""
