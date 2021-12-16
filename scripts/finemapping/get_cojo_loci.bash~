@@ -1,0 +1,6 @@
+
+input=$1
+output=$2
+
+awk 'NR > 1 {print $3, $26, $27}' $input > $output
+awk 'NR > 1 {{print $3"."$26"_"$27}}' $input > $output.credible

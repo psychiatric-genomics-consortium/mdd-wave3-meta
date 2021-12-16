@@ -10,7 +10,7 @@ library(data.table)
 ## Define input and output
 
 input <- args[1]
-output <- gsub(gsub(input, pattern=".gz", replacement=""), pattern="finemapping/results", replacement="finemapping/credible_causal")
+output <- gsub(gsub(input, pattern=".gz", replacement=""), pattern="finemapping/locus_results", replacement="finemapping/locus_credible_causal")
 
 ## Load finemap data
 
