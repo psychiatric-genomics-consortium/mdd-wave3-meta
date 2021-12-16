@@ -1,10 +1,8 @@
 
 loci=$1
 inputprefix=$2
-nfile=$3
+nfile=$(cat $3)
 output=$4
-
-n=$(cat $nfile)
 
 ## Create finemapping jobs
 
@@ -19,3 +17,5 @@ for chr in {22..1}
 do
     sh ${output}_jobs_chr$chr.sh
 done
+
+touch $output

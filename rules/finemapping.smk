@@ -20,7 +20,7 @@ rule format_sumstat:
     output: "results/finemapping/for_munge_{cohorts}_{ancestries}_hg19_v{version}.rp.gz"
     log: "logs/finemapping/for_munge_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
     conda: "../envs/finemapping.yaml"
-    shell: "scripts/finemapping/format.bash {input} {output}"
+    shell: "bash scripts/finemapping/format.bash {input} {output}"
 
 rule munge_sumstat:
     input: sumstats="results/finemapping/for_munge_{cohorts}_{ancestries}_hg19_v{version}.rp.gz",
@@ -57,7 +57,7 @@ rule define_n:
     output: "results/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.rp.out"
     log: "logs/finemapping/n_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
     conda: "../envs/finemapping.yaml" 
-    shell: "scripts/finemapping/define_n.bash {input} {output}"
+    shell: "bash scripts/finemapping/define_n.bash {input} {output}"
 
 rule create_genomewide_finemapping_jobs:
     input: snpvar="logs/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.rp.log",
@@ -88,26 +88,27 @@ rule merge_finemapping_jobs:
 
 rule get_genomewide_loci:
     input: "docs/tables/meta_snps_full_eur.cojo.txt"
-    output: "results/finemapping/genomewide_loci_{cohorts}_{ancestries}_hg19_v{version}.rp"
+    output: "results/finemapping/genomewide_loci_{cohorts}_{ancestries}_hg19_v{version}.rp.credible"
     log: "logs/finemapping/genomewide_loci_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
     conda: "../envs/finemapping.yaml"
     shell: "Rscript scripts/finemapping/get_genomewide_loci.R {input} {output}"
 
 rule get_cojo_loci:
     input: "docs/tables/meta_snps_full_eur.cojo.txt"
-    output: "results/finemapping/cojo_loci_{cohorts}_{ancestries}_hg19_v{version}.rp"
+    output: finemapping="results/finemapping/cojo_loci_{cohorts}_{ancestries}_hg19_v{version}.rp",
+        credible="results/finemapping/cojo_loci_{cohorts}_{ancestries}_hg19_v{version}.rp.credible"
     log: "logs/finemapping/cojo_loci_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
     conda: "../envs/finemapping.yaml"
-    shell: "awk 'NR > 1 {print $3, $26, $27}' {input} {output}"
+    shell: "bash scripts/finemapping/get_cojo_loci.bash {input} {output.finemapping} {output.credible}"
 
 rule credible_causal_sets:
     input: finemapping="logs/finemapping/create_{cohorts}_{ancestries}_hg19_v{version}.rp.log",
-        loci="results/finemapping/genomewide_loci_{cohorts}_{ancestries}_hg19_v{version}.rp"
-    output: "results/finemapping/credible_causal_{cohorts}_{ancestries}_hg19_v{version}.rp"
+        loci="results/finemapping/genomewide_loci_{cohorts}_{ancestries}_hg19_v{version}.rp.credible"
+    output: "results/finemapping/credible_causal_{cohorts}_{ancestries}_hg19_v{version}.rp.complete"
     params: inprefix="results/finemapping/results_{cohorts}_{ancestries}_hg19_v{version}.rp"
     log: "logs/finemapping/credible_causal_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
     conda: "../envs/finemapping.yaml" 
-    shell: "scripts/finemapping/run_credible_causal_sets.bash {input.loci} {params.inprefix}"
+    shell: "bash scripts/finemapping/wrap_credible_causal_sets.bash {input.loci} {params.inprefix}"
 
 rule finemap_loci:
     input: snpvar="logs/finemapping/priors_{cohorts}_{ancestries}_hg19_v{version}.rp.log",
@@ -120,3 +121,13 @@ rule finemap_loci:
         outprefix="results/finemapping/locus_results_{cohorts}_{ancestries}_hg19_v{version}.rp"
     conda: "../envs/finemapping.yaml"
     shell: "export PYTHONNOUSERSITE=True && scripts/finemapping/finemap_loci.sh {input.loci} {params.snpvar} {input.n} {params.outprefix}"
+
+rule cojo_credible_causal_sets:
+    input: finemapping="logs/finemapping/locus_results_{cohorts}_{ancestries}_hg19_v{version}.rp.log",
+        loci="results/finemapping/cojo_loci_{cohorts}_{ancestries}_hg19_v{version}.rp.credible"
+    output: "results/finemapping/locus_credible_causal_{cohorts}_{ancestries}_hg19_v{version}.rp.complete"
+    params: inprefix="results/finemapping/locus_results_{cohorts}_{ancestries}_hg19_v{version}.rp"
+    log: "logs/finemapping/locus_credible_causal_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
+    conda: "../envs/finemapping.yaml" 
+    shell: "bash scripts/finemapping/wrap_locus_credible_causal_sets.bash {input.loci} {params.inprefix}"
+

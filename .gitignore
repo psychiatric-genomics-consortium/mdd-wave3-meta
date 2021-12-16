@@ -54,4 +54,3 @@ Miniconda*.sh
 .snakemake/
 snakejob.*
 ieugwasr_oauth
-actually_run_credible_causal_sets.bash
