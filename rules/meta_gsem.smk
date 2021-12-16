@@ -85,6 +85,11 @@ rule install_gsem:
 	conda: "../envs/gsem.yaml"
 	shell: """Rscript -e 'devtools::install_github("GenomicSEM/GenomicSEM", upgrade="never")' 2>&1 > {output}"""
     
+rule install_ggmiami:
+    output: "resources/ldsc/install_ggmiami.done"
+    conda: "../envs/gsem.yaml"
+    shell: """Rscript -e 'devtools::install_github("juliedwhite/miamiplot", upgrade="never")' 2>&1 > {output}"""
+    
 # sumstats to munge with Neff as sample size
 # Neff as input sample size allows unbiased estimates of ldsc h2: https://www.medrxiv.org/content/10.1101/2021.09.22.21263909v1
 rule meta_gsem_neff:
