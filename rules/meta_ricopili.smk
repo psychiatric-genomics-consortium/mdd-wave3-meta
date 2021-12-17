@@ -159,4 +159,33 @@ rule postimp_reclump:
 	output: touch("results/meta/{cohorts}_{ancestries}_v{version}.reclump.done")
 	shell: "cd results/meta; clump_nav3 --pfile {params.pfile} --refdir {params.refdir}/pop_{params.popname} --clu_p1 {params.p1} --clu_p2 {params.p2} --clu_r2 {params.r2} --clu_window {params.window} --popname {params.popname} --outname {params.outname} --debug --serial --sepa 16"
 	
+    # clump for top 10k results
+rule postimp_reclump_top10k:
+    input: "results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.gz"
+    params:
+        refdir=config['refdir'],
+        p1=meta_qc_params['clu10k_p1'],
+        p2=meta_qc_params['clu10k_p2'],
+        r2=meta_qc_params['clu10k_r2'],
+        frq=meta_qc_params['clu10k_maf'],
+        info=meta_qc_params['clu10k_info'],
+        window=meta_qc_params['clu10k_kb'],
+        popname=lambda wildcards: wildcards.ancestries.upper(),
+        pfile="distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.gz",
+        outname="pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.top10k"
+    output: touch("results/meta/{cohorts}_{ancestries}_v{version}.top10k.done")
+    shell: """
+    cd results/meta; 
+    clump_nav3 --pfile {params.pfile} \
+    --refdir {params.refdir}/pop_{params.popname} \
+    --clu_p1 {params.p1} \
+    --clu_p2 {params.p2} \
+    --clu_r2 {params.r2} \
+    --clu_window {params.window} \
+    --hq_f {params.frq} \
+    --hq_i {params.info} \
+    --popname {params.popname} \
+    --outname {params.outname} \
+    --debug --serial --sepa 16
+    """
 
