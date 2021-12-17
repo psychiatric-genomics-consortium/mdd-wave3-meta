@@ -26,8 +26,8 @@ sumstats_url <- cff$references[[1]]$url
 analysis_version <- snakemake@params$analysis
 
 methods <- ""
-acknowledgments <- ""
-abstract <- ""
+acknowledgments <- "The PGC has received funding from the US National Institute of Mental Health (5 U01MH109528-04). Statistical analyses were carried out on the Genetic Cluster Computer (http://www.geneticcluster.org) hosted by SURFsara and financially supported by the Netherlands Scientific Organization (NWO 480-05-003) along with a supplement from the Dutch Brain Foundation and the VU University Amsterdam."
+abstract <- cff$abstract
 
 # Genome build contig
 cat(str_glue("Reading contig {snakemake@input$fasta_fai}\n"))
