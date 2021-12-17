@@ -7,7 +7,7 @@ authors:
     given-names: 
 cff-version: "1.1.0"
 doi: "10.000/TBD"
-abstract: "We conducted a genome-wide association study of Major Depressive Disorder (MDD)..."
+abstract: "We conducted a genome-wide association mega-analysis of major depressive disorder (MDD) in 49 samples of European ancestry (“MDD49”) with combined 28,147 cases and 48,033 controls. We then meta-analysed these results with summary statistics from 24 additional cohorts (total sample size 524,857 cases and 3,059,006 controls)."
 references:
     - type: data
       title: "Genome-wide association study summary statistics for Major Depressive Disorder"
