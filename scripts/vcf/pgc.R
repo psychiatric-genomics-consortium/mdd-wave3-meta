@@ -22,6 +22,7 @@ pmid <- cff$references[[2]]$pmid
 pmcid <- cff$references[[2]]$pmcid
 doi <- cff$doi
 sumstats_url <- cff$references[[1]]$url
+code_url <- cff$`repository-code`
 
 analysis_version <- snakemake@params$analysis
 

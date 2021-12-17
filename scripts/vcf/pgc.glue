@@ -6,7 +6,8 @@
 ##manuscript=<ID=PMCID,REF="{pmcid}">
 ##DOI=<ID=BIORXIV,REF="{biorxiv}">
 ##DOI=<ID=JOURNAL,REF="{doi}">
-##sumstatsLINK=<ID=SUMSTATS,REF="{sumstats_url}">
+##sumstatsURL=<ID=SUMSTATS,REF="{sumstats_url}">
+##codeURL=<ID=CODE,REF="{code_url}">
 ##genomeReference="GRCh37"
 ##imputationReference="Haplotype Reference Consortium v1.1"
 ##analysisProgram="Ricopili 2019_Jun_18.001"
