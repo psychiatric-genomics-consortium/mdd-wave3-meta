@@ -31,3 +31,5 @@ dependencies:
   - r-readxl
   - r-ggplot2
   - r-corrplot
+  - r-ggrepel
+  - r-checkmate
