@@ -1,6 +1,6 @@
 # PGC MDD3 Meta-analysis
 
-Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium. See table of included [genotype](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts_mdd.eur.txt) and [sumstats](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts.eur.txt) cohorts.
+Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium. See table of included [genotype](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts_geno.eur.txt) and [sumstats](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts.eur.txt) cohorts.
 
 **Current version**: v3.49.24.09 [EUR]
 
@@ -56,6 +56,7 @@ conda install python=3.8
 conda install -c conda-forge mamba
 mamba install -c bioconda -c conda-forge snakemake-minimal==5.32.2
 mamba install dropbox
+mamba install pandas
 ```
 
 ### Step 3

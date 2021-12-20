@@ -13,14 +13,11 @@ Summary statistics were grouped based on phenotype, then meta-analysed:
 The LDSC covariance structure of the four MDD phenotype was calcuted using [GenomicSEM](https://github.com/GenomicSEM/GenomicSEM).
 
 ```{r libraries, results='hide', message=FALSE, warning=FALSE}
-
 library(GenomicSEM)
 library(readr)
 library(corrplot)
+library(miamiplot)
 library(dplyr)
-
-save.image()
-
 ```
 
 Read in the covariance structure and the LDSC 
@@ -71,6 +68,24 @@ common.fit.results <- common.fit$results %>%
            p_value=if_else(p_value == '< 5e-300', true=0, false=as.numeric(p_value)))
 
 knitr::kable(common.fit.results, digits=4)
+
+```
+
+### Common factor GWAS
+
+Miami plot of P values and Q values
+
+```{r gwas}
+
+common.gwas <- read_tsv(snakemake@input$commonfactor_eur)
+
+p.gwas <- common.gwas %>% transmute(rsid=SNP, chr=CHR, pos=BP, pval=Pval_Estimate, P="P")
+q.gwas <- common.gwas %>% transmute(rsid=SNP, chr=CHR, pos=BP, pval=Q_pval, P="Q")
+
+ggmiami(data=bind_rows(p.gwas, q.gwas) %>% filter(pval <= 0.001) %>% as.data.frame(),
+        split_by="P", split_at="P", p="pval",
+        upper_ylab="Common Factor GWAS",
+        lower_ylab="Heterogeneity Q")
 
 ```
 
