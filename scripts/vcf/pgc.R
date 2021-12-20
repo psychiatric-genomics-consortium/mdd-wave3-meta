@@ -92,13 +92,13 @@ cohorts <- snakemake@wildcards$cohort
 cat(str_glue("Making sumstats file for cohorts: {cohorts}\n"))
 
 # check for an excluded cohort
-if (cohorts == 'full') {
+if (cohorts %in% c('full', 'top10k')) {
     keep <- TRUE
 } else if (str_detect(cohorts, '^no.+')) {
     no_cohort <- str_match(cohorts, '^no(.+)')[,2]
     keep <- which(c(genotype_cohorts, sumstats_cohorts) != no_cohort)
 } else {
-    stop(paste0("Expecting 'full' or 'noXYZ' for {cohort} argument, got '", cohorts, "'"))
+    stop(paste0("Expecting 'full', 'top10k', or 'noXYZ' for {cohort} argument, got '", cohorts, "'"))
 }
 
 # cohort lists
