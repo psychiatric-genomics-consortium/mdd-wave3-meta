@@ -154,19 +154,28 @@ rule hg38to19:
 ruleorder: hg19 > hg38to19
 
 # Meta-analysis QC parameters
+# Parameters for post-imputation QC
+# Parameters for re-clumping (clu)
+# Parameters for re-clumping to top ~10k (clu10k)
 meta_qc_params = {"maf": 0.001,
-				  "info": 0.1,
-				  "mac": 20,
-				  "secure_frq": 0.20,
-				  "diff_frq": 0.15,
-			      "clu_p1": 0.0001,
-			      "clu_p2": 0.0001,
-				  "clu_r2": 0.1,
-			      "clu_kb": 3000,
-			      "clu_info": 0.6,
-			      "clu_maf": 0.01,
-			      "cojo_kb": 50}
-	
+                  "info": 0.1,
+                  "mac": 20,
+                  "secure_frq": 0.20,
+                  "diff_frq": 0.15,
+                  "clu_p1": 0.0001,
+                  "clu_p2": 0.0001,
+                  "clu_r2": 0.1,
+                  "clu_kb": 3000,
+                  "clu_info": 0.6,
+                  "clu_maf": 0.01,            
+                  "clu10k_p1": 1,
+                  "clu10k_p2": 1,
+                  "clu10k_r2": 0.1,
+                  "clu10k_kb": 500,
+                  "clu10k_info": 0.9,
+                  "clu10k_maf": 0.1,
+                  "cojo_kb": 50}
+                  
 # create reference info file linking to imputation panel
 rule refdir:
 	output: "results/meta/reference_info"
