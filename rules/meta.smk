@@ -8,12 +8,12 @@
 ##
 ## Cohort lists. List of cohort + subcohort/release pairs
 ## 
-cohorts_eur = [["MDD49", "29w2_20w3_1504"], 
+cohorts_eur = [["MDD49", "29w2_20w3_X28w2_19w3"], 
 ["23andMe", "v7_2_202012"],      
 ["deCODE", "DEPALL_FINAL_WHEAD"],
-["GenScot", "1215a"],            
+["GenScot", "SCID_0721a"],            
 ["GERA", "0915a_mds5"],    
-["UKBB", "MD_glm_202012"], 
+["UKBB", "MD_glm_202107"], 
 ["iPSYCH", "2012_HRC"],        
 ["iPSYCH", "2015i_HRC"],       
 ["FinnGen", "R5_18032020"],      
@@ -32,13 +32,65 @@ cohorts_eur = [["MDD49", "29w2_20w3_1504"],
 ["BASIC", "202011"],        
 ["BioVU", "NoCov_SAIGE_051821"],
 ["EXCEED", "202010"],          
-["MVP", "4_0ICDdep_202106"],
+["MVP", "rel4icdDEP_Geno_202109C"],
 ["tkda1", "run1"],           
 ["DBDS", "FINAL202103"],
 ["SHARE", "godartsshare_842021"]]
 
 cohorts_eas=[["23andMe","v7_2"],
-["Taiwan", "20200327"]]
+["Taiwan", "20200327"],
+["CONVERGE", "10640"],
+["BBJ", "hum0197v3_Depv1_2020"]]
+
+# genotyped cohorts list
+cohorts_geno_eur=[['antpo', 'sa-qc4'],
+['bidi1', 'sr-qc2'],
+['boma', 'sr-qc'],
+['cardm', 'sa-qc2'],
+['cof3', 'sr-qc'],
+['col3', 'sr-qc'],
+['edi2', 'sr-qc'],
+['emcbp', 'sa-qc3'],
+['formm', 'sa-qc2'],
+['gens', 'sr-qc'],
+['gep3', 'sr-qc'],
+['grdg', 'sr-qc'],
+['grnd', 'sr-qc'],
+['gsk2', 'sr-qc'],
+['gsmse', 'sa-qc2'],
+['gsrdf', 'sa-qc3'],
+['gsrdg', 'sa-qc3'],
+['gsrdi', 'sa-qc2'],
+['gsrdp', 'sa-qc2'],
+['i2b3', 'sr-qc'],
+['ihseu', 'sa-qc1'],
+['iruts', 'sa-qc4'],
+['mazdr', 'sa-qc2'],
+['mmi2', 'sr-qc'],
+['mmo4', 'sr-qc'],
+['mrive', 'sa-qc2'],
+['muen2', 'sr-qc'],
+['muspc', 'sa-qc1'],
+['nes1', 'sr-qc2'],
+['pfm2', 'sr-qc2'],
+['prote', 'sa-qc2'],
+['qi3c', 'sr-qc'],
+['qi6c', 'sr-qc'],
+['qio2', 'sr-qc'],
+['rad3', 'sr-qc'],
+['rage', 'sr-qc'],
+['rai2', 'sr-qc'],
+['rau2', 'sr-qc'],
+['rde4', 'sr-qc2'],
+['roc3', 'sr-qc'],
+['rot4', 'sr-qc'],
+['shp0', 'sr-qc'],
+['shpt', 'sr-qc'],
+['stm2', 'sr-qc'],
+['topmd', 'sa-qc2'],
+['trail', 'sa-qc2'],
+['twg2', 'sr-qc'],
+['yapeu', 'sa-qc1']]
 
 # Copy summary statistics listed in config.yaml under sumstats
 # with key FORMAT_COHORT.POP.hgNN.RELEASE
@@ -84,7 +136,7 @@ rule hg_chain:
 		 outputName = os.path.basename(input[0])
 		 shell("gunzip -c {input} > {output}")
 		 
-# download GRCh37/GRCh38 conversion-unstable positions (CUPs) https://github.com/cathaloruaidh/genomeBuildConversionls
+# download GRCh37/GRCh38 conversion-unstable positions (CUPs) https://github.com/cathaloruaidh/genomeBuildConversion
 rule hg_cups:
 	input: HTTP.remote("raw.githubusercontent.com/cathaloruaidh/genomeBuildConversion/master/CUP_FILES/FASTA_BED.ALL_GRCh{build}.novel_CUPs.bed")
 	log: "logs/resources/liftOver/GRCh{build}.novel_CUPs.log"
@@ -102,34 +154,50 @@ rule hg38to19:
 ruleorder: hg19 > hg38to19
 
 # Meta-analysis QC parameters
+# Parameters for post-imputation QC
+# Parameters for re-clumping (clu)
+# Parameters for re-clumping to top ~10k (clu10k)
 meta_qc_params = {"maf": 0.001,
-				  "info": 0.1,
-				  "mac": 20,
-				  "secure_frq": 0.20,
-				  "diff_frq": 0.15,
-			      "clu_p1": 0.0001,
-			      "clu_p2": 0.0001,
-				  "clu_r2": 0.1,
-			      "clu_kb": 3000,
-			      "clu_info": 0.6,
-			      "clu_maf": 0.01,
-			      "cojo_kb": 50}
-	
+                  "info": 0.1,
+                  "mac": 20,
+                  "secure_frq": 0.20,
+                  "diff_frq": 0.15,
+                  "clu_p1": 0.0001,
+                  "clu_p2": 0.0001,
+                  "clu_r2": 0.1,
+                  "clu_kb": 3000,
+                  "clu_info": 0.6,
+                  "clu_maf": 0.01,            
+                  "clu10k_p1": 1,
+                  "clu10k_p2": 1,
+                  "clu10k_r2": 0.1,
+                  "clu10k_kb": 500,
+                  "clu10k_info": 0.9,
+                  "clu10k_maf": 0.1,
+                  "cojo_kb": 50}
+                  
 # create reference info file linking to imputation panel
 rule refdir:
 	output: "results/meta/reference_info"
 	log: "logs/meta/reference_info.log"
 	shell: "cd results/meta; impute_dirsub --refdir {config[refdir]} --reference_info --outname meta"
 
-# merged imputation panel SNPs
+# create reference info for X imputation panel
+rule refdirx:
+    output: "results/meta/X/reference_info"
+    log: "logs/meta/reference_info_x.log"
+    shell: "cd results/meta/X; impute_dirsub --refdir {config[refdir]}/chr23 --reference_info --outname metax"
+
+# merged HRC imputation panel plus frequencies from 1KG reference
 rule impute_frq2:
-	input: ref="results/meta/reference_info", cups="resources/liftOver/FASTA_BED.ALL_GRCh37.novel_CUPs.bed"
+	input: ref="results/meta/reference_info", cups="resources/liftOver/FASTA_BED.ALL_GRCh37.novel_CUPs.bed", afreq="resources/1kg/phase3.{ancestries}.afreq"
 	output: "results/sumstats/impute_frq2.{ancestries}.rds"
 	params:
 		maf=meta_qc_params['maf']
 	log: "logs/sumstats/impute_frq2.{ancestries}.log"
 	conda: "../envs/meta.yaml"
 	script: "../scripts/meta/impute_frq2.R"
+
 
 # align to imputation panel
 rule align:
@@ -140,10 +208,28 @@ rule align:
 	log: "logs/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.log"
 	conda: "../envs/meta.yaml" 
 	script: "../scripts/meta/align.R"
+    
+# Sumstats in GCTA-COJO format for DENTIST   
+rule meta_ma:
+    input: "results/sumstats/aligned/daner_mdd_{cohort}.aligned.gz"
+    output: temp("results/sumstats/dentist/ma/mdd_{cohort}.ma")
+    conda: "../envs/meta.yaml"
+    script: "../scripts/meta/ma.R"
+    
+rule dentist:
+    input: "results/sumstats/dentist/ma/mdd_{cohort}.{ancestries}.hg19.{release}.ma"
+    params: popname=lambda wildcards: wildcards.ancestries.upper(), prefix="results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}"
+    output: dentist="results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}.DENTIST.txt", outliers="results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}.DENTIST.outliers.txt"
+    shell: "resources/meta/DENTIST_1.1.0.0 --gwas-summary {input} --bfile {config[refdir]}/pop_{params.popname}/HRC.r1-1.EGA.GRCh37.chr{wildcards.chr}.impute.plink.{params.popname} --chrID {wildcards.chr} --maf 0.001 --delta-MAF 0.15 --out {params.prefix} --thread-num 16"
+    
+rule dentist_merge:
+    input: expand("results/sumstats/dentist/{{cohort}}/mdd_{{cohort}}.{{ancestries}}.hg19.{{release}}.{chr}.DENTIST.outliers.txt", chr=range(1, 23))
+    output: "results/sumstats/dentist/mdd_{cohort}.{ancestries}.hg19.{release}.DENTIST.outliers.txt"
+    shell: "cat {input} > {output}"
 	
 # apply QC filters
 rule filter:
-	input: daner="results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz", script="scripts/meta/filter.R"
+	input: daner="results/sumstats/aligned/daner_mdd_{cohort}.{ancestries}.{build}.{release}.aligned.gz", dentist="results/sumstats/dentist/mdd_{cohort}.{ancestries}.hg19.{release}.DENTIST.outliers.txt", script="scripts/meta/filter.R"
 	params:
 		maf=meta_qc_params['maf'],
 		info=meta_qc_params['info'],
@@ -210,15 +296,6 @@ rule meta_vcf_merge_eas:
 	conda: "../envs/vcf.yaml"
 	output: "results/sumstats/mdd_cohorts_eas.vcf.gz"
 	shell: "bcftools merge -O z -o {output} {input}"
-	
-
-# table of alignment checks
-align_logs, = glob_wildcards("logs/sumstats/aligned/{cohort}.log")
-rule meta_qc_align:
-	input: expand("logs/sumstats/aligned/{cohort}.log", cohort=align_logs)
-	output: "docs/tables/meta_qc_align.txt"
-	conda: "../envs/meta.yaml"
-	script: "../scripts/meta/align_qc_table.R"
 
 # munge sumstats for ldsc regression
 rule meta_ldsc_munge:

@@ -5,19 +5,19 @@ output: github_document
 
 Summary statistics were grouped based on phenotype, then meta-analysed:
 
-- `clin`: Clinical assessment
-- `ehr`: Electronic health records
-- `quest`: Questionnaire
-- `self`: Single-item self report
+- `Clin`: Clinical assessment
+- `EHR`: Electronic health records
+- `Quest`: Questionnaire
+- `SelfRep`: Single-item self report
 
 The LDSC covariance structure of the four MDD phenotype was calcuted using [GenomicSEM](https://github.com/GenomicSEM/GenomicSEM).
 
-```{r}
-
+```{r libraries, results='hide', message=FALSE, warning=FALSE}
 library(GenomicSEM)
 library(readr)
 library(corrplot)
-
+library(miamiplot)
+library(dplyr)
 ```
 
 Read in the covariance structure and the LDSC 
@@ -43,11 +43,11 @@ corrplot(cov2cor(mdd_covstruct$S), method='number')
 
 ```
 
-Common factor model
+## Common factor model
 
 ```{r model}
 
-common.model <- "A =~ NA*clin + ehr + quest + self
+common.model <- "A =~ NA*Clin + EHR + Quest + SelfRep
 A ~~ 1*A"
 
 common.fit <- usermodel(covstruc=mdd_covstruct, estimation='DWLS', model=common.model)
@@ -62,10 +62,62 @@ knitr::kable(common.fit$modelfit)
 
 ```{r results}
 
+common.fit.results <- common.fit$results %>%
+    mutate(Unstand_SE=as.numeric(Unstand_SE),
+           STD_Genotype_SE=as.numeric(STD_Genotype_SE),
+           p_value=if_else(p_value == '< 5e-300', true=0, false=as.numeric(p_value)))
 
-common.fit$results$Unstand_SE <- as.numeric(common.fit$results$Unstand_SE)
-common.fit$results$STD_Genotype_SE <- as.numeric(common.fit$results$STD_Genotype_SE)
+knitr::kable(common.fit.results, digits=4)
 
-knitr::kable(common.fit$results, digits=4)
+```
+
+### Common factor GWAS
+
+Miami plot of P values and Q values
+
+```{r gwas}
+
+common.gwas <- read_tsv(snakemake@input$commonfactor_eur)
+
+p.gwas <- common.gwas %>% transmute(rsid=SNP, chr=CHR, pos=BP, pval=Pval_Estimate, P="P")
+q.gwas <- common.gwas %>% transmute(rsid=SNP, chr=CHR, pos=BP, pval=Q_pval, P="Q")
+
+ggmiami(data=bind_rows(p.gwas, q.gwas) %>% filter(pval <= 0.001) %>% as.data.frame(),
+        split_by="P", split_at="P", p="pval",
+        upper_ylab="Common Factor GWAS",
+        lower_ylab="Heterogeneity Q")
+
+```
+
+## GWAS-by-subtraction
+
+Fit a [GWAS-by-subtraction](https://rpubs.com/MichelNivard/565885) to decompose variance into that of minimally-phenotyped depression shared with maximal phenotypes versus specific to maximal phenotypes.
+
+```{r gbs_model}
+
+md.model <- "MIN =~ NA*SelfRep + Clin + EHR + Quest
+MAX =~ NA*Clin + EHR + Quest
+
+MIN ~~ 1*MIN
+MAX ~~ 1*MAX
+MIN ~~ 0*MAX
+
+SelfRep ~~ 0*Clin + 0*EHR + 0*Quest
+SelfRep ~~ 0*SelfRep"
+
+```
+
+```{r gbs_fit}
+md.fit <- usermodel(covstruc=mdd_covstruct, estimation='DWLS', model=md.model)
+```
+
+```{r gbs_results}
+
+md.fit.results <- md.fit$results %>%
+mutate(Unstand_SE=as.numeric(Unstand_SE),
+       STD_Genotype_SE=as.numeric(STD_Genotype_SE),
+       p_value=if_else(p_value == '< 5e-300', true=0, false=as.numeric(p_value)))
+
+knitr::kable(md.fit.results, digits=4)
 
 ```

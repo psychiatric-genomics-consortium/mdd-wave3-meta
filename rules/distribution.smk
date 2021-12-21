@@ -9,7 +9,10 @@
 # Distribute results
 # extensions and prefixes of Ricopili distribution output files
 # daner_pgc_mdd_full_eur_hg19_v{version}.EXT
-distribution_daner_ext = ["gz", "rp.gz", "gz.ldsc.sumstats.gz", "gz.p3.gz", "gz.p4.clump.areator.sorted.1mhc", "gz.p4.clump.areator.sorted.1mhc.pvsorted", "gz.p4.clump.areator.sorted.1mhc.pvsorted.regs.txt", "gz.p4.clump.areator.sorted.1mhc.summary", "gz.p4.clump.areator.sorted.1mhc.xls", "het.gz.p4.clump.areator.sorted.1mhc", "het.gz.p4.clump.areator.sorted.1mhc.xls"]
+# Sumstats files
+distribution_daner_ext = ["gz", "rp.gz", "neff.gz", "gz.p3.gz"]
+# Clumped summary files
+distribution_daner_p4_ext = ["gz.p4.clump.areator.sorted.1mhc", "gz.p4.clump.areator.sorted.1mhc.pvsorted", "gz.p4.clump.areator.sorted.1mhc.pvsorted.regs.txt", "gz.p4.clump.areator.sorted.1mhc.summary", "gz.p4.clump.areator.sorted.1mhc.xls", "het.gz.p4.clump.areator.sorted.1mhc", "het.gz.p4.clump.areator.sorted.1mhc.xls"]
 
 # PREFIX.pgc_mdd_full_eur_hg19_v{version}.pdf
 distribution_pdf_prefix = ["areas.fo", "areas", "manhattan.nog2", "manhattan.nog", "manhattan.v2", "qq"]
@@ -40,11 +43,19 @@ rule distribute_local:
 
 # list all files to be uploaded to Dropbox
 rule DBox_dist_analyst:
-	input: DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_analyst, ext=distribution_daner_ext)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_het_pdf_prefix)), DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_analyst, ext=distribution_basic_ext))
+	input: DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_analyst+cohorts_public, ext=distribution_daner_ext)),
+DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", version=analysis_version, cohorts=cohorts_analyst+cohorts_public, ext=distribution_daner_p4_ext)),
+DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", version=analysis_version, cohorts=cohorts_analyst+cohorts_public, prefix=distribution_pdf_prefix)),
+DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", version=analysis_version, cohorts=cohorts_analyst+cohorts_public, prefix=distribution_het_pdf_prefix)),
+DBox_dist.remote(expand("distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", version=analysis_version, cohorts=cohorts_analyst+cohorts_public, ext=distribution_basic_ext))
 	
 # list all files to be shared locally (e.g., on LISA)
 rule local_dist_analyst:
-	input: expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, ext=distribution_daner_ext), expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_pdf_prefix), expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, prefix=distribution_het_pdf_prefix), expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst, ext=distribution_basic_ext)
+	input: expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst+cohorts_public, ext=distribution_daner_ext),
+expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.{ext}", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst+cohorts_public, ext=distribution_daner_p4_ext),
+expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.pdf", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst+cohorts_public, prefix=distribution_pdf_prefix),
+expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/{prefix}.pgc_mdd_{cohorts}_eur_hg19_v{version}.het.pdf", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst+cohorts_public, prefix=distribution_het_pdf_prefix),
+expand("{local_path}/mdd3/distribution/pgc_mdd_{cohorts}_eur_hg19_v{version}/basic.pgc_mdd_{cohorts}_eur_hg19_v{version}.num.xls", local_path=distribute_local_path, version=analysis_version, cohorts=cohorts_analyst+cohorts_public, ext=distribution_basic_ext)
 
 # Download daner sumstats for downstream analysis
 # Look at config file to determine whether to fetch locally on LISA or remotely
@@ -56,16 +67,16 @@ rule redistribute_daner:
 	shell: "cp {input} {output}"
 
 rule downstream_full:
-	input: expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.rp.gz", version=analysis_version)
+	input: expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.{ext}.gz", version=analysis_version, ext=['rp', 'neff'])
 
 rule downstream_noUKBB:
-	input: expand("results/distribution/daner_pgc_mdd_noUKBB_eur_hg19_v{version}.rp.gz", version=analysis_version)
+	input: expand("results/distribution/daner_pgc_mdd_noUKBB_eur_hg19_v{version}.{ext}.gz", version=analysis_version, ext=['rp', 'neff'])
 	
 rule downstream_noALSPAC:
-	input: expand("results/distribution/daner_pgc_mdd_noALSPAC_eur_hg19_v{version}.rp.gz", version=analysis_version)
+	input: expand("results/distribution/daner_pgc_mdd_noALSPAC_eur_hg19_v{version}.{ext}.gz", version=analysis_version, ext=['rp', 'neff'])
 
 rule downstream_no23andMe:
-	input: expand("results/distribution/daner_pgc_mdd_no23andMe_eur_hg19_v{version}.rp.gz", version=analysis_version)
+	input: expand("results/distribution/daner_pgc_mdd_no23andMe_eur_hg19_v{version}.{ext}.gz", version=analysis_version, ext=['rp', 'neff'])
 
 # Download tables and figures
 rule redistribute_figtabs:
@@ -99,6 +110,7 @@ rule manhattan_full:
 ##
 
 ruleorder: distribute_public > distribute_meta
+#ruleorder: distribute_meta > distribute_public
 
 rule distribute_public:
 	input: "results/meta/distribution/pgc_mdd_no23andMe_eur_hg19_v{version}/{file}"

@@ -3,46 +3,16 @@ channels:
   - bioconda
 dependencies:
   - bcftools
-  - pytest==5.3.5
-  - biopython==1.72
-  - pysam==0.15.2
-  - marshmallow==2.19.5
-  - numpy==1.15.4
-  - Cython==0.29.17
-  - r-base =4.0.5
-  - r-essentials
-  - r-devtools
-  - r-biocmanager
-  - bioconductor-biocgenerics
-  - bioconductor-biostrings
-  - bioconductor-s4vectors
-  - bioconductor-snpstats
-  - bioconductor-iranges
-  - bioconductor-genomicranges
-  - bioconductor-summarizedexperiment
-  - bioconductor-variantannotation
-  - bioconductor-genomeinfodb
-  - bioconductor-rhtslib
-  - bioconductor-rsamtools
-  - r-tidyr
-  - r-stringr
+  - pytest =5.3.5
+  - biopython =1.72
+  - pysam =0.15.2
+  - marshmallow =2.19.5
+  - numpy =1.15.4
+  - Cython =0.29.17
+  - r-base
+  - r-readr
+  - r-dplyr
   - r-glue
-  - r-magrittr
-  - r-dplyr =1.0.6
-  - r-readr =1.4.0
-  - r-jsonlite
-  - r-coloc
-  - r-testthat
-  - r-rsqlite
-  - r-rlang
-  - r-data.table
-  - r-cpp11
-  - r-coloc
-  - r-rcpparmadillo
-  - r-viridisLite
-  - r-cachem
-  - r-irlba
-  - r-mixsqp
-  - r-gridExtra
-  - r-viridis
-  - r-susier
+  - r-yaml
+  - r-stringr
+  - r-lubridate

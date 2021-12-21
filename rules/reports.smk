@@ -7,12 +7,17 @@ rule manhattan_png:
 	conda: "../envs/reports.yaml"
 	shell: "convert -density 300 {input} -resize 50% {output}"
 
-# Case/control counts
+# Case/control counts. Store each version.
 rule cohorts_table:
-	input: expand("results/distribution/basic.pgc_mdd_full_eur_hg19_v{version}.num.xls", version=analysis_version)
-	output: "docs/tables/cohorts.eur.txt"
+	input: "results/distribution/basic.pgc_mdd_full_{ancestries}_hg19_v{version}.num.xls"
+	output: "docs/tables/cohorts/basic.sumstats.{ancestries}.v{version}.txt"
 	conda: "../envs/reports.yaml"
 	script: "../scripts/reports/cohorts_table.py"
+    
+rule cohorts_table_latest:
+    input: expand("docs/tables/cohorts/basic.sumstats.{{ancestries}}.v{version}.txt", version=analysis_version)
+    output: "docs/tables/cohorts.{ancestries}.txt"
+    shell: "cp {input} {output}"
 
 # GWAS summary
 rule gwas_summary:

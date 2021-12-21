@@ -74,3 +74,27 @@ if [[ $text_gz =~ 4_0ICDdep_202106 ]]; then
 	gzip -f --verbose $daner 2>> $log
 fi
 
+#  1	rsid
+#  2	MARKERNAME
+#  3	CHROM
+#  4	POS
+#  5	A1
+#  6	A2
+#  7	A1_FREQ
+#  8	MACH_R2
+#  9	OR
+# 10	LOG.OR._SE
+# 11	L95
+# 12	U95
+# 13	Z_STAT
+# 14	P
+# 15	ERRCODE
+# 16	MISS
+
+if [[ $text_gz =~ rel4icdDEP_Geno_202109 ]]; then
+    Nca=151974 
+    Nco=226640
+    echo -e "CHR\tSNP\tBP\tA1\tA2\tFRQ_A_${Nca}\tFRQ_U_${Nco}\tINFO\tOR\tSE\tP" > $daner
+    zcat $text_gz | awk -v OFS='\t' 'NR > 1 {print $3, $1, $4, $5, $6, $7, $7, $8, $9, $10, $14}' >> $daner
+    gzip -f --verbose $daner 2>> $log
+fi

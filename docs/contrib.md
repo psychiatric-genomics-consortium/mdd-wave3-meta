@@ -222,13 +222,12 @@ snakemake -jNN --use-conda --cluster 'sbatch -t MM' OUTPUT_FILE_NAME
 
 where _`NN`_ is the number of stages that will be submitted to the queue in parallel and _`MM`_ is the runtime allocation for each stage. Other flags can be passed to the cluster as part of the `sbatch` command. When a job is submitted to LISA, an entire node with 16 cores is dedicated to the task. [Job groupings](https://snakemake.readthedocs.io/en/stable/executing/grouping.html) should be used to make 16 be submitted to each node to run in parallel:
 
-<<<<<<< HEAD
 ```
 snakemake -j4 --use-conda --cluster 'sbatch -t 60 -n 16' analysis --groups analysis_part1=group0 analysis_part2=group0 analysis=group1 --group-components group0=16 group1=16
 ```
 
 will submit jobs in groups of `16` to the cluster while utilising up to `4` nodes running at the same time.
-=======
+
 ## Running the Snakemake process itself as a job
 
 On LISA, the Snakemake command can be wrapped and passed to the batch system
