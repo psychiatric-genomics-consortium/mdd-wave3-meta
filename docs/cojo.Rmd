@@ -9,6 +9,9 @@ library(readxl)
 library(readr)
 library(dplyr)
 library(stringr)
+library(tidyr)
+library(UpSetR)
+library(ggplot2)
 ```
 
 
@@ -22,17 +25,24 @@ We ran a [conditional and joint analysis](https://www.nature.com/articles/ng.221
 
 - Final meta-analysed SNPs from the Ricopili pipeline were used.
 - Ricopili was used for initial clumping with index SNPs identified with $p <$ `r qc$clu_p1` and $r^2 <$ `r qc$clu_r2` within `r qc$clu_kb`kb windows. The extended MHC region was clumped as a single region.
-- Sumstats were filtered for MAF >= `r qc$clu_maf` and INFO > `r qc$clu_info`
+- Sumstats were filtered for MAF >= `r qc$clu_maf`, INFO > `r qc$clu_info`, and Neff >= 80% of max.
 - Regions with a genome-wide significant SNP (p < 5-e8) were identified from the clumped results. Regions within `r qc$cojo_kb`kb of each other were merged.
-- SNPs from these regions were extracted filtered to unrelated of self- and genotype-identified European ancestry participants from UK Biobank.
+- SNPs from these regions were extracted and filtered to unrelated of self- and genotype-identified European ancestry participants from UK Biobank.
 - A conditional analysis was performed on each region using the filtered sumstats superimposed on the UK Biobank LD structure.
+- Singleton regions (with only one genome-wide significant variant) were removed.
 
 ## Previous sumstats
 
-Variants from [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions) and [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2)
+Variants from [Wray et al 2018](https://www.nature.com/articles/s41588-018-0090-3/tables/2), [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions), and [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2). Parse out regions from Wray and Howard.
 
 ```{r}
-howard <- read_excel(snakemake@input$howard, skip=2, n_max=102)
+wray <- read_tsv(snakemake@input$wray) %>%
+    separate(`Region (Mb)`, into=c('range.left.Mb', 'range.right.Mb'), sep='–', convert=TRUE) %>%
+    mutate(range.left=range.left.Mb*1e6, range.right=range.right.Mb*1e6)
+
+howard <- read_excel(snakemake@input$howard, skip=2, n_max=102) %>%
+    separate(`Region (bp) of clumped variants (P < 10-4) in linkage disequilibrium (r2 > 0.1) with lead variant`, into=c('range.left', 'range.right'), sep='-', convert=TRUE)
+
 levey <- read_tsv(snakemake@input$levey, col_types=cols(CHR.BP=col_character()))
 ```
 
@@ -53,11 +63,10 @@ cojo <- read_tsv(snakemake@input$cojo)
 
 ## Clumped results
 
-Clumped results from Ricopili and METACARPA for comparison
+Clumped results from Ricopili
 
 ```{r}
 rp <- read_table2(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
-mc <- read_table2(snakemake@input$mc_clump) %>% filter(P <= 5e-8)
 ```
 
 ## Genomic ranges
@@ -67,18 +76,10 @@ Construct genomic range objects so that SNPs and regions can be intersected and 
 ```{r}
 cojo_gr <- with(cojo, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=range.right), SNP=SNP))
 rp_gr <- with(rp, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=range.right), SNP=SNP))
-mc_gr <- with(mc, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=range.right), SNP=SNP))
-howard_gr <- with(howard, GRanges(seqnames=Chromosome, ranges=IRanges(start=`Postion (bp)`, width=1)))
+
+wray_gr <- with(wray, GRanges(seqnames=Chr., ranges=IRanges(start=range.left, end=range.right, SNP=SNP)))
+howard_gr <- with(howard, GRanges(seqnames=Chromosome, ranges=IRanges(start=range.left, end=range.right, SNP=`Marker Name`)))
 levey_gr <- with(levey, GRanges(seqnames=CHR, ranges=IRanges(start=BP, width=1)))
-```
-
-
-```{r}
-rp_mc_overlaps <- findOverlaps(rp_gr, mc_gr)
-
-rp_and_mc <- rp %>% slice(unique(rp_mc_overlaps@from))
-rp_not_mc <- rp %>% slice(-unique(rp_mc_overlaps@from))
-
 ```
 
 ## GWAS catalog
@@ -134,6 +135,28 @@ plyr::ddply(filter(rp, `genes.6.50kb(dist2index)` != '-'), ~SNP, function(rp_ent
 
 ## Comparison to previous findings
 
+Find overlaps between clumped, COJO, and previous results. Append and then reduce all regions
+
+```{r}
+
+all_gr <- reduce(c(cojo_gr, rp_gr, wray_gr, howard_gr, levey_gr))
+
+```
+
+Find overlaps and make lists for an upset plot. Take the index from the combined set as the element, then find which of them are found within each of the sets of SNPs. The upset plot function handles finding each combination of intersections.
+
+```{r upset, fig.width=10, fig.height=8}
+
+hits_upset <- list(COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
+                   Clump=unique(findOverlaps(all_gr, rp_gr)@from),
+                   Wray=unique(findOverlaps(all_gr, wray_gr)@from),
+                   Howard=unique(findOverlaps(all_gr, howard_gr)@from),
+                   Levey=unique(findOverlaps(all_gr, levey_gr)@from))
+                   
+upset(fromList(hits_upset), order.by='freq', text.scale=2)
+
+```
+
 Find which COJO regions overlap with Howard
 
 ```{r}
@@ -171,7 +194,9 @@ Newly discovered regions
 
 ```{r}
 cojo_new <- cojo %>% slice(unique(-cojo_levey_overlaps@from)) %>% arrange(P)
-cojo_new
+cojo_new %>%
+select(region, snp_idx, CHR, SNP, BP, P, pJ) %>%
+group_by(region)
 ```
 
 ```{r}
@@ -182,32 +207,62 @@ rp_gwas_catalog_entries %>% filter(SNP %in% cojo_new$SNP) %>% count(phenotype) %
 rp_genes_dist %>% filter(SNP %in% cojo_new$SNP) %>% group_by(SNP) %>% filter(dist2index == min(dist2index)) %>% ungroup() %>% select(gene) %>% distinct()
 ```
 
+```{r cojo_known_novel}
+
+frq_u_col <- str_subset(names(cojo), 'FRQ_U')
+
+cojo_known_novel <- bind_rows(
+mutate(cojo_known, assoc='Known'),
+mutate(cojo_new, assoc='Novel')) %>%
+mutate(BETA=log(OR)) %>%
+select(assoc, BETA, FRQ=starts_with('FRQ_U')) %>%
+mutate(MAF=if_else(FRQ <= 0.5, true=FRQ, false=1-FRQ))
+
+ggplot(cojo_known_novel, aes(x=MAF, y=abs(BETA), colour=assoc)) + 
+geom_point() +
+scale_y_continuous(limits=c(0, 0.065))
+
+```
+
 ## Comparison between pre-COJO and post-COJO
 
+Find regions overlapping between clumped and COJO results
 ```{r}
 
-rp_genes_dist %>% filter(!SNP %in% cojo$SNP)
+cojo_clumped_overlaps <- findOverlaps(cojo_gr, rp_gr)
 
 ```
 
-## Comparison between Ricopili and METACARPA clumped results
-
-Shared regions and regions not significant in the METACARPA analysis.
-
+List COJO results where the selected SNP is not in the clumped results
 ```{r}
-rp_and_mc_phenotypes <- rp_gwas_catalog_entries %>% filter(SNP %in% rp_and_mc$SNP) %>% count(phenotype) %>% arrange(desc(n))
-rp_not_mc_phenotypes <- rp_gwas_catalog_entries %>% filter(SNP %in% rp_not_mc$SNP) %>% count(phenotype) %>% arrange(desc(n))
-
-rp_not_mc_phenotypes %>% filter(!phenotype %in% rp_and_mc_phenotypes$phenotype)
+cojo_newly_selected <- 
+cojo %>% slice(unique(cojo_clumped_overlaps@from)) %>%
+filter(!SNP %in% rp$SNP) %>%
+select(region, snp_idx, CHR, SNP, P, pJ) 
+cojo_newly_selected
 ```
 
+Newly selected SNPs that were not GWsig in the clumped results
 ```{r}
-
-rp_genes_dist %>% group_by(SNP) %>% filter(dist2index == min(dist2index)) %>% ungroup() %>% select(gene) %>% distinct()
-
-rp_genes_dist %>% filter(SNP %in% rp_and_mc$SNP) %>% group_by(SNP) %>% filter(dist2index == min(dist2index)) %>% ungroup() %>% select(gene) %>% distinct()
-
-rp_genes_dist %>% filter(SNP %in% rp_not_mc$SNP) %>% group_by(SNP) %>% filter(dist2index == min(dist2index)) %>% ungroup() %>% select(gene) %>% distinct()
-
+cojo_newly_selected %>%
+filter(P > 5e-8)
 ```
+
+List clumped SNPs in retained regions that were not selected by COJO
+```{r}
+rp %>% slice(unique(cojo_clumped_overlaps@to)) %>%
+filter(!SNP %in% cojo$SNP)
+```
+
+
+Line up non-selected SNPs with selected SNPs in the region
+```{r}
+bind_cols(
+select(slice(cojo, cojo_clumped_overlaps@from), region, snp_idx, SNP.cojo=SNP, BP.cojo=BP, P.cojo=P, PJ.cojo=pJ),
+select(slice(rp, cojo_clumped_overlaps@to), SNP.rp=SNP, BP.rp=BP, P.rp=P)
+) %>%
+filter(!SNP.rp %in% cojo$SNP)
+```
+
+
 
