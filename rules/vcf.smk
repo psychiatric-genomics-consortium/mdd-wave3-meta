@@ -38,7 +38,7 @@ rule vcf_dbsnp_grch37:
 
 rule vcf_dbsnp_grch37_tbi:
     input: HTTP.remote("http://fileserve.mrcieu.ac.uk/dbsnp/dbsnp.v153.b37.vcf.gz.tbi")
-    output: "resources/dbsnp/human_grch37.dbsnp.v153.vfc.gz.tbi"
+    output: "resources/dbsnp/human_grch37.dbsnp.v153.vcf.gz.tbi"
     shell: "cp {input} {output}"
 
 rule vcf_dbsnp_grch38:
@@ -96,7 +96,7 @@ rule vcf_daner2vcf_json:
 
 
 rule vcf_daner2vcf:
-    input: beta="results/vcf/beta/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.gz", json="results/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json", fasta=lambda wildcards: expand("resources/fasta/human_{build}.fasta", build=builds[wildcards.hg].lower()), fai=lambda wildcards: expand("resources/fasta/human_{build}.fasta.fai", build=builds[wildcards.hg].lower()), dbsnp=lambda wildcards: expand("resources/dbsnp/human_{build}.dbsnp.v153.vcf.gz", build=builds[wildcards.hg].lower()), dbsnp_tbi=lambda wildcards: expand("resources/dbsnp/human_{build}.dbsnp.v153.vfc.gz.tbi", build=builds[wildcards.hg].lower()), gwas2vcf=rules.vcf_install_gwas2vcf.output
+    input: beta="results/vcf/beta/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.gz", json="results/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json", fasta=lambda wildcards: expand("resources/fasta/human_{build}.fasta", build=builds[wildcards.hg].lower()), fai=lambda wildcards: expand("resources/fasta/human_{build}.fasta.fai", build=builds[wildcards.hg].lower()), dbsnp=lambda wildcards: expand("resources/dbsnp/human_{build}.dbsnp.v153.vcf.gz", build=builds[wildcards.hg].lower()), dbsnp_tbi=lambda wildcards: expand("resources/dbsnp/human_{build}.dbsnp.v153.vcf.gz.tbi", build=builds[wildcards.hg].lower()), gwas2vcf=rules.vcf_install_gwas2vcf.output
     output: "results/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.vcf.gz"
     log: "logs/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.log"
     conda: "../envs/vcf.yaml"
