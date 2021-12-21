@@ -41,8 +41,16 @@ daner <- read_tsv(snakemake@input$daner, col_types=cols(SNP=col_character()))
 # format contig
 daner_chr <- daner %>% select(CHR) %>% distinct(CHR) %>% mutate(CHR=as.character(CHR)) %>% pull(CHR)
 
+# map fai "X" -> "23"
+contig_lengths <- fasta_fai %>%
+mutate(CHR=case_when(NAME == "X" ~ "23",
+                     NAME == "XY" ~ "24",
+                     NAME == "MT" ~ "25",
+                     TRUE ~ NAME)) %>%
+filter(CHR %in% daner_chr) %>%
+mutate(contig=str_glue("##contig=<ID={CHR},length={LENGTH}>"))
 
-contig <- paste(fasta_fai %>%  filter(NAME %in% daner_chr) %>% mutate(contig=str_glue("##contig=<ID={NAME},length={LENGTH}>")) %>% pull(contig), collapse='\n')
+contig <- paste(pull(contig_lengths, contig), collapse='\n')
 
 # get number of cases and controls from the header
 frq_cols_split <- str_split(str_subset(names(daner), 'FRQ'), '_')
