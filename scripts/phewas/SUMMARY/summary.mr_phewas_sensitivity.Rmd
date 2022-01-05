@@ -1,0 +1,213 @@
+---
+title: "MR phewas result"
+author: X Shen  
+date: "\n`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+always_allow_html: true
+---
+
+```{r library,echo=F,warning=F,error=F,message=F}
+library(dplyr)
+library(tidyverse)
+library(data.table)
+library(readr)
+library(pbapply)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(here)
+library(ggpubr)
+library(patchwork)
+
+source(here::here('scripts/phewas/util/PheWAS_style_p_plot.R'))
+source(here::here('scripts/phewas/util/beta_p_plots_sig.R'))
+```
+
+```{r rendering docs, eval=T,echo=F}
+render('scripts/phewas/SUMMARY/summary.mr_phewas.Rmd',output_dir='docs/',output_file='summary.mr_phewas_topSNP.html')
+```
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+## UKB MR PheWAS
+
+### Methods
+
+
+
+
+------------------------------------------------------------------------
+
+### Results
+
+```{r load refs and categories, warning=F, echo=F,message=F,error=F}
+f.category = 'data/phewas_categories.tsv'
+ref.category = fread(here::here(f.category),header=F,sep='\n') %>% 
+  as.data.frame %>% .$V1
+
+ls.neale.gwas = readRDS(here::here('data/fields.neale.rds'))
+```
+
+```{r load ukb mr phewas results, warning=F,echo=F,error=F,message=F}
+mr.ukb=read_tsv(here::here('results/phewas/MR/topSNP/ukb/ALL_mr_res.tsv')) %>% 
+  .[grepl('^Inverse variance weighted$|^MR Egger$|Weighted median',.$method),] %>% 
+  mutate(label_exposure=label_exposure %>% gsub(' (left)','',.,fixed = T) %>% 
+           gsub( '(left hemisphere)','',.,fixed = T) %>%
+           gsub( '(right hemisphere)','',.,fixed = T) %>%
+           gsub(' (whole brain)','',.,fixed = T)) %>% 
+  mutate(label_outcome=label_outcome %>% gsub(' (left)','',.,fixed = T) %>% 
+           gsub( '(left hemisphere)','',.,fixed = T) %>%
+           gsub( '(right hemisphere)','',.,fixed = T) %>%
+           gsub(' (whole brain)','',.,fixed = T))
+
+ref.two_level.category = data.frame(lv2=ref.category,stringsAsFactors = F) %>%
+  mutate(lv1=ifelse(grepl('Mental health',lv2),'Mental health',
+                    ifelse(grepl('Early life|Socio|Lifestyle|Diet|Physical activity',lv2),'Environment',
+                           ifelse(grepl('Physical health|Physical|Blood|Body MRI',lv2),'Self-reported and assessed physical condition',
+                           'Brain and cognition'))))
+
+mr.ukb = mr.ukb %>% 
+  left_join(.,ref.two_level.category,by=c('category'='lv2')) 
+```
+
+Valid causal effects are displayed if **ALL** of the following four criteria are met:
+
+-   IVW: pFDR \<0.05
+
+-   Weighted median: pFDR \< 0.05
+
+-   MR Egger: pFDR \< 0.05 **OR** pFDR for Egger intercept \> 0.05
+
+-   Effect sizes for all three methods in the same direction
+
+```{r define function for screening significant tests, warning=F,echo=F}
+
+find_sig <- function(x.res,x.pheno,target.column){
+  x.res = x.res %>% 
+    filter(get(target.column)==x.pheno)
+  sig.output = ifelse(x.res$p.fdr[x.res$method=='Inverse variance weighted']<0.05,1,0)+
+    ifelse(x.res$egger_p.fdr[x.res$method=='MR Egger']>0.05,1,
+           ifelse(x.res$p.fdr[x.res$method=='MR Egger']<0.05,1,0))+
+    ifelse(x.res$Q_p.fdr[x.res$method=='Weighted median']>0.05,1,
+           ifelse(x.res$p.fdr[x.res$method=='Weighted median']<0.05,1,0))+
+    ifelse(abs(sum(sign(x.res$b)))==3,1,0)
+  output = sig.output==4
+  output = data.frame(pheno=unique(x.res[,target.column]),sig.output,is.valid=output)
+  return(output)
+}
+
+```
+
+
+------------------------------------------------------------------------
+
+#### MDD as exposure
+
+```{r,warning=F,echo=F}
+mr.topSNP.mdd_to_pheno = mr.ukb %>% filter(exposure=='MDD') %>% 
+  group_by(method) %>% 
+  mutate(p.fdr = p.adjust(pval,method='fdr'),
+         Q_p.fdr = p.adjust(Q_pval,method='fdr'),
+         egger_p.fdr = p.adjust(egger_pval,method='fdr'))
+ls.sig.mdd_to_pheno = readRDS(here::here('data/MR/ls.sig.mdd_to_pheno_ukb.rds'))
+  
+mr.topSNP.ukb.mdd_to_pheno = mr.ukb.mdd_to_pheno %>% 
+  .[.$outcome %in% ls.sig.mdd_to_pheno$outcome,] %>% 
+  as.data.frame %>% 
+  select(-id.exposure,-id.outcome) 
+
+# mr.sig.ukb.mdd_to_pheno %>%
+#   kbl() %>%
+#   kable_material(c("striped", "hover"))
+
+dat.fig = mr.topSNP.ukb.mdd_to_pheno %>% 
+  mutate(Field=label_outcome) 
+
+dat.fig$category = dat.fig$category %>% as.list %>% 
+  lapply(.,strwrap,width=25) %>% 
+  lapply(.,paste0,collapse='\n') %>% 
+  unlist
+dat.fig$Field = dat.fig$Field %>% as.list %>% 
+  lapply(.,strwrap,width=50) %>% 
+  lapply(.,paste0,collapse='\n') %>% 
+  unlist
+
+figs.topSNP.mdd_to_pheno=mr.topSNP.ukb.mdd_to_pheno$lv1 %>% unique %>% 
+  as.list %>% 
+  lapply(., beta_fig,tmp.dat.fig=dat.fig)
+```
+
+##### Environment
+
+```{r,echo=F,warning=F,fig.height=6,fig.width=10}
+figs.topSNP.mdd_to_pheno[[1]]
+```
+
+##### Physical health
+
+```{r,echo=F,warning=F,fig.height=5,fig.width=10}
+figs.topSNP.mdd_to_pheno[[2]]
+```
+
+##### Brain MRI
+
+```{r,echo=F,warning=F,fig.height=5,fig.width=10}
+figs.topSNP.mdd_to_pheno[[3]]
+```
+
+------------------------------------------------------------------------
+
+#### MDD as outcome
+
+```{r,echo=F,warning=F}
+mr.ukb.pheno_to_mdd = mr.ukb %>% filter(outcome=='MDD') %>% 
+  group_by(method) %>% 
+  mutate(p.fdr = p.adjust(pval,method='fdr'),
+         Q_p.fdr = p.adjust(Q_pval,method='fdr'),
+         egger_p.fdr = p.adjust(egger_pval,method='fdr'))
+
+ls.sig.pheno_to_mdd = readRDS(here::here('data/MR/ls.sig.pheno_to_mdd_ukb.rds'))
+
+mr.sig.ukb.pheno_to_mdd = mr.ukb.pheno_to_mdd %>% 
+  .[.$exposure %in% ls.sig.pheno_to_mdd$exposure,] %>% 
+  as.data.frame %>% 
+  select(-id.exposure,-id.outcome) 
+
+# ls.sig.pheno_to_mdd %>%
+#   kbl() %>%
+#   kable_material(c("striped", "hover"))
+
+dat.fig = mr.sig.ukb.pheno_to_mdd %>% 
+  mutate(Field=label_exposure) 
+
+dat.fig$category = dat.fig$category %>% as.list %>% 
+  lapply(.,strwrap,width=25) %>% 
+  lapply(.,paste0,collapse='\n') %>% 
+  unlist
+dat.fig$Field = dat.fig$Field %>% as.list %>% 
+  lapply(.,strwrap,width=50) %>% 
+  lapply(.,paste0,collapse='\n') %>% 
+  unlist
+
+figs.ukb.pheno_to_mdd=mr.sig.ukb.pheno_to_mdd$lv1 %>% unique %>% 
+  as.list %>% 
+  lapply(., beta_fig,tmp.dat.fig=dat.fig)
+
+```
+
+##### Environment
+
+```{r,echo=F,warning=F,fig.height=4,fig.width=10}
+figs.ukb.pheno_to_mdd[[1]]
+```
+
+##### Physical health
+
+```{r,echo=F,warning=F,fig.height=5,fig.width=10}
+figs.ukb.pheno_to_mdd[[2]]
+```
+
+
+
+

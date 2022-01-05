@@ -4,7 +4,7 @@ library(readr)
 library(pbapply)
 library(optparse)
 
-source('scripts/phewas/util/reg_phewasStyle.R')
+source('scripts/phewas/util/reg_phewasStyle_withoutCI.R')
 
 # Load arguments ----------------------------------------------------------
 # Environment: R 3.6.1

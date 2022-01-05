@@ -7,6 +7,7 @@ library(ggplot2)
 library(optparse)
 library(ggpubr)
 library(pbapply)
+library(harrypotter)
 options(bitmapType='cairo') # Specific to Eddie - to enable writing figures
 
 
@@ -27,7 +28,7 @@ opt <- parse_args(OptionParser(option_list=option_list), args=args)
 
 d.mr_input = opt$ListMR
 d.output = opt$out
-do.saveHarmoDat = opt$SaveHarmonisedData
+do.saveHarmoDat = opt$saveHarmonisedData
 do.no_split = opt$NoSplit
 
 # d.mr_input = 'data/MR/ls.mr_analysis.rds'
@@ -82,23 +83,22 @@ batch_mr <- function(x.inputs){
   write_tsv(mr_res,paste0(d.output,'/mr_res.',prefix.out,'.tsv'))
   
   # Create plots
-  fig.scatter = mr_scatter_plot(MR, dat.mr)
-  fig.forest = mr_forest_plot(res_single)
-  fig.loo = mr_leaveoneout_plot(res_loo)
-  fig.funnel = mr_funnel_plot(res_single)
+  fig.scatter = mr_scatter_plot(MR, dat.mr)[[1]]+scale_colour_hp_d(option = "ronweasley2", name = "MR method")
+  fig.forest = mr_forest_plot(res_single)[[1]]+scale_colour_hp_d(option = "ronweasley2", name = "MR method")
+  fig.loo = mr_leaveoneout_plot(res_loo)[[1]]
+  fig.funnel = mr_funnel_plot(res_single)[[1]]
   
   # Save plots per test
-  fig.total = ggarrange(fig.scatter[[1]],fig.funnel[[1]],
-                        fig.forest[[1]],fig.loo[[1]],
+  fig.total = ggarrange(fig.scatter,fig.funnel,
+                        fig.forest,fig.loo,
                         ncol = 2,nrow=2,
                         labels = c('Scatter plot','Funnel plot',
                                    'Forest plot','Leave-one-out plot'),
-                        widths = c(1,1),heights = c(1,1.5),align = 'v')
+                        widths = c(1,1),heights = c(0.5,1.5),align = 'v')
   ggsave(fig.total, file=paste0(d.output,'/',prefix.out,"_plot.png"), 
          width=10, height=15,dpi=300)
   
   # Save scatter plots for further processing
-  fig.scatter = fig.scatter[[1]]
   save(fig.scatter,file=paste0(d.output,'/',prefix.out,"_scatterplot.RData"))
   
   gc()

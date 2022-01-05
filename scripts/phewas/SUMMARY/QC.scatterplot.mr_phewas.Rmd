@@ -1,0 +1,254 @@
+---
+title: "MR phewas: scatter plots"
+author: X Shen  
+date: "\n`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+always_allow_html: true
+---
+
+```{r library,echo=F,warning=F,error=F,message=F}
+library(dplyr)
+library(tidyverse)
+library(data.table)
+library(readr)
+library(pbapply)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(here)
+library(ggpubr)
+
+source(here::here('scripts/phewas/util/PheWAS_style_p_plot.R'))
+source(here::here('scripts/phewas/util/beta_p_plots_sig.R'))
+```
+
+```{r rendering docs, eval=F,echo=F}
+render('scripts/phewas/SUMMARY/summary.mr_phewas.Rmd',output_dir='docs/',output_file='summary.mr_phewas.html')
+```
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+## UKB MR PheWAS
+
+------------------------------------------------------------------------
+
+```{r directories for MR results, warning=F, echo=F,message=F,error=F}
+d.res.ukb = 'results/phewas/MR/ukb/'
+d.res.Howard = 'results/phewas/MR/Howard/ukb/'
+d.res.topSNP = 'results/phewas/MR/topSNP/ukb/'
+```
+
+
+```{r load refs, categories, significant lists and labels, warning=F, echo=F,message=F,error=F}
+# Categories
+f.category = 'data/phewas_categories.tsv'
+ref.category = fread(here::here(f.category),header=F,sep='\n') %>% 
+  as.data.frame %>% .$V1
+
+ref.two_level.category = data.frame(lv2=ref.category,stringsAsFactors = F) %>%
+  mutate(lv1=ifelse(grepl('Mental health',lv2),'Mental health',
+                    ifelse(grepl('Early life|Socio|Lifestyle|Diet|Physical activity',lv2),'Environment',
+                           ifelse(grepl('Physical health|Physical|Blood|Body MRI',lv2),'Self-reported and assessed physical condition',
+                           'Brain and cognition'))))
+
+# Labels
+mr.ukb=read_tsv(here::here('results/phewas/MR/ukb/ALL_mr_res.tsv')) %>% 
+  .[grepl('^Inverse variance weighted$|^MR Egger$|Weighted median',.$method),] %>% 
+  mutate(label_exposure=label_exposure %>% gsub(' (left)','',.,fixed = T) %>% 
+           gsub( '(left hemisphere)','',.,fixed = T) %>%
+           gsub( '(right hemisphere)','',.,fixed = T) %>%
+           gsub(' (whole brain)','',.,fixed = T)) %>% 
+  mutate(label_outcome=label_outcome %>% gsub(' (left)','',.,fixed = T) %>% 
+           gsub( '(left hemisphere)','',.,fixed = T) %>%
+           gsub( '(right hemisphere)','',.,fixed = T) %>%
+           gsub(' (whole brain)','',.,fixed = T))
+ref.label = mr.ukb %>% 
+  filter(outcome=='MDD') %>% 
+  select(f_name = exposure, label = label_exposure,category) %>% 
+  .[!duplicated(.$f_name),]
+
+# Significant results
+ls.sig.mdd_to_pheno = readRDS(here::here('data/MR/ls.sig.mdd_to_pheno_ukb.rds')) %>% 
+  left_join(.,ref.label,by=c('outcome'='f_name')) %>% 
+  left_join(.,ref.two_level.category,by=c('category'='lv2')) 
+
+ls.sig.pheno_to_mdd = readRDS(here::here('data/MR/ls.sig.pheno_to_mdd_ukb.rds')) %>% 
+  left_join(.,ref.label,by=c('exposure'='f_name')) %>% 
+  left_join(.,ref.two_level.category,by=c('category'='lv2')) 
+```
+
+
+```{r load file names for scatter plots, warning=F,echo=F,error=F,message=F,fig.width=6,fig.height=40,fig.align='center'}
+
+load_scatter_fig <- function(tmp.fnames){
+  load(here::here(tmp.fnames$main.f_scatter))
+  fig.main = fig.scatter + ggtitle('\n\nMDD3') + 
+    theme_light() +
+    theme(legend.position = "none")
+  load(here::here(tmp.fnames$topSNP.f_scatter))
+  fig.topSNP = fig.scatter + ggtitle('\n\nTop SNPs')+ 
+    theme_light()+
+    theme(legend.position = "none")
+  load(here::here(tmp.fnames$Howard.f_scatter))
+  fig.Howard = fig.scatter + ggtitle('\n\nHoward') +
+    theme_light() +
+    theme(legend.position = "right")
+  
+  fig.total = ggarrange(fig.main,fig.topSNP,fig.Howard,
+                        widths = c(1,1,2), nrow=1)
+  return(fig.total)
+}
+
+# MDD to pheno  ===========================================================
+
+key.ls.mdd_to_pheno = ls.sig.mdd_to_pheno %>% 
+  mutate(fig_scatter.short = paste0('MDD_TO_',outcome,'_scatterplot.RData')) %>% 
+  mutate(main.f_scatter = paste0(d.res.ukb,fig_scatter.short),
+         Howard.f_scatter = paste0(d.res.Howard,fig_scatter.short),
+         topSNP.f_scatter = paste0(d.res.topSNP,fig_scatter.short))
+
+# pheno to MDD  ===========================================================
+
+key.ls.pheno_to_mdd = ls.sig.pheno_to_mdd %>% 
+  mutate(fig_scatter.short = paste0(exposure,'_TO_MDD_scatterplot.RData')) %>% 
+  mutate(main.f_scatter = paste0(d.res.ukb,fig_scatter.short),
+         Howard.f_scatter = paste0(d.res.Howard,fig_scatter.short),
+         topSNP.f_scatter = paste0(d.res.topSNP,fig_scatter.short))
+
+```
+
+### QC: MDD to other traits
+
+\newline
+
+\newline
+
+Results 
+
+------------------------------------------------------------------------
+
+#### Brain and cognition
+
+```{r, warning=F,echo=F,error=F,message=F,fig.width=14,fig.height=40,fig.align='center'}
+fig.MDD_to_pheno.per_trait.brain = key.ls.mdd_to_pheno %>% 
+  filter(lv1=='Brain and cognition') %>% 
+  select(ends_with('f_scatter')) %>%
+  split(.,seq(nrow(.))) %>% 
+  pblapply(load_scatter_fig)
+labels.brain = key.ls.mdd_to_pheno %>% 
+  filter(lv1=='Brain and cognition') %>% {.$label}
+
+ggarrange(plotlist = fig.MDD_to_pheno.per_trait.brain[1:10],
+            labels=labels.brain[1:10],ncol=1)
+```
+
+```{r, warning=F,echo=F,error=F,message=F,fig.width=14,fig.height=36,fig.align='center'}
+ggarrange(plotlist = fig.MDD_to_pheno.per_trait.brain[11:19],
+            labels=labels.brain[11:19],ncol=1)
+```
+
+
+#### Environment
+
+```{r, warning=F,echo=F,error=F,message=F,fig.width=14,fig.height=40,fig.align='center'}
+fig.MDD_to_pheno.per_trait.env = key.ls.mdd_to_pheno %>% 
+  filter(lv1=='Environment') %>% 
+  select(ends_with('f_scatter')) %>%
+  split(.,seq(nrow(.))) %>% 
+  pblapply(load_scatter_fig)
+labels.env = key.ls.mdd_to_pheno %>% 
+  filter(lv1=='Environment') %>% {.$label}
+
+ggarrange(plotlist = fig.MDD_to_pheno.per_trait.env[1:10],
+            labels=labels.env[1:10],ncol=1)
+ggarrange(plotlist = fig.MDD_to_pheno.per_trait.env[11:20],
+            labels=labels.env[11:20],ncol=1)
+```
+
+```{r, warning=F,echo=F,error=F,message=F,fig.width=14,fig.height=36,fig.align='center'}
+ggarrange(plotlist = fig.MDD_to_pheno.per_trait.env[21:29],
+            labels=labels.env[21:29],ncol=1)
+```
+
+
+#### Self-reported and assessed physical condition
+
+```{r, warning=F,echo=F,error=F,message=F,fig.width=14,fig.height=40,fig.align='center'}
+fig.MDD_to_pheno.per_trait.physical = key.ls.mdd_to_pheno %>% 
+  filter(lv1=='Self-reported and assessed physical condition') %>% 
+  select(ends_with('f_scatter')) %>%
+  split(.,seq(nrow(.))) %>% 
+  pblapply(load_scatter_fig)
+labels.physical = key.ls.mdd_to_pheno %>% 
+  filter(lv1=='Self-reported and assessed physical condition') %>% {.$label}
+
+ggarrange(plotlist = fig.MDD_to_pheno.per_trait.physical[1:10],
+            labels=labels.physical[1:10],ncol=1)
+```
+
+```{r, warning=F,echo=F,error=F,message=F,fig.width=14,fig.height=28,fig.align='center'}
+ggarrange(plotlist = fig.MDD_to_pheno.per_trait.physical[11:17],
+            labels=labels.physical[11:17],ncol=1)
+```
+
+
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+\newline
+
+### QC: Other traits to MDD
+
+------------------------------------------------------------------------
+
+```{r load pheno to mdd figs, warning=F,echo=F,error=F,message=F,fig.width=6,fig.height=40,fig.align='center'}
+
+load_scatter_fig_2 <- function(tmp.fnames){
+  load(here::here(tmp.fnames$main.f_scatter))
+  fig.main = fig.scatter + ggtitle('\n\nMDD3') + 
+    theme_light() +
+    theme(legend.position = "none")
+  load(here::here(tmp.fnames$Howard.f_scatter))
+  fig.Howard = fig.scatter + ggtitle('\n\nHoward') +
+    theme_light() +
+    theme(legend.position = "right")
+  
+  fig.total = ggarrange(fig.main,fig.Howard,
+                        widths = c(1,2), nrow=1)
+  return(fig.total)
+}
+```
+
+
+#### Environment
+
+```{r, warning=F,echo=F,error=F,message=F,fig.width=9,fig.height=28,fig.align='center'}
+fig.pheno_to_MDD.per_trait.env = key.ls.pheno_to_mdd %>% 
+  filter(lv1=='Environment') %>% 
+  select(ends_with('f_scatter')) %>%
+  split(.,seq(nrow(.))) %>% 
+  pblapply(load_scatter_fig_2)
+labels.env = key.ls.pheno_to_mdd %>% 
+  filter(lv1=='Environment') %>% {.$label}
+
+ggarrange(plotlist = fig.pheno_to_MDD.per_trait.env,
+            labels=labels.env,ncol=1)
+
+```
+
+#### Self-reported and assessed physical condition
+
+```{r, warning=F,echo=F,error=F,message=F,fig.width=9,fig.height=56,fig.align='center'}
+fig.pheno_to_MDD.per_trait.physical = key.ls.pheno_to_mdd %>% 
+  filter(lv1=='Self-reported and assessed physical condition') %>% 
+  select(ends_with('f_scatter')) %>%
+  split(.,seq(nrow(.))) %>% 
+  pblapply(load_scatter_fig_2)
+labels.physical = key.ls.pheno_to_mdd %>% 
+  filter(lv1=='Self-reported and assessed physical condition') %>% {.$label}
+
+ggarrange(plotlist = fig.pheno_to_MDD.per_trait.physical,
+            labels=labels.physical,ncol=1)
+```

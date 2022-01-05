@@ -30,7 +30,8 @@ dir.create(file.path(output.path), showWarnings = FALSE)
 summ.stats.fname=exposure.path
 gwas_sumstats = read_tsv(summ.stats.fname) %>%
    mutate(N=2*Neff_half,Effect=log(OR)) %>%
-   select(SNP,A1,A2,Effect,se=SE,p,Direction,Freq1=FRQ_A_235237,CHR,BP,N) 
+   select(SNP,Allele1=A1,Allele2=A2,Effect,se=SE,p=P,Direction,Freq1=FRQ_A_470188,CHR,BP,N) %>% 
+   filter(scale(se)>20)
 traitA='MDD'
 
 ### find top SNPs

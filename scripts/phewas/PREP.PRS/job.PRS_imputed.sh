@@ -2,12 +2,12 @@
 #$ -N pgc3_mddprs
 #$ -cwd
 #$ -m beas
-#$ -l h_vmem=64G
+#$ -l h_vmem=32G
 #$ -pe sharedmem 5
 #$ -l h_rt=12:00:00
 . /etc/profile.d/modules.sh
 
-module load igmm/apps/R/3.6.1
+module load igmm/apps/R/4.1.0
 
 Rscript /exports/igmm/eddie/GenScotDepression/shen/Tools/PRSice/PRSice.R \
     --prsice /exports/igmm/eddie/GenScotDepression/shen/Tools/PRSice/PRSice_linux \

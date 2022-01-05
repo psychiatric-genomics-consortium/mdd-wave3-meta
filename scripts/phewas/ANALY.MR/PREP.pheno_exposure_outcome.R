@@ -32,8 +32,8 @@ gwas.f_and_label = opt$gwas
 f.exposure = opt$ExposureDat
 d.output=opt$interexp
 
-do.exposure = opt$ExposureProcess
-do.outcome = opt$OutcomeProcess
+do.exposure = opt$ExposureProcess %>% as.logical
+do.outcome = opt$OutcomeProcess %>% as.logical
 f.Neale = opt$fNeal
 f.big40 = opt$fBIG40
 f.nsummary = opt$phenoSummary

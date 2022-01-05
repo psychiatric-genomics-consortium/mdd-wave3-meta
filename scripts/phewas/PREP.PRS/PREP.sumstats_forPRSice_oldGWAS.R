@@ -33,5 +33,9 @@ summstats=summstats %>%
   select(SNP=MarkerName,A1=Allele1,A2=Allele2,SE=StdErr,P=P.value,BETA=Effect) %>% 
   left_join(.,ref,by='SNP')
 
+# summstats=sumstats.old %>%
+#   filter(Freq>0.005,Freq<0.995) %>%
+#   select(SNP,CHR,BP,A1,A2,SE,P,BETA,Freq,Nca,Nco,N=Ntot)
+
 # write summstats
 write_tsv(summstats,fname.out,col_names = T)

@@ -1,0 +1,33 @@
+---
+title: "MR phewas pipeline"
+author: X Shen  
+date: "\n`r format(Sys.time(), '%d %B, %Y')`"
+output: github_document
+always_allow_html: true
+---
+
+```{r library,echo=F,warning=F,error=F,message=F}
+library(dplyr)
+library(tidyverse)
+library(data.table)
+library(readr)
+library(pbapply)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(here)
+library(ggpubr)
+
+source(here::here('scripts/phewas/util/PheWAS_style_p_plot.R'))
+source(here::here('scripts/phewas/util/beta_p_plots_sig.R'))
+```
+
+```{r rendering docs, eval=F,echo=F}
+render('scripts/phewas/SUMMARY/summary.mr_phewas.Rmd',output_dir='docs/',output_file='summary.mr_phewas.html')
+```
+
+### Prepare sumstats
+
+#### Download sumstats 
+
+Run script: scripts/phewas/PREP.MR/PREP.gwas_sumstats_download.R

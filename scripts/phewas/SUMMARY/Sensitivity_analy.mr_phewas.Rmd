@@ -1,0 +1,236 @@
+---
+title: "MR phewas: scatter plots"
+author: X Shen  
+date: "\n`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+always_allow_html: true
+---
+
+```{r library,echo=F,warning=F,error=F,message=F}
+library(dplyr)
+library(tidyverse)
+library(data.table)
+library(readr)
+library(pbapply)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(here)
+library(ggpubr)
+
+source(here::here('scripts/phewas/util/PheWAS_style_p_plot.R'))
+source(here::here('scripts/phewas/util/beta_p_plots_sig.R'))
+```
+
+```{r rendering docs, eval=F,echo=F}
+render('scripts/phewas/SUMMARY/summary.mr_phewas.Rmd',output_dir='docs/',output_file='summary.mr_phewas.html')
+```
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+## UKB MR PheWAS
+
+------------------------------------------------------------------------
+
+```{r directories for MR results, warning=F, echo=F,message=F,error=F}
+d.res.ukb = 'results/phewas/MR/ukb/'
+d.res.Howard = 'results/phewas/MR/Howard/ukb/'
+d.res.topSNP = 'results/phewas/MR/topSNP/ukb/'
+```
+
+
+```{r load refs, categories, significant lists and labels, warning=F, echo=F,message=F,error=F}
+# Categories
+f.category = 'data/phewas_categories.tsv'
+ref.category = fread(here::here(f.category),header=F,sep='\n') %>% 
+  as.data.frame %>% .$V1
+
+ref.two_level.category = data.frame(lv2=ref.category,stringsAsFactors = F) %>%
+  mutate(lv1=ifelse(grepl('Mental health',lv2),'Mental health',
+                    ifelse(grepl('Early life|Socio|Lifestyle|Diet|Physical activity',lv2),'Environment',
+                           ifelse(grepl('Physical health|Physical|Blood|Body MRI',lv2),'Self-reported and assessed physical condition',
+                           'Brain and cognition'))))
+
+# Labels
+mr.ukb=read_tsv(here::here('results/phewas/MR/ukb/ALL_mr_res.tsv')) %>% 
+  .[grepl('^Inverse variance weighted$|^MR Egger$|Weighted median',.$method),] %>% 
+  mutate(label_exposure=label_exposure %>% gsub(' (left)','',.,fixed = T) %>% 
+           gsub( '(left hemisphere)','',.,fixed = T) %>%
+           gsub( '(right hemisphere)','',.,fixed = T) %>%
+           gsub(' (whole brain)','',.,fixed = T)) %>% 
+  mutate(label_outcome=label_outcome %>% gsub(' (left)','',.,fixed = T) %>% 
+           gsub( '(left hemisphere)','',.,fixed = T) %>%
+           gsub( '(right hemisphere)','',.,fixed = T) %>%
+           gsub(' (whole brain)','',.,fixed = T))
+ref.label = mr.ukb %>% 
+  filter(outcome=='MDD') %>% 
+  select(f_name = exposure, label = label_exposure,category) %>% 
+  .[!duplicated(.$f_name),]
+
+# Significant results
+ls.sig.mdd_to_pheno = readRDS(here::here('data/MR/ls.sig.mdd_to_pheno_ukb.rds')) %>% 
+  left_join(.,ref.label,by=c('outcome'='f_name')) %>% 
+  left_join(.,ref.two_level.category,by=c('category'='lv2')) 
+
+ls.sig.pheno_to_mdd = readRDS(here::here('data/MR/ls.sig.pheno_to_mdd_ukb.rds')) %>% 
+  left_join(.,ref.label,by=c('exposure'='f_name')) %>% 
+  left_join(.,ref.two_level.category,by=c('category'='lv2')) 
+```
+
+
+```{r create figures, warning=F,echo=F,error=F,message=F,fig.width=6,fig.height=40,fig.align='center'}
+
+create_mr_figs <- function(tmp.dir){
+  tmp.mr.res=read_tsv(here::here(paste0(tmp.dir,'ALL_mr_res.tsv'))) %>% 
+      .[grepl('^Inverse variance weighted$|^MR Egger$|Weighted median',.$method),] %>% 
+      mutate(label_exposure=label_exposure %>% gsub(' (left)','',.,fixed = T) %>% 
+               gsub( '(left hemisphere)','',.,fixed = T) %>%
+               gsub( '(right hemisphere)','',.,fixed = T) %>%
+               gsub(' (whole brain)','',.,fixed = T)) %>% 
+      mutate(label_outcome=label_outcome %>% gsub(' (left)','',.,fixed = T) %>% 
+               gsub( '(left hemisphere)','',.,fixed = T) %>%
+               gsub( '(right hemisphere)','',.,fixed = T) %>%
+               gsub(' (whole brain)','',.,fixed = T)) %>% 
+      left_join(.,ref.two_level.category,by=c('category'='lv2')) 
+  
+  ### MDD to pheno
+  tmp_res.mdd_to_pheno = 
+    tmp.mr.res %>% filter(exposure=='MDD') %>% 
+    group_by(method) %>% 
+    mutate(p.fdr = p.adjust(pval,method='fdr'),
+           Q_p.fdr = p.adjust(Q_pval,method='fdr'),
+           egger_p.fdr = p.adjust(egger_pval,method='fdr'))
+  
+  tmp_res.sig.ukb.mdd_to_pheno = tmp_res.mdd_to_pheno %>% 
+    .[.$outcome %in% ls.sig.mdd_to_pheno$outcome,] %>% 
+    as.data.frame %>% 
+    select(-id.exposure,-id.outcome) 
+  
+  anal_dat.fig = tmp_res.sig.ukb.mdd_to_pheno %>% 
+    mutate(Field=label_outcome) 
+
+  anal_dat.fig$category = anal_dat.fig$category %>% as.list %>% 
+    lapply(.,strwrap,width=25) %>% 
+    lapply(.,paste0,collapse='\n') %>% 
+    unlist
+  anal_dat.fig$Field = anal_dat.fig$Field %>% as.list %>% 
+    lapply(.,strwrap,width=50) %>% 
+    lapply(.,paste0,collapse='\n') %>% 
+    unlist
+  
+  tmp_figs.ukb.mdd_to_pheno = 
+    tmp_res.sig.ukb.mdd_to_pheno$lv1 %>% unique %>% 
+    as.list %>% 
+    lapply(., beta_fig,tmp.dat.fig=anal_dat.fig)
+
+  ### Pheno to MDD
+  tmp_res.pheno_to_mdd = 
+    tmp.mr.res %>% filter(outcome=='MDD') %>% 
+    group_by(method) %>% 
+    mutate(p.fdr = p.adjust(pval,method='fdr'),
+           Q_p.fdr = p.adjust(Q_pval,method='fdr'),
+           egger_p.fdr = p.adjust(egger_pval,method='fdr'))
+  
+  tmp_res.sig.ukb.pheno_to_mdd = tmp_res.pheno_to_mdd %>% 
+    .[.$exposure %in% ls.sig.pheno_to_mdd$exposure,] %>% 
+    as.data.frame %>% 
+    select(-id.exposure,-id.outcome) 
+  
+  anal_dat.fig = tmp_res.sig.ukb.pheno_to_mdd %>% 
+    mutate(Field=label_outcome) 
+
+  anal_dat.fig$category = anal_dat.fig$category %>% as.list %>% 
+    lapply(.,strwrap,width=25) %>% 
+    lapply(.,paste0,collapse='\n') %>% 
+    unlist
+  anal_dat.fig$Field = anal_dat.fig$Field %>% as.list %>% 
+    lapply(.,strwrap,width=50) %>% 
+    lapply(.,paste0,collapse='\n') %>% 
+    unlist
+  
+  tmp_figs.ukb.pheno_to_mdd = 
+    tmp_res.sig.ukb.pheno_to_mdd$lv1 %>% unique %>% 
+    as.list %>% 
+    lapply(., beta_fig,tmp.dat.fig=anal_dat.fig)
+  
+  ### Final plots
+  plots.output = list(tmp_figs.ukb.mdd_to_pheno,tmp_figs.ukb.pheno_to_mdd)
+  names(plots.output) = c('mdd_to_pheno','pheno_to_mdd')
+
+  return(plots.output)
+}
+
+glue_figs <- function(f1,f2,f3,x_range = c(-1.8,0.8)){
+  fi.1 = f1+
+      theme(axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())+
+    ylim(-1.8,0.8)+
+    ggtitle('\n\nMDD3')
+  fi.2 = f2+
+      theme(axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())+ 
+        ylim(-1.8,0.8)+
+    ggtitle('\n\nTop instruments')
+  fi.3 = f3+
+        ylim(-1.8,0.8)+
+    ggtitle('\n\nHoward')
+  fi.glued = ggarrange(fi.1,fi.2,fi.3,nrow=1,widths=c(1,1,2),common.legend = T)
+  return(fi.glued)
+}
+
+figs.mdd3 = create_mr_figs(d.res.ukb)
+figs.topsnp = create_mr_figs(d.res.topSNP)
+figs.howard = create_mr_figs(d.res.Howard)
+
+```
+
+### MDD as exposure
+
+##### Environment
+
+```{r,echo=F,warning=F,fig.height=6,fig.width=12}
+glue_figs(figs.mdd3$mdd_to_pheno[[1]],
+          figs.topsnp$mdd_to_pheno[[1]],
+          figs.howard$mdd_to_pheno[[1]])
+
+```
+
+##### Physical health
+
+```{r,echo=F,warning=F,fig.height=6,fig.width=12}
+glue_figs(figs.mdd3$mdd_to_pheno[[2]],
+          figs.topsnp$mdd_to_pheno[[2]],
+          figs.howard$mdd_to_pheno[[2]],
+          x_range = c(-8,16))
+```
+
+##### Brain MRI
+
+```{r,echo=F,warning=F,fig.height=8,fig.width=12}
+glue_figs(figs.mdd3$mdd_to_pheno[[3]],
+          figs.topsnp$mdd_to_pheno[[3]],
+          figs.howard$mdd_to_pheno[[3]],
+          x_range = c(-1,81))
+```
+
+
+### MDD as outcome
+
+##### Environment
+
+```{r,echo=F,warning=F,fig.height=4,fig.width=12}
+glue_figs(figs.mdd3$pheno_to_mdd[[1]],
+          figs.topsnp$pheno_to_mdd[[1]],
+          figs.howard$pheno_to_mdd[[1]])
+```
+
+##### Physical health
+
+```{r,echo=F,warning=F,fig.height=5,fig.width=12}
+glue_figs(figs.mdd3$pheno_to_mdd[[2]],
+          figs.topsnp$pheno_to_mdd[[2]],
+          figs.howard$pheno_to_mdd[[2]])
+```

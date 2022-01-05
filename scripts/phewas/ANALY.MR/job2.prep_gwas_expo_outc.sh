@@ -7,7 +7,7 @@
 #$ -l h_rt=48:00:00
 . /etc/profile.d/modules.sh
 
-module load igmm/apps/R/3.6.1
+module load igmm/apps/R/4.1.0
 
 Rscript scripts/phewas/ANALY.MR/PREP.pheno_exposure_outcome.R --gwas data/MR/pheno_gwas_forMR.rds \
 --ExposureDat data/MR/MR_InterFiles/mdd_exposure_outcome/MDD.exposure_dat \

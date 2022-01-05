@@ -3,11 +3,11 @@
 #$ -cwd
 #$ -m beas
 #$ -l h_vmem=16G
-#$ -pe sharedmem 4
-#$ -l h_rt=5:00:00
+#$ -pe sharedmem 3
+#$ -l h_rt=48:00:00
 . /etc/profile.d/modules.sh
 
-module load igmm/apps/R/3.6.1
+module load igmm/apps/R/4.1.0
 
 echo $1
 

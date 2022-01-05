@@ -50,16 +50,16 @@ p_plot<-function(TargetResult,color_theme_usr='Shen',shape_sig=T,sig_nominal=F,
   # Identify significance line
   if (sum(TargetResult$p.corrected<0.05)>0){
     max.p.corrected = max(TargetResult$p.value[TargetResult$p.corrected<0.05])
-    pt=TargetResult$p.value[TargetResult$p.value==max.p.corrected]
-    pt=-log10(max(pt))
+    pt.adj=TargetResult$p.value[TargetResult$p.value==max.p.corrected] %>% 
+      {-log10(max(.))}
     pt.color='pink'
   }else{
-    pt=-log10(0.05)
+    pt.adj=-log10(0.05)
     pt.color='grey'
   }
   
   if (sig_nominal==T){
-    pt=-log10(0.05)
+    pt.adj=-log10(0.05)
     pt.color='grey'
   }
 
@@ -105,7 +105,7 @@ p_plot<-function(TargetResult,color_theme_usr='Shen',shape_sig=T,sig_nominal=F,
           plot.title=element_text(lineheight = 1,face='bold'),
           plot.margin = unit(c(1,3,1,1), "lines"))+
     geom_hline(yintercept=0 , color = "grey", size=0.5)+
-    geom_hline(yintercept=pt, linetype="dashed", color = pt.color, size=1)+
+    geom_hline(yintercept=pt.adj, linetype="dashed", color = pt.color, size=1)+
     geom_hline(yintercept=308, linetype="dashed", color = 'light grey', size=0.5)+
     annotate(
       "text", label = paste0("p < 10^308"),

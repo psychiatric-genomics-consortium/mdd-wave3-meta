@@ -23,7 +23,7 @@ f.PRS = args[9]
 f.localgwas = args[10]
 d.output = args[10]
 
-
+# 
 # f.dat.brain = 'data/dat.imaging_chunk.rds'
 # f.dat.cog = 'data/dat.cognition_chunk.rds'
 # f.dat.diet = 'data/dat.diet_chunk.rds'
@@ -122,3 +122,76 @@ inputs.step2 = inputs.step1 %>%
 
 write_tsv(inputs.step1, 'data/MR/regenie_step1_ls.tsv',col_names = F)
 write_tsv(inputs.step2, 'data/MR/regenie_step2_ls.tsv',col_names = F)
+
+
+
+# Create regenie input list for interrupted GWAS (step 2) -----------------
+
+# update output name
+update_OutputName <- function(output.pattern){
+  tmp.pattern = output.pattern %>% basename
+  tmp.dir = output.pattern %>% gsub(tmp.pattern,'',.)
+  
+  ls.log = list.files(path=tmp.dir,pattern=tmp.pattern,full.names = F) %>% .[grep(pattern='.log',.)]
+  
+  if(length(ls.log)==0){
+    final.output = paste0(output.pattern,'_1')
+  }else{
+    ls.block_log = ls.log %>% gsub(tmp.pattern,'',.) %>% gsub('_','',.) %>% gsub('.log','',.)
+    if(length(ls.block_log)==1&nchar(ls.block_log)==0){
+      final.n_block=1+1
+    }else{
+      final.n_block=ls.block_log %>% as.numeric %>% {max(.,na.rm=T)} %>% {.+1}
+    }
+    final.output = paste0(output.pattern,'_',final.n_block)
+  }
+  return(final.output)
+}
+
+inputs.step2 = inputs.step2 %>% 
+  mutate(f.out_old=f.out) %>% 
+  mutate(f.out=f.out %>% gsub('_[0-9]','',.) %>% 
+           as.list %>% 
+           lapply(update_OutputName) %>% unlist)
+
+# remove those GWAS that finished running, identify starting block
+find_finishedGWAS <- function(output.pattern){
+  tmp.pattern = output.pattern %>% basename
+  tmp.dir = output.pattern %>% gsub(tmp.pattern,'',.)
+  
+  ls.log = list.files(path=tmp.dir,pattern=tmp.pattern,full.names = F) %>% .[grep(pattern='.log',.)]
+  if(length(ls.log)==0){
+    starting.block = 1
+  }else{
+    ls.block_log = ls.log %>% gsub(tmp.pattern,'',.) %>% gsub('_','',.) %>% gsub('.log','',.)
+    if(length(ls.block_log)==1&nchar(ls.block_log)==0){
+      tmp.log = read_tsv(paste0(tmp.dir,'/',ls.log),col_names=F) 
+    }else{
+      final.n_block=ls.block_log %>% as.numeric %>% {max(.,na.rm = T)}
+      tmp.log = read_tsv(paste0(tmp.dir,'/',ls.log[grep(paste0('_',final.n_block),ls.log)]),col_names=F)
+    }
+    tmp.log = tmp.log$X1 %>% 
+    .[grepl('block \\[',.)] %>% 
+    .[grepl('done',.)] %>% 
+    strsplit(.,split = '\\]') %>% lapply(.,FUN=function(x) head(x,n=1)) %>% unlist %>% 
+    strsplit(.,split = '\\[') %>% lapply(.,FUN=function(x) x[2]) %>% unlist %>% tail(n=1) %>% 
+    strsplit(.,split = '/') %>% unlist %>% as.numeric
+    
+    if(tmp.log[1]==tmp.log[2]){starting.block=NA}else{
+      starting.block=tmp.log[1]+1
+    }
+  }
+  return(starting.block)
+}
+
+inputs.step2 = inputs.step2 %>% 
+  mutate(starting.block=inputs.step2$f.out_old %>% gsub('_[0-9]','',.) %>% 
+           as.list %>% 
+           lapply(find_finishedGWAS) %>% unlist)
+
+inputs.step2.remaining = inputs.step2 %>% 
+  filter(!is.na(starting.block)) %>% 
+  select(-f.out_old)
+
+write_tsv(inputs.step2.remaining, 'data/MR/regenie_step2_ls_remaining.tsv',col_names = F)
+

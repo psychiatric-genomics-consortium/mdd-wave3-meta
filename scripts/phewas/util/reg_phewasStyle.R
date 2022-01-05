@@ -1,61 +1,70 @@
-run_model <- function(ls.mod,x.dat_short,x.dat_long){
+run_model <- function(ls.mod,mod.dat_short,mod.dat_long){
    # define vars
-   dep = as.character(ls.mod[1])
-   factor = as.character(ls.mod[2])
-   covs = as.character(ls.mod[3])
+   mod.dep = as.character(ls.mod[1])
+   mod.factor = as.character(ls.mod[2])
+   mod.covs = as.character(ls.mod[3])
    mod.type = as.character(ls.mod[4])
    
    # run model
    if (mod.type=='lme'){
       # model.expression
-      fh_r=1:(nrow(x.dat_long)/2)
-      sh_r=(nrow(x.dat_long)/2+1):nrow(x.dat_long)
+      fh_r=1:(nrow(mod.dat_long)/2)
+      sh_r=(nrow(mod.dat_long)/2+1):nrow(mod.dat_long)
       
-      x.dat_long[fh_r,dep]=scale(x.dat_long[fh_r,dep])
-      x.dat_long[sh_r,dep]=scale(x.dat_long[sh_r,dep])
-      if(is.numeric(x.dat_long[,factor])){
-         x.dat_long[fh_r,factor]=scale(x.dat_long[fh_r,factor])
-         x.dat_long[sh_r,factor]=scale(x.dat_long[sh_r,factor])
+      mod.dat_long[fh_r,mod.dep]=scale(mod.dat_long[fh_r,mod.dep])
+      mod.dat_long[sh_r,mod.dep]=scale(mod.dat_long[sh_r,mod.dep])
+      if(is.numeric(mod.dat_long[,mod.factor])){
+         mod.dat_long[fh_r,mod.factor]=scale(mod.dat_long[fh_r,mod.factor])
+         mod.dat_long[sh_r,mod.factor]=scale(mod.dat_long[sh_r,mod.factor])
       }
       
-      mod=paste0(dep,'~',covs,'+',factor)
+      mod=paste0(mod.dep,'~',mod.covs,'+',mod.factor)
       
-      fit=lme(as.formula(as.character(mod)),data=x.dat_long,na.action=na.exclude,random=~1|f.eid,control=lmeControl(opt = "optim"))
-      table = summary(fit)$tTable
-      tarv = nrow(table)
-      stats = table[tarv,c(1,2,4,5)]
-      mod_result = data.frame(mod_name=paste0(dep,'~',factor),t(stats))
-      colnames(mod_result)[2:5]=c('beta','std','t.value','p.value')
+      fit=lme(as.formula(as.character(mod)),data=mod.dat_long,
+              na.action=na.exclude,random=~1|f.eid,control=lmeControl(opt = "optim"))
+      tmp.ci = intervals(fit,which='fixed')$fixed %>% as.data.frame %>% 
+         select(Lower_95CI=lower,Upper_95CI=upper) %>% 
+         tail(1)
+      tmp.res = summary(fit)$tTable %>% 
+         as.data.frame %>% 
+         select(beta=Value,std=Std.Error,t.value=`t-value`,p.value=`p-value`) %>% 
+         tail(1) %>% 
+         mutate(mod_name = paste0(mod.dep,'~',mod.factor),tmp.ci) %>% 
+         select(mod_name, everything())
+      
       
    }else{
-      dep.dat=x.dat_short[,dep]            
+      dep.dat=mod.dat_short[,mod.dep]            
       if (length(table(dep.dat))==2){
-         mod=paste0('as.factor(',dep,')~',covs,'+scale(',factor,')')
-         fit=glm(as.formula(as.character(mod)),data=x.dat_short,na.action=na.exclude,family = 'binomial')
+         mod=paste0(mod.dep,'~',mod.covs,'+scale(',mod.factor,')')
+         fit=glm(as.formula(as.character(mod)),data=mod.dat_short,na.action=na.exclude,family = 'binomial')
       }else{
-         x.dat_short[,dep]=as.numeric(x.dat_short[,dep])
-         mod=paste0('scale(',dep,')~',covs,'+scale(',factor,')')
-         fit=glm(as.formula(as.character(mod)),data=x.dat_short,na.action=na.exclude)
+         mod=paste0('scale(',mod.dep,')~',mod.covs,'+scale(',mod.factor,')')
+         fit=glm(as.formula(as.character(mod)),data=mod.dat_short,na.action=na.exclude)
       }            
-      
-      table = summary(fit)$coefficients
-      tarv = nrow(table)
-      stats = table[tarv,c(1:4)]
-      mod_result = data.frame(mod_name=paste0(dep,'~',factor),t(stats))
-      colnames(mod_result)[2:5]=c('beta','std','t.value','p.value')
+      tmp.ci = confint(fit) %>% as.data.frame %>% 
+         select(Lower_95CI=`2.5 %`,Upper_95CI=`97.5 %`) %>% 
+         tail(1)
+      tmp.res = summary(fit)$coefficients %>% 
+         as.data.frame %>% 
+         select(beta=Estimate,std=`Std. Error`,t.value=`t value`,p.value=`Pr(>|t|)`) %>% 
+         tail(1)%>% 
+         mutate(mod_name = paste0(mod.dep,'~',mod.factor),tmp.ci) %>% 
+         select(mod_name, everything())
    }
    
-   return(mod_result)
+   return(tmp.res)
 }
 
-reg_phewasStyle <- function (ls.models,dat_short,dat_long=NA,correctByFactor=F){
 
-      tmp.result = pbapply(X = ls.models,MARGIN = 1,FUN = run_model,x.dat_short=dat_short,x.dat_long=dat_long)
-      result.table =  matrix(unlist(tmp.result),ncol=5,byrow = T)
-      result.table = data.frame(result.table)
-      colnames(result.table) = c('mod_name','beta','std','t.value','p.value')
-      result.table$mod_name = lapply(tmp.result, function(l) as.character(l[[1]]))
-      result.table = data.frame(ls.models[,1:2],result.table,stringsAsFactors = F)
+reg_phewasStyle <- function (ls.models,dat_short,dat_long,correctByFactor=F){
+      
+      result.table = ls.models %>% split(.,seq(nrow(.))) %>% 
+         pblapply(.,FUN = run_model,
+                           mod.dat_short=dat_short,mod.dat_long=dat_long) %>% 
+         bind_rows %>% 
+         as.data.frame %>% 
+         mutate(ls.models[,1:2])
       
       ls.factor=unique(ls.models$p_batch)
       result.table$p.corrected=99999
@@ -66,8 +75,7 @@ reg_phewasStyle <- function (ls.models,dat_short,dat_long=NA,correctByFactor=F){
             }
       }else{
             result.table$p.corrected=p.adjust(result.table$p.value,method='fdr')
-            
       }
-      
+      rownames(result.table)=NULL
       return(result.table)
 }

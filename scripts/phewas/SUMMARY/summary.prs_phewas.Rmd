@@ -54,6 +54,8 @@ g.path = f.dat_dir %>% strsplit(.,'/') %>% unlist %>%
 res.targetpT = list.files(g.path,pattern='^phewas_out',full.names = T,include.dirs = T) %>% 
   lapply(readRDS) %>%
   Reduce(function(dtf1,dtf2) bind_rows(dtf1,dtf2), .) %>% 
+  mutate(p.value = as.numeric(p.value),
+         beta=as.numeric(beta),std=as.numeric(std),t.value=as.numeric(t.value)) %>% 
   mutate(p.corrected = p.adjust(p.value,method='fdr')) %>% 
   mutate(mod_name=as.character(mod_name))
 
@@ -61,8 +63,8 @@ res.targetpT = list.files(g.path,pattern='^phewas_out',full.names = T,include.di
 tmp.findpt = res.targetpT %>% filter(dependent=='MDD_CIDI') %>% 
   .[grepl('MDD3',.$factor),] %>% 
   .[order(.$beta,decreasing = T),]
-pt=tmp.findpt$factor %>% head(n=1) %>% gsub('MDD3_Pt_','',.)
-target.pT = pt %>% 
+pt.prs=tmp.findpt$factor %>% head(n=1) %>% gsub('MDD3_Pt_','',.)
+target.pT = pt.prs %>% 
   gsub('\\.','\\\\.',.) %>% 
   paste0('Pt_',.)
 
@@ -83,7 +85,7 @@ res.targetpT.annot = res.targetpT %>%
 
 ### Summary
 
-At pT=`r pt`
+At pT=`r pt.prs`
 
 -   Significant associations with the MDD3 PRS: `r sum(res.targetpT.annot[grepl('MDD3',res.targetpT.annot$factor),'p.corrected']<0.05)`
 
@@ -207,7 +209,7 @@ ls.label = plot.dat %>%
 
 fig.MDD3=p_plot(TargetResult=plot.dat,color_theme_usr='Shen',
                 shape_sig=T,sig_nominal=F,
-           plot_title=paste0('MDD3 PRS (pT=',pt,')'),y_lim=310,
+           plot_title=paste0('MDD3 PRS (pT=',pt.prs,')'),y_lim=310,
            labels_annot=ls.label,add_category_name=T)
 
 fig.MDD3
@@ -234,7 +236,7 @@ ls.label = plot.dat %>%
 
 fig.Howard=p_plot(TargetResult=plot.dat,color_theme_usr='Shen',
                 shape_sig=T,sig_nominal=F,
-           plot_title=paste0('Howard PRS (pT=',pt,')'),y_lim=310,
+           plot_title=paste0('Howard PRS (pT=',pt.prs,')'),y_lim=310,
            labels_annot=ls.label,add_category_name=T)
 
 fig.Howard
@@ -364,36 +366,36 @@ figs=dat.fig$lv1 %>% unique %>%
 
 #### Mental health
 
-```{r,echo=F,warning=F,fig.height=5,fig.width=10}
+```{r,echo=F,warning=F,fig.height=8,fig.width=10}
 figs[[1]]
 ```
 
 #### Environment
 
-```{r,echo=F,warning=F,fig.height=4,fig.width=10}
+```{r,echo=F,warning=F,fig.height=13,fig.width=10}
 figs[[2]]
 ```
 
 #### Self-reported physical condition
 
-```{r,,echo=F,warning=F,fig.height=8,fig.width=10}
+```{r,,echo=F,warning=F,fig.height=10,fig.width=10}
 figs[[3]]
 ```
 
 #### Physical assessment
 
-```{r,,echo=F,warning=F,fig.height=4,fig.width=13}
+```{r,,echo=F,warning=F,fig.height=8,fig.width=13}
 figs[[4]]
 ```
 
 #### Brain and cognition
 
-```{r,,echo=F,warning=F,fig.height=8,fig.width=10}
+```{r,,echo=F,warning=F,fig.height=4.5,fig.width=10}
 figs[[5]]
 ```
 
 #### Brain and cognition (subcortical)
 
-```{r,,echo=F,warning=F,fig.height=8,fig.width=10}
+```{r,,echo=F,warning=F,fig.height=4.5,fig.width=10}
 figs[[6]]
 ```

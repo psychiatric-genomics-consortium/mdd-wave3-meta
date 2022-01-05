@@ -36,7 +36,7 @@ dir.create(file.path(output.path), showWarnings = FALSE)
 
 outcome.summstats=read_tsv(summ.outcome) %>%
    mutate(Beta=log(OR),N=2*Neff_half) %>% 
-   select(SNP,A1,A2,Beta,SE,P,Direction,af=FRQ_A_235237,CHR,BP,N) 
+   select(SNP,A1,A2,Beta,SE,P,Direction,af=FRQ_A_470188,CHR,BP,N) 
 
 
 # Process outcome data ----------------------------------------------------

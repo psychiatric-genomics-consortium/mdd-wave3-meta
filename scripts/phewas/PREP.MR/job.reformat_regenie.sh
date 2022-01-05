@@ -7,7 +7,7 @@
 #$ -l h_rt=5:00:00
 . /etc/profile.d/modules.sh
 
-module load igmm/apps/R/3.6.1
+module load igmm/apps/R/4.1.0
 
 
 Rscript scripts/phewas/PREP.MR/PREP.ukb_gwas_sumstats_reformat.R /exports/eddie/scratch/xshen33/phewas_gwas data/MR/MR_sumstats

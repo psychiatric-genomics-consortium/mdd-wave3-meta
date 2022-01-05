@@ -2,11 +2,11 @@
 title: "MR phewas result"
 author: X Shen  
 date: "\n`r format(Sys.time(), '%d %B, %Y')`"
-output: html_document
+output: github_document
 always_allow_html: true
 ---
 
-```{r library,echo=F,warning=F,error=F}
+```{r library,echo=F,warning=F,error=F,message=F}
 library(dplyr)
 library(tidyverse)
 library(data.table)
@@ -23,7 +23,7 @@ source(here::here('scripts/phewas/util/beta_p_plots_sig.R'))
 ```
 
 ```{r rendering docs, eval=F,echo=F}
-render('scripts/phewas/SUMMARY/summary.mr_phewas.Rmd',output_dir='docs/',output_file='summary.mr_phewas.md')
+render('scripts/phewas/SUMMARY/summary.mr_phewas.Rmd',output_dir='docs/',output_file='summary.mr_phewas.html')
 ```
 
 ------------------------------------------------------------------------
@@ -65,11 +65,17 @@ Details about MR analysis:
 
 The flow chart below shows the steps of obtaining GWAS sumstats:
 
-![](/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/docs/figures/mr_flowchart1.PNG)
+```{r,echo=F,message=F}
+knitr::include_graphics(here::here('docs/figures/mr_flowchart1.PNG'))
+```
+
 
 The flow chart below shows the steps of extracting instruments from GWAS sumstats:
 
-![](/exports/igmm/eddie/GenScotDepression/shen/ActiveProject/Collab/mdd-meta/docs/figures/mr_flowchart2.PNG)
+```{r,echo=F,message=F}
+knitr::include_graphics(here::here('docs/figures/mr_flowchart2.PNG'))
+```
+
 
 
 ------------------------------------------------------------------------
@@ -103,9 +109,7 @@ ref.two_level.category = data.frame(lv2=ref.category,stringsAsFactors = F) %>%
                            'Brain and cognition'))))
 
 mr.ukb = mr.ukb %>% 
-  left_join(.,ref.two_level.category,by=c('category'='lv2')) %>% 
-  mutate(b=ifelse(exposure %in% ls.neale.gwas,-b,b)) %>% 
-  mutate(b=ifelse(outcome %in% ls.neale.gwas,-b,b))
+  left_join(.,ref.two_level.category,by=c('category'='lv2')) 
 ```
 
 Valid causal effects are displayed if **ALL** of the following four criteria are met:
@@ -142,7 +146,7 @@ find_sig <- function(x.res,x.pheno,target.column){
 #### MDD as exposure
 
 ```{r,warning=F,echo=F}
-mr.ukb.mdd_to_pheno = mr.ukb %>% filter(exposure=='MDD') %>% 
+mr.ukb.mdd_to_pheno = mr.ukb %>% filter(exposure=='MDD',nsnp>=30) %>% 
   group_by(method) %>% 
   mutate(p.fdr = p.adjust(pval,method='fdr'),
          Q_p.fdr = p.adjust(Q_pval,method='fdr'),
@@ -176,6 +180,9 @@ dat.fig$Field = dat.fig$Field %>% as.list %>%
 figs.ukb.mdd_to_pheno=mr.sig.ukb.mdd_to_pheno$lv1 %>% unique %>% 
   as.list %>% 
   lapply(., beta_fig,tmp.dat.fig=dat.fig)
+
+saveRDS(ls.sig.mdd_to_pheno,file=here::here('data/MR/ls.sig.mdd_to_pheno_ukb.rds'))
+
 ```
 
 ##### Environment
@@ -237,6 +244,8 @@ figs.ukb.pheno_to_mdd=mr.sig.ukb.pheno_to_mdd$lv1 %>% unique %>%
   as.list %>% 
   lapply(., beta_fig,tmp.dat.fig=dat.fig)
 
+saveRDS(ls.sig.pheno_to_mdd,file=here::here('data/MR/ls.sig.pheno_to_mdd_ukb.rds'))
+
 ```
 
 ##### Environment
@@ -250,6 +259,18 @@ figs.ukb.pheno_to_mdd[[1]]
 ```{r,echo=F,warning=F,fig.height=5,fig.width=10}
 figs.ukb.pheno_to_mdd[[2]]
 ```
+
+
+
+```{r,echo=F,warning=F,message=F,error=F}
+res_mvmr = read_tsv(here::here('results/phewas/MR/mvmr/res_multivar.pheno_to_mdd.txt')) %>% 
+  mutate(p.fdr = p.adjust(pval,method='fdr')) %>% 
+  left_join(.,mr.ukb[mr.ukb$method=='Inverse variance weighted',c('exposure','label_exposure','pval')],by='exposure') %>% 
+  .[!duplicated(.$exposure),]
+  
+  
+```
+
 
 ------------------------------------------------------------------------
 ------------------------------------------------------------------------
