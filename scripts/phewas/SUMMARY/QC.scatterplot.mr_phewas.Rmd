@@ -2,7 +2,7 @@
 title: "MR phewas: scatter plots"
 author: X Shen  
 date: "\n`r format(Sys.time(), '%d %B, %Y')`"
-output: html_document
+output: github_document
 always_allow_html: true
 ---
 
