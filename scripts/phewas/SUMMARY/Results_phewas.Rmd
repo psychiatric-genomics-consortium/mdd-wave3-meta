@@ -48,8 +48,6 @@ library(ggpubr)
       Reduce(function(dtf1,dtf2) bind_rows(dtf1,dtf2[,colnames(dtf1)]), .)
     ```
 
-  
-
 ------------------------------------------------------------------------
 
 ### MR PheWAS

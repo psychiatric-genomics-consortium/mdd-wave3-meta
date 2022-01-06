@@ -143,9 +143,9 @@ ggarrange(plotlist = fig.MDD_to_pheno.per_trait.brain[1:10],
             labels=labels.brain[1:10],ncol=1)
 ```
 
-```{r, warning=F,echo=F,error=F,message=F,fig.width=14,fig.height=36,fig.align='center'}
-ggarrange(plotlist = fig.MDD_to_pheno.per_trait.brain[11:19],
-            labels=labels.brain[11:19],ncol=1)
+```{r, warning=F,echo=F,error=F,message=F,fig.width=14,fig.height=38,fig.align='center'}
+ggarrange(plotlist = fig.MDD_to_pheno.per_trait.brain[11:22],
+            labels=labels.brain[11:22],ncol=1)
 ```
 
 
@@ -224,7 +224,7 @@ load_scatter_fig_2 <- function(tmp.fnames){
 
 #### Environment
 
-```{r, warning=F,echo=F,error=F,message=F,fig.width=9,fig.height=28,fig.align='center'}
+```{r, warning=F,echo=F,error=F,message=F,fig.width=9,fig.height=20,fig.align='center'}
 fig.pheno_to_MDD.per_trait.env = key.ls.pheno_to_mdd %>% 
   filter(lv1=='Environment') %>% 
   select(ends_with('f_scatter')) %>%
@@ -240,7 +240,7 @@ ggarrange(plotlist = fig.pheno_to_MDD.per_trait.env,
 
 #### Self-reported and assessed physical condition
 
-```{r, warning=F,echo=F,error=F,message=F,fig.width=9,fig.height=56,fig.align='center'}
+```{r, warning=F,echo=F,error=F,message=F,fig.width=9,fig.height=40,fig.align='center'}
 fig.pheno_to_MDD.per_trait.physical = key.ls.pheno_to_mdd %>% 
   filter(lv1=='Self-reported and assessed physical condition') %>% 
   select(ends_with('f_scatter')) %>%
