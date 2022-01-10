@@ -97,6 +97,12 @@ It takes roughly 6 hours to run. Consider submitting the job script:
 qsub scripts/phewas/PREP.MR/job.download_sumstats.sh
 ```
 
+After downloading the sumstats, change bgz files to gz:
+```{bash, eval=F}
+for fn in `ls data/MR/MR_sumstats/meta/*.bgz`; do mv ${fn} ${fn//.bgz/.gz}; done
+for fn in `ls data/MR/MR_sumstats/*.bgz`; do mv ${fn} ${fn//.bgz/.gz}; done
+```
+
 #### Meta-analyse left & right separated phentypes
 
 Prepare sumstats for meta-analysis:
