@@ -22,12 +22,13 @@ pmid <- cff$references[[2]]$pmid
 pmcid <- cff$references[[2]]$pmcid
 doi <- cff$doi
 sumstats_url <- cff$references[[1]]$url
+code_url <- cff$`repository-code`
 
 analysis_version <- snakemake@params$analysis
 
-methods <- ""
-acknowledgments <- ""
-abstract <- ""
+methods <- "Summary statistics have been QC'd to Neff >= 80% of max(Neff) [Neff = effective sample size]"
+acknowledgments <- "The PGC has received funding from the US National Institute of Mental Health (5 U01MH109528-04). Statistical analyses were carried out on the Genetic Cluster Computer (http://www.geneticcluster.org) hosted by SURFsara and financially supported by the Netherlands Scientific Organization (NWO 480-05-003) along with a supplement from the Dutch Brain Foundation and the VU University Amsterdam."
+abstract <- cff$abstract
 
 # Genome build contig
 cat(str_glue("Reading contig {snakemake@input$fasta_fai}\n"))
@@ -40,8 +41,16 @@ daner <- read_tsv(snakemake@input$daner, col_types=cols(SNP=col_character()))
 # format contig
 daner_chr <- daner %>% select(CHR) %>% distinct(CHR) %>% mutate(CHR=as.character(CHR)) %>% pull(CHR)
 
+# map fai "X" -> "23"
+contig_lengths <- fasta_fai %>%
+mutate(CHR=case_when(NAME == "X" ~ "23",
+                     NAME == "XY" ~ "24",
+                     NAME == "MT" ~ "25",
+                     TRUE ~ NAME)) %>%
+filter(CHR %in% daner_chr) %>%
+mutate(contig=str_glue("##contig=<ID={CHR},length={LENGTH}>"))
 
-contig <- paste(fasta_fai %>%  filter(NAME %in% daner_chr) %>% mutate(contig=str_glue("##contig=<ID={NAME},length={LENGTH}>")) %>% pull(contig), collapse='\n')
+contig <- paste(pull(contig_lengths, contig), collapse='\n')
 
 # get number of cases and controls from the header
 frq_cols_split <- str_split(str_subset(names(daner), 'FRQ'), '_')
@@ -91,13 +100,13 @@ cohorts <- snakemake@wildcards$cohort
 cat(str_glue("Making sumstats file for cohorts: {cohorts}\n"))
 
 # check for an excluded cohort
-if (cohorts == 'full') {
+if (cohorts %in% c('full', 'top10k')) {
     keep <- TRUE
 } else if (str_detect(cohorts, '^no.+')) {
     no_cohort <- str_match(cohorts, '^no(.+)')[,2]
     keep <- which(c(genotype_cohorts, sumstats_cohorts) != no_cohort)
 } else {
-    stop(paste0("Expecting 'full' or 'noXYZ' for {cohort} argument, got '", cohorts, "'"))
+    stop(paste0("Expecting 'full', 'top10k', or 'noXYZ' for {cohort} argument, got '", cohorts, "'"))
 }
 
 # cohort lists
