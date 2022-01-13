@@ -179,7 +179,7 @@ rule cojo_table_eur:
     input: expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.cojo", version=analysis_version)
     output: "docs/tables/meta_snps_{cohorts}_{ancestries}.cojo.txt"
     shell: "cp {input} {output}"
-    
+
 # run all COJO analyses
 rule cojo_analyse:
     input: "docs/tables/meta_snps_full_eur.cojo.txt"
@@ -203,8 +203,7 @@ rule cojo_howard:
     input: HTTP.remote("https://static-content.springer.com/esm/art%3A10.1038%2Fs41593-018-0326-7/MediaObjects/41593_2018_326_MOESM3_ESM.xlsx", keep_local=False)
     output: "docs/tables/previous/howard2019_table_s1.xlsx"
     shell: "cp {input} {output}"
-        
-    
+
 rule cojo_docs:
     input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", rp_clump=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc", version=analysis_version), rmd="docs/cojo.Rmd"
     params: qc=meta_qc_params

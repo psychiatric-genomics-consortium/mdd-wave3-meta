@@ -29,19 +29,42 @@ rule vcf_fasta_grch38_fai:
 	shell: "cp {input} {output}"
 
 
-# Conversion of final sumstats
-vcf_sumstats_gz, = glob_wildcards("results/distribution/daner_{sumstats}.gz")
+# dbSNP reference files
+# GRCh37/hg19/b37
+rule vcf_dbsnp_grch37:
+    input: HTTP.remote("http://fileserve.mrcieu.ac.uk/dbsnp/dbsnp.v153.b37.vcf.gz")
+    output: "resources/dbsnp/human_grch37.dbsnp.v153.vcf.gz"
+    shell: "cp {input} {output}"
+
+rule vcf_dbsnp_grch37_tbi:
+    input: HTTP.remote("http://fileserve.mrcieu.ac.uk/dbsnp/dbsnp.v153.b37.vcf.gz.tbi")
+    output: "resources/dbsnp/human_grch37.dbsnp.v153.vcf.gz.tbi"
+    shell: "cp {input} {output}"
+
+rule vcf_dbsnp_grch38:
+    input: HTTP.remote("http://fileserve.mrcieu.ac.uk/dbsnp/dbsnp.v153.hg38.vcf.gz")
+    output: "resources/dbsnp/human_grch38.dbsnp.vcf.gz"
+    shell: "cp {input} {output}"
+
+rule vcf_dbsnp_grch38_tbi:
+    input: HTTP.remote("http://fileserve.mrcieu.ac.uk/dbsnp/dbsnp.v153.hg38.vcf.gz.tbi")
+    output: "resources/dbsnp/human_grch38.dbsnp.v153.vcf.gz.tbi"
+    shell: "cp {input} {output}"
+
+# # Conversion of final sumstats
+# vcf_sumstats_gz, = glob_wildcards("results/distribution/daner_{sumstats}.gz")
 
 # Convert OR to Log-Odds
+# convert CHR "23" to "X" to match fasta files
 rule vcf_logOR:
-    input: "results/distribution/daner_{sumstats}.gz"
+    input: "results/distribution/daner_{sumstats}.rp.gz"
     output: "results/vcf/beta/{sumstats}.gz"
-    shell: "gunzip -c {input} | tail -n +2 | awk '{{print $1, $3, $4, $5, log($9), $10, $11, $2, $7, $8, $17, $18}}' | gzip -c > {output}"
+    shell: "gunzip -c {input} | tail -n +2 | awk '{{if($1 == 23) ($1 = \"X\"); print $1, $3, $4, $5, log($9), $10, $11, $2, $7, $8, $17, $18}}' | gzip -c > {output}"
 
 # Parameter file for VCF conversion (json)
 builds = {"19": "GRCh37", "38": "GRCh38"}
 rule vcf_daner2vcf_json:
-    input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.gz"
+    input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.rp.gz"
     output: vcf="results/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json"
     log: "logs/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json.log"
     run:
@@ -67,20 +90,21 @@ rule vcf_daner2vcf_json:
                         "build": "{build}".format(build=builds[wildcards.hg]),
                         "cohort_cases": cohort_cases,
                         "cohort_controls": cohort_controls,
-                        "id": "pgc_mdd_{cohorts}_{pops}_v{analysis}".format(analysis=wildcards.analysis, cohorts=wildcards.cohorts, pops=wildcards.ancestries.upper())},
+                        "id": "pgc-mdd2022-{cohorts}-{pops}-v{analysis}".format(analysis=wildcards.analysis, cohorts=wildcards.cohorts, pops=wildcards.ancestries.upper())},
                      out)
 
 
 
 rule vcf_daner2vcf:
-    input: beta="results/vcf/beta/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.gz", json="results/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json", fasta=lambda wildcards: expand("resources/fasta/human_{build}.fasta", build=builds[wildcards.hg].lower()), fai=lambda wildcards: expand("resources/fasta/human_{build}.fasta.fai", build=builds[wildcards.hg].lower()), gwas2vcf=rules.vcf_install_gwas2vcf.output
+    input: beta="results/vcf/beta/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.gz", json="results/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json", fasta=lambda wildcards: expand("resources/fasta/human_{build}.fasta", build=builds[wildcards.hg].lower()), fai=lambda wildcards: expand("resources/fasta/human_{build}.fasta.fai", build=builds[wildcards.hg].lower()), dbsnp=lambda wildcards: expand("resources/dbsnp/human_{build}.dbsnp.v153.vcf.gz", build=builds[wildcards.hg].lower()), dbsnp_tbi=lambda wildcards: expand("resources/dbsnp/human_{build}.dbsnp.v153.vcf.gz.tbi", build=builds[wildcards.hg].lower()), gwas2vcf=rules.vcf_install_gwas2vcf.output
     output: "results/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.vcf.gz"
     log: "logs/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.log"
     conda: "../envs/vcf.yaml"
-    shell: "python resources/vendor/gwas2vcf/main.py --out {output} --data {input.beta} --json {input.json} --ref {input.fasta} > {log}"
+    shell: "python resources/vcf/vendor/gwas2vcf/main.py --out {output} --data {input.beta} --json {input.json} --ref {input.fasta} --dbsnp {input.dbsnp} > {log}"
 
-rule vcf:
-    input: expand("results/vcf/{sumstats}.vcf.gz", sumstats=vcf_sumstats_gz)
+
+# rule vcf:
+#     input: expand("results/vcf/{sumstats}.vcf.gz", sumstats=vcf_sumstats_gz)
     
 # VCF-like PGC sumstats file
 # Pull in daner file for sumstats, fai file for genome build info, basic.num file

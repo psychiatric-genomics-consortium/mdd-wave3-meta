@@ -40,5 +40,12 @@ rule postimp_rp_clumped:
     output: "docs/tables/meta_snps_full_{ancestries}.clump.txt"
     shell: "cp {input} {output}"
     
+# filter top10k clumped results
+rule postimp_rp_top10k:
+    input: auto="results/meta/pgc_mdd_full_{ancestries}_hg19_v{version}.top10k.clumped.xmhc.gz", allo="results/meta/X/pgc_mdd_full_{ancestries}_hg19_v{version}.neff.top10k.clumped", daner="results/meta/distribution/pgc_mdd_full_{ancestries}_hg19_v{version}/daner_pgc_mdd_full_{ancestries}_hg19_v{version}.rp.gz", cojo="docs/tables/meta_snps_full_{ancestries}.cojo.txt", clump="docs/tables/meta_snps_full_{ancestries}.clump.txt" 
+    output: "results/meta/distribution/pgc_mdd_top10k_{ancestries}_hg19_v{version}/daner_pgc_mdd_top10k_{ancestries}_hg19_v{version}.neff.gz"
+    conda: "../envs/meta.yaml"
+    script: "../scripts/meta/rp_top10k.R"
+    
 rule postimp_rp_clumped_txt:
     input: "docs/tables/meta_snps_full_eur.clump.txt"
