@@ -9,6 +9,7 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(UpSetR)
+library(genpwr)
 library(ggplot2)
 ```
 
@@ -54,7 +55,7 @@ wray <- read_tsv(snakemake@input$wray) %>%
 
     ## Rows: 44 Columns: 11
 
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr (6): Region (Mb), SNP, P, A1/A2, Prev., Gene context
     ## dbl (4): Chr., OR (A1), s.e. (log(OR)), Freq.
@@ -107,7 +108,7 @@ cojo <- read_tsv(snakemake@input$cojo)
 
     ## Rows: 552 Columns: 28
 
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (4): SNP, A1, A2, Direction
     ## dbl (24): region, snp_idx, CHR, BP, FRQ_A_524857, FRQ_U_3059006, INFO, OR, S...
@@ -128,7 +129,7 @@ rp <- read_table2(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
     ## Please use `read_table()` instead.
 
     ## 
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   SNP = col_character(),
@@ -394,6 +395,15 @@ rp_genes_dist %>% filter(SNP %in% cojo_new$SNP) %>% group_by(SNP) %>% filter(dis
     ## 10 ETV6    
     ## # … with 364 more rows
 
+Calculate power for previous versus current GWAS
+
+``` r
+# use sum of effective sample sizes and case rate of 50% rather than sum of cases and controls
+levey_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=938012, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
+
+mdd2022_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=2*776935, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
+```
+
 ``` r
 frq_u_col <- str_subset(names(cojo), 'FRQ_U')
 
@@ -401,15 +411,21 @@ cojo_known_novel <- bind_rows(
 mutate(cojo_known, assoc='Known'),
 mutate(cojo_new, assoc='Novel')) %>%
 mutate(BETA=log(OR)) %>%
-select(assoc, BETA, FRQ=starts_with('FRQ_U')) %>%
+select(SNP, assoc, OR, BETA, FRQ=starts_with('FRQ_U')) %>%
 mutate(MAF=if_else(FRQ <= 0.5, true=FRQ, false=1-FRQ))
 
-ggplot(cojo_known_novel, aes(x=MAF, y=abs(BETA), colour=assoc)) + 
-geom_point() +
-scale_y_continuous(limits=c(0, 0.065))
+power_known_novel <- bind_rows(
+transmute(levey_power, Power='Levey', MAF, OR=`OR_at_Alpha_5e-08`),
+transmute(mdd2022_power, Power='MDD2022', MAF, OR=`OR_at_Alpha_5e-08`)
+)
+
+ggplot(cojo_known_novel, aes(x=MAF, y=exp(abs(BETA)))) + 
+geom_point(aes(color=assoc)) +
+geom_line(mapping=aes(y=OR, linetype=Power), data=power_known_novel, size=1) +
+scale_y_continuous('OR', limits=c(1, 1.1))
 ```
 
-    ## Warning: Removed 1 rows containing missing values (geom_point).
+    ## Warning: Removed 2 row(s) containing missing values (geom_path).
 
 ![](cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
 
