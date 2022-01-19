@@ -23,7 +23,7 @@ f.PRS = args[9]
 f.localgwas = args[10]
 d.output = args[10]
 
-# 
+
 # f.dat.brain = 'data/dat.imaging_chunk.rds'
 # f.dat.cog = 'data/dat.cognition_chunk.rds'
 # f.dat.diet = 'data/dat.diet_chunk.rds'

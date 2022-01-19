@@ -24,7 +24,7 @@ beta_fig <- function(tmp.dat.fig,target.cat=NA,fig.output='results/phewas/figs/'
     plot.margin=unit(c(1,1,1,3),'mm'),
     legend.position = "bottom") +
   ylab("Standardised effect size") + xlab("\n\n") +
-  #scale_y_continuous(limits=c(0,3))+
+  #scale_y_continuous(limits=c(-3,3))+
   #scale_y_reverse()+
   scale_x_discrete(position='top')+
   geom_hline(yintercept=0,color = "black", size=0.3)+
@@ -39,11 +39,11 @@ beta_fig <- function(tmp.dat.fig,target.cat=NA,fig.output='results/phewas/figs/'
   if(!is.na(fig.output)&(sum(nchar(cat.dat$Field)>50)>5)){
     fig.output=fig.output %>% paste0(.,'/fig.compare.',target.cat %>% gsub(' ','',.) %>% gsub('(','',.,fixed = T) %>% gsub(')','',.),'.png')
       ggsave(plot = fig.tmp,filename = here::here(fig.output),
-             device='png',units='cm',width=28,height=2+0.4*nrow(cat.dat))
+             device='png',units='cm',width=35,height=2+0.4*nrow(cat.dat))
   }else if(!is.na(fig.output)){
     fig.output=fig.output %>% paste0(.,'/fig.compare.',target.cat %>% gsub(' ','',.) %>% gsub('(','',.,fixed = T) %>% gsub(')','',.),'.png')
     ggsave(plot = fig.tmp,filename = here::here(fig.output),
-             device='png',units='cm',width=28,height=2+0.26*nrow(cat.dat))
+             device='png',units='cm',width=35,height=2+0.26*nrow(cat.dat))
   }
   
   return(fig.tmp)

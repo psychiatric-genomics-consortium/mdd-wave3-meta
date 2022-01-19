@@ -58,7 +58,7 @@ inputs.gwas = readRDS(gwas.f_and_label)
 ### Load ref data
 # Neale gwas
 ref.neale = fread(f.Neale) %>% 
-   filter(info>0.8,minor_AF>0.0005) %>% 
+   filter(info>0.1,minor_AF>0.005) %>% 
    select(variant,A1=ref,A2=alt,rsid,info,freq=AF,chr,pos,n=n_called)
 # BIG40 IDP gwas
 ref.big40 = fread(f.big40) 

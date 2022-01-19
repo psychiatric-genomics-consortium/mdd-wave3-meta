@@ -65,58 +65,58 @@ if (!file.exists('data/MR/MR_sumstats/BIG40/variants.txt.gz')&
 # Downloaded sumstats -----------------------------------------------------
 
 ls.downloaded = list.files(path = d.output,pattern = '.txt.gz|.tsv.bgz|.tsv.gz',
-                                  full.names = T,recursive = T) %>% 
-  c(.,gsub('tsv.gz','tsv.bgz',.)) %>% 
+                                  full.names = T,recursive = T) %>%
+  c(.,gsub('tsv.gz','tsv.bgz',.)) %>%
   unique
 
 # Download single GWAS ----------------------------------------------------
 # phenotypes
-ls.single.phewas.1 = fields.single$field_used %>% 
+ls.single.phewas.1 = fields.single$field_used %>%
   paste0('^',.,'$',collapse = '|')
-ls.single.phewas.2 = fields.single$field_used %>% 
+ls.single.phewas.2 = fields.single$field_used %>%
   paste0('^',.,'_',collapse = '|')
-ls.single.phewas = c(ls.single.phewas.1,ls.single.phewas.2) %>% 
+ls.single.phewas = c(ls.single.phewas.1,ls.single.phewas.2) %>%
   paste0(.,collapse = '|')
 rm(ls.single.phewas.1,ls.single.phewas.2)
 
 
 # Neale lab
-ls.single.neale = neale.gwasls %>% 
-  .[grepl(ls.single.phewas,.$`Phenotype Code`),] %>% 
-  filter(Sex=='both_sexes') %>% 
-  .[!grepl('irnt',.$`Phenotype Code`)]
-ls.rm.multiple = ls.single.neale$`Phenotype Code` %>% 
-  strsplit(.,split = '_') %>% lapply(FUN=function(x) x[1]) %>% 
-  unlist %>% 
-  .[duplicated(.)] %>% unique %>% 
+ls.single.neale = neale.gwasls %>%
+  .[grepl(ls.single.phewas,.$`Phenotype Code`),] %>%
+  filter(Sex=='both_sexes') %>%
+  .[!grepl('_raw',.$`Phenotype Code`)]
+ls.rm.multiple = ls.single.neale$`Phenotype Code` %>%
+  strsplit(.,split = '_') %>% lapply(FUN=function(x) x[1]) %>%
+  unlist %>%
+  .[duplicated(.)] %>% unique %>%
   paste0('^',.,'_',collapse = '|')
-ls.single.neale = ls.single.neale %>% 
-  .[!grepl(ls.rm.multiple,.$`Phenotype Code`),] %>% 
-  mutate(field_used = strsplit(.$`Phenotype Code`,split = '_') %>% lapply(FUN=function(x) x[1]) %>% 
-           unlist) %>% 
-  mutate(wget_command=gsub('-O ',paste0('-O ',d.output,'/'),`wget command`)) %>% 
-  mutate(file_loc=wget_command %>% strsplit(.,' -O ') %>% lapply(tail,n=1) %>% unlist) %>% 
+ls.single.neale = ls.single.neale %>%
+  .[!grepl(ls.rm.multiple,.$`Phenotype Code`),] %>%
+  mutate(field_used = strsplit(.$`Phenotype Code`,split = '_') %>% lapply(FUN=function(x) x[1]) %>%
+           unlist) %>%
+  mutate(wget_command=gsub('-O ',paste0('-O ',d.output,'/'),`wget command`)) %>%
+  mutate(file_loc=wget_command %>% strsplit(.,' -O ') %>% lapply(tail,n=1) %>% unlist) %>%
   .[!.$file_loc %in% ls.downloaded,]
 
 # BIG40
-ls.single.big40 = big40.gwasls %>% 
-  .[grepl(ls.single.phewas,.$`UKB.ID`),] %>% 
+ls.single.big40 = big40.gwasls %>%
+  .[grepl(ls.single.phewas,.$`UKB.ID`),] %>%
   mutate(wget_command = paste0('curl -o ',d.output,'/IDP_',`UKB.ID`,'.txt.gz -L -C - https://open.win.ox.ac.uk/ukbiobank/big40/release2/stats33k/',
-                              Pheno,'.txt.gz')) %>% 
-  mutate(field_used=UKB.ID) %>% 
-  mutate(file_loc=wget_command %>% strsplit(.,' ') %>% 
-           lapply(head,n=3) %>% lapply(tail,n=1) %>% unlist) %>% 
+                              Pheno,'.txt.gz')) %>%
+  mutate(field_used=UKB.ID) %>%
+  mutate(file_loc=wget_command %>% strsplit(.,' ') %>%
+           lapply(head,n=3) %>% lapply(tail,n=1) %>% unlist) %>%
   .[!.$file_loc %in% ls.downloaded,]
 
 # Download
-ls.single.neale$wget_command %>% 
-  c(.,ls.single.big40$wget_command) %>% 
-  as.list %>% 
+ls.single.neale$wget_command %>%
+  c(.,ls.single.big40$wget_command) %>%
+  as.list %>%
   pblapply(.,system)
 
 ls.single = ls.single.neale %>%
   select(wget_command,field_used,file_loc) %>%
-  rbind(ls.single.big40[,c('wget_command','field_used','file_loc')]) %>% 
+  rbind(ls.single.big40[,c('wget_command','field_used','file_loc')]) %>%
   left_join(.,fields.all[,c('field_used','field_tag')],by='field_used')
 
 saveRDS(ls.single,file=paste0('data/MR/single.ls.rds'))
@@ -137,7 +137,7 @@ rm(ls.multiple.phewas.1,ls.multiple.phewas.2)
 ls.multiple.neale = neale.gwasls %>% 
   .[grepl(ls.multiple.phewas,.$`Phenotype Code`),] %>% 
   filter(Sex=='both_sexes') %>% 
-  .[!grepl('irnt',.$`Phenotype Code`)]
+  .[!grepl('_raw',.$`Phenotype Code`)]
 ls.rm.multiple = ls.multiple.neale$`Phenotype Code` %>% 
   strsplit(.,split = '_') %>% lapply(FUN=function(x) x[1]) %>% 
   unlist %>% 

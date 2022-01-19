@@ -78,8 +78,8 @@ inputs.mr.mdd_pheno = data.frame(file_exposure = f.mdd_exposure,
          category,output_prefix)
 
 inputs.mr.pheno_mr = data.frame(file_exposure = f.pheno_exposure,
-                                 file_outcome = f.mdd_outcome,
-                                 stringsAsFactors = F) %>% 
+                                file_outcome = f.mdd_outcome,
+                                stringsAsFactors = F) %>% 
   mutate(name_exposure=get_name(file_exposure),
          name_outcome='MDD') %>% 
   mutate(label_outcome=name_outcome) %>% 

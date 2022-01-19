@@ -47,7 +47,7 @@ fields.meta = fields.multiple %>%
 
 # Neale gwas
 neale.gwasls = fread(f.Neale)
-ref.neale = fread(paste0(d.output,'/Neale/variants.tsv.gz')) %>% 
+ref.neale = fread(here::here(paste0(d.output,'/Neale/variants.tsv.gz'))) %>% 
   filter(info>0.8,minor_AF>0.0005) %>% 
   select(variant,A1=alt,A2=ref,rsid,info,freq=AF,chr,pos,n=n_called)
   
@@ -137,5 +137,5 @@ if (!file.exists('data/MR/mtag_list')){
            file_2=gsub('.txt.gz','_formetal.txt.gz',file_2,fixed = T),
            file_2=gsub('.tsv.gz','_formetal.txt.gz',file_2,fixed = T)) %>% 
     select(file_1,file_2,file_mtag)
-  write_tsv(mtag.input,path='data/MR/mtag_list',col_names = F)
+  write_tsv(mtag.input,file='data/MR/mtag_list',col_names = F)
 }
