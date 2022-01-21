@@ -71,7 +71,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Overall acceleration average
 
@@ -117,7 +117,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Standard deviation of acceleration
 
@@ -163,7 +163,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Monday average acceleration
 
@@ -209,7 +209,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Tuesday average acceleration
 
@@ -255,7 +255,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Wednesday average acceleration
 
@@ -301,7 +301,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Thursday average acceleration
 
@@ -347,7 +347,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Friday average acceleration
 
@@ -393,7 +393,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Saturday average acceleration
 
@@ -439,7 +439,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Sunday average acceleration
 
@@ -485,7 +485,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 00:00 - 00:59
 
@@ -531,7 +531,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 01:00 - 01:59
 
@@ -577,7 +577,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 02:00 - 02:59
 
@@ -623,7 +623,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 03:00 - 03:59
 
@@ -669,7 +669,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 04:00 - 04:59
 
@@ -715,7 +715,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 05:00 - 05:59
 
@@ -761,7 +761,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 06:00 - 06:59
 
@@ -807,7 +807,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 07:00 - 07:59
 
@@ -853,7 +853,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 08:00 - 08:59
 
@@ -899,7 +899,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 09:00 - 09:59
 
@@ -945,7 +945,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 10:00 - 10:59
 
@@ -991,7 +991,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 11:00 - 11:59
 
@@ -1037,7 +1037,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 12:00 - 12:59
 
@@ -1083,7 +1083,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 13:00 - 13:59
 
@@ -1129,7 +1129,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 14:00 - 14:59
 
@@ -1175,7 +1175,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 15:00 - 15:59
 
@@ -1221,7 +1221,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 16:00 - 16:59
 
@@ -1267,7 +1267,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 17:00 - 17:59
 
@@ -1313,7 +1313,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 18:00 - 18:59
 
@@ -1359,7 +1359,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 19:00 - 19:59
 
@@ -1405,7 +1405,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 20:00 - 20:59
 
@@ -1451,7 +1451,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 21:00 - 21:59
 
@@ -1497,7 +1497,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 22:00 - 22:59
 
@@ -1543,7 +1543,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average acceleration 23:00 - 23:59
 
@@ -1589,7 +1589,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 No-wear time bias adjusted average acceleration
 
@@ -1635,7 +1635,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 No-wear time bias adjusted acceleration standard deviation
 
@@ -1681,7 +1681,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 No-wear time bias adjusted acceleration median
 
@@ -1727,7 +1727,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 No-wear time bias adjusted acceleration minimum
 
@@ -1773,7 +1773,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 No-wear time bias adjusted acceleration maximum
 
@@ -1819,7 +1819,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 1 milli-gravities
 
@@ -1865,7 +1865,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 2 milli-gravities
 
@@ -1911,7 +1911,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 3 milli-gravities
 
@@ -1957,7 +1957,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 4 milli-gravities
 
@@ -2003,7 +2003,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 5 milli-gravities
 
@@ -2049,7 +2049,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 6 milli-gravities
 
@@ -2095,7 +2095,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 7 milli-gravities
 
@@ -2141,7 +2141,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 8 milli-gravities
 
@@ -2187,7 +2187,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 9 milli-gravities
 
@@ -2233,7 +2233,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 10 milli-gravities
 
@@ -2279,7 +2279,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 11 milli-gravities
 
@@ -2325,7 +2325,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 12 milli-gravities
 
@@ -2371,7 +2371,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 13 milli-gravities
 
@@ -2417,7 +2417,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 14 milli-gravities
 
@@ -2463,7 +2463,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 15 milli-gravities
 
@@ -2509,7 +2509,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 16 milli-gravities
 
@@ -2555,7 +2555,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 17 milli-gravities
 
@@ -2601,7 +2601,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 18 milli-gravities
 
@@ -2647,7 +2647,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 19 milli-gravities
 
@@ -2693,7 +2693,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 20 milli-gravities
 
@@ -2739,7 +2739,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 25 milli-gravities
 
@@ -2785,7 +2785,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 30 milli-gravities
 
@@ -2831,7 +2831,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 35 milli-gravities
 
@@ -2877,7 +2877,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 40 milli-gravities
 
@@ -2923,7 +2923,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 45 milli-gravities
 
@@ -2969,7 +2969,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 50 milli-gravities
 
@@ -3015,7 +3015,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 55 milli-gravities
 
@@ -3061,7 +3061,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 60 milli-gravities
 
@@ -3107,7 +3107,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 65 milli-gravities
 
@@ -3153,7 +3153,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 70 milli-gravities
 
@@ -3199,7 +3199,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 75 milli-gravities
 
@@ -3245,7 +3245,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 80 milli-gravities
 
@@ -3291,7 +3291,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 85 milli-gravities
 
@@ -3337,7 +3337,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 90 milli-gravities
 
@@ -3383,7 +3383,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 95 milli-gravities
 
@@ -3429,7 +3429,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 100 milli-gravities
 
@@ -3475,7 +3475,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 125 milli-gravities
 
@@ -3521,7 +3521,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 150 milli-gravities
 
@@ -3567,7 +3567,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 175 milli-gravities
 
@@ -3613,7 +3613,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 200 milli-gravities
 
@@ -3659,7 +3659,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 225 milli-gravities
 
@@ -3705,7 +3705,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 250 milli-gravities
 
@@ -3751,7 +3751,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 275 milli-gravities
 
@@ -3797,7 +3797,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 300 milli-gravities
 
@@ -3843,7 +3843,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 325 milli-gravities
 
@@ -3889,7 +3889,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 350 milli-gravities
 
@@ -3935,7 +3935,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 375 milli-gravities
 
@@ -3981,7 +3981,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 400 milli-gravities
 
@@ -4027,7 +4027,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 425 milli-gravities
 
@@ -4073,7 +4073,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 450 milli-gravities
 
@@ -4119,7 +4119,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 475 milli-gravities
 
@@ -4165,7 +4165,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 500 milli-gravities
 
@@ -4211,7 +4211,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 600 milli-gravities
 
@@ -4257,7 +4257,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 700 milli-gravities
 
@@ -4303,7 +4303,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 800 milli-gravities
 
@@ -4349,7 +4349,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 900 milli-gravities
 
@@ -4395,7 +4395,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 1000 milli-gravities
 
@@ -4441,7 +4441,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 1100 milli-gravities
 
@@ -4487,7 +4487,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 1200 milli-gravities
 
@@ -4533,7 +4533,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 1300 milli-gravities
 
@@ -4579,7 +4579,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 1400 milli-gravities
 
@@ -4625,7 +4625,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 1500 milli-gravities
 
@@ -4671,7 +4671,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 1600 milli-gravities
 
@@ -4717,7 +4717,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 1700 milli-gravities
 
@@ -4763,7 +4763,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 1800 milli-gravities
 
@@ -4809,7 +4809,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 1900 milli-gravities
 
@@ -4855,7 +4855,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fraction acceleration \<= 2000 milli-gravities
 
@@ -4901,7 +4901,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Wear duration overall
 
@@ -4947,7 +4947,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Calibration coefficients - x offset
 
@@ -4993,7 +4993,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Calibration coefficients - y offset
 
@@ -5039,7 +5039,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Calibration coefficients - z offset
 
@@ -5085,7 +5085,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Calibration coefficients - x slope
 
@@ -5131,7 +5131,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Calibration coefficients - y slope
 
@@ -5177,7 +5177,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Calibration coefficients - z slope
 
@@ -5223,7 +5223,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Calibration coefficients - x temp
 
@@ -5269,7 +5269,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Calibration coefficients - y temp
 
@@ -5315,7 +5315,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Calibration coefficients - z temp
 
@@ -5361,7 +5361,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 UK Biobank assessment centre
 
@@ -5407,7 +5407,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age when attended assessment centre
 
@@ -5453,7 +5453,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 UK Biobank assessment centre
 
@@ -5499,7 +5499,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age when attended assessment centre
 
@@ -5545,7 +5545,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Sex
 
@@ -5591,7 +5591,7 @@ cov.age\_mhq
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Covariate: Age for Online mental health questionnaire
 
@@ -5637,7 +5637,7 @@ cov.genotyping.array
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Covariate: genotyping array
 
@@ -5683,7 +5683,7 @@ cov.pc1
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Covariate: genetic PC1
 
@@ -5729,7 +5729,7 @@ cov.pc2
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Covariate: genetic PC2
 
@@ -5775,7 +5775,7 @@ cov.pc3
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Covariate: genetic PC3
 
@@ -5821,7 +5821,7 @@ cov.pc4
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Covariate: genetic PC4
 
@@ -5867,7 +5867,7 @@ cov.pc5
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Covariate: genetic PC5
 
@@ -5913,7 +5913,7 @@ cov.pc6
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Covariate: genetic PC6
 
@@ -5959,7 +5959,7 @@ cov.pc7
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Covariate: genetic PC7
 
@@ -6005,7 +6005,7 @@ cov.pc8
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Covariate: genetic PC8
 
@@ -6051,7 +6051,7 @@ cov.pc9
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Covariate: genetic PC9
 
@@ -6097,7 +6097,7 @@ cov.pc10
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Covariate: genetic PC10
 
@@ -6143,7 +6143,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of peripheral cortical grey matter (normalised for head size)
 
@@ -6189,7 +6189,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of peripheral cortical grey matter
 
@@ -6235,7 +6235,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of ventricular cerebrospinal fluid (normalised for head size)
 
@@ -6281,7 +6281,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of ventricular cerebrospinal fluid
 
@@ -6327,7 +6327,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of grey matter (normalised for head size)
 
@@ -6373,7 +6373,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of grey matter
 
@@ -6419,7 +6419,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of white matter (normalised for head size)
 
@@ -6465,7 +6465,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of white matter
 
@@ -6511,7 +6511,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of brain, grey+white matter (normalised for head size)
 
@@ -6557,7 +6557,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of brain, grey+white matter
 
@@ -6603,7 +6603,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of brain stem + 4th ventricle
 
@@ -6649,7 +6649,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Median BOLD effect (in group-defined mask) for shapes activation
 
@@ -6695,7 +6695,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Median z-statistic (in group-defined mask) for shapes activation
 
@@ -6741,7 +6741,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Median BOLD effect (in group-defined mask) for faces activation
 
@@ -6787,7 +6787,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Median z-statistic (in group-defined mask) for faces activation
 
@@ -6833,7 +6833,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Median BOLD effect (in group-defined mask) for faces-shapes contrast
 
@@ -6879,7 +6879,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Median z-statistic (in group-defined mask) for faces-shapes contrast
 
@@ -6925,7 +6925,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Median BOLD effect (in group-defined amygdala activation mask) for
 faces-shapes contrast
@@ -6972,7 +6972,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Median z-statistic (in group-defined amygdala activation mask) for
 faces-shapes contrast
@@ -7019,7 +7019,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract acoustic radiation (left)
 
@@ -7065,7 +7065,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract anterior thalamic radiation (left)
 
@@ -7111,7 +7111,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract cingulate gyrus part of cingulum (left)
 
@@ -7157,7 +7157,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract parahippocampal part of cingulum (left)
 
@@ -7203,7 +7203,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract corticospinal tract (left)
 
@@ -7249,7 +7249,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract forceps major
 
@@ -7295,7 +7295,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract forceps minor
 
@@ -7341,7 +7341,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract inferior fronto-occipital fasciculus (left)
 
@@ -7387,7 +7387,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract inferior longitudinal fasciculus (left)
 
@@ -7433,7 +7433,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract middle cerebellar peduncle
 
@@ -7479,7 +7479,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract medial lemniscus (left)
 
@@ -7525,7 +7525,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract posterior thalamic radiation (left)
 
@@ -7571,7 +7571,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract superior longitudinal fasciculus (left)
 
@@ -7617,7 +7617,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract superior thalamic radiation (left)
 
@@ -7663,7 +7663,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean FA in tract uncinate fasciculus (left)
 
@@ -7709,7 +7709,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract acoustic radiation (left)
 
@@ -7755,7 +7755,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract anterior thalamic radiation (left)
 
@@ -7801,7 +7801,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract cingulate gyrus part of cingulum (left)
 
@@ -7847,7 +7847,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract parahippocampal part of cingulum (left)
 
@@ -7893,7 +7893,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract corticospinal tract (left)
 
@@ -7939,7 +7939,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract forceps major
 
@@ -7985,7 +7985,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract forceps minor
 
@@ -8031,7 +8031,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract inferior fronto-occipital fasciculus (left)
 
@@ -8077,7 +8077,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract inferior longitudinal fasciculus (left)
 
@@ -8123,7 +8123,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract middle cerebellar peduncle
 
@@ -8169,7 +8169,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract medial lemniscus (left)
 
@@ -8215,7 +8215,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract posterior thalamic radiation (left)
 
@@ -8261,7 +8261,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract superior longitudinal fasciculus (left)
 
@@ -8307,7 +8307,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract superior thalamic radiation (left)
 
@@ -8353,7 +8353,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MD in tract uncinate fasciculus (left)
 
@@ -8399,7 +8399,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract acoustic radiation (left)
 
@@ -8445,7 +8445,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract anterior thalamic radiation (left)
 
@@ -8491,7 +8491,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract cingulate gyrus part of cingulum (left)
 
@@ -8537,7 +8537,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract parahippocampal part of cingulum (left)
 
@@ -8583,7 +8583,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract corticospinal tract (left)
 
@@ -8629,7 +8629,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract forceps major
 
@@ -8675,7 +8675,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract forceps minor
 
@@ -8721,7 +8721,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract inferior fronto-occipital fasciculus (left)
 
@@ -8767,7 +8767,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract inferior longitudinal fasciculus (left)
 
@@ -8813,7 +8813,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract middle cerebellar peduncle
 
@@ -8859,7 +8859,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract medial lemniscus (left)
 
@@ -8905,7 +8905,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract posterior thalamic radiation (left)
 
@@ -8951,7 +8951,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract superior longitudinal fasciculus (left)
 
@@ -8997,7 +8997,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract superior thalamic radiation (left)
 
@@ -9043,7 +9043,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean MO in tract uncinate fasciculus (left)
 
@@ -9089,7 +9089,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract acoustic radiation (left)
 
@@ -9135,7 +9135,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract anterior thalamic radiation (left)
 
@@ -9181,7 +9181,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract cingulate gyrus part of cingulum (left)
 
@@ -9227,7 +9227,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract parahippocampal part of cingulum (left)
 
@@ -9273,7 +9273,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract corticospinal tract (left)
 
@@ -9319,7 +9319,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract forceps major
 
@@ -9365,7 +9365,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract forceps minor
 
@@ -9411,7 +9411,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract inferior fronto-occipital fasciculus (left)
 
@@ -9457,7 +9457,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract inferior longitudinal fasciculus (left)
 
@@ -9503,7 +9503,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract middle cerebellar peduncle
 
@@ -9549,7 +9549,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract medial lemniscus (left)
 
@@ -9595,7 +9595,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract posterior thalamic radiation (left)
 
@@ -9641,7 +9641,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract superior longitudinal fasciculus (left)
 
@@ -9687,7 +9687,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract superior thalamic radiation (left)
 
@@ -9733,7 +9733,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ICVF in tract uncinate fasciculus (left)
 
@@ -9779,7 +9779,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract acoustic radiation (left)
 
@@ -9825,7 +9825,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract anterior thalamic radiation (left)
 
@@ -9871,7 +9871,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract cingulate gyrus part of cingulum (left)
 
@@ -9917,7 +9917,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract parahippocampal part of cingulum (left)
 
@@ -9963,7 +9963,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract corticospinal tract (left)
 
@@ -10009,7 +10009,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract forceps major
 
@@ -10055,7 +10055,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract forceps minor
 
@@ -10101,7 +10101,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract inferior fronto-occipital fasciculus (left)
 
@@ -10147,7 +10147,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract inferior longitudinal fasciculus (left)
 
@@ -10193,7 +10193,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract middle cerebellar peduncle
 
@@ -10239,7 +10239,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract medial lemniscus (left)
 
@@ -10285,7 +10285,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract posterior thalamic radiation (left)
 
@@ -10331,7 +10331,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract superior longitudinal fasciculus (left)
 
@@ -10377,7 +10377,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract superior thalamic radiation (left)
 
@@ -10423,7 +10423,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean OD in tract uncinate fasciculus (left)
 
@@ -10469,7 +10469,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract acoustic radiation (left)
 
@@ -10515,7 +10515,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract anterior thalamic radiation (left)
 
@@ -10561,7 +10561,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract cingulate gyrus part of cingulum (left)
 
@@ -10607,7 +10607,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract parahippocampal part of cingulum (left)
 
@@ -10653,7 +10653,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract corticospinal tract (left)
 
@@ -10699,7 +10699,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract forceps major
 
@@ -10745,7 +10745,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract forceps minor
 
@@ -10791,7 +10791,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract inferior fronto-occipital fasciculus (left)
 
@@ -10837,7 +10837,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract inferior longitudinal fasciculus (left)
 
@@ -10883,7 +10883,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract middle cerebellar peduncle
 
@@ -10929,7 +10929,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract medial lemniscus (left)
 
@@ -10975,7 +10975,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract posterior thalamic radiation (left)
 
@@ -11021,7 +11021,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract superior longitudinal fasciculus (left)
 
@@ -11067,7 +11067,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract superior thalamic radiation (left)
 
@@ -11113,7 +11113,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weighted-mean ISOVF in tract uncinate fasciculus (left)
 
@@ -11159,7 +11159,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean tfMRI head motion, averaged across space and time points
 
@@ -11205,7 +11205,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Inverted temporal signal-to-noise ratio in pre-processed tfMRI
 
@@ -11251,7 +11251,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 90th percentile of BOLD effect (in group-defined mask) for shapes
 activation
@@ -11298,7 +11298,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 90th percentile of z-statistic (in group-defined mask) for shapes
 activation
@@ -11345,7 +11345,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 90th percentile of BOLD effect (in group-defined mask) for faces
 activation
@@ -11392,7 +11392,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 90th percentile of z-statistic (in group-defined mask) for faces
 activation
@@ -11439,7 +11439,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 90th percentile of BOLD effect (in group-defined mask) for faces-shapes
 contrast
@@ -11486,7 +11486,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 90th percentile of z-statistic (in group-defined mask) for faces-shapes
 contrast
@@ -11533,7 +11533,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 90th percentile of BOLD effect (in group-defined amygdala activation
 mask) for faces-shapes contrast
@@ -11580,7 +11580,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 90th percentile of z-statistic (in group-defined amygdala activation
 mask) for faces-shapes contrast
@@ -11627,7 +11627,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 T2-FLAIR used (in addition to T1) to run FreeSurfer
 
@@ -11673,7 +11673,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of 3rd-Ventricle (whole brain)
 
@@ -11719,7 +11719,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of 4th-Ventricle (whole brain)
 
@@ -11765,7 +11765,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of 5th-Ventricle (whole brain)
 
@@ -11811,7 +11811,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of Brain-Stem (whole brain)
 
@@ -11857,7 +11857,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of CSF (whole brain)
 
@@ -11903,7 +11903,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of WM-hypointensities (whole brain)
 
@@ -11949,7 +11949,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of non-WM-hypointensities (whole brain)
 
@@ -11995,7 +11995,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of Optic-Chiasm (whole brain)
 
@@ -12041,7 +12041,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of CC-Posterior (whole brain)
 
@@ -12087,7 +12087,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of CC-Mid-Posterior (whole brain)
 
@@ -12133,7 +12133,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of CC-Central (whole brain)
 
@@ -12179,7 +12179,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of CC-Mid-Anterior (whole brain)
 
@@ -12225,7 +12225,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of CC-Anterior (whole brain)
 
@@ -12271,7 +12271,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of BrainSeg (whole brain)
 
@@ -12317,7 +12317,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of BrainSegNotVent (whole brain)
 
@@ -12363,7 +12363,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of BrainSegNotVentSurf (whole brain)
 
@@ -12409,7 +12409,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of SubCortGray (whole brain)
 
@@ -12455,7 +12455,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of TotalGray (whole brain)
 
@@ -12501,7 +12501,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of SupraTentorial (whole brain)
 
@@ -12547,7 +12547,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of SupraTentorialNotVent (whole brain)
 
@@ -12593,7 +12593,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of EstimatedTotalIntraCranial (whole brain)
 
@@ -12639,7 +12639,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of VentricleChoroid (whole brain)
 
@@ -12685,7 +12685,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of 3rd-Ventricle (whole brain)
 
@@ -12731,7 +12731,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of 4th-Ventricle (whole brain)
 
@@ -12777,7 +12777,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of 5th-Ventricle (whole brain)
 
@@ -12823,7 +12823,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Brain-Stem (whole brain)
 
@@ -12869,7 +12869,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CSF (whole brain)
 
@@ -12915,7 +12915,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of WM-hypointensities (whole brain)
 
@@ -12961,7 +12961,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of non-WM-hypointensities (whole brain)
 
@@ -13007,7 +13007,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Optic-Chiasm (whole brain)
 
@@ -13053,7 +13053,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CC-Posterior (whole brain)
 
@@ -13099,7 +13099,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CC-Mid-Posterior (whole brain)
 
@@ -13145,7 +13145,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CC-Central (whole brain)
 
@@ -13191,7 +13191,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CC-Mid-Anterior (whole brain)
 
@@ -13237,7 +13237,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CC-Anterior (whole brain)
 
@@ -13283,7 +13283,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume-ratio of BrainSegVol-to-eTIV (whole brain)
 
@@ -13329,7 +13329,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume-ratio of MaskVol-to-eTIV (whole brain)
 
@@ -13375,7 +13375,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of Lateral-Ventricle (left hemisphere)
 
@@ -13421,7 +13421,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of Inf-Lat-Vent (left hemisphere)
 
@@ -13467,7 +13467,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of Cerebellum-White-Matter (left hemisphere)
 
@@ -13513,7 +13513,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of Cerebellum-Cortex (left hemisphere)
 
@@ -13559,7 +13559,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of Thalamus-Proper (left hemisphere)
 
@@ -13605,7 +13605,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of Caudate (left hemisphere)
 
@@ -13651,7 +13651,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of Putamen (left hemisphere)
 
@@ -13697,7 +13697,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of Pallidum (left hemisphere)
 
@@ -13743,7 +13743,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of Hippocampus (left hemisphere)
 
@@ -13789,7 +13789,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of Amygdala (left hemisphere)
 
@@ -13835,7 +13835,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of Accumbens-area (left hemisphere)
 
@@ -13881,7 +13881,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of VentralDC (left hemisphere)
 
@@ -13927,7 +13927,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of vessel (left hemisphere)
 
@@ -13973,7 +13973,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean intensity of choroid-plexus (left hemisphere)
 
@@ -14019,7 +14019,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Cortex (left hemisphere)
 
@@ -14065,7 +14065,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CerebralWhiteMatter (left hemisphere)
 
@@ -14111,7 +14111,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Lateral-Ventricle (left hemisphere)
 
@@ -14157,7 +14157,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Inf-Lat-Vent (left hemisphere)
 
@@ -14203,7 +14203,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Cerebellum-White-Matter (left hemisphere)
 
@@ -14249,7 +14249,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Cerebellum-Cortex (left hemisphere)
 
@@ -14295,7 +14295,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Thalamus-Proper (left hemisphere)
 
@@ -14341,7 +14341,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Caudate (left hemisphere)
 
@@ -14387,7 +14387,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Putamen (left hemisphere)
 
@@ -14433,7 +14433,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Pallidum (left hemisphere)
 
@@ -14479,7 +14479,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Hippocampus (left hemisphere)
 
@@ -14525,7 +14525,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Amygdala (left hemisphere)
 
@@ -14571,7 +14571,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Accumbens-area (left hemisphere)
 
@@ -14617,7 +14617,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of VentralDC (left hemisphere)
 
@@ -14663,7 +14663,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of vessel (left hemisphere)
 
@@ -14709,7 +14709,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of choroid-plexus (left hemisphere)
 
@@ -14755,7 +14755,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of HolesBeforeFixing (left hemisphere)
 
@@ -14801,7 +14801,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Lateral-nucleus (left hemisphere)
 
@@ -14847,7 +14847,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Basal-nucleus (left hemisphere)
 
@@ -14893,7 +14893,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Accessory-Basal-nucleus (left hemisphere)
 
@@ -14939,7 +14939,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Anterior-amygdaloid-area-AAA (left hemisphere)
 
@@ -14985,7 +14985,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Central-nucleus (left hemisphere)
 
@@ -15031,7 +15031,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Medial-nucleus (left hemisphere)
 
@@ -15077,7 +15077,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Cortical-nucleus (left hemisphere)
 
@@ -15123,7 +15123,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Corticoamygdaloid-transitio (left hemisphere)
 
@@ -15169,7 +15169,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Paralaminar-nucleus (left hemisphere)
 
@@ -15215,7 +15215,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Whole-amygdala (left hemisphere)
 
@@ -15261,7 +15261,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Hippocampal-tail (left hemisphere)
 
@@ -15307,7 +15307,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of subiculum-body (left hemisphere)
 
@@ -15353,7 +15353,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CA1-body (left hemisphere)
 
@@ -15399,7 +15399,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of subiculum-head (left hemisphere)
 
@@ -15445,7 +15445,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of hippocampal-fissure (left hemisphere)
 
@@ -15491,7 +15491,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of presubiculum-head (left hemisphere)
 
@@ -15537,7 +15537,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CA1-head (left hemisphere)
 
@@ -15583,7 +15583,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of presubiculum-body (left hemisphere)
 
@@ -15629,7 +15629,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of parasubiculum (left hemisphere)
 
@@ -15675,7 +15675,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of molecular-layer-HP-head (left hemisphere)
 
@@ -15721,7 +15721,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of molecular-layer-HP-body (left hemisphere)
 
@@ -15767,7 +15767,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of GC-ML-DG-head (left hemisphere)
 
@@ -15813,7 +15813,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CA3-body (left hemisphere)
 
@@ -15859,7 +15859,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of GC-ML-DG-body (left hemisphere)
 
@@ -15905,7 +15905,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CA4-head (left hemisphere)
 
@@ -15951,7 +15951,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CA4-body (left hemisphere)
 
@@ -15997,7 +15997,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of fimbria (left hemisphere)
 
@@ -16043,7 +16043,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CA3-head (left hemisphere)
 
@@ -16089,7 +16089,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of HATA (left hemisphere)
 
@@ -16135,7 +16135,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Whole-hippocampal-body (left hemisphere)
 
@@ -16181,7 +16181,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Whole-hippocampal-head (left hemisphere)
 
@@ -16227,7 +16227,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Whole-hippocampus (left hemisphere)
 
@@ -16273,7 +16273,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of MGN (left hemisphere)
 
@@ -16319,7 +16319,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of LGN (left hemisphere)
 
@@ -16365,7 +16365,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of PuI (left hemisphere)
 
@@ -16411,7 +16411,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of PuM (left hemisphere)
 
@@ -16457,7 +16457,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of L-Sg (left hemisphere)
 
@@ -16503,7 +16503,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of VPL (left hemisphere)
 
@@ -16549,7 +16549,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CM (left hemisphere)
 
@@ -16595,7 +16595,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of VLa (left hemisphere)
 
@@ -16641,7 +16641,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of PuA (left hemisphere)
 
@@ -16687,7 +16687,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of MDm (left hemisphere)
 
@@ -16733,7 +16733,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Pf (left hemisphere)
 
@@ -16779,7 +16779,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of VAmc (left hemisphere)
 
@@ -16825,7 +16825,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of MDl (left hemisphere)
 
@@ -16871,7 +16871,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CeM (left hemisphere)
 
@@ -16917,7 +16917,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of VA (left hemisphere)
 
@@ -16963,7 +16963,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of MV(Re) (left hemisphere)
 
@@ -17009,7 +17009,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of VM (left hemisphere)
 
@@ -17055,7 +17055,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of CL (left hemisphere)
 
@@ -17101,7 +17101,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of PuL (left hemisphere)
 
@@ -17147,7 +17147,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Pt (left hemisphere)
 
@@ -17193,7 +17193,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of AV (left hemisphere)
 
@@ -17239,7 +17239,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Pc (left hemisphere)
 
@@ -17285,7 +17285,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of VLp (left hemisphere)
 
@@ -17331,7 +17331,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of LP (left hemisphere)
 
@@ -17377,7 +17377,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of LD (left hemisphere)
 
@@ -17423,7 +17423,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Whole-thalamus (left hemisphere)
 
@@ -17469,7 +17469,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Medulla (whole brain)
 
@@ -17515,7 +17515,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Pons (whole brain)
 
@@ -17561,7 +17561,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of SCP (whole brain)
 
@@ -17607,7 +17607,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Midbrain (whole brain)
 
@@ -17653,7 +17653,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Whole-brainstem (whole brain)
 
@@ -17699,7 +17699,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of TotalSurface (left hemisphere)
 
@@ -17745,7 +17745,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of bankssts (left hemisphere)
 
@@ -17791,7 +17791,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of caudalanteriorcingulate (left hemisphere)
 
@@ -17837,7 +17837,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of caudalmiddlefrontal (left hemisphere)
 
@@ -17883,7 +17883,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of cuneus (left hemisphere)
 
@@ -17929,7 +17929,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of entorhinal (left hemisphere)
 
@@ -17975,7 +17975,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of fusiform (left hemisphere)
 
@@ -18021,7 +18021,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of inferiorparietal (left hemisphere)
 
@@ -18067,7 +18067,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of inferiortemporal (left hemisphere)
 
@@ -18113,7 +18113,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of isthmuscingulate (left hemisphere)
 
@@ -18159,7 +18159,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of lateraloccipital (left hemisphere)
 
@@ -18205,7 +18205,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of lateralorbitofrontal (left hemisphere)
 
@@ -18251,7 +18251,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of lingual (left hemisphere)
 
@@ -18297,7 +18297,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of medialorbitofrontal (left hemisphere)
 
@@ -18343,7 +18343,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of middletemporal (left hemisphere)
 
@@ -18389,7 +18389,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of parahippocampal (left hemisphere)
 
@@ -18435,7 +18435,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of paracentral (left hemisphere)
 
@@ -18481,7 +18481,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of parsopercularis (left hemisphere)
 
@@ -18527,7 +18527,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of parsorbitalis (left hemisphere)
 
@@ -18573,7 +18573,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of parstriangularis (left hemisphere)
 
@@ -18619,7 +18619,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of pericalcarine (left hemisphere)
 
@@ -18665,7 +18665,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of postcentral (left hemisphere)
 
@@ -18711,7 +18711,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of posteriorcingulate (left hemisphere)
 
@@ -18757,7 +18757,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of precentral (left hemisphere)
 
@@ -18803,7 +18803,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of precuneus (left hemisphere)
 
@@ -18849,7 +18849,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of rostralanteriorcingulate (left hemisphere)
 
@@ -18895,7 +18895,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of rostralmiddlefrontal (left hemisphere)
 
@@ -18941,7 +18941,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of superiorfrontal (left hemisphere)
 
@@ -18987,7 +18987,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of superiorparietal (left hemisphere)
 
@@ -19033,7 +19033,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of superiortemporal (left hemisphere)
 
@@ -19079,7 +19079,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of supramarginal (left hemisphere)
 
@@ -19125,7 +19125,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of frontalpole (left hemisphere)
 
@@ -19171,7 +19171,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of transversetemporal (left hemisphere)
 
@@ -19217,7 +19217,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in unknown (left hemisphere)
 
@@ -19263,7 +19263,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in bankssts (left hemisphere)
 
@@ -19309,7 +19309,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in caudalanteriorcingulate (left hemisphere)
 
@@ -19355,7 +19355,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in caudalmiddlefrontal (left hemisphere)
 
@@ -19401,7 +19401,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in cuneus (left hemisphere)
 
@@ -19447,7 +19447,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in entorhinal (left hemisphere)
 
@@ -19493,7 +19493,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in fusiform (left hemisphere)
 
@@ -19539,7 +19539,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in inferiorparietal (left hemisphere)
 
@@ -19585,7 +19585,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in inferiortemporal (left hemisphere)
 
@@ -19631,7 +19631,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in isthmuscingulate (left hemisphere)
 
@@ -19677,7 +19677,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in lateraloccipital (left hemisphere)
 
@@ -19723,7 +19723,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in lateralorbitofrontal (left hemisphere)
 
@@ -19769,7 +19769,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in lingual (left hemisphere)
 
@@ -19815,7 +19815,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in medialorbitofrontal (left hemisphere)
 
@@ -19861,7 +19861,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in middletemporal (left hemisphere)
 
@@ -19907,7 +19907,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in parahippocampal (left hemisphere)
 
@@ -19953,7 +19953,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in paracentral (left hemisphere)
 
@@ -19999,7 +19999,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in parsopercularis (left hemisphere)
 
@@ -20045,7 +20045,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in parsorbitalis (left hemisphere)
 
@@ -20091,7 +20091,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in parstriangularis (left hemisphere)
 
@@ -20137,7 +20137,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in pericalcarine (left hemisphere)
 
@@ -20183,7 +20183,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in postcentral (left hemisphere)
 
@@ -20229,7 +20229,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in posteriorcingulate (left hemisphere)
 
@@ -20275,7 +20275,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in precentral (left hemisphere)
 
@@ -20321,7 +20321,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in precuneus (left hemisphere)
 
@@ -20367,7 +20367,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in rostralanteriorcingulate (left hemisphere)
 
@@ -20413,7 +20413,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in rostralmiddlefrontal (left hemisphere)
 
@@ -20459,7 +20459,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in superiorfrontal (left hemisphere)
 
@@ -20505,7 +20505,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in superiorparietal (left hemisphere)
 
@@ -20551,7 +20551,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in superiortemporal (left hemisphere)
 
@@ -20597,7 +20597,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in supramarginal (left hemisphere)
 
@@ -20643,7 +20643,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in frontalpole (left hemisphere)
 
@@ -20689,7 +20689,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in temporalpole (left hemisphere)
 
@@ -20735,7 +20735,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in transversetemporal (left hemisphere)
 
@@ -20781,7 +20781,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grey-white contrast in insula (left hemisphere)
 
@@ -20827,7 +20827,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G+S-frontomargin (left hemisphere)
 
@@ -20873,7 +20873,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G+S-occipital-inf (left hemisphere)
 
@@ -20919,7 +20919,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G+S-paracentral (left hemisphere)
 
@@ -20965,7 +20965,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G+S-subcentral (left hemisphere)
 
@@ -21011,7 +21011,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G+S-transv-frontopol (left hemisphere)
 
@@ -21057,7 +21057,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G+S-cingul-Ant (left hemisphere)
 
@@ -21103,7 +21103,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G+S-cingul-Mid-Ant (left hemisphere)
 
@@ -21149,7 +21149,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G+S-cingul-Mid-Post (left hemisphere)
 
@@ -21195,7 +21195,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-cingul-Post-dorsal (left hemisphere)
 
@@ -21241,7 +21241,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-cingul-Post-ventral (left hemisphere)
 
@@ -21287,7 +21287,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-cuneus (left hemisphere)
 
@@ -21333,7 +21333,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-front-inf-Opercular (left hemisphere)
 
@@ -21379,7 +21379,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-front-inf-Orbital (left hemisphere)
 
@@ -21425,7 +21425,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-front-inf-Triangul (left hemisphere)
 
@@ -21471,7 +21471,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-front-middle (left hemisphere)
 
@@ -21517,7 +21517,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-front-sup (left hemisphere)
 
@@ -21563,7 +21563,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-Ins-lg+S-cent-ins (left hemisphere)
 
@@ -21609,7 +21609,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-insular-short (left hemisphere)
 
@@ -21655,7 +21655,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-occipital-middle (left hemisphere)
 
@@ -21701,7 +21701,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-occipital-sup (left hemisphere)
 
@@ -21747,7 +21747,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-oc-temp-lat-fusifor (left hemisphere)
 
@@ -21793,7 +21793,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-oc-temp-med-Lingual (left hemisphere)
 
@@ -21839,7 +21839,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-oc-temp-med-Parahip (left hemisphere)
 
@@ -21885,7 +21885,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-orbital (left hemisphere)
 
@@ -21931,7 +21931,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-pariet-inf-Angular (left hemisphere)
 
@@ -21977,7 +21977,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-pariet-inf-Supramar (left hemisphere)
 
@@ -22023,7 +22023,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-parietal-sup (left hemisphere)
 
@@ -22069,7 +22069,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-postcentral (left hemisphere)
 
@@ -22115,7 +22115,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-precentral (left hemisphere)
 
@@ -22161,7 +22161,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-precuneus (left hemisphere)
 
@@ -22207,7 +22207,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-rectus (left hemisphere)
 
@@ -22253,7 +22253,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-subcallosal (left hemisphere)
 
@@ -22299,7 +22299,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-temp-sup-G-T-transv (left hemisphere)
 
@@ -22345,7 +22345,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-temp-sup-Lateral (left hemisphere)
 
@@ -22391,7 +22391,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-temp-sup-Plan-polar (left hemisphere)
 
@@ -22437,7 +22437,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-temp-sup-Plan-tempo (left hemisphere)
 
@@ -22483,7 +22483,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-temporal-inf (left hemisphere)
 
@@ -22529,7 +22529,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of G-temporal-middle (left hemisphere)
 
@@ -22575,7 +22575,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of Lat-Fis-ant-Horizont (left hemisphere)
 
@@ -22621,7 +22621,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of Lat-Fis-ant-Vertical (left hemisphere)
 
@@ -22667,7 +22667,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of Lat-Fis-post (left hemisphere)
 
@@ -22713,7 +22713,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of Pole-occipital (left hemisphere)
 
@@ -22759,7 +22759,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of Pole-temporal (left hemisphere)
 
@@ -22805,7 +22805,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-calcarine (left hemisphere)
 
@@ -22851,7 +22851,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-central (left hemisphere)
 
@@ -22897,7 +22897,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-cingul-Marginalis (left hemisphere)
 
@@ -22943,7 +22943,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-circular-insula-ant (left hemisphere)
 
@@ -22989,7 +22989,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-circular-insula-inf (left hemisphere)
 
@@ -23035,7 +23035,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-circular-insula-sup (left hemisphere)
 
@@ -23081,7 +23081,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-collat-transv-ant (left hemisphere)
 
@@ -23127,7 +23127,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-collat-transv-post (left hemisphere)
 
@@ -23173,7 +23173,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-front-inf (left hemisphere)
 
@@ -23219,7 +23219,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-front-middle (left hemisphere)
 
@@ -23265,7 +23265,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-front-sup (left hemisphere)
 
@@ -23311,7 +23311,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-interm-prim-Jensen (left hemisphere)
 
@@ -23357,7 +23357,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-intrapariet+P-trans (left hemisphere)
 
@@ -23403,7 +23403,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-oc-middle+Lunatus (left hemisphere)
 
@@ -23449,7 +23449,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-oc-sup+transversal (left hemisphere)
 
@@ -23495,7 +23495,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-occipital-ant (left hemisphere)
 
@@ -23541,7 +23541,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-oc-temp-lat (left hemisphere)
 
@@ -23587,7 +23587,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-oc-temp-med+Lingual (left hemisphere)
 
@@ -23633,7 +23633,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-orbital-lateral (left hemisphere)
 
@@ -23679,7 +23679,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-orbital-med-olfact (left hemisphere)
 
@@ -23725,7 +23725,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-orbital-H-Shaped (left hemisphere)
 
@@ -23771,7 +23771,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-parieto-occipital (left hemisphere)
 
@@ -23817,7 +23817,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-pericallosal (left hemisphere)
 
@@ -23863,7 +23863,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-postcentral (left hemisphere)
 
@@ -23909,7 +23909,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-precentral-inf-part (left hemisphere)
 
@@ -23955,7 +23955,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-precentral-sup-part (left hemisphere)
 
@@ -24001,7 +24001,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-suborbital (left hemisphere)
 
@@ -24047,7 +24047,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-subparietal (left hemisphere)
 
@@ -24093,7 +24093,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-temporal-inf (left hemisphere)
 
@@ -24139,7 +24139,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-temporal-sup (left hemisphere)
 
@@ -24185,7 +24185,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Area of S-temporal-transverse (left hemisphere)
 
@@ -24231,7 +24231,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G+S-frontomargin (left hemisphere)
 
@@ -24277,7 +24277,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G+S-occipital-inf (left hemisphere)
 
@@ -24323,7 +24323,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G+S-paracentral (left hemisphere)
 
@@ -24369,7 +24369,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G+S-subcentral (left hemisphere)
 
@@ -24415,7 +24415,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G+S-transv-frontopol (left hemisphere)
 
@@ -24461,7 +24461,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G+S-cingul-Ant (left hemisphere)
 
@@ -24507,7 +24507,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G+S-cingul-Mid-Ant (left hemisphere)
 
@@ -24553,7 +24553,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G+S-cingul-Mid-Post (left hemisphere)
 
@@ -24599,7 +24599,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-cingul-Post-dorsal (left hemisphere)
 
@@ -24645,7 +24645,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-cingul-Post-ventral (left hemisphere)
 
@@ -24691,7 +24691,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-cuneus (left hemisphere)
 
@@ -24737,7 +24737,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-front-inf-Opercular (left hemisphere)
 
@@ -24783,7 +24783,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-front-inf-Orbital (left hemisphere)
 
@@ -24829,7 +24829,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-front-inf-Triangul (left hemisphere)
 
@@ -24875,7 +24875,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-front-middle (left hemisphere)
 
@@ -24921,7 +24921,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-front-sup (left hemisphere)
 
@@ -24967,7 +24967,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-Ins-lg+S-cent-ins (left hemisphere)
 
@@ -25013,7 +25013,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-insular-short (left hemisphere)
 
@@ -25059,7 +25059,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-occipital-middle (left hemisphere)
 
@@ -25105,7 +25105,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-occipital-sup (left hemisphere)
 
@@ -25151,7 +25151,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-oc-temp-lat-fusifor (left hemisphere)
 
@@ -25197,7 +25197,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-oc-temp-med-Lingual (left hemisphere)
 
@@ -25243,7 +25243,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-oc-temp-med-Parahip (left hemisphere)
 
@@ -25289,7 +25289,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-orbital (left hemisphere)
 
@@ -25335,7 +25335,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-pariet-inf-Angular (left hemisphere)
 
@@ -25381,7 +25381,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-pariet-inf-Supramar (left hemisphere)
 
@@ -25427,7 +25427,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-parietal-sup (left hemisphere)
 
@@ -25473,7 +25473,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-postcentral (left hemisphere)
 
@@ -25519,7 +25519,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-precentral (left hemisphere)
 
@@ -25565,7 +25565,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-precuneus (left hemisphere)
 
@@ -25611,7 +25611,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-rectus (left hemisphere)
 
@@ -25657,7 +25657,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-subcallosal (left hemisphere)
 
@@ -25703,7 +25703,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-temp-sup-G-T-transv (left hemisphere)
 
@@ -25749,7 +25749,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-temp-sup-Lateral (left hemisphere)
 
@@ -25795,7 +25795,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-temp-sup-Plan-polar (left hemisphere)
 
@@ -25841,7 +25841,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-temp-sup-Plan-tempo (left hemisphere)
 
@@ -25887,7 +25887,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-temporal-inf (left hemisphere)
 
@@ -25933,7 +25933,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of G-temporal-middle (left hemisphere)
 
@@ -25979,7 +25979,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of Lat-Fis-ant-Horizont (left hemisphere)
 
@@ -26025,7 +26025,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of Lat-Fis-ant-Vertical (left hemisphere)
 
@@ -26071,7 +26071,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of Lat-Fis-post (left hemisphere)
 
@@ -26117,7 +26117,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of Pole-occipital (left hemisphere)
 
@@ -26163,7 +26163,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of Pole-temporal (left hemisphere)
 
@@ -26209,7 +26209,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-calcarine (left hemisphere)
 
@@ -26255,7 +26255,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-central (left hemisphere)
 
@@ -26301,7 +26301,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-cingul-Marginalis (left hemisphere)
 
@@ -26347,7 +26347,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-circular-insula-ant (left hemisphere)
 
@@ -26393,7 +26393,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-circular-insula-inf (left hemisphere)
 
@@ -26439,7 +26439,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-circular-insula-sup (left hemisphere)
 
@@ -26485,7 +26485,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-collat-transv-ant (left hemisphere)
 
@@ -26531,7 +26531,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-collat-transv-post (left hemisphere)
 
@@ -26577,7 +26577,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-front-inf (left hemisphere)
 
@@ -26623,7 +26623,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-front-middle (left hemisphere)
 
@@ -26669,7 +26669,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-front-sup (left hemisphere)
 
@@ -26715,7 +26715,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-interm-prim-Jensen (left hemisphere)
 
@@ -26761,7 +26761,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-intrapariet+P-trans (left hemisphere)
 
@@ -26807,7 +26807,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-oc-middle+Lunatus (left hemisphere)
 
@@ -26853,7 +26853,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-oc-sup+transversal (left hemisphere)
 
@@ -26899,7 +26899,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-occipital-ant (left hemisphere)
 
@@ -26945,7 +26945,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-oc-temp-lat (left hemisphere)
 
@@ -26991,7 +26991,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-oc-temp-med+Lingual (left hemisphere)
 
@@ -27037,7 +27037,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-orbital-lateral (left hemisphere)
 
@@ -27083,7 +27083,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-orbital-med-olfact (left hemisphere)
 
@@ -27129,7 +27129,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-orbital-H-Shaped (left hemisphere)
 
@@ -27175,7 +27175,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-parieto-occipital (left hemisphere)
 
@@ -27221,7 +27221,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-pericallosal (left hemisphere)
 
@@ -27267,7 +27267,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-postcentral (left hemisphere)
 
@@ -27313,7 +27313,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-precentral-inf-part (left hemisphere)
 
@@ -27359,7 +27359,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-precentral-sup-part (left hemisphere)
 
@@ -27405,7 +27405,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-suborbital (left hemisphere)
 
@@ -27451,7 +27451,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-subparietal (left hemisphere)
 
@@ -27497,7 +27497,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-temporal-inf (left hemisphere)
 
@@ -27543,7 +27543,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-temporal-sup (left hemisphere)
 
@@ -27589,7 +27589,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean thickness of S-temporal-transverse (left hemisphere)
 
@@ -27635,7 +27635,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G+S-frontomargin (left hemisphere)
 
@@ -27681,7 +27681,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G+S-occipital-inf (left hemisphere)
 
@@ -27727,7 +27727,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G+S-paracentral (left hemisphere)
 
@@ -27773,7 +27773,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G+S-subcentral (left hemisphere)
 
@@ -27819,7 +27819,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G+S-transv-frontopol (left hemisphere)
 
@@ -27865,7 +27865,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G+S-cingul-Ant (left hemisphere)
 
@@ -27911,7 +27911,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G+S-cingul-Mid-Ant (left hemisphere)
 
@@ -27957,7 +27957,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G+S-cingul-Mid-Post (left hemisphere)
 
@@ -28003,7 +28003,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-cingul-Post-dorsal (left hemisphere)
 
@@ -28049,7 +28049,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-cingul-Post-ventral (left hemisphere)
 
@@ -28095,7 +28095,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-cuneus (left hemisphere)
 
@@ -28141,7 +28141,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-front-inf-Opercular (left hemisphere)
 
@@ -28187,7 +28187,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-front-inf-Orbital (left hemisphere)
 
@@ -28233,7 +28233,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-front-inf-Triangul (left hemisphere)
 
@@ -28279,7 +28279,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-front-middle (left hemisphere)
 
@@ -28325,7 +28325,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-front-sup (left hemisphere)
 
@@ -28371,7 +28371,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-Ins-lg+S-cent-ins (left hemisphere)
 
@@ -28417,7 +28417,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-insular-short (left hemisphere)
 
@@ -28463,7 +28463,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-occipital-middle (left hemisphere)
 
@@ -28509,7 +28509,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-occipital-sup (left hemisphere)
 
@@ -28555,7 +28555,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-oc-temp-lat-fusifor (left hemisphere)
 
@@ -28601,7 +28601,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-oc-temp-med-Lingual (left hemisphere)
 
@@ -28647,7 +28647,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-oc-temp-med-Parahip (left hemisphere)
 
@@ -28693,7 +28693,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-orbital (left hemisphere)
 
@@ -28739,7 +28739,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-pariet-inf-Angular (left hemisphere)
 
@@ -28785,7 +28785,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-pariet-inf-Supramar (left hemisphere)
 
@@ -28831,7 +28831,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-parietal-sup (left hemisphere)
 
@@ -28877,7 +28877,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-postcentral (left hemisphere)
 
@@ -28923,7 +28923,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-precentral (left hemisphere)
 
@@ -28969,7 +28969,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-precuneus (left hemisphere)
 
@@ -29015,7 +29015,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-rectus (left hemisphere)
 
@@ -29061,7 +29061,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-subcallosal (left hemisphere)
 
@@ -29107,7 +29107,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-temp-sup-G-T-transv (left hemisphere)
 
@@ -29153,7 +29153,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-temp-sup-Lateral (left hemisphere)
 
@@ -29199,7 +29199,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-temp-sup-Plan-polar (left hemisphere)
 
@@ -29245,7 +29245,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-temp-sup-Plan-tempo (left hemisphere)
 
@@ -29291,7 +29291,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-temporal-inf (left hemisphere)
 
@@ -29337,7 +29337,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of G-temporal-middle (left hemisphere)
 
@@ -29383,7 +29383,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Lat-Fis-ant-Horizont (left hemisphere)
 
@@ -29429,7 +29429,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Lat-Fis-ant-Vertical (left hemisphere)
 
@@ -29475,7 +29475,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Lat-Fis-post (left hemisphere)
 
@@ -29521,7 +29521,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Pole-occipital (left hemisphere)
 
@@ -29567,7 +29567,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of Pole-temporal (left hemisphere)
 
@@ -29613,7 +29613,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-calcarine (left hemisphere)
 
@@ -29659,7 +29659,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-central (left hemisphere)
 
@@ -29705,7 +29705,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-cingul-Marginalis (left hemisphere)
 
@@ -29751,7 +29751,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-circular-insula-ant (left hemisphere)
 
@@ -29797,7 +29797,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-circular-insula-inf (left hemisphere)
 
@@ -29843,7 +29843,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-circular-insula-sup (left hemisphere)
 
@@ -29889,7 +29889,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-collat-transv-ant (left hemisphere)
 
@@ -29935,7 +29935,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-collat-transv-post (left hemisphere)
 
@@ -29981,7 +29981,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-front-inf (left hemisphere)
 
@@ -30027,7 +30027,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-front-middle (left hemisphere)
 
@@ -30073,7 +30073,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-front-sup (left hemisphere)
 
@@ -30119,7 +30119,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-interm-prim-Jensen (left hemisphere)
 
@@ -30165,7 +30165,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-intrapariet+P-trans (left hemisphere)
 
@@ -30211,7 +30211,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-oc-middle+Lunatus (left hemisphere)
 
@@ -30257,7 +30257,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-oc-sup+transversal (left hemisphere)
 
@@ -30303,7 +30303,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-occipital-ant (left hemisphere)
 
@@ -30349,7 +30349,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-oc-temp-lat (left hemisphere)
 
@@ -30395,7 +30395,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-oc-temp-med+Lingual (left hemisphere)
 
@@ -30441,7 +30441,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-orbital-lateral (left hemisphere)
 
@@ -30487,7 +30487,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-orbital-med-olfact (left hemisphere)
 
@@ -30533,7 +30533,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-orbital-H-Shaped (left hemisphere)
 
@@ -30579,7 +30579,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-parieto-occipital (left hemisphere)
 
@@ -30625,7 +30625,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-pericallosal (left hemisphere)
 
@@ -30671,7 +30671,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-postcentral (left hemisphere)
 
@@ -30717,7 +30717,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-precentral-inf-part (left hemisphere)
 
@@ -30763,7 +30763,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-precentral-sup-part (left hemisphere)
 
@@ -30809,7 +30809,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-suborbital (left hemisphere)
 
@@ -30855,7 +30855,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-subparietal (left hemisphere)
 
@@ -30901,7 +30901,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-temporal-inf (left hemisphere)
 
@@ -30947,7 +30947,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-temporal-sup (left hemisphere)
 
@@ -30993,7 +30993,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volume of S-temporal-transverse (left hemisphere)
 
@@ -31039,7 +31039,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Believed safe to perform brain MRI scan
 
@@ -31085,7 +31085,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Brain MRI measuring method
 
@@ -31131,7 +31131,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Operator indicated brain MRI measurement completed
 
@@ -31177,7 +31177,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Duration of eprime test
 
@@ -31223,7 +31223,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Eprime error flag
 
@@ -31269,7 +31269,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Volumetric scaling from T1 head image to standard space
 
@@ -31315,7 +31315,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Discrepancy between T1 brain image and standard-space brain template
 (linearly-aligned)
@@ -31362,7 +31362,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Discrepancy between T1 brain image and standard-space brain template
 (nonlinearly-aligned)
@@ -31409,7 +31409,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Amount of warping applied to non-linearly align T1 brain image to
 standard-space
@@ -31456,7 +31456,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Inverted signal-to-noise ratio in T1
 
@@ -31502,7 +31502,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Inverted contrast-to-noise ratio in T1
 
@@ -31548,7 +31548,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Discrepancy between T2 FLAIR brain image and T1 brain image
 
@@ -31594,7 +31594,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Discrepancy between dMRI brain image and T1 brain image
 
@@ -31640,7 +31640,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Discrepancy between SWI brain image and T1 brain image
 
@@ -31686,7 +31686,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Discrepancy between tfMRI brain image and T1 brain image
 
@@ -31732,7 +31732,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean rfMRI head motion, averaged across space and time points
 
@@ -31778,7 +31778,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Inverted temporal signal-to-noise ratio in pre-processed rfMRI
 
@@ -31824,7 +31824,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Inverted temporal signal-to-noise ratio in artefact-cleaned
 pre-processed rfMRI
@@ -31871,7 +31871,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of dMRI outlier slices detected and corrected
 
@@ -31917,7 +31917,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scanner lateral (X) brain position
 
@@ -31963,7 +31963,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scanner transverse (Y) brain position
 
@@ -32009,7 +32009,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scanner longitudinal (Z) brain position
 
@@ -32055,7 +32055,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scanner table position
 
@@ -32101,7 +32101,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Acquisition protocol phase.
 
@@ -32147,7 +32147,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total volume of white matter hyperintensities (from T1 and T2\_FLAIR
 images)
@@ -32194,7 +32194,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of incorrect matches in round
 
@@ -32240,7 +32240,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time to complete round
 
@@ -32286,7 +32286,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Duration to first press of snap-button in each round
 
@@ -32332,7 +32332,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Maximum digits remembered correctly
 
@@ -32378,7 +32378,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fluid intelligence score
 
@@ -32424,7 +32424,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Prospective memory result
 
@@ -32470,7 +32470,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean time to correctly identify matches
 
@@ -32516,7 +32516,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of correct matches in round
 
@@ -32562,7 +32562,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of incorrect matches in round
 
@@ -32608,7 +32608,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time to complete round
 
@@ -32654,7 +32654,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of symbol digit matches made correctly
 
@@ -32700,7 +32700,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fluid intelligence score
 
@@ -32746,7 +32746,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Duration to entering value
 
@@ -32792,7 +32792,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Maximum digits remembered correctly
 
@@ -32838,7 +32838,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Errors before selecting correct item in alphanumeric path
 (trail2-trail1)
@@ -32885,7 +32885,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Interval between previous point and current one in alphanumeric path
 (trail2-trail1)
@@ -32932,7 +32932,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Duration to complete alphanumeric path (trail2-trail1)
 
@@ -32978,7 +32978,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total errors traversing alphanumeric path (trail2-trail1)
 
@@ -33024,7 +33024,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cooked vegetable intake
 
@@ -33070,7 +33070,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Salad / raw vegetable intake
 
@@ -33121,7 +33121,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fresh fruit intake
 
@@ -33167,7 +33167,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Dried fruit intake
 
@@ -33213,7 +33213,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Oily fish intake
 
@@ -33259,7 +33259,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Non-oily fish intake
 
@@ -33305,7 +33305,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Processed meat intake
 
@@ -33351,7 +33351,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Poultry intake
 
@@ -33402,7 +33402,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Beef intake
 
@@ -33448,7 +33448,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Lamb/mutton intake
 
@@ -33494,7 +33494,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pork intake
 
@@ -33540,7 +33540,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cheese intake
 
@@ -33586,7 +33586,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Bread intake
 
@@ -33632,7 +33632,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cereal intake
 
@@ -33678,7 +33678,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Salt added to food
 
@@ -33724,7 +33724,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Tea intake
 
@@ -33770,7 +33770,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Coffee intake
 
@@ -33816,7 +33816,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Hot drink temperature
 
@@ -33862,7 +33862,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Water intake
 
@@ -33908,7 +33908,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Major dietary changes in the last 5 years
 
@@ -33954,7 +33954,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Variation in diet
 
@@ -34000,7 +34000,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Alcohol intake frequency.
 
@@ -34046,7 +34046,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average weekly red wine intake
 
@@ -34098,7 +34098,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average weekly champagne plus white wine intake
 
@@ -34151,7 +34151,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average weekly beer plus cider intake
 
@@ -34197,7 +34197,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average weekly spirits intake
 
@@ -34245,7 +34245,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average weekly fortified wine intake
 
@@ -34293,7 +34293,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Alcohol usually taken with meals
 
@@ -34339,7 +34339,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Alcohol intake versus 10 years previously
 
@@ -34386,7 +34386,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age when last ate meat
 
@@ -34432,7 +34432,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Former alcohol drinker
 
@@ -34478,7 +34478,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average monthly red wine intake
 
@@ -34531,7 +34531,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average monthly champagne plus white wine intake
 
@@ -34584,7 +34584,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average monthly beer plus cider intake
 
@@ -34630,7 +34630,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average monthly spirits intake
 
@@ -34678,7 +34678,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average monthly fortified wine intake
 
@@ -34726,7 +34726,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average monthly intake of other alcoholic drinks
 
@@ -34776,7 +34776,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average weekly intake of other alcoholic drinks
 
@@ -34825,7 +34825,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Portion size
 
@@ -34871,7 +34871,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Typical diet yesterday
 
@@ -34917,7 +34917,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Alcohol consumed
 
@@ -34963,7 +34963,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Red wine intake
 
@@ -35009,7 +35009,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Rose wine intake
 
@@ -35055,7 +35055,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 White wine intake
 
@@ -35101,7 +35101,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Beer/cider intake
 
@@ -35147,7 +35147,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fortified wine intake
 
@@ -35193,7 +35193,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Spirits intake
 
@@ -35239,7 +35239,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Other alcohol intake
 
@@ -35285,7 +35285,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Meat consumers
 
@@ -35331,7 +35331,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Sausage intake
 
@@ -35377,7 +35377,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Beef intake
 
@@ -35423,7 +35423,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pork intake
 
@@ -35469,7 +35469,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Lamb intake
 
@@ -35515,7 +35515,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Crumbed or deep-fried poultry intake
 
@@ -35562,7 +35562,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Poultry intake
 
@@ -35608,7 +35608,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Bacon intake
 
@@ -35654,7 +35654,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ham intake
 
@@ -35700,7 +35700,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Liver intake
 
@@ -35746,7 +35746,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Other meat intake
 
@@ -35792,7 +35792,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fat removed from meat
 
@@ -35838,7 +35838,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Skin removed from poultry
 
@@ -35884,7 +35884,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fish consumer
 
@@ -35930,7 +35930,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Tinned tuna intake
 
@@ -35976,7 +35976,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Oily fish intake
 
@@ -36022,7 +36022,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Breaded fish intake
 
@@ -36068,7 +36068,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Battered fish intake
 
@@ -36114,7 +36114,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 White fish intake
 
@@ -36160,7 +36160,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Prawns intake
 
@@ -36206,7 +36206,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Lobster/crab intake
 
@@ -36252,7 +36252,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Shellfish intake
 
@@ -36299,7 +36299,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Other fish intake
 
@@ -36345,7 +36345,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Spreads/sauces consumers
 
@@ -36391,7 +36391,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 No fat for cooking
 
@@ -36437,7 +36437,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Vegetable consumers
 
@@ -36483,7 +36483,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Baked bean intake
 
@@ -36529,7 +36529,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pulses intake
 
@@ -36575,7 +36575,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fried potatoes intake
 
@@ -36621,7 +36621,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Boiled/baked potatoes intake
 
@@ -36667,7 +36667,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Butter/margarine added to potatoes
 
@@ -36713,7 +36713,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mashed potato intake
 
@@ -36759,7 +36759,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mixed vegetable intake
 
@@ -36805,7 +36805,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Vegetable pieces intake
 
@@ -36851,7 +36851,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Coleslaw intake
 
@@ -36897,7 +36897,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Side salad intake
 
@@ -36943,7 +36943,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Avocado intake
 
@@ -36989,7 +36989,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Broad bean intake
 
@@ -37035,7 +37035,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Green bean intake
 
@@ -37081,7 +37081,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Beetroot intake
 
@@ -37127,7 +37127,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Broccoli intake
 
@@ -37173,7 +37173,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Butternut squash intake
 
@@ -37219,7 +37219,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cabbage/kale intake
 
@@ -37265,7 +37265,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Carrot intake
 
@@ -37311,7 +37311,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cauliflower intake
 
@@ -37357,7 +37357,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Celery intake
 
@@ -37403,7 +37403,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Courgette intake
 
@@ -37449,7 +37449,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cucumber intake
 
@@ -37495,7 +37495,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Garlic intake
 
@@ -37541,7 +37541,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leek intake
 
@@ -37587,7 +37587,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Lettuce intake
 
@@ -37633,7 +37633,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mushroom intake
 
@@ -37679,7 +37679,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Onion intake
 
@@ -37725,7 +37725,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Parsnip intake
 
@@ -37771,7 +37771,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pea intake
 
@@ -37817,7 +37817,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Sweet pepper intake
 
@@ -37863,7 +37863,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Spinach intake
 
@@ -37909,7 +37909,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Sprouts intake
 
@@ -37955,7 +37955,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Sweetcorn intake
 
@@ -38002,7 +38002,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Sweet potato intake
 
@@ -38048,7 +38048,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fresh tomato intake
 
@@ -38094,7 +38094,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Tinned tomato intake
 
@@ -38140,7 +38140,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Turnip/swede intake
 
@@ -38186,7 +38186,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Watercress intake
 
@@ -38232,7 +38232,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Other vegetables intake
 
@@ -38278,7 +38278,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fruit consumers
 
@@ -38324,7 +38324,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Stewed fruit intake
 
@@ -38370,7 +38370,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Prune intake
 
@@ -38416,7 +38416,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Dried fruit intake
 
@@ -38462,7 +38462,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mixed fruit intake
 
@@ -38508,7 +38508,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Apple intake
 
@@ -38554,7 +38554,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Banana intake
 
@@ -38600,7 +38600,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Berry intake
 
@@ -38646,7 +38646,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cherry intake
 
@@ -38692,7 +38692,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grapefruit intake
 
@@ -38738,7 +38738,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Grape intake
 
@@ -38784,7 +38784,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mango intake
 
@@ -38830,7 +38830,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Melon intake
 
@@ -38876,7 +38876,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Orange intake
 
@@ -38922,7 +38922,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Satsuma intake
 
@@ -38968,7 +38968,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Peach/nectarine intake
 
@@ -39014,7 +39014,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pear intake
 
@@ -39060,7 +39060,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pineapple intake
 
@@ -39106,7 +39106,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Plum intake
 
@@ -39152,7 +39152,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Other fruit intake
 
@@ -39198,7 +39198,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Added salt to food
 
@@ -39244,7 +39244,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time spent doing vigorous physical activity
 
@@ -39291,7 +39291,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time spent doing moderate physical activity
 
@@ -39338,7 +39338,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time spent doing light physical activity
 
@@ -39385,7 +39385,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Vascular/heart problems diagnosed by doctor
 
@@ -39431,7 +39431,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Blood clot, DVT, bronchitis, emphysema, asthma, rhinitis, eczema,
 allergy diagnosed by doctor
@@ -39478,7 +39478,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Medication for cholesterol, blood pressure, diabetes, or take exogenous
 hormones
@@ -39525,7 +39525,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Medication for pain relief, constipation, heartburn
 
@@ -39571,7 +39571,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Vitamin and mineral supplements
 
@@ -39617,7 +39617,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Types of physical activity in last 4 weeks
 
@@ -39663,7 +39663,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Medication for cholesterol, blood pressure or diabetes
 
@@ -39709,7 +39709,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mineral and other dietary supplements
 
@@ -39755,7 +39755,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Location of pain during the past week
 
@@ -39801,7 +39801,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Sex
 
@@ -39847,7 +39847,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Hand grip strength (left)
 
@@ -39893,7 +39893,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Waist circumference
 
@@ -39939,7 +39939,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Hip circumference
 
@@ -39985,7 +39985,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Standing height
 
@@ -40031,7 +40031,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cancer year/age first occurred
 
@@ -40077,7 +40077,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Systolic blood pressure, manual reading
 
@@ -40123,7 +40123,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Diastolic blood pressure, manual reading
 
@@ -40169,7 +40169,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pulse rate (during blood-pressure measurement)
 
@@ -40215,7 +40215,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time since interview start at which blood pressure screen(s) shown
 
@@ -40261,7 +40261,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pulse rate, automated reading
 
@@ -40307,7 +40307,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of self-reported cancers
 
@@ -40353,7 +40353,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of self-reported non-cancer illnesses
 
@@ -40399,7 +40399,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Townsend deprivation index at recruitment
 
@@ -40445,7 +40445,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Type of accommodation lived in
 
@@ -40491,7 +40491,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Own or rent accommodation lived in
 
@@ -40537,7 +40537,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Length of time at current address
 
@@ -40583,7 +40583,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number in household
 
@@ -40629,7 +40629,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of vehicles in household
 
@@ -40675,7 +40675,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average total household income before tax
 
@@ -40721,7 +40721,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time employed in main current job
 
@@ -40767,7 +40767,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Length of working week for main job
 
@@ -40813,7 +40813,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Frequency of travelling from home to job workplace
 
@@ -40859,7 +40859,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Distance between home and job workplace
 
@@ -40905,7 +40905,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Job involves mainly walking or standing
 
@@ -40951,7 +40951,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Job involves heavy manual or physical work
 
@@ -40997,7 +40997,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Job involves shift work
 
@@ -41043,7 +41043,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age completed full time education
 
@@ -41089,7 +41089,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of days/week walked 10+ minutes
 
@@ -41135,7 +41135,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Duration of walks
 
@@ -41181,7 +41181,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of days/week of moderate physical activity 10+ minutes
 
@@ -41227,7 +41227,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Duration of moderate activity
 
@@ -41273,7 +41273,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of days/week of vigorous physical activity 10+ minutes
 
@@ -41319,7 +41319,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Duration of vigorous activity
 
@@ -41365,7 +41365,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Usual walking pace
 
@@ -41411,7 +41411,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Frequency of stair climbing in last 4 weeks
 
@@ -41457,7 +41457,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Frequency of walking for pleasure in last 4 weeks
 
@@ -41503,7 +41503,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Duration walking for pleasure
 
@@ -41549,7 +41549,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Frequency of strenuous sports in last 4 weeks
 
@@ -41595,7 +41595,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Duration of strenuous sports
 
@@ -41641,7 +41641,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Frequency of light DIY in last 4 weeks
 
@@ -41687,7 +41687,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Duration of light DIY
 
@@ -41733,7 +41733,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time spend outdoors in summer
 
@@ -41779,7 +41779,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time spent outdoors in winter
 
@@ -41825,7 +41825,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time spent watching television (TV)
 
@@ -41871,7 +41871,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time spent using computer
 
@@ -41917,7 +41917,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time spent driving
 
@@ -41963,7 +41963,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Drive faster than motorway speed limit
 
@@ -42009,7 +42009,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Length of mobile phone use
 
@@ -42055,7 +42055,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weekly usage of mobile phone in last 3 months
 
@@ -42101,7 +42101,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Hands-free device/speakerphone use with mobile phone in last 3 month
 
@@ -42147,7 +42147,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Difference in mobile phone use compared to two years previously
 
@@ -42193,7 +42193,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Usual side of head for mobile phone use
 
@@ -42239,7 +42239,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Sleep duration
 
@@ -42285,7 +42285,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Getting up in morning
 
@@ -42331,7 +42331,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Morning/evening person (chronotype)
 
@@ -42377,7 +42377,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Nap during day
 
@@ -42423,7 +42423,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Sleeplessness / insomnia
 
@@ -42469,7 +42469,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Snoring
 
@@ -42515,7 +42515,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Daytime dozing / sleeping (narcolepsy)
 
@@ -42561,7 +42561,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Current tobacco smoking
 
@@ -42607,7 +42607,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Past tobacco smoking
 
@@ -42653,7 +42653,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Smoking/smokers in household
 
@@ -42699,7 +42699,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Exposure to tobacco smoke at home
 
@@ -42745,7 +42745,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Exposure to tobacco smoke outside home
 
@@ -42791,7 +42791,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Breastfed as a baby
 
@@ -42837,7 +42837,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Comparative body size at age 10
 
@@ -42883,7 +42883,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Comparative height size at age 10
 
@@ -42929,7 +42929,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Handedness (chirality/laterality)
 
@@ -42975,7 +42975,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Skin colour
 
@@ -43021,7 +43021,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ease of skin tanning
 
@@ -43067,7 +43067,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Childhood sunburn occasions
 
@@ -43113,7 +43113,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Hair colour (natural, before greying)
 
@@ -43159,7 +43159,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Facial ageing
 
@@ -43205,7 +43205,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Adopted as a child
 
@@ -43251,7 +43251,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Part of a multiple birth
 
@@ -43297,7 +43297,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Maternal smoking around birth
 
@@ -43343,7 +43343,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Father still alive
 
@@ -43389,7 +43389,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Father’s age at death
 
@@ -43435,7 +43435,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mother still alive
 
@@ -43481,7 +43481,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mother’s age
 
@@ -43527,7 +43527,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of full brothers
 
@@ -43573,7 +43573,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of full sisters
 
@@ -43619,7 +43619,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age first had sexual intercourse
 
@@ -43665,7 +43665,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Lifetime number of sexual partners
 
@@ -43711,7 +43711,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had same-sex intercourse
 
@@ -43757,7 +43757,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Overall health rating
 
@@ -43803,7 +43803,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Long-standing illness, disability or infirmity
 
@@ -43849,7 +43849,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Plays computer games
 
@@ -43895,7 +43895,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Use of sun/uv protection
 
@@ -43941,7 +43941,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Frequency of solarium/sunlamp use
 
@@ -43987,7 +43987,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Falls in the last year
 
@@ -44033,7 +44033,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weight change compared with 1 year ago
 
@@ -44079,7 +44079,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Relative age of first facial hair
 
@@ -44125,7 +44125,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Relative age voice broke
 
@@ -44171,7 +44171,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Hair/balding pattern
 
@@ -44217,7 +44217,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of children fathered
 
@@ -44263,7 +44263,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Diabetes diagnosed by doctor
 
@@ -44309,7 +44309,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cancer diagnosed by doctor
 
@@ -44355,7 +44355,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fractured/broken bones in last 5 years
 
@@ -44401,7 +44401,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Other serious medical condition/disability diagnosed by doctor
 
@@ -44447,7 +44447,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Taking other prescription medications
 
@@ -44493,7 +44493,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Frequency of heavy DIY in last 4 weeks
 
@@ -44539,7 +44539,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Duration of heavy DIY
 
@@ -44585,7 +44585,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Light smokers, at least 100 smokes in lifetime
 
@@ -44631,7 +44631,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had breast cancer screening / mammogram
 
@@ -44677,7 +44677,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Years since last breast cancer screening / mammogram
 
@@ -44723,7 +44723,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had cervical smear test
 
@@ -44769,7 +44769,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Years since last cervical smear test
 
@@ -44815,7 +44815,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age when periods started (menarche)
 
@@ -44861,7 +44861,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Had menopause
 
@@ -44907,7 +44907,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of live births
 
@@ -44953,7 +44953,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Birth weight of first child
 
@@ -44999,7 +44999,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age at first live birth
 
@@ -45045,7 +45045,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age at last live birth
 
@@ -45091,7 +45091,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had stillbirth, spontaneous miscarriage or termination
 
@@ -45137,7 +45137,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever taken oral contraceptive pill
 
@@ -45183,7 +45183,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age started oral contraceptive pill
 
@@ -45229,7 +45229,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age when last used oral contraceptive pill
 
@@ -45275,7 +45275,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever used hormone-replacement therapy (HRT)
 
@@ -45321,7 +45321,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age at hysterectomy
 
@@ -45367,7 +45367,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Bilateral oophorectomy (both ovaries removed)
 
@@ -45413,7 +45413,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age started smoking in former smokers
 
@@ -45459,7 +45459,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Type of tobacco previously smoked
 
@@ -45505,7 +45505,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of cigarettes previously smoked daily
 
@@ -45551,7 +45551,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age stopped smoking
 
@@ -45597,7 +45597,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever stopped smoking for 6+ months
 
@@ -45643,7 +45643,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of unsuccessful stop-smoking attempts
 
@@ -45689,7 +45689,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Likelihood of resuming smoking
 
@@ -45735,7 +45735,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Father’s age
 
@@ -45781,7 +45781,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 General pain for 3+ months
 
@@ -45827,7 +45827,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age high blood pressure diagnosed
 
@@ -45873,7 +45873,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age diabetes diagnosed
 
@@ -45919,7 +45919,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Started insulin within one year diagnosis of diabetes
 
@@ -45965,7 +45965,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fracture resulting from simple fall
 
@@ -46011,7 +46011,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pregnant
 
@@ -46057,7 +46057,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weight, manual entry
 
@@ -46103,7 +46103,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Neck/shoulder pain for 3+ months
 
@@ -46149,7 +46149,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Hip pain for 3+ months
 
@@ -46195,7 +46195,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Job involves night shift work
 
@@ -46241,7 +46241,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age started smoking in current smokers
 
@@ -46287,7 +46287,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Type of tobacco currently smoked
 
@@ -46333,7 +46333,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of cigarettes currently smoked daily (current cigarette smokers)
 
@@ -46379,7 +46379,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time from waking to first cigarette
 
@@ -46425,7 +46425,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Difficulty not smoking for 1 day
 
@@ -46471,7 +46471,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever tried to stop smoking
 
@@ -46517,7 +46517,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Wants to stop smoking
 
@@ -46563,7 +46563,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Smoking compared to 10 years previous
 
@@ -46609,7 +46609,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mother’s age at death
 
@@ -46655,7 +46655,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age started hormone-replacement therapy (HRT)
 
@@ -46701,7 +46701,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age last used hormone-replacement therapy (HRT)
 
@@ -46747,7 +46747,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Back pain for 3+ months
 
@@ -46793,7 +46793,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age at menopause (last menstrual period)
 
@@ -46839,7 +46839,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had hysterectomy (womb removed)
 
@@ -46885,7 +46885,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age angina diagnosed
 
@@ -46931,7 +46931,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Frequency of other exercises in last 4 weeks
 
@@ -46977,7 +46977,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Duration of other exercises
 
@@ -47023,7 +47023,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Year immigrated to UK (United Kingdom)
 
@@ -47069,7 +47069,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Lifetime number of same-sex sexual partners
 
@@ -47115,7 +47115,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Time since last menstrual period
 
@@ -47161,7 +47161,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Length of menstrual cycle
 
@@ -47207,7 +47207,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Menstruating today
 
@@ -47253,7 +47253,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Stomach/abdominal pain for 3+ months
 
@@ -47299,7 +47299,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age hay fever, rhinitis or eczema diagnosed
 
@@ -47345,7 +47345,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Knee pain for 3+ months
 
@@ -47391,7 +47391,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age asthma diagnosed
 
@@ -47437,7 +47437,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Headaches for 3+ months
 
@@ -47483,7 +47483,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of stillbirths
 
@@ -47529,7 +47529,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of spontaneous miscarriages
 
@@ -47575,7 +47575,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of pregnancy terminations
 
@@ -47621,7 +47621,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age of primiparous women at birth of child
 
@@ -47667,7 +47667,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age at bilateral oophorectomy (both ovaries removed)
 
@@ -47713,7 +47713,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age heart attack diagnosed
 
@@ -47759,7 +47759,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Adopted father still alive
 
@@ -47805,7 +47805,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Adopted mother still alive
 
@@ -47851,7 +47851,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of adopted brothers
 
@@ -47897,7 +47897,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of adopted sisters
 
@@ -47943,7 +47943,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age emphysema/chronic bronchitis diagnosed
 
@@ -47989,7 +47989,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age deep-vein thrombosis (DVT, blood clot in leg) diagnosed
 
@@ -48035,7 +48035,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age pulmonary embolism (blood clot in lung) diagnosed
 
@@ -48081,7 +48081,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Gestational diabetes only
 
@@ -48127,7 +48127,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age stroke diagnosed
 
@@ -48173,7 +48173,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Facial pains for 3+ months
 
@@ -48219,7 +48219,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Diastolic blood pressure, automated reading
 
@@ -48265,7 +48265,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Systolic blood pressure, automated reading
 
@@ -48311,7 +48311,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pulse rate
 
@@ -48357,7 +48357,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pulse wave reflection index
 
@@ -48403,7 +48403,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pulse wave peak to peak time
 
@@ -48449,7 +48449,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pulse wave pressure versus time response curve
 
@@ -48495,7 +48495,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pulse wave velocity (manual entry)
 
@@ -48541,7 +48541,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Non-accidental death in close genetic family
 
@@ -48587,7 +48587,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Private healthcare
 
@@ -48633,7 +48633,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg pain on walking
 
@@ -48679,7 +48679,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of older siblings
 
@@ -48725,7 +48725,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Visual acuity measured (left)
 
@@ -48771,7 +48771,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 logMAR, final (left)
 
@@ -48817,7 +48817,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg pain when standing still or sitting
 
@@ -48863,7 +48863,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg pain in calf/calves
 
@@ -48909,7 +48909,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg pain when walking uphill or hurrying
 
@@ -48955,7 +48955,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg pain when walking normally
 
@@ -49001,7 +49001,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg pain when walking ever disappears while walking
 
@@ -49047,7 +49047,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg pain on walking : action taken
 
@@ -49093,7 +49093,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg pain on walking : effect of standing still
 
@@ -49139,7 +49139,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Surgery on leg arteries (other than for varicose veins)
 
@@ -49185,7 +49185,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Surgery/amputation of toe or leg
 
@@ -49231,7 +49231,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Previously smoked cigarettes on most/all days
 
@@ -49277,7 +49277,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 ECG, heart rate
 
@@ -49323,7 +49323,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 ECG, load
 
@@ -49369,7 +49369,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Doctor restricts physical activity due to heart condition
 
@@ -49415,7 +49415,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Chest pain felt during physical activity
 
@@ -49461,7 +49461,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Chest pain felt outside physical activity
 
@@ -49507,7 +49507,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Able to walk or cycle unaided for 10 minutes
 
@@ -49553,7 +49553,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Program category
 
@@ -49599,7 +49599,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Maximum workload during fitness test
 
@@ -49645,7 +49645,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Maximum heart rate during fitness test
 
@@ -49691,7 +49691,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Target heart rate achieved
 
@@ -49737,7 +49737,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Duration of fitness test
 
@@ -49783,7 +49783,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Glasses worn/required (left)
 
@@ -49829,7 +49829,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Qualifications
 
@@ -49875,7 +49875,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Gas or solid-fuel cooking/heating
 
@@ -49921,7 +49921,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Heating type(s) in home
 
@@ -49967,7 +49967,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Current employment status
 
@@ -50013,7 +50013,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Transport type for commuting to job workplace
 
@@ -50059,7 +50059,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Attendance/disability/mobility allowance
 
@@ -50105,7 +50105,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fractured bone site(s)
 
@@ -50151,7 +50151,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pain type(s) experienced in last month
 
@@ -50197,7 +50197,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of cigarettes previously smoked daily (current cigar/pipe
 smokers)
@@ -50244,7 +50244,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Age stopped smoking cigarettes (current cigar/pipe or previous cigarette
 smoker)
@@ -50291,7 +50291,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Heart rate during PWA
 
@@ -50337,7 +50337,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Systolic brachial blood pressure during PWA
 
@@ -50383,7 +50383,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Diastolic brachial blood pressure during PWA
 
@@ -50429,7 +50429,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Peripheral pulse pressure during PWA
 
@@ -50475,7 +50475,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Central systolic blood pressure during PWA
 
@@ -50521,7 +50521,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Central pulse pressure during PWA
 
@@ -50567,7 +50567,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of beats in waveform average for PWA
 
@@ -50613,7 +50613,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Central augmentation pressure during PWA
 
@@ -50659,7 +50659,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Augmentation index for PWA
 
@@ -50705,7 +50705,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cardiac output during PWA
 
@@ -50751,7 +50751,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 End systolic pressure during PWA
 
@@ -50797,7 +50797,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 End systolic pressure index during PWA
 
@@ -50843,7 +50843,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total peripheral resistance during PWA
 
@@ -50889,7 +50889,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Stroke volume during PWA
 
@@ -50935,7 +50935,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Mean arterial pressure during PWA
 
@@ -50981,7 +50981,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Vicorder trace
 
@@ -51027,7 +51027,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Systolic brachial blood pressure
 
@@ -51073,7 +51073,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Diastolic brachial blood pressure
 
@@ -51119,7 +51119,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of PWA tests performed
 
@@ -51165,7 +51165,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Vicorder results plausible
 
@@ -51211,7 +51211,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cardiac index during PWA
 
@@ -51257,7 +51257,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Interpolated Age of participant when cancer first diagnosed
 
@@ -51303,7 +51303,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Interpolated Age of participant when non-cancer illness first diagnosed
 
@@ -51349,7 +51349,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Sitting height
 
@@ -51395,7 +51395,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Birth weight
 
@@ -51441,7 +51441,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Smoking status
 
@@ -51487,7 +51487,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Current employment status - corrected
 
@@ -51533,7 +51533,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cascot confidence score
 
@@ -51579,7 +51579,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever smoked
 
@@ -51625,7 +51625,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ethnic background
 
@@ -51671,7 +51671,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Body mass index (BMI)
 
@@ -51717,7 +51717,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weight
 
@@ -51763,7 +51763,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pulse wave Arterial Stiffness index
 
@@ -51809,7 +51809,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Liver iron (Fe)
 
@@ -51855,7 +51855,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Liver inflammation factor (LIF)
 
@@ -51901,7 +51901,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Proton density fat fraction (PDFF)
 
@@ -51947,7 +51947,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Anterior thigh fat-free muscle volume (left)
 
@@ -51993,7 +51993,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Posterior thigh fat-free muscle volume (left)
 
@@ -52039,7 +52039,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Visceral adipose tissue volume (VAT)
 
@@ -52085,7 +52085,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Abdominal subcutaneous adipose tissue volume (ASAT)
 
@@ -52131,7 +52131,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total thigh fat-free muscle volume
 
@@ -52177,7 +52177,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total trunk fat volume
 
@@ -52223,7 +52223,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total adipose tissue volume
 
@@ -52269,7 +52269,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total lean tissue volume
 
@@ -52315,7 +52315,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 LV ejection fraction
 
@@ -52361,7 +52361,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 LV end diastolic volume
 
@@ -52407,7 +52407,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 LV end systolic volume
 
@@ -52453,7 +52453,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 LV stroke volume
 
@@ -52499,7 +52499,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cardiac output
 
@@ -52545,7 +52545,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cardiac index
 
@@ -52591,7 +52591,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average heart rate
 
@@ -52637,7 +52637,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Body surface area
 
@@ -52683,7 +52683,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Weight
 
@@ -52729,7 +52729,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Body fat percentage
 
@@ -52775,7 +52775,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Whole body fat mass
 
@@ -52821,7 +52821,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Whole body fat-free mass
 
@@ -52867,7 +52867,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Whole body water mass
 
@@ -52913,7 +52913,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Body mass index (BMI)
 
@@ -52959,7 +52959,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Basal metabolic rate
 
@@ -53005,7 +53005,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Impedance of whole body
 
@@ -53051,7 +53051,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Impedance of leg (left)
 
@@ -53097,7 +53097,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Impedance of arm (left)
 
@@ -53143,7 +53143,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg fat percentage (left)
 
@@ -53189,7 +53189,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg fat mass (left)
 
@@ -53235,7 +53235,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg fat-free mass (left)
 
@@ -53281,7 +53281,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg predicted mass (left)
 
@@ -53327,7 +53327,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arm fat percentage (left)
 
@@ -53373,7 +53373,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arm fat mass (left)
 
@@ -53419,7 +53419,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arm fat-free mass (left)
 
@@ -53465,7 +53465,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arm predicted mass (left)
 
@@ -53511,7 +53511,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trunk fat percentage
 
@@ -53557,7 +53557,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trunk fat mass
 
@@ -53603,7 +53603,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trunk fat-free mass
 
@@ -53649,7 +53649,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trunk predicted mass
 
@@ -53695,7 +53695,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 L1-L4 area
 
@@ -53741,7 +53741,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 L1-L4 average height
 
@@ -53787,7 +53787,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 L1-L4 average width
 
@@ -53833,7 +53833,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 L1-L4 BMC (bone mineral content)
 
@@ -53879,7 +53879,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 L1-L4 BMD (bone mineral density)
 
@@ -53925,7 +53925,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 L1-L4 BMD (bone mineral density) T-score
 
@@ -53971,7 +53971,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arm BMC (bone mineral content) (left)
 
@@ -54017,7 +54017,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arm BMD (bone mineral density) (left)
 
@@ -54063,7 +54063,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arms BMC (bone mineral content)
 
@@ -54109,7 +54109,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arms BMD (bone mineral density)
 
@@ -54155,7 +54155,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Head BMD (bone mineral density)
 
@@ -54201,7 +54201,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg BMD (bone mineral density) (left)
 
@@ -54247,7 +54247,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Legs BMC (bone mineral content)
 
@@ -54293,7 +54293,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Legs BMD (bone mineral density)
 
@@ -54339,7 +54339,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pelvis BMD (bone mineral density)
 
@@ -54385,7 +54385,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ribs BMD (bone mineral density)
 
@@ -54431,7 +54431,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Spine BMD (bone mineral density)
 
@@ -54477,7 +54477,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total BMC (bone mineral content)
 
@@ -54523,7 +54523,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total BMD (bone mineral density)
 
@@ -54569,7 +54569,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total BMD (bone mineral density) (left)
 
@@ -54615,7 +54615,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total BMD (bone mineral density) T-score
 
@@ -54661,7 +54661,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trunk BMC (bone mineral content)
 
@@ -54707,7 +54707,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trunk BMD (bone mineral density)
 
@@ -54753,7 +54753,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trunk BMD (bone mineral density) (left)
 
@@ -54799,7 +54799,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Android bone mass
 
@@ -54845,7 +54845,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Android fat mass
 
@@ -54891,7 +54891,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Android lean mass
 
@@ -54937,7 +54937,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Android tissue fat percentage
 
@@ -54983,7 +54983,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Android total mass
 
@@ -55029,7 +55029,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arm fat mass (left)
 
@@ -55075,7 +55075,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arm lean mass (left)
 
@@ -55121,7 +55121,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arm tissue fat percentage (left)
 
@@ -55167,7 +55167,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arm total mass (left)
 
@@ -55213,7 +55213,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arms fat mass
 
@@ -55259,7 +55259,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arms lean mass
 
@@ -55305,7 +55305,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arms tissue fat percentage
 
@@ -55351,7 +55351,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arms total mass
 
@@ -55397,7 +55397,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Gynoid bone mass
 
@@ -55443,7 +55443,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Gynoid fat mass
 
@@ -55489,7 +55489,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Gynoid lean mass
 
@@ -55535,7 +55535,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Gynoid tissue fat percentage
 
@@ -55581,7 +55581,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Gynoid total mass
 
@@ -55627,7 +55627,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg fat mass (left)
 
@@ -55673,7 +55673,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg lean mass (left)
 
@@ -55719,7 +55719,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg tissue fat percentage (left)
 
@@ -55765,7 +55765,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg total mass (left)
 
@@ -55811,7 +55811,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Legs fat mass
 
@@ -55857,7 +55857,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Legs lean mass
 
@@ -55903,7 +55903,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Legs tissue fat percentage
 
@@ -55949,7 +55949,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Legs total mass
 
@@ -55995,7 +55995,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total fat mass
 
@@ -56041,7 +56041,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total fat-free mass
 
@@ -56087,7 +56087,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total lean mass
 
@@ -56133,7 +56133,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total tissue fat percentage
 
@@ -56179,7 +56179,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total tissue mass
 
@@ -56225,7 +56225,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total mass
 
@@ -56271,7 +56271,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trunk fat mass
 
@@ -56317,7 +56317,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trunk lean mass
 
@@ -56363,7 +56363,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trunk tissue fat percentage
 
@@ -56409,7 +56409,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trunk total mass
 
@@ -56455,7 +56455,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 VAT (visceral adipose tissue) mass
 
@@ -56501,7 +56501,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 VAT (visceral adipose tissue) volume
 
@@ -56547,7 +56547,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Femur shaft BMD (bone mineral density) (left)
 
@@ -56593,7 +56593,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Femur total BMD (bone mineral density) (left)
 
@@ -56639,7 +56639,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Femur upper neck BMD (bone mineral density) (left)
 
@@ -56685,7 +56685,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Femur total BMD (bone mineral density) T-score (left)
 
@@ -56731,7 +56731,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Femur troch BMD (bone mineral density) (left)
 
@@ -56777,7 +56777,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Femur upper neck BMD (bone mineral density) T-score (left)
 
@@ -56823,7 +56823,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Femur wards BMD (bone mineral density) (left)
 
@@ -56869,7 +56869,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Femur troch BMD (bone mineral density) T-score (left)
 
@@ -56915,7 +56915,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Femur neck BMD (bone mineral density) (left)
 
@@ -56961,7 +56961,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Femur neck BMD (bone mineral density) T-score (left)
 
@@ -57007,7 +57007,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Femur wards BMD (bone mineral density) T-score (left)
 
@@ -57053,7 +57053,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Femur lower neck BMD (bone mineral density) (left)
 
@@ -57099,7 +57099,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trunk bone area
 
@@ -57145,7 +57145,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Head bone area
 
@@ -57191,7 +57191,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Head BMC (bone mineral content)
 
@@ -57237,7 +57237,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pelvis bone area
 
@@ -57283,7 +57283,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pelvis BMC (bone mineral content)
 
@@ -57329,7 +57329,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ribs bone area
 
@@ -57375,7 +57375,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ribs BMC (bone mineral content)
 
@@ -57421,7 +57421,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Spine bone area
 
@@ -57467,7 +57467,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Spine BMC (bone mineral content)
 
@@ -57513,7 +57513,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arm bone area (left)
 
@@ -57559,7 +57559,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg bone area (left)
 
@@ -57605,7 +57605,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arms combined bone area
 
@@ -57651,7 +57651,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Legs combined bone area
 
@@ -57697,7 +57697,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg BMC (bone mineral content) (left)
 
@@ -57743,7 +57743,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Albumin
 
@@ -57789,7 +57789,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Alkaline phosphatase
 
@@ -57835,7 +57835,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Alanine aminotransferase
 
@@ -57881,7 +57881,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Apolipoprotein A
 
@@ -57927,7 +57927,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Apolipoprotein B
 
@@ -57973,7 +57973,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Aspartate aminotransferase
 
@@ -58019,7 +58019,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Direct bilirubin
 
@@ -58065,7 +58065,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Urea
 
@@ -58111,7 +58111,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Calcium
 
@@ -58157,7 +58157,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cholesterol
 
@@ -58203,7 +58203,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Creatinine
 
@@ -58249,7 +58249,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 C-reactive protein
 
@@ -58295,7 +58295,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cystatin C
 
@@ -58341,7 +58341,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Gamma glutamyltransferase
 
@@ -58387,7 +58387,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Glucose
 
@@ -58433,7 +58433,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Glycated haemoglobin (HbA1c)
 
@@ -58479,7 +58479,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 HDL cholesterol
 
@@ -58525,7 +58525,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 IGF-1
 
@@ -58571,7 +58571,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 LDL direct
 
@@ -58617,7 +58617,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Lipoprotein A
 
@@ -58663,7 +58663,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Oestradiol
 
@@ -58709,7 +58709,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Phosphate
 
@@ -58755,7 +58755,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Rheumatoid factor
 
@@ -58801,7 +58801,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 SHBG
 
@@ -58847,7 +58847,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total bilirubin
 
@@ -58893,7 +58893,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Testosterone
 
@@ -58939,7 +58939,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total protein
 
@@ -58985,7 +58985,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Triglycerides
 
@@ -59031,7 +59031,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Urate
 
@@ -59077,7 +59077,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Vitamin D
 
@@ -59123,7 +59123,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had osteoarthritis affecting one or more joints (e.g. hip, knee,
 shoulder)
@@ -59170,7 +59170,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had rheumatoid arthritis affecting one or more joints
 
@@ -59216,7 +59216,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had cancer pain
 
@@ -59262,7 +59262,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had carpal tunnel syndrome
 
@@ -59308,7 +59308,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had complex regional pain syndrome (also known as CRPS)
 
@@ -59354,7 +59354,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had chronic post-surgical pain
 
@@ -59400,7 +59400,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Year surgery was performed leading to chronic post-surgical pain
 
@@ -59446,7 +59446,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had diabetes (Type I or Type II)
 
@@ -59492,7 +59492,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had any cause of nerve damage/neuropathy other than diabetic
 neuropathy
@@ -59539,7 +59539,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had fibromyalgia syndrome
 
@@ -59585,7 +59585,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had chronic Fatigue Syndrome or Myalgic Encephalomyelitis (M.E.)
 
@@ -59631,7 +59631,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had gout
 
@@ -59677,7 +59677,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Currently experiencing a gout flare
 
@@ -59723,7 +59723,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Gout causing a swollen joint now
 
@@ -59769,7 +59769,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Gout causing a warm joint now
 
@@ -59815,7 +59815,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Average pain from gout in the past 24 hours while resting
 
@@ -59861,7 +59861,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had migraine
 
@@ -59907,7 +59907,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had pelvic pain
 
@@ -59953,7 +59953,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had post herpetic neuralgia (pain after shingles)
 
@@ -59999,7 +59999,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Troubled by pain or discomfort present for more than 3 months
 
@@ -60045,7 +60045,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pain or discomfort all over the body in the last 3 months
 
@@ -60091,7 +60091,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 All over body pain in last three months and rating of pain
 
@@ -60137,7 +60137,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Head pain in last three months and rating of pain
 
@@ -60183,7 +60183,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Face pain in last three months and rating of pain
 
@@ -60229,7 +60229,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Neck or shoulder pain in last three months and rating of pain
 
@@ -60275,7 +60275,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Back pain in last three months and rating of pain
 
@@ -60321,7 +60321,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Stomach or abdomen pain in last three months and rating of pain
 
@@ -60367,7 +60367,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Hip pain in last three months and rating of pain
 
@@ -60413,7 +60413,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Knee pain in last three months and rating of pain
 
@@ -60459,7 +60459,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Arm pain in last three months and rating of pain
 
@@ -60505,7 +60505,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Hand pain in last three months and rating of pain
 
@@ -60551,7 +60551,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pain or discomfort in both feet in last three months
 
@@ -60597,7 +60597,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Feet pain in last three months and rating of pain
 
@@ -60643,7 +60643,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leg pain in last three months and rating of pain
 
@@ -60689,7 +60689,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Chest pain in last three months and rating of pain
 
@@ -60735,7 +60735,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pain or discomfort in another part of the body in the last 3 months
 
@@ -60781,7 +60781,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pain or tenderness during the past week
 
@@ -60827,7 +60827,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pain or cramps in lower abdomen in past six months
 
@@ -60873,7 +60873,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Depression in past six months
 
@@ -60919,7 +60919,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Headache in past six months
 
@@ -60965,7 +60965,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Burning pain present in pain that bothers the most
 
@@ -61011,7 +61011,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Painful cold present in pain that bothers the most
 
@@ -61057,7 +61057,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Electric shocks present in pain that bothers the most
 
@@ -61103,7 +61103,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Tingling present in pain that bothers the most
 
@@ -61149,7 +61149,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Pins and needles present in pain that bothers the most
 
@@ -61195,7 +61195,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Numbness present in pain that bothers the most
 
@@ -61241,7 +61241,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Itching present in pain that bothers the most
 
@@ -61287,7 +61287,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Bad and/or recurring headaches at any time in life
 
@@ -61333,7 +61333,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of days with headache in past three months
 
@@ -61379,7 +61379,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 When worst headaches began
 
@@ -61425,7 +61425,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 When worst headaches ended
 
@@ -61471,7 +61471,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Days per month having headaches when they were at their worst
 
@@ -61517,7 +61517,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Visual changes before or near the onset of headaches
 
@@ -61563,7 +61563,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Visual changes develop slowly before or near the onset of headaches
 
@@ -61609,7 +61609,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Tingling or numbness in face, arms or legs before or near the onset of
 headaches
@@ -61656,7 +61656,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Tingling and/or numbness spreads slowly before or near the onset of
 headaches
@@ -61703,7 +61703,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Develop tiredness, yawning, concentration problems, changes in mood or
 appetite, irritability, neck stiffness, light or sound sensitivity
@@ -61751,7 +61751,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of days in the last 3 months headaches interfered with ability to
 work, study or enjoy life
@@ -61798,7 +61798,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Legs and/or feet are usually numb
 
@@ -61844,7 +61844,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Usually have burning pain in legs and/or feet
 
@@ -61890,7 +61890,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Feet usually too sensitive to touch
 
@@ -61936,7 +61936,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Usually get muscle cramps in legs and/or feet
 
@@ -61982,7 +61982,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Usually have prickling feelings in legs or feet
 
@@ -62028,7 +62028,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Legs and feet usually hurt when the bed covers touch skin
 
@@ -62074,7 +62074,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Usually able to tell the hot water from the cold water
 
@@ -62120,7 +62120,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had an open sore on foot
 
@@ -62166,7 +62166,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had diabetic neuropathy
 
@@ -62212,7 +62212,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Feel weak all over most of the time
 
@@ -62258,7 +62258,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Feeling in feet and legs: symptoms are worse at night
 
@@ -62304,7 +62304,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Legs usually hurt when walking
 
@@ -62350,7 +62350,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Usually able to sense feet when walking
 
@@ -62396,7 +62396,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Skin on feet usually so dry that it cracks open
 
@@ -62442,7 +62442,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever had an amputation
 
@@ -62488,7 +62488,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scale of pain that bothers most at its worst in the last 24 hours
 
@@ -62534,7 +62534,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scale of pain that bothers most at its least in the last 24 hours
 
@@ -62580,7 +62580,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scale of pain that bothers most on average
 
@@ -62626,7 +62626,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scale of pain that bothers most right now
 
@@ -62672,7 +62672,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scale of how much relief pain treatments or medications have provided in
 the last 24 hours
@@ -62719,7 +62719,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scale of how much pain that bothers most has interfered with general
 activity
@@ -62766,7 +62766,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scale of how much pain that bothers most has interfered with mood
 
@@ -62812,7 +62812,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scale of how much pain that bothers most has interfered with walking
 ability
@@ -62859,7 +62859,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scale of how much pain that bothers most has interfered with normal work
 
@@ -62905,7 +62905,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scale of how much pain that bothers most has interfered with relations
 with other people
@@ -62952,7 +62952,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scale of how much pain that bothers most has interfered with sleep
 
@@ -62998,7 +62998,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scale of how much pain that bothers most has interfered with enjoyment
 of life
@@ -63045,7 +63045,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Scale to indicate how health is today
 
@@ -63091,7 +63091,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Persistent or recurrent tiredness, weariness or fatigue that has lasted
 for at least 6 months
@@ -63138,7 +63138,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Tiredness, weariness or fatigue goes away when resting
 
@@ -63184,7 +63184,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Tiredness, weariness or fatigue happening only because of exercising
 and/or working too much
@@ -63231,7 +63231,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Tired after minimal physical or mental exertion
 
@@ -63277,7 +63277,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Suffered from fatigue or exhaustion in the last week
 
@@ -63323,7 +63323,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Motivation is lower when fatigued
 
@@ -63369,7 +63369,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Exercise brings on fatigue
 
@@ -63415,7 +63415,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Easily fatigued
 
@@ -63461,7 +63461,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fatigue interferes with physical functioning
 
@@ -63507,7 +63507,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fatigue causes frequent problems
 
@@ -63553,7 +63553,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fatigue prevents sustained physical functioning
 
@@ -63599,7 +63599,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fatigue interferes with carrying out certain duties and responsibilities
 
@@ -63645,7 +63645,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fatigue is among three most disabling symptoms
 
@@ -63691,7 +63691,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Fatigue interferes with work, family or social life
 
@@ -63737,7 +63737,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Frequency of friend/family visits
 
@@ -63783,7 +63783,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Risk taking
 
@@ -63829,7 +63829,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Happiness
 
@@ -63875,7 +63875,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Work/job satisfaction
 
@@ -63921,7 +63921,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Health satisfaction
 
@@ -63967,7 +63967,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Family relationship satisfaction
 
@@ -64013,7 +64013,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Friendships satisfaction
 
@@ -64059,7 +64059,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Financial situation satisfaction
 
@@ -64105,7 +64105,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever depressed for a whole week
 
@@ -64151,7 +64151,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Longest period of depression
 
@@ -64197,7 +64197,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of depression episodes
 
@@ -64243,7 +64243,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever unenthusiastic/disinterested for a whole week
 
@@ -64289,7 +64289,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever manic/hyper for 2 days
 
@@ -64335,7 +64335,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Ever highly irritable/argumentative for 2 days
 
@@ -64381,7 +64381,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Longest period of unenthusiasm / disinterest
 
@@ -64427,7 +64427,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Number of unenthusiastic/disinterested episodes
 
@@ -64473,7 +64473,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Length of longest manic/irritable episode
 
@@ -64519,7 +64519,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Severity of manic/irritable episodes
 
@@ -64565,7 +64565,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Illness, injury, bereavement, stress in last 2 years
 
@@ -64611,7 +64611,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Manic/hyper symptoms
 
@@ -64657,7 +64657,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Leisure/social activities
 
@@ -64703,7 +64703,7 @@ MDD\_nerves
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 MDD\_nerves
 
@@ -64749,7 +64749,7 @@ MDD\_smith
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 MDD\_smith
 
@@ -64795,7 +64795,7 @@ MDD\_ICD
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 MDD\_ICD
 
@@ -64841,7 +64841,7 @@ SRSocPhobia
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Soc Phobia
 
@@ -64887,7 +64887,7 @@ SRSchizophrenia
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Schizophrenia
 
@@ -64933,7 +64933,7 @@ SRPsychosisOther
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Psychosis Other
 
@@ -64979,7 +64979,7 @@ SRPsychosisAny
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Psychosis Any
 
@@ -65025,7 +65025,7 @@ SRPersonalityDisorder
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Personality Disorder
 
@@ -65071,7 +65071,7 @@ SROtherPhobia
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Other Phobia
 
@@ -65117,7 +65117,7 @@ SRPanicAttacks
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Panic Attacks
 
@@ -65163,7 +65163,7 @@ SROCD
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported OCD
 
@@ -65209,7 +65209,7 @@ SRManiaBIP
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Mania BIP
 
@@ -65255,7 +65255,7 @@ SRDepression
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Depression
 
@@ -65301,7 +65301,7 @@ SRMood
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Mood
 
@@ -65347,7 +65347,7 @@ SRBulimiaNervosa
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Bulimia Nervosa
 
@@ -65393,7 +65393,7 @@ SRBingeEating
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Binge Eating
 
@@ -65439,7 +65439,7 @@ SRASD
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported ASD
 
@@ -65485,7 +65485,7 @@ SRGADandOthers
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported GADand Others
 
@@ -65531,7 +65531,7 @@ SRAnorexiaNervosa
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Anorexia Nervosa
 
@@ -65577,7 +65577,7 @@ SREatingDisorderAny
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Eating Disorder Any
 
@@ -65623,7 +65623,7 @@ SRAgoraphobia
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Agoraphobia
 
@@ -65669,7 +65669,7 @@ SRAnxietyAny
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Anxiety Any
 
@@ -65715,7 +65715,7 @@ SRADHD
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported ADHD
 
@@ -65761,7 +65761,7 @@ SmithDepression
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Smith Depression
 
@@ -65807,7 +65807,7 @@ PHQ9.Items
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 PHQ9 Items
 
@@ -65853,7 +65853,7 @@ PHQ9.Severity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 PHQ9 Severity
 
@@ -65899,7 +65899,7 @@ CIDI.MDD.Severity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 CIDI MDD Severity
 
@@ -65945,7 +65945,7 @@ MDD\_CIDI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 MDD\_CIDI
 
@@ -65991,7 +65991,7 @@ Depressed.Ever.Severe
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Depressed Ever Severe
 
@@ -66037,7 +66037,7 @@ Depressed.Current
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Depressed Current
 
@@ -66083,7 +66083,7 @@ Depressed.Current.Severe
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Depressed Current Severe
 
@@ -66129,7 +66129,7 @@ Subthreshold.Depression
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Subthreshold Depression
 
@@ -66175,7 +66175,7 @@ Recurrent.Depression
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Recurrent Depression
 
@@ -66221,7 +66221,7 @@ Single.Depression
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Single Depression
 
@@ -66267,7 +66267,7 @@ SmithBipolar
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Smith Bipolar
 
@@ -66313,7 +66313,7 @@ SmithMood
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Smith Mood
 
@@ -66359,7 +66359,7 @@ Total.Manifestations
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Total Manifestations
 
@@ -66405,7 +66405,7 @@ Wider.Bipolar.Definition
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Wider Bipolar Definition
 
@@ -66451,7 +66451,7 @@ BPDI
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 BPDI
 
@@ -66497,7 +66497,7 @@ Recurrent.Depression.With.BPD
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Recurrent Depression With BPD
 
@@ -66543,7 +66543,7 @@ Single.Depression.With.BPD
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Single Depression With BPD
 
@@ -66589,7 +66589,7 @@ BPDII
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 BPDII
 
@@ -66635,7 +66635,7 @@ GAD.CIDI.Somatic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 GAD CIDI Somatic
 
@@ -66681,7 +66681,7 @@ GAD7.Severity
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 GAD7 Severity
 
@@ -66727,7 +66727,7 @@ GAD.Ever
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 GAD Ever
 
@@ -66773,7 +66773,7 @@ GAD.Current
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 GAD Current
 
@@ -66819,7 +66819,7 @@ AUDIT.Score
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 AUDIT Score
 
@@ -66865,7 +66865,7 @@ Alcohol.Use.Disorder
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Alcohol Use Disorder
 
@@ -66911,7 +66911,7 @@ Cannabis.Ever
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cannabis Ever
 
@@ -66957,7 +66957,7 @@ Cannabis.Daily
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Cannabis Daily
 
@@ -67003,7 +67003,7 @@ Addiction.Ever.SelfReport
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Addiction Ever Self Report
 
@@ -67049,7 +67049,7 @@ Addiction.Ever
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Addiction Ever
 
@@ -67095,7 +67095,7 @@ Substance.Addiction.Ever
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Substance Addiction Ever
 
@@ -67141,7 +67141,7 @@ Alcohol.Dependence.Ever
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Alcohol Dependence Ever
 
@@ -67187,7 +67187,7 @@ Addiction.Current
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Addiction Current
 
@@ -67233,7 +67233,7 @@ Unusual.Experience.Ever.Hallucinations
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Unusual Experience Ever Hallucinations
 
@@ -67279,7 +67279,7 @@ Unusual.Experience.Ever.Delusions
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Unusual Experience Ever Delusions
 
@@ -67325,7 +67325,7 @@ Unusual.Experience.Ever
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Unusual Experience Ever
 
@@ -67371,7 +67371,7 @@ Unusual.Experience.Recent
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Unusual Experience Recent
 
@@ -67417,7 +67417,7 @@ Trauma.Childhood
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trauma Childhood
 
@@ -67463,7 +67463,7 @@ Trauma.Adult
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trauma Adult
 
@@ -67509,7 +67509,7 @@ Trauma.Catastrophic
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Trauma Catastrophic
 
@@ -67555,7 +67555,7 @@ PCL.Score
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 PCL Score
 
@@ -67601,7 +67601,7 @@ PTSD
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 PTSD
 
@@ -67647,7 +67647,7 @@ Self.Harm.Ever
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Harm Ever
 
@@ -67693,7 +67693,7 @@ Not.Worth.Living
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Not Worth Living
 
@@ -67739,7 +67739,7 @@ Self.Harm.Suicide.Attempt
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Harm Suicide Attempt
 
@@ -67785,7 +67785,7 @@ WellbeingScore
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Wellbeing Score
 
@@ -67831,7 +67831,7 @@ SRConditionsSum
 
 </td>
 
-<td style="text-align:left;">
+<td style="text-align:left;min-width: 1.8in; ">
 
 Self Reported Conditions Sum
 
