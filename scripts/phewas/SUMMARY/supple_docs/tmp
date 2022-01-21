@@ -1,0 +1,8 @@
+as_tibble %>% 
+  kable('html',escape=T) %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>% 
+  column_spec(1, border_right=T) %>% 
+  column_spec(3, border_right=T) %>%
+  column_spec(7, border_right=T) %>% 
+  column_spec(10, border_right=T) %>% 
+  column_spec(12, width_min = "3.5in")
