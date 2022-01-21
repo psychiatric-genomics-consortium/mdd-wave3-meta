@@ -35,7 +35,7 @@ fields.all = list.files(here::here(d.path),pattern='^fields.final',full.names = 
   Reduce(function(dtf1,dtf2) bind_rows(dtf1,dtf2[,colnames(dtf1)]), .)
 
 fields.show = fields.all %>% 
-  dplyr::select(Category_name=category,FieldID,Field,Participants,Link,CategoryID=Category,Field_used=field_used)
+  dplyr::select(Field,Category_name=category,Participants,Link,Field_used=field_used)
   
 
 ```
