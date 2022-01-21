@@ -65,7 +65,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90012
 
@@ -111,7 +111,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90013
 
@@ -157,7 +157,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90019
 
@@ -203,7 +203,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90020
 
@@ -249,7 +249,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90021
 
@@ -295,7 +295,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90022
 
@@ -341,7 +341,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90023
 
@@ -387,7 +387,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90024
 
@@ -433,7 +433,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90025
 
@@ -479,7 +479,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90027
 
@@ -525,7 +525,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90028
 
@@ -571,7 +571,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90029
 
@@ -617,7 +617,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90030
 
@@ -663,7 +663,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90031
 
@@ -709,7 +709,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90032
 
@@ -755,7 +755,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90033
 
@@ -801,7 +801,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90034
 
@@ -847,7 +847,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90035
 
@@ -893,7 +893,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90036
 
@@ -939,7 +939,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90037
 
@@ -985,7 +985,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90038
 
@@ -1031,7 +1031,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90039
 
@@ -1077,7 +1077,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90040
 
@@ -1123,7 +1123,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90041
 
@@ -1169,7 +1169,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90042
 
@@ -1215,7 +1215,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90043
 
@@ -1261,7 +1261,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90044
 
@@ -1307,7 +1307,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90045
 
@@ -1353,7 +1353,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90046
 
@@ -1399,7 +1399,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90047
 
@@ -1445,7 +1445,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90048
 
@@ -1491,7 +1491,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90049
 
@@ -1537,7 +1537,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90050
 
@@ -1583,7 +1583,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90087
 
@@ -1629,7 +1629,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90088
 
@@ -1675,7 +1675,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90089
 
@@ -1721,7 +1721,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90090
 
@@ -1767,7 +1767,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90091
 
@@ -1813,7 +1813,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90092
 
@@ -1859,7 +1859,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90093
 
@@ -1905,7 +1905,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90094
 
@@ -1951,7 +1951,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90095
 
@@ -1997,7 +1997,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90096
 
@@ -2043,7 +2043,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90097
 
@@ -2089,7 +2089,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90098
 
@@ -2135,7 +2135,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90099
 
@@ -2181,7 +2181,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90100
 
@@ -2227,7 +2227,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90101
 
@@ -2273,7 +2273,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90102
 
@@ -2319,7 +2319,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90103
 
@@ -2365,7 +2365,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90104
 
@@ -2411,7 +2411,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90105
 
@@ -2457,7 +2457,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90106
 
@@ -2503,7 +2503,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90107
 
@@ -2549,7 +2549,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90108
 
@@ -2595,7 +2595,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90109
 
@@ -2641,7 +2641,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90110
 
@@ -2687,7 +2687,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90111
 
@@ -2733,7 +2733,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90112
 
@@ -2779,7 +2779,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90113
 
@@ -2825,7 +2825,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90114
 
@@ -2871,7 +2871,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90115
 
@@ -2917,7 +2917,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90116
 
@@ -2963,7 +2963,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90117
 
@@ -3009,7 +3009,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90118
 
@@ -3055,7 +3055,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90119
 
@@ -3101,7 +3101,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90120
 
@@ -3147,7 +3147,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90121
 
@@ -3193,7 +3193,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90122
 
@@ -3239,7 +3239,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90123
 
@@ -3285,7 +3285,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90124
 
@@ -3331,7 +3331,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90125
 
@@ -3377,7 +3377,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90126
 
@@ -3423,7 +3423,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90127
 
@@ -3469,7 +3469,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90128
 
@@ -3515,7 +3515,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90129
 
@@ -3561,7 +3561,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90130
 
@@ -3607,7 +3607,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90131
 
@@ -3653,7 +3653,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90132
 
@@ -3699,7 +3699,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90133
 
@@ -3745,7 +3745,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90134
 
@@ -3791,7 +3791,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90135
 
@@ -3837,7 +3837,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90136
 
@@ -3883,7 +3883,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90137
 
@@ -3929,7 +3929,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90138
 
@@ -3975,7 +3975,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90139
 
@@ -4021,7 +4021,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90140
 
@@ -4067,7 +4067,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90141
 
@@ -4113,7 +4113,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90142
 
@@ -4159,7 +4159,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90143
 
@@ -4205,7 +4205,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90144
 
@@ -4251,7 +4251,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90145
 
@@ -4297,7 +4297,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90146
 
@@ -4343,7 +4343,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90147
 
@@ -4389,7 +4389,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90148
 
@@ -4435,7 +4435,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90149
 
@@ -4481,7 +4481,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90150
 
@@ -4527,7 +4527,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90151
 
@@ -4573,7 +4573,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90152
 
@@ -4619,7 +4619,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90153
 
@@ -4665,7 +4665,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90154
 
@@ -4711,7 +4711,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90155
 
@@ -4757,7 +4757,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90156
 
@@ -4803,7 +4803,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90157
 
@@ -4849,7 +4849,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90158
 
@@ -4895,7 +4895,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90051
 
@@ -4941,7 +4941,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90161
 
@@ -4987,7 +4987,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90162
 
@@ -5033,7 +5033,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90163
 
@@ -5079,7 +5079,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90164
 
@@ -5125,7 +5125,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90165
 
@@ -5171,7 +5171,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90166
 
@@ -5217,7 +5217,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90167
 
@@ -5263,7 +5263,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90168
 
@@ -5309,7 +5309,7 @@ Physical activity QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 90169
 
@@ -5355,7 +5355,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 54
 
@@ -5401,7 +5401,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 21003
 
@@ -5447,7 +5447,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 54
 
@@ -5493,7 +5493,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 21003
 
@@ -5539,7 +5539,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 31
 
@@ -5585,7 +5585,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 cov.age\_mhq
 
@@ -5631,7 +5631,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 cov.genotyping.array
 
@@ -5677,7 +5677,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 cov.pc1
 
@@ -5723,7 +5723,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 cov.pc2
 
@@ -5769,7 +5769,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 cov.pc3
 
@@ -5815,7 +5815,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 cov.pc4
 
@@ -5861,7 +5861,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 cov.pc5
 
@@ -5907,7 +5907,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 cov.pc6
 
@@ -5953,7 +5953,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 cov.pc7
 
@@ -5999,7 +5999,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 cov.pc8
 
@@ -6045,7 +6045,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 cov.pc9
 
@@ -6091,7 +6091,7 @@ covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 cov.pc10
 
@@ -6137,7 +6137,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25001
 
@@ -6183,7 +6183,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25002
 
@@ -6229,7 +6229,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25003
 
@@ -6275,7 +6275,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25004
 
@@ -6321,7 +6321,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25005
 
@@ -6367,7 +6367,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25006
 
@@ -6413,7 +6413,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25007
 
@@ -6459,7 +6459,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25008
 
@@ -6505,7 +6505,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25009
 
@@ -6551,7 +6551,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25010
 
@@ -6597,7 +6597,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25025
 
@@ -6643,7 +6643,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25040
 
@@ -6689,7 +6689,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25042
 
@@ -6735,7 +6735,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25044
 
@@ -6781,7 +6781,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25046
 
@@ -6827,7 +6827,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25048
 
@@ -6873,7 +6873,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25050
 
@@ -6919,7 +6919,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25052
 
@@ -6966,7 +6966,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25054
 
@@ -7013,7 +7013,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25488
 
@@ -7059,7 +7059,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25490
 
@@ -7105,7 +7105,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25492
 
@@ -7151,7 +7151,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25494
 
@@ -7197,7 +7197,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25496
 
@@ -7243,7 +7243,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25498
 
@@ -7289,7 +7289,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25499
 
@@ -7335,7 +7335,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25500
 
@@ -7381,7 +7381,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25502
 
@@ -7427,7 +7427,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25504
 
@@ -7473,7 +7473,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25505
 
@@ -7519,7 +7519,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25507
 
@@ -7565,7 +7565,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25509
 
@@ -7611,7 +7611,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25511
 
@@ -7657,7 +7657,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25513
 
@@ -7703,7 +7703,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25515
 
@@ -7749,7 +7749,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25517
 
@@ -7795,7 +7795,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25519
 
@@ -7841,7 +7841,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25521
 
@@ -7887,7 +7887,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25523
 
@@ -7933,7 +7933,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25525
 
@@ -7979,7 +7979,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25526
 
@@ -8025,7 +8025,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25527
 
@@ -8071,7 +8071,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25529
 
@@ -8117,7 +8117,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25531
 
@@ -8163,7 +8163,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25532
 
@@ -8209,7 +8209,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25534
 
@@ -8255,7 +8255,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25536
 
@@ -8301,7 +8301,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25538
 
@@ -8347,7 +8347,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25540
 
@@ -8393,7 +8393,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25542
 
@@ -8439,7 +8439,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25544
 
@@ -8485,7 +8485,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25546
 
@@ -8531,7 +8531,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25548
 
@@ -8577,7 +8577,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25550
 
@@ -8623,7 +8623,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25552
 
@@ -8669,7 +8669,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25553
 
@@ -8715,7 +8715,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25554
 
@@ -8761,7 +8761,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25556
 
@@ -8807,7 +8807,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25558
 
@@ -8853,7 +8853,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25559
 
@@ -8899,7 +8899,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25561
 
@@ -8945,7 +8945,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25563
 
@@ -8991,7 +8991,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25565
 
@@ -9037,7 +9037,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25567
 
@@ -9083,7 +9083,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25650
 
@@ -9129,7 +9129,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25652
 
@@ -9175,7 +9175,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25654
 
@@ -9221,7 +9221,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25656
 
@@ -9267,7 +9267,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25658
 
@@ -9313,7 +9313,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25660
 
@@ -9359,7 +9359,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25661
 
@@ -9405,7 +9405,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25662
 
@@ -9451,7 +9451,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25664
 
@@ -9497,7 +9497,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25666
 
@@ -9543,7 +9543,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25667
 
@@ -9589,7 +9589,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25669
 
@@ -9635,7 +9635,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25671
 
@@ -9681,7 +9681,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25673
 
@@ -9727,7 +9727,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25675
 
@@ -9773,7 +9773,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25677
 
@@ -9819,7 +9819,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25679
 
@@ -9865,7 +9865,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25681
 
@@ -9911,7 +9911,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25683
 
@@ -9957,7 +9957,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25685
 
@@ -10003,7 +10003,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25687
 
@@ -10049,7 +10049,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25688
 
@@ -10095,7 +10095,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25689
 
@@ -10141,7 +10141,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25691
 
@@ -10187,7 +10187,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25693
 
@@ -10233,7 +10233,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25694
 
@@ -10279,7 +10279,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25696
 
@@ -10325,7 +10325,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25698
 
@@ -10371,7 +10371,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25700
 
@@ -10417,7 +10417,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25702
 
@@ -10463,7 +10463,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25704
 
@@ -10509,7 +10509,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25706
 
@@ -10555,7 +10555,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25708
 
@@ -10601,7 +10601,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25710
 
@@ -10647,7 +10647,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25712
 
@@ -10693,7 +10693,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25714
 
@@ -10739,7 +10739,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25715
 
@@ -10785,7 +10785,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25716
 
@@ -10831,7 +10831,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25718
 
@@ -10877,7 +10877,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25720
 
@@ -10923,7 +10923,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25721
 
@@ -10969,7 +10969,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25723
 
@@ -11015,7 +11015,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25725
 
@@ -11061,7 +11061,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25727
 
@@ -11107,7 +11107,7 @@ White matter microstructure (Probabilistic tractography)
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25729
 
@@ -11153,7 +11153,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25742
 
@@ -11199,7 +11199,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25745
 
@@ -11245,7 +11245,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25761
 
@@ -11292,7 +11292,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25762
 
@@ -11339,7 +11339,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25763
 
@@ -11386,7 +11386,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25764
 
@@ -11433,7 +11433,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25765
 
@@ -11480,7 +11480,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25766
 
@@ -11527,7 +11527,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25767
 
@@ -11574,7 +11574,7 @@ task fMRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25768
 
@@ -11621,7 +11621,7 @@ Bulk brain-tissue measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26500
 
@@ -11667,7 +11667,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26501
 
@@ -11713,7 +11713,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26502
 
@@ -11759,7 +11759,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26503
 
@@ -11805,7 +11805,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26504
 
@@ -11851,7 +11851,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26505
 
@@ -11897,7 +11897,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26506
 
@@ -11943,7 +11943,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26507
 
@@ -11989,7 +11989,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26508
 
@@ -12035,7 +12035,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26509
 
@@ -12081,7 +12081,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26510
 
@@ -12127,7 +12127,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26511
 
@@ -12173,7 +12173,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26512
 
@@ -12219,7 +12219,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26513
 
@@ -12265,7 +12265,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26514
 
@@ -12311,7 +12311,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26515
 
@@ -12357,7 +12357,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26516
 
@@ -12403,7 +12403,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26517
 
@@ -12449,7 +12449,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26518
 
@@ -12495,7 +12495,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26519
 
@@ -12541,7 +12541,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26520
 
@@ -12587,7 +12587,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26521
 
@@ -12633,7 +12633,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26522
 
@@ -12679,7 +12679,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26523
 
@@ -12725,7 +12725,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26524
 
@@ -12771,7 +12771,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26525
 
@@ -12817,7 +12817,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26526
 
@@ -12863,7 +12863,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26527
 
@@ -12909,7 +12909,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26528
 
@@ -12955,7 +12955,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26529
 
@@ -13001,7 +13001,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26530
 
@@ -13047,7 +13047,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26531
 
@@ -13093,7 +13093,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26532
 
@@ -13139,7 +13139,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26533
 
@@ -13185,7 +13185,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26534
 
@@ -13231,7 +13231,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26535
 
@@ -13277,7 +13277,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26536
 
@@ -13323,7 +13323,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26537
 
@@ -13369,7 +13369,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26538
 
@@ -13415,7 +13415,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26539
 
@@ -13461,7 +13461,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26540
 
@@ -13507,7 +13507,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26541
 
@@ -13553,7 +13553,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26542
 
@@ -13599,7 +13599,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26543
 
@@ -13645,7 +13645,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26544
 
@@ -13691,7 +13691,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26545
 
@@ -13737,7 +13737,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26546
 
@@ -13783,7 +13783,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26547
 
@@ -13829,7 +13829,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26548
 
@@ -13875,7 +13875,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26549
 
@@ -13921,7 +13921,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26550
 
@@ -13967,7 +13967,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26551
 
@@ -14013,7 +14013,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26552
 
@@ -14059,7 +14059,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26553
 
@@ -14105,7 +14105,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26554
 
@@ -14151,7 +14151,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26555
 
@@ -14197,7 +14197,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26556
 
@@ -14243,7 +14243,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26557
 
@@ -14289,7 +14289,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26558
 
@@ -14335,7 +14335,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26559
 
@@ -14381,7 +14381,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26560
 
@@ -14427,7 +14427,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26561
 
@@ -14473,7 +14473,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26562
 
@@ -14519,7 +14519,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26563
 
@@ -14565,7 +14565,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26564
 
@@ -14611,7 +14611,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26565
 
@@ -14657,7 +14657,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26566
 
@@ -14703,7 +14703,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26567
 
@@ -14749,7 +14749,7 @@ Subcortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26568
 
@@ -14795,7 +14795,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26600
 
@@ -14841,7 +14841,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26601
 
@@ -14887,7 +14887,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26602
 
@@ -14933,7 +14933,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26603
 
@@ -14979,7 +14979,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26604
 
@@ -15025,7 +15025,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26605
 
@@ -15071,7 +15071,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26606
 
@@ -15117,7 +15117,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26607
 
@@ -15163,7 +15163,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26608
 
@@ -15209,7 +15209,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26609
 
@@ -15255,7 +15255,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26620
 
@@ -15301,7 +15301,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26621
 
@@ -15347,7 +15347,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26622
 
@@ -15393,7 +15393,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26623
 
@@ -15439,7 +15439,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26624
 
@@ -15485,7 +15485,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26625
 
@@ -15531,7 +15531,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26626
 
@@ -15577,7 +15577,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26627
 
@@ -15623,7 +15623,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26628
 
@@ -15669,7 +15669,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26629
 
@@ -15715,7 +15715,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26630
 
@@ -15761,7 +15761,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26631
 
@@ -15807,7 +15807,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26632
 
@@ -15853,7 +15853,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26633
 
@@ -15899,7 +15899,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26634
 
@@ -15945,7 +15945,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26635
 
@@ -15991,7 +15991,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26636
 
@@ -16037,7 +16037,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26637
 
@@ -16083,7 +16083,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26638
 
@@ -16129,7 +16129,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26639
 
@@ -16175,7 +16175,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26640
 
@@ -16221,7 +16221,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26641
 
@@ -16267,7 +16267,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26664
 
@@ -16313,7 +16313,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26665
 
@@ -16359,7 +16359,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26666
 
@@ -16405,7 +16405,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26667
 
@@ -16451,7 +16451,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26668
 
@@ -16497,7 +16497,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26669
 
@@ -16543,7 +16543,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26670
 
@@ -16589,7 +16589,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26671
 
@@ -16635,7 +16635,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26672
 
@@ -16681,7 +16681,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26673
 
@@ -16727,7 +16727,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26674
 
@@ -16773,7 +16773,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26675
 
@@ -16819,7 +16819,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26676
 
@@ -16865,7 +16865,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26677
 
@@ -16911,7 +16911,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26678
 
@@ -16957,7 +16957,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26679
 
@@ -17003,7 +17003,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26680
 
@@ -17049,7 +17049,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26681
 
@@ -17095,7 +17095,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26682
 
@@ -17141,7 +17141,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26683
 
@@ -17187,7 +17187,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26684
 
@@ -17233,7 +17233,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26685
 
@@ -17279,7 +17279,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26686
 
@@ -17325,7 +17325,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26687
 
@@ -17371,7 +17371,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26712
 
@@ -17417,7 +17417,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26714
 
@@ -17463,7 +17463,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26716
 
@@ -17509,7 +17509,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26717
 
@@ -17555,7 +17555,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26718
 
@@ -17601,7 +17601,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26719
 
@@ -17647,7 +17647,7 @@ Desikan atlas subcortical sub-regions
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26720
 
@@ -17693,7 +17693,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26923
 
@@ -17739,7 +17739,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26924
 
@@ -17785,7 +17785,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26925
 
@@ -17831,7 +17831,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26926
 
@@ -17877,7 +17877,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26927
 
@@ -17923,7 +17923,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26928
 
@@ -17969,7 +17969,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26929
 
@@ -18015,7 +18015,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26930
 
@@ -18061,7 +18061,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26931
 
@@ -18107,7 +18107,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26932
 
@@ -18153,7 +18153,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26933
 
@@ -18199,7 +18199,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26934
 
@@ -18245,7 +18245,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26935
 
@@ -18291,7 +18291,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26936
 
@@ -18337,7 +18337,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26937
 
@@ -18383,7 +18383,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26938
 
@@ -18429,7 +18429,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26939
 
@@ -18475,7 +18475,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26940
 
@@ -18521,7 +18521,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26941
 
@@ -18567,7 +18567,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26942
 
@@ -18613,7 +18613,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26943
 
@@ -18659,7 +18659,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26944
 
@@ -18705,7 +18705,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26945
 
@@ -18751,7 +18751,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26946
 
@@ -18797,7 +18797,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26947
 
@@ -18843,7 +18843,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26948
 
@@ -18889,7 +18889,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26949
 
@@ -18935,7 +18935,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26950
 
@@ -18981,7 +18981,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26951
 
@@ -19027,7 +19027,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26952
 
@@ -19073,7 +19073,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26953
 
@@ -19119,7 +19119,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26954
 
@@ -19165,7 +19165,7 @@ Desikan atlas pial measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26955
 
@@ -19211,7 +19211,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26989
 
@@ -19257,7 +19257,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26990
 
@@ -19303,7 +19303,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26991
 
@@ -19349,7 +19349,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26992
 
@@ -19395,7 +19395,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26993
 
@@ -19441,7 +19441,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26994
 
@@ -19487,7 +19487,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26995
 
@@ -19533,7 +19533,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26996
 
@@ -19579,7 +19579,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26997
 
@@ -19625,7 +19625,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26998
 
@@ -19671,7 +19671,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 26999
 
@@ -19717,7 +19717,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27000
 
@@ -19763,7 +19763,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27001
 
@@ -19809,7 +19809,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27002
 
@@ -19855,7 +19855,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27003
 
@@ -19901,7 +19901,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27004
 
@@ -19947,7 +19947,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27005
 
@@ -19993,7 +19993,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27006
 
@@ -20039,7 +20039,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27007
 
@@ -20085,7 +20085,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27008
 
@@ -20131,7 +20131,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27009
 
@@ -20177,7 +20177,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27010
 
@@ -20223,7 +20223,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27011
 
@@ -20269,7 +20269,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27012
 
@@ -20315,7 +20315,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27013
 
@@ -20361,7 +20361,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27014
 
@@ -20407,7 +20407,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27015
 
@@ -20453,7 +20453,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27016
 
@@ -20499,7 +20499,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27017
 
@@ -20545,7 +20545,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27018
 
@@ -20591,7 +20591,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27019
 
@@ -20637,7 +20637,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27020
 
@@ -20683,7 +20683,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27021
 
@@ -20729,7 +20729,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27022
 
@@ -20775,7 +20775,7 @@ Desikan atlas grey-white matter contrast
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27023
 
@@ -20821,7 +20821,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27329
 
@@ -20867,7 +20867,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27330
 
@@ -20913,7 +20913,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27331
 
@@ -20959,7 +20959,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27332
 
@@ -21005,7 +21005,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27333
 
@@ -21051,7 +21051,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27334
 
@@ -21097,7 +21097,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27335
 
@@ -21143,7 +21143,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27336
 
@@ -21189,7 +21189,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27337
 
@@ -21235,7 +21235,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27338
 
@@ -21281,7 +21281,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27339
 
@@ -21327,7 +21327,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27340
 
@@ -21373,7 +21373,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27341
 
@@ -21419,7 +21419,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27342
 
@@ -21465,7 +21465,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27343
 
@@ -21511,7 +21511,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27344
 
@@ -21557,7 +21557,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27345
 
@@ -21603,7 +21603,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27346
 
@@ -21649,7 +21649,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27347
 
@@ -21695,7 +21695,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27348
 
@@ -21741,7 +21741,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27349
 
@@ -21787,7 +21787,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27350
 
@@ -21833,7 +21833,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27351
 
@@ -21879,7 +21879,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27352
 
@@ -21925,7 +21925,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27353
 
@@ -21971,7 +21971,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27354
 
@@ -22017,7 +22017,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27355
 
@@ -22063,7 +22063,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27356
 
@@ -22109,7 +22109,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27357
 
@@ -22155,7 +22155,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27358
 
@@ -22201,7 +22201,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27359
 
@@ -22247,7 +22247,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27360
 
@@ -22293,7 +22293,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27361
 
@@ -22339,7 +22339,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27362
 
@@ -22385,7 +22385,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27363
 
@@ -22431,7 +22431,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27364
 
@@ -22477,7 +22477,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27365
 
@@ -22523,7 +22523,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27366
 
@@ -22569,7 +22569,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27367
 
@@ -22615,7 +22615,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27368
 
@@ -22661,7 +22661,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27369
 
@@ -22707,7 +22707,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27370
 
@@ -22753,7 +22753,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27371
 
@@ -22799,7 +22799,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27372
 
@@ -22845,7 +22845,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27373
 
@@ -22891,7 +22891,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27374
 
@@ -22937,7 +22937,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27375
 
@@ -22983,7 +22983,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27376
 
@@ -23029,7 +23029,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27377
 
@@ -23075,7 +23075,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27378
 
@@ -23121,7 +23121,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27379
 
@@ -23167,7 +23167,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27380
 
@@ -23213,7 +23213,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27381
 
@@ -23259,7 +23259,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27382
 
@@ -23305,7 +23305,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27383
 
@@ -23351,7 +23351,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27384
 
@@ -23397,7 +23397,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27385
 
@@ -23443,7 +23443,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27386
 
@@ -23489,7 +23489,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27387
 
@@ -23535,7 +23535,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27388
 
@@ -23581,7 +23581,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27389
 
@@ -23627,7 +23627,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27390
 
@@ -23673,7 +23673,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27391
 
@@ -23719,7 +23719,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27392
 
@@ -23765,7 +23765,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27393
 
@@ -23811,7 +23811,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27394
 
@@ -23857,7 +23857,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27395
 
@@ -23903,7 +23903,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27396
 
@@ -23949,7 +23949,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27397
 
@@ -23995,7 +23995,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27398
 
@@ -24041,7 +24041,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27399
 
@@ -24087,7 +24087,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27400
 
@@ -24133,7 +24133,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27401
 
@@ -24179,7 +24179,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27402
 
@@ -24225,7 +24225,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27403
 
@@ -24271,7 +24271,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27404
 
@@ -24317,7 +24317,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27405
 
@@ -24363,7 +24363,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27406
 
@@ -24409,7 +24409,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27407
 
@@ -24455,7 +24455,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27408
 
@@ -24501,7 +24501,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27409
 
@@ -24547,7 +24547,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27410
 
@@ -24593,7 +24593,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27411
 
@@ -24639,7 +24639,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27412
 
@@ -24685,7 +24685,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27413
 
@@ -24731,7 +24731,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27414
 
@@ -24777,7 +24777,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27415
 
@@ -24823,7 +24823,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27416
 
@@ -24869,7 +24869,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27417
 
@@ -24915,7 +24915,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27418
 
@@ -24961,7 +24961,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27419
 
@@ -25007,7 +25007,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27420
 
@@ -25053,7 +25053,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27421
 
@@ -25099,7 +25099,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27422
 
@@ -25145,7 +25145,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27423
 
@@ -25191,7 +25191,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27424
 
@@ -25237,7 +25237,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27425
 
@@ -25283,7 +25283,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27426
 
@@ -25329,7 +25329,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27427
 
@@ -25375,7 +25375,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27428
 
@@ -25421,7 +25421,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27429
 
@@ -25467,7 +25467,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27430
 
@@ -25513,7 +25513,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27431
 
@@ -25559,7 +25559,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27432
 
@@ -25605,7 +25605,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27433
 
@@ -25651,7 +25651,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27434
 
@@ -25697,7 +25697,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27435
 
@@ -25743,7 +25743,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27436
 
@@ -25789,7 +25789,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27437
 
@@ -25835,7 +25835,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27438
 
@@ -25881,7 +25881,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27439
 
@@ -25927,7 +25927,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27440
 
@@ -25973,7 +25973,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27441
 
@@ -26019,7 +26019,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27442
 
@@ -26065,7 +26065,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27443
 
@@ -26111,7 +26111,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27444
 
@@ -26157,7 +26157,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27445
 
@@ -26203,7 +26203,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27446
 
@@ -26249,7 +26249,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27447
 
@@ -26295,7 +26295,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27448
 
@@ -26341,7 +26341,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27449
 
@@ -26387,7 +26387,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27450
 
@@ -26433,7 +26433,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27451
 
@@ -26479,7 +26479,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27452
 
@@ -26525,7 +26525,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27453
 
@@ -26571,7 +26571,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27454
 
@@ -26617,7 +26617,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27455
 
@@ -26663,7 +26663,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27456
 
@@ -26709,7 +26709,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27457
 
@@ -26755,7 +26755,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27458
 
@@ -26801,7 +26801,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27459
 
@@ -26847,7 +26847,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27460
 
@@ -26893,7 +26893,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27461
 
@@ -26939,7 +26939,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27462
 
@@ -26985,7 +26985,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27463
 
@@ -27031,7 +27031,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27464
 
@@ -27077,7 +27077,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27465
 
@@ -27123,7 +27123,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27466
 
@@ -27169,7 +27169,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27467
 
@@ -27215,7 +27215,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27468
 
@@ -27261,7 +27261,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27469
 
@@ -27307,7 +27307,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27470
 
@@ -27353,7 +27353,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27471
 
@@ -27399,7 +27399,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27472
 
@@ -27445,7 +27445,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27473
 
@@ -27491,7 +27491,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27474
 
@@ -27537,7 +27537,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27475
 
@@ -27583,7 +27583,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27476
 
@@ -27629,7 +27629,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27477
 
@@ -27675,7 +27675,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27478
 
@@ -27721,7 +27721,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27479
 
@@ -27767,7 +27767,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27480
 
@@ -27813,7 +27813,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27481
 
@@ -27859,7 +27859,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27482
 
@@ -27905,7 +27905,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27483
 
@@ -27951,7 +27951,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27484
 
@@ -27997,7 +27997,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27485
 
@@ -28043,7 +28043,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27486
 
@@ -28089,7 +28089,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27487
 
@@ -28135,7 +28135,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27488
 
@@ -28181,7 +28181,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27489
 
@@ -28227,7 +28227,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27490
 
@@ -28273,7 +28273,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27491
 
@@ -28319,7 +28319,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27492
 
@@ -28365,7 +28365,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27493
 
@@ -28411,7 +28411,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27494
 
@@ -28457,7 +28457,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27495
 
@@ -28503,7 +28503,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27496
 
@@ -28549,7 +28549,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27497
 
@@ -28595,7 +28595,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27498
 
@@ -28641,7 +28641,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27499
 
@@ -28687,7 +28687,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27500
 
@@ -28733,7 +28733,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27501
 
@@ -28779,7 +28779,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27502
 
@@ -28825,7 +28825,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27503
 
@@ -28871,7 +28871,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27504
 
@@ -28917,7 +28917,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27505
 
@@ -28963,7 +28963,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27506
 
@@ -29009,7 +29009,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27507
 
@@ -29055,7 +29055,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27508
 
@@ -29101,7 +29101,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27509
 
@@ -29147,7 +29147,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27510
 
@@ -29193,7 +29193,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27511
 
@@ -29239,7 +29239,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27512
 
@@ -29285,7 +29285,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27513
 
@@ -29331,7 +29331,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27514
 
@@ -29377,7 +29377,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27515
 
@@ -29423,7 +29423,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27516
 
@@ -29469,7 +29469,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27517
 
@@ -29515,7 +29515,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27518
 
@@ -29561,7 +29561,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27519
 
@@ -29607,7 +29607,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27520
 
@@ -29653,7 +29653,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27521
 
@@ -29699,7 +29699,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27522
 
@@ -29745,7 +29745,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27523
 
@@ -29791,7 +29791,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27524
 
@@ -29837,7 +29837,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27525
 
@@ -29883,7 +29883,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27526
 
@@ -29929,7 +29929,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27527
 
@@ -29975,7 +29975,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27528
 
@@ -30021,7 +30021,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27529
 
@@ -30067,7 +30067,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27530
 
@@ -30113,7 +30113,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27531
 
@@ -30159,7 +30159,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27532
 
@@ -30205,7 +30205,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27533
 
@@ -30251,7 +30251,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27534
 
@@ -30297,7 +30297,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27535
 
@@ -30343,7 +30343,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27536
 
@@ -30389,7 +30389,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27537
 
@@ -30435,7 +30435,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27538
 
@@ -30481,7 +30481,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27539
 
@@ -30527,7 +30527,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27540
 
@@ -30573,7 +30573,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27541
 
@@ -30619,7 +30619,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27542
 
@@ -30665,7 +30665,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27543
 
@@ -30711,7 +30711,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27544
 
@@ -30757,7 +30757,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27545
 
@@ -30803,7 +30803,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27546
 
@@ -30849,7 +30849,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27547
 
@@ -30895,7 +30895,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27548
 
@@ -30941,7 +30941,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27549
 
@@ -30987,7 +30987,7 @@ Destrix a2009s atlas cortical measures
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 27550
 
@@ -31033,7 +31033,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12139
 
@@ -31079,7 +31079,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12187
 
@@ -31125,7 +31125,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12188
 
@@ -31171,7 +31171,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12651
 
@@ -31217,7 +31217,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12706
 
@@ -31263,7 +31263,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25000
 
@@ -31309,7 +31309,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25731
 
@@ -31356,7 +31356,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25732
 
@@ -31403,7 +31403,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25733
 
@@ -31450,7 +31450,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25734
 
@@ -31496,7 +31496,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25735
 
@@ -31542,7 +31542,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25736
 
@@ -31588,7 +31588,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25737
 
@@ -31634,7 +31634,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25738
 
@@ -31680,7 +31680,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25740
 
@@ -31726,7 +31726,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25741
 
@@ -31772,7 +31772,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25743
 
@@ -31818,7 +31818,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25744
 
@@ -31865,7 +31865,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25746
 
@@ -31911,7 +31911,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25756
 
@@ -31957,7 +31957,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25757
 
@@ -32003,7 +32003,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25758
 
@@ -32049,7 +32049,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25759
 
@@ -32095,7 +32095,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25780
 
@@ -32141,7 +32141,7 @@ Brain imaging QC and covariates
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 25781
 
@@ -32188,7 +32188,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 399
 
@@ -32234,7 +32234,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 400
 
@@ -32280,7 +32280,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 404
 
@@ -32326,7 +32326,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4282
 
@@ -32372,7 +32372,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20016
 
@@ -32418,7 +32418,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20018
 
@@ -32464,7 +32464,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20023
 
@@ -32510,7 +32510,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20131
 
@@ -32556,7 +32556,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20132
 
@@ -32602,7 +32602,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20133
 
@@ -32648,7 +32648,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20159
 
@@ -32694,7 +32694,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20191
 
@@ -32740,7 +32740,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20230
 
@@ -32786,7 +32786,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20240
 
@@ -32832,7 +32832,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20148
 
@@ -32879,7 +32879,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20155
 
@@ -32926,7 +32926,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20157
 
@@ -32972,7 +32972,7 @@ Cognition
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20248
 
@@ -33018,7 +33018,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1289
 
@@ -33064,7 +33064,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1299
 
@@ -33115,7 +33115,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1309
 
@@ -33161,7 +33161,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1319
 
@@ -33207,7 +33207,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1329
 
@@ -33253,7 +33253,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1339
 
@@ -33299,7 +33299,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1349
 
@@ -33345,7 +33345,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1359
 
@@ -33396,7 +33396,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1369
 
@@ -33442,7 +33442,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1379
 
@@ -33488,7 +33488,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1389
 
@@ -33534,7 +33534,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1408
 
@@ -33580,7 +33580,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1438
 
@@ -33626,7 +33626,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1458
 
@@ -33672,7 +33672,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1478
 
@@ -33718,7 +33718,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1488
 
@@ -33764,7 +33764,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1498
 
@@ -33810,7 +33810,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1518
 
@@ -33856,7 +33856,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1528
 
@@ -33902,7 +33902,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1538
 
@@ -33948,7 +33948,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1548
 
@@ -33994,7 +33994,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1558
 
@@ -34040,7 +34040,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1568
 
@@ -34092,7 +34092,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1578
 
@@ -34145,7 +34145,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1588
 
@@ -34191,7 +34191,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1598
 
@@ -34239,7 +34239,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1608
 
@@ -34287,7 +34287,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1618
 
@@ -34333,7 +34333,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1628
 
@@ -34380,7 +34380,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3680
 
@@ -34426,7 +34426,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3731
 
@@ -34472,7 +34472,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4407
 
@@ -34525,7 +34525,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4418
 
@@ -34578,7 +34578,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4429
 
@@ -34624,7 +34624,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4440
 
@@ -34672,7 +34672,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4451
 
@@ -34720,7 +34720,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4462
 
@@ -34770,7 +34770,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5364
 
@@ -34819,7 +34819,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 100010
 
@@ -34865,7 +34865,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 100020
 
@@ -34911,7 +34911,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 100580
 
@@ -34957,7 +34957,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 100590
 
@@ -35003,7 +35003,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 100630
 
@@ -35049,7 +35049,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 100670
 
@@ -35095,7 +35095,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 100710
 
@@ -35141,7 +35141,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 100720
 
@@ -35187,7 +35187,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 100730
 
@@ -35233,7 +35233,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 100740
 
@@ -35279,7 +35279,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103000
 
@@ -35325,7 +35325,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103010
 
@@ -35371,7 +35371,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103020
 
@@ -35417,7 +35417,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103030
 
@@ -35463,7 +35463,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103040
 
@@ -35509,7 +35509,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103050
 
@@ -35556,7 +35556,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103060
 
@@ -35602,7 +35602,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103070
 
@@ -35648,7 +35648,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103080
 
@@ -35694,7 +35694,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103090
 
@@ -35740,7 +35740,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103100
 
@@ -35786,7 +35786,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103120
 
@@ -35832,7 +35832,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103130
 
@@ -35878,7 +35878,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103140
 
@@ -35924,7 +35924,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103150
 
@@ -35970,7 +35970,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103160
 
@@ -36016,7 +36016,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103170
 
@@ -36062,7 +36062,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103180
 
@@ -36108,7 +36108,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103190
 
@@ -36154,7 +36154,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103200
 
@@ -36200,7 +36200,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103210
 
@@ -36246,7 +36246,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103220
 
@@ -36293,7 +36293,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103230
 
@@ -36339,7 +36339,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103310
 
@@ -36385,7 +36385,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103980
 
@@ -36431,7 +36431,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 103990
 
@@ -36477,7 +36477,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104000
 
@@ -36523,7 +36523,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104010
 
@@ -36569,7 +36569,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104020
 
@@ -36615,7 +36615,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104030
 
@@ -36661,7 +36661,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104040
 
@@ -36707,7 +36707,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104050
 
@@ -36753,7 +36753,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104060
 
@@ -36799,7 +36799,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104070
 
@@ -36845,7 +36845,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104080
 
@@ -36891,7 +36891,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104090
 
@@ -36937,7 +36937,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104100
 
@@ -36983,7 +36983,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104110
 
@@ -37029,7 +37029,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104120
 
@@ -37075,7 +37075,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104130
 
@@ -37121,7 +37121,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104140
 
@@ -37167,7 +37167,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104150
 
@@ -37213,7 +37213,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104160
 
@@ -37259,7 +37259,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104170
 
@@ -37305,7 +37305,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104180
 
@@ -37351,7 +37351,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104190
 
@@ -37397,7 +37397,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104200
 
@@ -37443,7 +37443,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104210
 
@@ -37489,7 +37489,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104220
 
@@ -37535,7 +37535,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104230
 
@@ -37581,7 +37581,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104240
 
@@ -37627,7 +37627,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104250
 
@@ -37673,7 +37673,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104260
 
@@ -37719,7 +37719,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104270
 
@@ -37765,7 +37765,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104280
 
@@ -37811,7 +37811,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104290
 
@@ -37857,7 +37857,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104300
 
@@ -37903,7 +37903,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104310
 
@@ -37949,7 +37949,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104320
 
@@ -37996,7 +37996,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104330
 
@@ -38042,7 +38042,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104340
 
@@ -38088,7 +38088,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104350
 
@@ -38134,7 +38134,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104360
 
@@ -38180,7 +38180,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104370
 
@@ -38226,7 +38226,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104380
 
@@ -38272,7 +38272,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104400
 
@@ -38318,7 +38318,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104410
 
@@ -38364,7 +38364,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104420
 
@@ -38410,7 +38410,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104430
 
@@ -38456,7 +38456,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104440
 
@@ -38502,7 +38502,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104450
 
@@ -38548,7 +38548,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104460
 
@@ -38594,7 +38594,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104470
 
@@ -38640,7 +38640,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104480
 
@@ -38686,7 +38686,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104490
 
@@ -38732,7 +38732,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104500
 
@@ -38778,7 +38778,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104510
 
@@ -38824,7 +38824,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104520
 
@@ -38870,7 +38870,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104530
 
@@ -38916,7 +38916,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104540
 
@@ -38962,7 +38962,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104550
 
@@ -39008,7 +39008,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104560
 
@@ -39054,7 +39054,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104570
 
@@ -39100,7 +39100,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104580
 
@@ -39146,7 +39146,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104590
 
@@ -39192,7 +39192,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104660
 
@@ -39238,7 +39238,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104900
 
@@ -39285,7 +39285,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104910
 
@@ -39332,7 +39332,7 @@ Diet
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 104920
 
@@ -39379,7 +39379,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6150
 
@@ -39425,7 +39425,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6152
 
@@ -39472,7 +39472,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6153
 
@@ -39519,7 +39519,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6154
 
@@ -39565,7 +39565,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6155
 
@@ -39611,7 +39611,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6164
 
@@ -39657,7 +39657,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6177
 
@@ -39703,7 +39703,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6179
 
@@ -39749,7 +39749,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120039
 
@@ -39795,7 +39795,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 31
 
@@ -39841,7 +39841,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 46
 
@@ -39887,7 +39887,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 48
 
@@ -39933,7 +39933,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 49
 
@@ -39979,7 +39979,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 50
 
@@ -40025,7 +40025,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 84
 
@@ -40071,7 +40071,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 93
 
@@ -40117,7 +40117,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 94
 
@@ -40163,7 +40163,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 95
 
@@ -40209,7 +40209,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 96
 
@@ -40255,7 +40255,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 102
 
@@ -40301,7 +40301,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 134
 
@@ -40347,7 +40347,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 135
 
@@ -40393,7 +40393,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 189
 
@@ -40439,7 +40439,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 670
 
@@ -40485,7 +40485,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 680
 
@@ -40531,7 +40531,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 699
 
@@ -40577,7 +40577,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 709
 
@@ -40623,7 +40623,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 728
 
@@ -40669,7 +40669,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 738
 
@@ -40715,7 +40715,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 757
 
@@ -40761,7 +40761,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 767
 
@@ -40807,7 +40807,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 777
 
@@ -40853,7 +40853,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 796
 
@@ -40899,7 +40899,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 806
 
@@ -40945,7 +40945,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 816
 
@@ -40991,7 +40991,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 826
 
@@ -41037,7 +41037,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 845
 
@@ -41083,7 +41083,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 864
 
@@ -41129,7 +41129,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 874
 
@@ -41175,7 +41175,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 884
 
@@ -41221,7 +41221,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 894
 
@@ -41267,7 +41267,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 904
 
@@ -41313,7 +41313,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 914
 
@@ -41359,7 +41359,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 924
 
@@ -41405,7 +41405,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 943
 
@@ -41451,7 +41451,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 971
 
@@ -41497,7 +41497,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 981
 
@@ -41543,7 +41543,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 991
 
@@ -41589,7 +41589,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1001
 
@@ -41635,7 +41635,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1011
 
@@ -41681,7 +41681,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1021
 
@@ -41727,7 +41727,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1050
 
@@ -41773,7 +41773,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1060
 
@@ -41819,7 +41819,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1070
 
@@ -41865,7 +41865,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1080
 
@@ -41911,7 +41911,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1090
 
@@ -41957,7 +41957,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1100
 
@@ -42003,7 +42003,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1110
 
@@ -42049,7 +42049,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1120
 
@@ -42095,7 +42095,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1130
 
@@ -42141,7 +42141,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1140
 
@@ -42187,7 +42187,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1150
 
@@ -42233,7 +42233,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1160
 
@@ -42279,7 +42279,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1170
 
@@ -42325,7 +42325,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1180
 
@@ -42371,7 +42371,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1190
 
@@ -42417,7 +42417,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1200
 
@@ -42463,7 +42463,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1210
 
@@ -42509,7 +42509,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1220
 
@@ -42555,7 +42555,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1239
 
@@ -42601,7 +42601,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1249
 
@@ -42647,7 +42647,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1259
 
@@ -42693,7 +42693,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1269
 
@@ -42739,7 +42739,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1279
 
@@ -42785,7 +42785,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1677
 
@@ -42831,7 +42831,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1687
 
@@ -42877,7 +42877,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1697
 
@@ -42923,7 +42923,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1707
 
@@ -42969,7 +42969,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1717
 
@@ -43015,7 +43015,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1727
 
@@ -43061,7 +43061,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1737
 
@@ -43107,7 +43107,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1747
 
@@ -43153,7 +43153,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1757
 
@@ -43199,7 +43199,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1767
 
@@ -43245,7 +43245,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1777
 
@@ -43291,7 +43291,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1787
 
@@ -43337,7 +43337,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1797
 
@@ -43383,7 +43383,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1807
 
@@ -43429,7 +43429,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1835
 
@@ -43475,7 +43475,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1845
 
@@ -43521,7 +43521,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1873
 
@@ -43567,7 +43567,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1883
 
@@ -43613,7 +43613,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2139
 
@@ -43659,7 +43659,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2149
 
@@ -43705,7 +43705,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2159
 
@@ -43751,7 +43751,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2178
 
@@ -43797,7 +43797,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2188
 
@@ -43843,7 +43843,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2237
 
@@ -43889,7 +43889,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2267
 
@@ -43935,7 +43935,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2277
 
@@ -43981,7 +43981,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2296
 
@@ -44027,7 +44027,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2306
 
@@ -44073,7 +44073,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2375
 
@@ -44119,7 +44119,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2385
 
@@ -44165,7 +44165,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2395
 
@@ -44211,7 +44211,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2405
 
@@ -44257,7 +44257,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2443
 
@@ -44303,7 +44303,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2453
 
@@ -44349,7 +44349,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2463
 
@@ -44395,7 +44395,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2473
 
@@ -44441,7 +44441,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2492
 
@@ -44487,7 +44487,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2624
 
@@ -44533,7 +44533,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2634
 
@@ -44579,7 +44579,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2644
 
@@ -44625,7 +44625,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2674
 
@@ -44671,7 +44671,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2684
 
@@ -44717,7 +44717,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2694
 
@@ -44763,7 +44763,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2704
 
@@ -44809,7 +44809,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2714
 
@@ -44855,7 +44855,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2724
 
@@ -44901,7 +44901,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2734
 
@@ -44947,7 +44947,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2744
 
@@ -44993,7 +44993,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2754
 
@@ -45039,7 +45039,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2764
 
@@ -45085,7 +45085,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2774
 
@@ -45131,7 +45131,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2784
 
@@ -45177,7 +45177,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2794
 
@@ -45223,7 +45223,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2804
 
@@ -45269,7 +45269,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2814
 
@@ -45315,7 +45315,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2824
 
@@ -45361,7 +45361,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2834
 
@@ -45407,7 +45407,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2867
 
@@ -45453,7 +45453,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2877
 
@@ -45499,7 +45499,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2887
 
@@ -45545,7 +45545,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2897
 
@@ -45591,7 +45591,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2907
 
@@ -45637,7 +45637,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2926
 
@@ -45683,7 +45683,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2936
 
@@ -45729,7 +45729,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2946
 
@@ -45775,7 +45775,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2956
 
@@ -45821,7 +45821,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2966
 
@@ -45867,7 +45867,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2976
 
@@ -45913,7 +45913,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2986
 
@@ -45959,7 +45959,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3005
 
@@ -46005,7 +46005,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3140
 
@@ -46051,7 +46051,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3160
 
@@ -46097,7 +46097,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3404
 
@@ -46143,7 +46143,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3414
 
@@ -46189,7 +46189,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3426
 
@@ -46235,7 +46235,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3436
 
@@ -46281,7 +46281,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3446
 
@@ -46327,7 +46327,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3456
 
@@ -46373,7 +46373,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3466
 
@@ -46419,7 +46419,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3476
 
@@ -46465,7 +46465,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3486
 
@@ -46511,7 +46511,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3496
 
@@ -46557,7 +46557,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3506
 
@@ -46603,7 +46603,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3526
 
@@ -46649,7 +46649,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3536
 
@@ -46695,7 +46695,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3546
 
@@ -46741,7 +46741,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3571
 
@@ -46787,7 +46787,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3581
 
@@ -46833,7 +46833,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3591
 
@@ -46879,7 +46879,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3627
 
@@ -46925,7 +46925,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3637
 
@@ -46971,7 +46971,7 @@ Physical activity
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3647
 
@@ -47017,7 +47017,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3659
 
@@ -47063,7 +47063,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3669
 
@@ -47109,7 +47109,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3700
 
@@ -47155,7 +47155,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3710
 
@@ -47201,7 +47201,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3720
 
@@ -47247,7 +47247,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3741
 
@@ -47293,7 +47293,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3761
 
@@ -47339,7 +47339,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3773
 
@@ -47385,7 +47385,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3786
 
@@ -47431,7 +47431,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3799
 
@@ -47477,7 +47477,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3829
 
@@ -47523,7 +47523,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3839
 
@@ -47569,7 +47569,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3849
 
@@ -47615,7 +47615,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3872
 
@@ -47661,7 +47661,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3882
 
@@ -47707,7 +47707,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3894
 
@@ -47753,7 +47753,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3912
 
@@ -47799,7 +47799,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3942
 
@@ -47845,7 +47845,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3972
 
@@ -47891,7 +47891,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3982
 
@@ -47937,7 +47937,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 3992
 
@@ -47983,7 +47983,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4012
 
@@ -48029,7 +48029,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4022
 
@@ -48075,7 +48075,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4041
 
@@ -48121,7 +48121,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4056
 
@@ -48167,7 +48167,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4067
 
@@ -48213,7 +48213,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4079
 
@@ -48259,7 +48259,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4080
 
@@ -48305,7 +48305,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4194
 
@@ -48351,7 +48351,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4195
 
@@ -48397,7 +48397,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4196
 
@@ -48443,7 +48443,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4205
 
@@ -48489,7 +48489,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4207
 
@@ -48535,7 +48535,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4501
 
@@ -48581,7 +48581,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4674
 
@@ -48627,7 +48627,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4728
 
@@ -48673,7 +48673,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5057
 
@@ -48719,7 +48719,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5187
 
@@ -48765,7 +48765,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5208
 
@@ -48811,7 +48811,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5452
 
@@ -48857,7 +48857,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5463
 
@@ -48903,7 +48903,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5474
 
@@ -48949,7 +48949,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5485
 
@@ -48995,7 +48995,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5496
 
@@ -49041,7 +49041,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5507
 
@@ -49087,7 +49087,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5518
 
@@ -49133,7 +49133,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5529
 
@@ -49179,7 +49179,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5540
 
@@ -49225,7 +49225,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5959
 
@@ -49271,7 +49271,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5983
 
@@ -49317,7 +49317,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5984
 
@@ -49363,7 +49363,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6014
 
@@ -49409,7 +49409,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6015
 
@@ -49455,7 +49455,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6016
 
@@ -49501,7 +49501,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6017
 
@@ -49547,7 +49547,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6024
 
@@ -49593,7 +49593,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6032
 
@@ -49639,7 +49639,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6033
 
@@ -49685,7 +49685,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6034
 
@@ -49731,7 +49731,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6039
 
@@ -49777,7 +49777,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6075
 
@@ -49823,7 +49823,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6138
 
@@ -49869,7 +49869,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6139
 
@@ -49915,7 +49915,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6140
 
@@ -49961,7 +49961,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6142
 
@@ -50007,7 +50007,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6143
 
@@ -50053,7 +50053,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6146
 
@@ -50099,7 +50099,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6151
 
@@ -50145,7 +50145,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6159
 
@@ -50191,7 +50191,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6183
 
@@ -50238,7 +50238,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6194
 
@@ -50285,7 +50285,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12673
 
@@ -50331,7 +50331,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12674
 
@@ -50377,7 +50377,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12675
 
@@ -50423,7 +50423,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12676
 
@@ -50469,7 +50469,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12677
 
@@ -50515,7 +50515,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12678
 
@@ -50561,7 +50561,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12679
 
@@ -50607,7 +50607,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12680
 
@@ -50653,7 +50653,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12681
 
@@ -50699,7 +50699,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12682
 
@@ -50745,7 +50745,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12683
 
@@ -50791,7 +50791,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12684
 
@@ -50837,7 +50837,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12685
 
@@ -50883,7 +50883,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12686
 
@@ -50929,7 +50929,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12687
 
@@ -50975,7 +50975,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12688
 
@@ -51021,7 +51021,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12697
 
@@ -51067,7 +51067,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12698
 
@@ -51113,7 +51113,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12699
 
@@ -51159,7 +51159,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12700
 
@@ -51205,7 +51205,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 12702
 
@@ -51251,7 +51251,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20007
 
@@ -51297,7 +51297,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20009
 
@@ -51343,7 +51343,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20015
 
@@ -51389,7 +51389,7 @@ Early life factor
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20022
 
@@ -51435,7 +51435,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20116
 
@@ -51481,7 +51481,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20119
 
@@ -51527,7 +51527,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20121
 
@@ -51573,7 +51573,7 @@ Lifestyle
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 20160
 
@@ -51619,7 +51619,7 @@ Sociodemographic
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 21000
 
@@ -51665,7 +51665,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 21001
 
@@ -51711,7 +51711,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 21002
 
@@ -51757,7 +51757,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 21021
 
@@ -51803,7 +51803,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22400
 
@@ -51849,7 +51849,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22401
 
@@ -51895,7 +51895,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22402
 
@@ -51941,7 +51941,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22405
 
@@ -51987,7 +51987,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22406
 
@@ -52033,7 +52033,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22407
 
@@ -52079,7 +52079,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22408
 
@@ -52125,7 +52125,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22409
 
@@ -52171,7 +52171,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22410
 
@@ -52217,7 +52217,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22415
 
@@ -52263,7 +52263,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22416
 
@@ -52309,7 +52309,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22420
 
@@ -52355,7 +52355,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22421
 
@@ -52401,7 +52401,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22422
 
@@ -52447,7 +52447,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22423
 
@@ -52493,7 +52493,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22424
 
@@ -52539,7 +52539,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22425
 
@@ -52585,7 +52585,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22426
 
@@ -52631,7 +52631,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 22427
 
@@ -52677,7 +52677,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23098
 
@@ -52723,7 +52723,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23099
 
@@ -52769,7 +52769,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23100
 
@@ -52815,7 +52815,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23101
 
@@ -52861,7 +52861,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23102
 
@@ -52907,7 +52907,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23104
 
@@ -52953,7 +52953,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23105
 
@@ -52999,7 +52999,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23106
 
@@ -53045,7 +53045,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23108
 
@@ -53091,7 +53091,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23110
 
@@ -53137,7 +53137,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23115
 
@@ -53183,7 +53183,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23116
 
@@ -53229,7 +53229,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23117
 
@@ -53275,7 +53275,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23118
 
@@ -53321,7 +53321,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23123
 
@@ -53367,7 +53367,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23124
 
@@ -53413,7 +53413,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23125
 
@@ -53459,7 +53459,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23126
 
@@ -53505,7 +53505,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23127
 
@@ -53551,7 +53551,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23128
 
@@ -53597,7 +53597,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23129
 
@@ -53643,7 +53643,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23130
 
@@ -53689,7 +53689,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23200
 
@@ -53735,7 +53735,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23201
 
@@ -53781,7 +53781,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23202
 
@@ -53827,7 +53827,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23203
 
@@ -53873,7 +53873,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23204
 
@@ -53919,7 +53919,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23205
 
@@ -53965,7 +53965,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23220
 
@@ -54011,7 +54011,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23221
 
@@ -54057,7 +54057,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23224
 
@@ -54103,7 +54103,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23225
 
@@ -54149,7 +54149,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23226
 
@@ -54195,7 +54195,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23227
 
@@ -54241,7 +54241,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23230
 
@@ -54287,7 +54287,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23231
 
@@ -54333,7 +54333,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23232
 
@@ -54379,7 +54379,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23233
 
@@ -54425,7 +54425,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23234
 
@@ -54471,7 +54471,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23235
 
@@ -54517,7 +54517,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23236
 
@@ -54563,7 +54563,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23237
 
@@ -54609,7 +54609,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23239
 
@@ -54655,7 +54655,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23240
 
@@ -54701,7 +54701,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23241
 
@@ -54747,7 +54747,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23242
 
@@ -54793,7 +54793,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23244
 
@@ -54839,7 +54839,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23245
 
@@ -54885,7 +54885,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23246
 
@@ -54931,7 +54931,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23247
 
@@ -54977,7 +54977,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23248
 
@@ -55023,7 +55023,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23249
 
@@ -55069,7 +55069,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23250
 
@@ -55115,7 +55115,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23251
 
@@ -55161,7 +55161,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23252
 
@@ -55207,7 +55207,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23257
 
@@ -55253,7 +55253,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23258
 
@@ -55299,7 +55299,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23259
 
@@ -55345,7 +55345,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23260
 
@@ -55391,7 +55391,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23261
 
@@ -55437,7 +55437,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23262
 
@@ -55483,7 +55483,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23263
 
@@ -55529,7 +55529,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23264
 
@@ -55575,7 +55575,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23265
 
@@ -55621,7 +55621,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23266
 
@@ -55667,7 +55667,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23267
 
@@ -55713,7 +55713,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23268
 
@@ -55759,7 +55759,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23269
 
@@ -55805,7 +55805,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23274
 
@@ -55851,7 +55851,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23275
 
@@ -55897,7 +55897,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23276
 
@@ -55943,7 +55943,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23277
 
@@ -55989,7 +55989,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23278
 
@@ -56035,7 +56035,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23279
 
@@ -56081,7 +56081,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23280
 
@@ -56127,7 +56127,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23281
 
@@ -56173,7 +56173,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23282
 
@@ -56219,7 +56219,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23283
 
@@ -56265,7 +56265,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23284
 
@@ -56311,7 +56311,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23285
 
@@ -56357,7 +56357,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23286
 
@@ -56403,7 +56403,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23287
 
@@ -56449,7 +56449,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23288
 
@@ -56495,7 +56495,7 @@ Physical measure
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23289
 
@@ -56541,7 +56541,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23290
 
@@ -56587,7 +56587,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23291
 
@@ -56633,7 +56633,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23292
 
@@ -56679,7 +56679,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23293
 
@@ -56725,7 +56725,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23295
 
@@ -56771,7 +56771,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23296
 
@@ -56817,7 +56817,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23297
 
@@ -56863,7 +56863,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23298
 
@@ -56909,7 +56909,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23299
 
@@ -56955,7 +56955,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23300
 
@@ -57001,7 +57001,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23301
 
@@ -57047,7 +57047,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23302
 
@@ -57093,7 +57093,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23304
 
@@ -57139,7 +57139,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23305
 
@@ -57185,7 +57185,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23306
 
@@ -57231,7 +57231,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23307
 
@@ -57277,7 +57277,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23308
 
@@ -57323,7 +57323,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23309
 
@@ -57369,7 +57369,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23310
 
@@ -57415,7 +57415,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23311
 
@@ -57461,7 +57461,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23312
 
@@ -57507,7 +57507,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23313
 
@@ -57553,7 +57553,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23315
 
@@ -57599,7 +57599,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23317
 
@@ -57645,7 +57645,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23318
 
@@ -57691,7 +57691,7 @@ Body MRI
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 23320
 
@@ -57737,7 +57737,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30600
 
@@ -57783,7 +57783,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30610
 
@@ -57829,7 +57829,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30620
 
@@ -57875,7 +57875,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30630
 
@@ -57921,7 +57921,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30640
 
@@ -57967,7 +57967,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30650
 
@@ -58013,7 +58013,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30660
 
@@ -58059,7 +58059,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30670
 
@@ -58105,7 +58105,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30680
 
@@ -58151,7 +58151,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30690
 
@@ -58197,7 +58197,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30700
 
@@ -58243,7 +58243,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30710
 
@@ -58289,7 +58289,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30720
 
@@ -58335,7 +58335,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30730
 
@@ -58381,7 +58381,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30740
 
@@ -58427,7 +58427,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30750
 
@@ -58473,7 +58473,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30760
 
@@ -58519,7 +58519,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30770
 
@@ -58565,7 +58565,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30780
 
@@ -58611,7 +58611,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30790
 
@@ -58657,7 +58657,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30800
 
@@ -58703,7 +58703,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30810
 
@@ -58749,7 +58749,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30820
 
@@ -58795,7 +58795,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30830
 
@@ -58841,7 +58841,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30840
 
@@ -58887,7 +58887,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30850
 
@@ -58933,7 +58933,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30860
 
@@ -58979,7 +58979,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30870
 
@@ -59025,7 +59025,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30880
 
@@ -59071,7 +59071,7 @@ Blood biomarker
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 30890
 
@@ -59117,7 +59117,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120000
 
@@ -59164,7 +59164,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120001
 
@@ -59210,7 +59210,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120002
 
@@ -59256,7 +59256,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120003
 
@@ -59302,7 +59302,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120004
 
@@ -59348,7 +59348,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120005
 
@@ -59394,7 +59394,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120006
 
@@ -59440,7 +59440,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120007
 
@@ -59486,7 +59486,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120008
 
@@ -59533,7 +59533,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120009
 
@@ -59579,7 +59579,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120010
 
@@ -59625,7 +59625,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120011
 
@@ -59671,7 +59671,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120012
 
@@ -59717,7 +59717,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120013
 
@@ -59763,7 +59763,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120014
 
@@ -59809,7 +59809,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120015
 
@@ -59855,7 +59855,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120016
 
@@ -59901,7 +59901,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120017
 
@@ -59947,7 +59947,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120018
 
@@ -59993,7 +59993,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120019
 
@@ -60039,7 +60039,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120021
 
@@ -60085,7 +60085,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120022
 
@@ -60131,7 +60131,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120023
 
@@ -60177,7 +60177,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120024
 
@@ -60223,7 +60223,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120025
 
@@ -60269,7 +60269,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120026
 
@@ -60315,7 +60315,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120027
 
@@ -60361,7 +60361,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120028
 
@@ -60407,7 +60407,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120029
 
@@ -60453,7 +60453,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120030
 
@@ -60499,7 +60499,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120031
 
@@ -60545,7 +60545,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120032
 
@@ -60591,7 +60591,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120033
 
@@ -60637,7 +60637,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120034
 
@@ -60683,7 +60683,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120035
 
@@ -60729,7 +60729,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120036
 
@@ -60775,7 +60775,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120038
 
@@ -60821,7 +60821,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120043
 
@@ -60867,7 +60867,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120044
 
@@ -60913,7 +60913,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120045
 
@@ -60959,7 +60959,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120046
 
@@ -61005,7 +61005,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120047
 
@@ -61051,7 +61051,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120048
 
@@ -61097,7 +61097,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120049
 
@@ -61143,7 +61143,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120050
 
@@ -61189,7 +61189,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120051
 
@@ -61235,7 +61235,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120052
 
@@ -61281,7 +61281,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120053
 
@@ -61327,7 +61327,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120054
 
@@ -61373,7 +61373,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120055
 
@@ -61419,7 +61419,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120056
 
@@ -61465,7 +61465,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120057
 
@@ -61511,7 +61511,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120065
 
@@ -61557,7 +61557,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120066
 
@@ -61603,7 +61603,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120067
 
@@ -61650,7 +61650,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120068
 
@@ -61697,7 +61697,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120069
 
@@ -61745,7 +61745,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120070
 
@@ -61792,7 +61792,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120071
 
@@ -61838,7 +61838,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120072
 
@@ -61884,7 +61884,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120073
 
@@ -61930,7 +61930,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120074
 
@@ -61976,7 +61976,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120075
 
@@ -62022,7 +62022,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120076
 
@@ -62068,7 +62068,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120077
 
@@ -62114,7 +62114,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120078
 
@@ -62160,7 +62160,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120079
 
@@ -62206,7 +62206,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120080
 
@@ -62252,7 +62252,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120081
 
@@ -62298,7 +62298,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120082
 
@@ -62344,7 +62344,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120083
 
@@ -62390,7 +62390,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120084
 
@@ -62436,7 +62436,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120085
 
@@ -62482,7 +62482,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120086
 
@@ -62528,7 +62528,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120087
 
@@ -62574,7 +62574,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120088
 
@@ -62620,7 +62620,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120089
 
@@ -62666,7 +62666,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120090
 
@@ -62713,7 +62713,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120091
 
@@ -62760,7 +62760,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120092
 
@@ -62806,7 +62806,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120093
 
@@ -62853,7 +62853,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120094
 
@@ -62899,7 +62899,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120095
 
@@ -62946,7 +62946,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120096
 
@@ -62992,7 +62992,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120097
 
@@ -63039,7 +63039,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120103
 
@@ -63085,7 +63085,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120114
 
@@ -63132,7 +63132,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120115
 
@@ -63178,7 +63178,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120116
 
@@ -63225,7 +63225,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120117
 
@@ -63271,7 +63271,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120118
 
@@ -63317,7 +63317,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120119
 
@@ -63363,7 +63363,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120120
 
@@ -63409,7 +63409,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120121
 
@@ -63455,7 +63455,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120122
 
@@ -63501,7 +63501,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120123
 
@@ -63547,7 +63547,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120124
 
@@ -63593,7 +63593,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120125
 
@@ -63639,7 +63639,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120126
 
@@ -63685,7 +63685,7 @@ Physical health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 120127
 
@@ -63731,7 +63731,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 1031
 
@@ -63777,7 +63777,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 2040
 
@@ -63823,7 +63823,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4526
 
@@ -63869,7 +63869,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4537
 
@@ -63915,7 +63915,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4548
 
@@ -63961,7 +63961,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4559
 
@@ -64007,7 +64007,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4570
 
@@ -64053,7 +64053,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4581
 
@@ -64099,7 +64099,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4598
 
@@ -64145,7 +64145,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4609
 
@@ -64191,7 +64191,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4620
 
@@ -64237,7 +64237,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4631
 
@@ -64283,7 +64283,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4642
 
@@ -64329,7 +64329,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 4653
 
@@ -64375,7 +64375,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5375
 
@@ -64421,7 +64421,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5386
 
@@ -64467,7 +64467,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5663
 
@@ -64513,7 +64513,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 5674
 
@@ -64559,7 +64559,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6145
 
@@ -64605,7 +64605,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6156
 
@@ -64651,7 +64651,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 6160
 
@@ -64697,7 +64697,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 MDD\_nerves
 
@@ -64743,7 +64743,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 MDD\_smith
 
@@ -64789,7 +64789,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 MDD\_ICD
 
@@ -64835,7 +64835,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRSocPhobia
 
@@ -64881,7 +64881,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRSchizophrenia
 
@@ -64927,7 +64927,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRPsychosisOther
 
@@ -64973,7 +64973,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRPsychosisAny
 
@@ -65019,7 +65019,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRPersonalityDisorder
 
@@ -65065,7 +65065,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SROtherPhobia
 
@@ -65111,7 +65111,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRPanicAttacks
 
@@ -65157,7 +65157,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SROCD
 
@@ -65203,7 +65203,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRManiaBIP
 
@@ -65249,7 +65249,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRDepression
 
@@ -65295,7 +65295,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRMood
 
@@ -65341,7 +65341,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRBulimiaNervosa
 
@@ -65387,7 +65387,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRBingeEating
 
@@ -65433,7 +65433,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRASD
 
@@ -65479,7 +65479,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRGADandOthers
 
@@ -65525,7 +65525,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRAnorexiaNervosa
 
@@ -65571,7 +65571,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SREatingDisorderAny
 
@@ -65617,7 +65617,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRAgoraphobia
 
@@ -65663,7 +65663,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRAnxietyAny
 
@@ -65709,7 +65709,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRADHD
 
@@ -65755,7 +65755,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SmithDepression
 
@@ -65801,7 +65801,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 PHQ9.Items
 
@@ -65847,7 +65847,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 PHQ9.Severity
 
@@ -65893,7 +65893,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 CIDI.MDD.Severity
 
@@ -65939,7 +65939,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 MDD\_CIDI
 
@@ -65985,7 +65985,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Depressed.Ever.Severe
 
@@ -66031,7 +66031,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Depressed.Current
 
@@ -66077,7 +66077,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Depressed.Current.Severe
 
@@ -66123,7 +66123,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Subthreshold.Depression
 
@@ -66169,7 +66169,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Recurrent.Depression
 
@@ -66215,7 +66215,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Single.Depression
 
@@ -66261,7 +66261,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SmithBipolar
 
@@ -66307,7 +66307,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SmithMood
 
@@ -66353,7 +66353,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Total.Manifestations
 
@@ -66399,7 +66399,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Wider.Bipolar.Definition
 
@@ -66445,7 +66445,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 BPDI
 
@@ -66491,7 +66491,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Recurrent.Depression.With.BPD
 
@@ -66537,7 +66537,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Single.Depression.With.BPD
 
@@ -66583,7 +66583,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 BPDII
 
@@ -66629,7 +66629,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 GAD.CIDI.Somatic
 
@@ -66675,7 +66675,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 GAD7.Severity
 
@@ -66721,7 +66721,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 GAD.Ever
 
@@ -66767,7 +66767,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 GAD.Current
 
@@ -66813,7 +66813,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 AUDIT.Score
 
@@ -66859,7 +66859,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Alcohol.Use.Disorder
 
@@ -66905,7 +66905,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Cannabis.Ever
 
@@ -66951,7 +66951,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Cannabis.Daily
 
@@ -66997,7 +66997,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Addiction.Ever.SelfReport
 
@@ -67043,7 +67043,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Addiction.Ever
 
@@ -67089,7 +67089,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Substance.Addiction.Ever
 
@@ -67135,7 +67135,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Alcohol.Dependence.Ever
 
@@ -67181,7 +67181,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Addiction.Current
 
@@ -67227,7 +67227,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Unusual.Experience.Ever.Hallucinations
 
@@ -67273,7 +67273,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Unusual.Experience.Ever.Delusions
 
@@ -67319,7 +67319,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Unusual.Experience.Ever
 
@@ -67365,7 +67365,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Unusual.Experience.Recent
 
@@ -67411,7 +67411,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Trauma.Childhood
 
@@ -67457,7 +67457,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Trauma.Adult
 
@@ -67503,7 +67503,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Trauma.Catastrophic
 
@@ -67549,7 +67549,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 PCL.Score
 
@@ -67595,7 +67595,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 PTSD
 
@@ -67641,7 +67641,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Self.Harm.Ever
 
@@ -67687,7 +67687,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Not.Worth.Living
 
@@ -67733,7 +67733,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 Self.Harm.Suicide.Attempt
 
@@ -67779,7 +67779,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 WellbeingScore
 
@@ -67825,7 +67825,7 @@ Mental health
 
 </td>
 
-<td style="text-align:left;max-width: 2cm; ">
+<td style="text-align:left;max-width: 1cm; ">
 
 SRConditionsSum
 
