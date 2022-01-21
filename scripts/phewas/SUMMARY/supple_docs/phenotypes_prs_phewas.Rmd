@@ -46,7 +46,7 @@ fields.show %>%
 as_tibble %>% 
   kable('html',escape=T) %>%
   kable_styling(bootstrap_options = c("striped", "hover")) %>%  
-   column_spec(3, width_min = "1.8in")
+   column_spec(2, width_min = "2cm")
   # column_spec(7, border_right=T) %>% 
   # column_spec(10, border_right=T) %>% 
   # column_spec(12, width_min = "3.5in")
