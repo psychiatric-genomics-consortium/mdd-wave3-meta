@@ -1,6 +1,6 @@
 Cojo analysis 
-Sumstats: results/cojo/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.qc.gz 
-Clump file: results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.gz.p4.clump.areator.sorted.1mhc 
+Sumstats: results/cojo/daner_pgc_mdd_full_eur_hg19_v3.49.24.10.qc.gz 
+Clump file: results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.10.gz.p4.clump.areator.sorted.1mhc 
 COJO regions: 577 
 Clumped SNPs: 817 
 COJO Selected SNPs: 617 
