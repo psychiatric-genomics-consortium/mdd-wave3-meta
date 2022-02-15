@@ -78,7 +78,7 @@ rule meta_gsem_postimp:
         dataset=lambda wildcards, input: os.path.basename(input.dataset)
     output: touch("results/meta/gsem/{cohorts}_{ancestries}_v{version}.done")
     log: "logs/meta/gsem/pgc_mdd_meta_{cohorts}_{ancestries}_hg19_v{version}.postimp_navi.log"
-    shell: "cd results/meta/gsem; postimp_navi --result {params.dataset} --popname {params.popname} --onlymeta --nolahunt --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
+    shell: "cd results/meta/gsem; postimp_navi --result {params.dataset} --popname {params.popname} --onlymeta --nolahunt --noldsc --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
 	
 rule install_gsem:
 	output: "resources/ldsc/install_genomicsem.done"
