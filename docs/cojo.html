@@ -643,7 +643,7 @@ Parse out regions from Wray and Howard.</p>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">range.left=</span>range.left.Mb<span class="sc">*</span><span class="fl">1e6</span>, <span class="at">range.right=</span>range.right.Mb<span class="sc">*</span><span class="fl">1e6</span>)</span></code></pre></div>
 <pre><code>## Rows: 44 Columns: 11
 
-## ── Column specification ────────────────────────────────────────────────────────
+## ── Column specification ──────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;\t&quot;
 ## chr (6): Region (Mb), SNP, P, A1/A2, Prev., Gene context
 ## dbl (4): Chr., OR (A1), s.e. (log(OR)), Freq.
@@ -682,7 +682,7 @@ results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.10.gz.p4.clump.areator
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cojo <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(snakemake<span class="sc">@</span>input<span class="sc">$</span>cojo)</span></code></pre></div>
 <pre><code>## Rows: 552 Columns: 28
 
-## ── Column specification ────────────────────────────────────────────────────────
+## ── Column specification ──────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;\t&quot;
 ## chr  (4): SNP, A1, A2, Direction
 ## dbl (24): region, snp_idx, CHR, BP, FRQ_A_524857, FRQ_U_3059006, INFO, OR, S...
@@ -697,7 +697,7 @@ results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.10.gz.p4.clump.areator
 ## Please use `read_table()` instead.
 
 ## 
-## ── Column specification ────────────────────────────────────────────────────────
+## ── Column specification ──────────────────────────────────────────────────────────────────────
 ## cols(
 ##   .default = col_double(),
 ##   SNP = col_character(),
