@@ -54,7 +54,7 @@ wray <- read_tsv(snakemake@input$wray) %>%
 
     ## Rows: 44 Columns: 11
 
-    ## ── Column specification ────────────────────────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr (6): Region (Mb), SNP, P, A1/A2, Prev., Gene context
     ## dbl (4): Chr., OR (A1), s.e. (log(OR)), Freq.
@@ -107,7 +107,7 @@ cojo <- read_tsv(snakemake@input$cojo)
 
     ## Rows: 552 Columns: 28
 
-    ## ── Column specification ────────────────────────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (4): SNP, A1, A2, Direction
     ## dbl (24): region, snp_idx, CHR, BP, FRQ_A_524857, FRQ_U_3059006, INFO, OR, S...
@@ -128,7 +128,7 @@ rp <- read_table2(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
     ## Please use `read_table()` instead.
 
     ## 
-    ## ── Column specification ────────────────────────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   SNP = col_character(),
@@ -237,7 +237,7 @@ hits_upset <- list(COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
 upset(fromList(hits_upset), order.by='freq', text.scale=2)
 ```
 
-![](cojo_files/figure-gfm/upset-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/cojo_files/figure-gfm/upset-1.png)<!-- -->
 
 Find which COJO regions overlap with Howard
 
@@ -411,7 +411,7 @@ scale_y_continuous(limits=c(0, 0.065))
 
     ## Warning: Removed 1 rows containing missing values (geom_point).
 
-![](cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
+![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
 
 ## Comparison between pre-COJO and post-COJO
 
