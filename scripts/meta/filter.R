@@ -101,7 +101,7 @@ logging(glue('{snps_dentist} SNPs removed for DENTIST outlier'))
 					
 daner_filtered <- daner_qc %>%
 filter(QC == 'PASS') %>%
-select(-ends_with('.ref'), -frq_a, -frq_u, -maf_a, -maf_u, -QC, -M, -S, -Fst, -D, -frq_diff) %>%
+select(-ends_with('.ref'), -frq_a, -frq_u, -maf_a, -maf_u, -QC, -Fst, -frq_diff) %>%
 arrange(CHR, BP) %>%
 select(CHR, SNP, BP, A1, A2, starts_with('FRQ_A'), starts_with('FRQ_U'), INFO, OR, SE, P, everything())
 
