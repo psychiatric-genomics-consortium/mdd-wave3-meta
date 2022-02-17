@@ -80,7 +80,7 @@ The GWAS summary statistics were munged using the FOCUS software using default s
 
 <details><summary>Show FOCUS munge log file</summary>
 ```{bash, eval=T, echo=F}
-cat ../../results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged.log
+cat ../../results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff_munged.log
 ```
 </details>
 

@@ -208,9 +208,9 @@ rule focus_db:
 # Format sumstats file so FOCUS can read it
 rule pre_munge:
   input:
-    "results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp.gz"
+    "results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff.gz"
   output:
-    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_premunged.gz"
+    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff_premunged.gz"
   conda:
     "../envs/twas.yaml"
   shell:
@@ -222,11 +222,11 @@ rule focus_munge:
     premunged=rules.pre_munge.output,
     focus=rules.install_focus.output
   output:
-    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged.sumstats.gz"
+    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff_munged.sumstats.gz"
   conda:
     "../envs/twas.yaml"
   shell:
-    "focus munge {input.premunged} --output results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_munged"
+    "focus munge {input.premunged} --output results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff_munged"
 
 ###
 # Run TWAS
@@ -645,7 +645,7 @@ rule format_metabrain_esi:
 # Convert sumstats to COJO format
 rule daner_to_cojo:
   output:
-    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_COJO.txt"
+    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff_COJO.txt"
   conda: 
     "../envs/twas.yaml"
   shell:
@@ -668,7 +668,7 @@ rule smr_analysis_eQTLGen:
     "/users/k1806347/brc_scratch/Software/smr_Linux \
       --bfile resources/twas/1kg/all_phase3.chr{wildcards.chr} \
       --keep resources/twas/1kg/super_pop_keep_files/EUR_samples.keep \
-      --gwas-summary results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_COJO.txt \
+      --gwas-summary results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff_COJO.txt \
       --beqtl-summary resources/twas/eQTLGen/cis-eQTLs-full_eQTLGen_AF_incl_nr_formatted_20191212.new.txt_besd-dense \
       --out results/twas/eqtlgen_smr/eqtlgen_smr_res_chr{wildcards.chr} \
       --thread-num 1"
@@ -694,7 +694,7 @@ rule smr_analysis_MetaBrain:
     "/users/k1806347/brc_scratch/Software/smr_Linux \
       --bfile resources/twas/1kg/all_phase3.chr{wildcards.chr} \
       --keep resources/twas/1kg/super_pop_keep_files/EUR_samples.keep \
-      --gwas-summary results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.05.rp_COJO.txt \
+      --gwas-summary results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff_COJO.txt \
       --beqtl-summary resources/twas/MetaBrain/{wildcards.tissue}/2020-05-26-{wildcards.tissue}-EUR-{wildcards.chr}-SMR-besd \
       --out results/twas/metabrain_smr/metabrain_{wildcards.tissue}_smr_res_chr{wildcards.chr} \
       --thread-num 1"
