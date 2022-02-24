@@ -14,5 +14,6 @@ dependencies:
   - bitarray
   - cmake
   - r-upsetr
+  - r-devtools
 
   
