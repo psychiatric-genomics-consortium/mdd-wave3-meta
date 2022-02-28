@@ -64,7 +64,7 @@ rule open_gwas_munge:
     
 # genetic correlation
 rule open_gwas_ldsc_rg:
-    input: mdd="results/distribution/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.gz.ldsc.sumstats.gz",other="resources/open_gwas/datasets/{dataset}.hm3.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
+    input: mdd="results/ldsc/munged/pgc_mdd_{cohorts}_eur_hg19_v{version}.sumstats.gz",other="resources/open_gwas/datasets/{dataset}.hm3.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
     output: "results/open_gwas/ldsc/{cohorts}_eur_v{version}_{dataset}.rg.log"
     params: prefix="results/open_gwas/ldsc/{cohorts}_eur_v{version}_{dataset}.rg"
     conda: "../envs/ldsc.yaml"
