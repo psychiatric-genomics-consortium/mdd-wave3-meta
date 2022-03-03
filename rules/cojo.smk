@@ -124,6 +124,7 @@ rule cojo_region_bgen:
     input: bgen="resources/cojo/ukb/ukb_imp_chr{chr}_v3.bgen", bgi="resources/cojo/ukb/ukb_imp_chr{chr}_v3.bgen.bgi", regions="results/cojo/{analysis}.regions"
     output: temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bgen")
     params: chr0=lambda wildcards: wildcards.chr.zfill(2)
+    group: "cojo"
     conda: "../envs/cojo.yaml"
     shell: "bgenix -g {input.bgen} -incl-range {params.chr0}:{wildcards.start}-{wildcards.stop} > {output}"
     
@@ -132,12 +133,14 @@ rule cojo_region_bgen:
 rule cojo_varids:
     input: "results/cojo/daner_{analysis}.qc.gz"
     output: "results/cojo/{analysis}/{chr}:{start}-{stop}.varids"
+    group: "cojo"
     shell: """zcat {input} | awk '{{if(NR > 1 && $1 == {wildcards.chr} && {wildcards.start} <= $3 && $3 <= {wildcards.stop}) {{print $1, $2, 0, $3, $4, $5}}}}' > {output}"""
  
 # list of SNPs to keep 
 rule cojo_snplist:
     input: "results/cojo/{analysis}/{chr}:{start}-{stop}.varids"
     output: "results/cojo/{analysis}/{chr}:{start}-{stop}.snplist"
+    group: "cojo"
     shell: "cat {input} | awk '{{print $2}}' > {output}"
     
     
@@ -150,6 +153,7 @@ rule cojo_region_bed:
     conda: "../envs/cojo.yaml"
     params: prefix="results/cojo/{analysis}/{chr}:{start}-{stop}"
     output: temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bed"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.fam"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bim")
+    group: "cojo"
     shell: """plink2 --make-bed --bgen {input.bgen} 'ref-first' \
     --sample {input.sample} --double-id \
     --keep {input.eur_ids} --remove {input.rel_ids} \
@@ -164,6 +168,7 @@ rule cojo_slct:
     conda: "../envs/cojo.yaml"
     params: prefix="results/cojo/{analysis}/{chr}:{start}-{stop}"
     output: jma="results/cojo/{analysis}/{chr}:{start}-{stop}.jma.cojo", jma_ldr="results/cojo/{analysis}/{chr}:{start}-{stop}.ldr.cojo"
+    group: "cojo"
     shell: "gcta64 --bfile {params.prefix} --cojo-file {input.ma} --cojo-slct --out {params.prefix}; if grep -e 'No SNPs have been selected' {params.prefix}.log; then touch {output}; fi"
     
 # parse regions from the region list file to determine inputs
