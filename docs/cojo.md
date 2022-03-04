@@ -11,6 +11,8 @@ library(tidyr)
 library(UpSetR)
 library(genpwr)
 library(ggplot2)
+
+save.image()
 ```
 
 # Methods
@@ -54,7 +56,7 @@ wray <- read_tsv(snakemake@input$wray) %>%
 ```
 
     ## Rows: 44 Columns: 11
-    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr (6): Region (Mb), SNP, P, A1/A2, Prev., Gene context
     ## dbl (4): Chr., OR (A1), s.e. (log(OR)), Freq.
@@ -105,7 +107,7 @@ cojo <- read_tsv(snakemake@input$cojo)
 ```
 
     ## Rows: 552 Columns: 28
-    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (4): SNP, A1, A2, Direction
     ## dbl (24): region, snp_idx, CHR, BP, FRQ_A_525197, FRQ_U_3362335, INFO, OR, S...
@@ -125,7 +127,7 @@ rp <- read_table2(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
     ## Please use `read_table()` instead.
 
     ## 
-    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   SNP = col_character(),
@@ -138,16 +140,6 @@ rp <- read_table2(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
     ##   N.genes.6.50kb = col_character()
     ## )
     ## ℹ Use `spec()` for the full column specifications.
-
-    ## Warning: 94 parsing failures.
-    ##  row col expected actual                                                                                           file
-    ## 1420 ngt a double      - 'results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.11.gz.p4.clump.areator.sorted.1mhc'
-    ## 1850 ngt a double      - 'results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.11.gz.p4.clump.areator.sorted.1mhc'
-    ## 1919 ngt a double      - 'results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.11.gz.p4.clump.areator.sorted.1mhc'
-    ## 2244 ngt a double      - 'results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.11.gz.p4.clump.areator.sorted.1mhc'
-    ## 2345 ngt a double      - 'results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.11.gz.p4.clump.areator.sorted.1mhc'
-    ## .... ... ........ ...... ..............................................................................................
-    ## See problems(...) for more details.
 
 ## Genomic ranges
 
@@ -234,7 +226,7 @@ hits_upset <- list(COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
 upset(fromList(hits_upset), order.by='freq', text.scale=2)
 ```
 
-![](cojo_files/figure-gfm/upset-1.png)<!-- -->
+![](/Users/mark/Work/mdd-meta/docs/cojo_files/figure-gfm/upset-1.png)<!-- -->
 
 Find which COJO regions overlap with Howard
 
@@ -423,7 +415,7 @@ scale_y_continuous('OR', limits=c(1, 1.1))
 
     ## Warning: Removed 2 row(s) containing missing values (geom_path).
 
-![](cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
+![](/Users/mark/Work/mdd-meta/docs/cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
 
 ## Comparison between pre-COJO and post-COJO
 
@@ -486,18 +478,18 @@ filter(!SNP %in% cojo$SNP)
 ```
 
     ## # A tibble: 246 × 23
-    ##    SNP         CHR     BP        P    OR     SE A1A2  FRQ_A_525197 FRQ_U_3362335
+    ##    SNP         CHR     BP        P    OR     SE A1A2  FRQ_A_524857 FRQ_U_3059006
     ##    <chr>     <dbl>  <dbl>    <dbl> <dbl>  <dbl> <chr>        <dbl>         <dbl>
-    ##  1 rs301817      1 8.50e6 3.23e-17 1.02  0.0028 C/A         0.419         0.423 
-    ##  2 rs759861…     1 5.28e7 1.99e- 8 0.967 0.0061 A/G         0.044         0.0473
-    ##  3 rs446952      1 6.17e7 1.78e-11 1.02  0.0027 T/C         0.465         0.459 
-    ##  4 rs2568957     1 7.28e7 1.58e-32 0.963 0.0031 A/G         0.177         0.176 
+    ##  1 rs301817      1 8.50e6 3.23e-17 1.02  0.0028 C/A         0.419         0.426 
+    ##  2 rs759861…     1 5.28e7 1.99e- 8 0.967 0.0061 A/G         0.044         0.0458
+    ##  3 rs446952      1 6.17e7 1.78e-11 1.02  0.0027 T/C         0.465         0.458 
+    ##  4 rs2568957     1 7.28e7 1.58e-32 0.963 0.0031 A/G         0.176         0.172 
     ##  5 rs121277…     1 7.27e7 4.91e-23 1.04  0.0038 T/G         0.119         0.119 
-    ##  6 rs127480…     1 7.30e7 1.47e-14 1.02  0.003  A/T         0.279         0.28  
-    ##  7 rs758052…     1 7.39e7 6.32e-13 0.950 0.0071 T/C         0.0301        0.0313
-    ##  8 rs617719…     1 7.33e7 3.66e-12 0.977 0.0034 A/G         0.156         0.156 
+    ##  6 rs127480…     1 7.30e7 1.47e-14 1.02  0.003  A/T         0.279         0.277 
+    ##  7 rs758052…     1 7.39e7 6.32e-13 0.950 0.0071 T/C         0.0301        0.0304
+    ##  8 rs617719…     1 7.33e7 3.66e-12 0.977 0.0034 A/G         0.156         0.158 
     ##  9 rs121282…     1 7.31e7 4.20e-12 0.977 0.0034 G/A         0.163         0.164 
-    ## 10 rs107364…     1 7.40e7 1.18e-11 1.03  0.0036 C/T         0.12          0.119 
+    ## 10 rs107364…     1 7.40e7 1.18e-11 1.03  0.0036 C/T         0.12          0.118 
     ## # … with 236 more rows, and 14 more variables: INFO <dbl>,
     ## #   `(Nca,Nco,Neff)Dir` <chr>, ngt <dbl>, `LD-friends(0.1).p0.001` <chr>,
     ## #   range.left <dbl>, range.right <dbl>, `span(kb)` <dbl>,

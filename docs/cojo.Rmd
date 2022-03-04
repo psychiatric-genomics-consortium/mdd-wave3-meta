@@ -13,6 +13,7 @@ library(tidyr)
 library(UpSetR)
 library(genpwr)
 library(ggplot2)
+library(ggman)
 ```
 
 
@@ -34,7 +35,7 @@ We ran a [conditional and joint analysis](https://www.nature.com/articles/ng.221
 
 ## Previous sumstats
 
-Variants from [Wray et al 2018](https://www.nature.com/articles/s41588-018-0090-3/tables/2), [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions), and [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2). Parse out regions from Wray and Howard.
+Variants from [Wray et al 2018](https://www.nature.com/articles/s41588-018-0090-3/tables/2), [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions), and [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2), [Giannakopoulou et al 2021](https://jamanetwork.com/journals/jamapsychiatry/article-abstract/2784695), and the [GWAS catalog for unipolar depression](https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761). Parse out regions from Wray and Howard.
 
 ```{r}
 wray <- read_tsv(snakemake@input$wray) %>%
@@ -45,6 +46,15 @@ howard <- read_excel(snakemake@input$howard, skip=2, n_max=102) %>%
     separate(`Region (bp) of clumped variants (P < 10-4) in linkage disequilibrium (r2 > 0.1) with lead variant`, into=c('range.left', 'range.right'), sep='-', convert=TRUE)
 
 levey <- read_tsv(snakemake@input$levey, col_types=cols(CHR.BP=col_character()))
+
+giannakopoulou <- read_tsv(snakemake@input$giannakopoulou, col_types=cols('CHR:POS'=col_character())) %>%
+separate(`CHR:POS`, into=c('CHR', 'POS'), convert=TRUE)
+
+gwas_catalog <- read_tsv(snakemake@input$catalog) %>%
+filter(!is.na(CHR_ID)) %>%
+mutate(CHR=if_else(CHR_ID == 'X', true=23, false=as.numeric(CHR_ID)),
+       POS=as.numeric(CHR_POS))
+
 ```
 
 # Results
@@ -67,7 +77,7 @@ cojo <- read_tsv(snakemake@input$cojo)
 Clumped results from Ricopili
 
 ```{r}
-rp <- read_table2(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
+rp <- read_table(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
 ```
 
 ## Genomic ranges
@@ -81,6 +91,10 @@ rp_gr <- with(rp, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=ran
 wray_gr <- with(wray, GRanges(seqnames=Chr., ranges=IRanges(start=range.left, end=range.right, SNP=SNP)))
 howard_gr <- with(howard, GRanges(seqnames=Chromosome, ranges=IRanges(start=range.left, end=range.right, SNP=`Marker Name`)))
 levey_gr <- with(levey, GRanges(seqnames=CHR, ranges=IRanges(start=BP, width=1)))
+giannakopoulou_gr <- with(giannakopoulou, GRanges(seqnames=CHR, ranges=IRanges(start=POS, width=1)))
+gwas_catalog_gr <- with(gwas_catalog, GRanges(seqnames=CHR_ID, ranges=IRanges(start=CHR_POS, width=1)))
+
+
 ```
 
 ## GWAS catalog
