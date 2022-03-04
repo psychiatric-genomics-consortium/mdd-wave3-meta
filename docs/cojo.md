@@ -11,8 +11,7 @@ library(tidyr)
 library(UpSetR)
 library(genpwr)
 library(ggplot2)
-
-save.image()
+library(ggman)
 ```
 
 # Methods
@@ -46,8 +45,11 @@ Variants from [Wray et al
 [Howard et al
 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove
 first and last rows with table captions), and [Levey et al
-2021](https://doi.org/10.1038/s41593-021-00860-2). Parse out regions
-from Wray and Howard.
+2021](https://doi.org/10.1038/s41593-021-00860-2), [Giannakopoulou et al
+2021](https://jamanetwork.com/journals/jamapsychiatry/article-abstract/2784695),
+and the [GWAS catalog for unipolar
+depression](https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761). Parse out
+regions from Wray and Howard.
 
 ``` r
 wray <- read_tsv(snakemake@input$wray) %>%
@@ -56,7 +58,7 @@ wray <- read_tsv(snakemake@input$wray) %>%
 ```
 
     ## Rows: 44 Columns: 11
-    ## ── Column specification ───────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr (6): Region (Mb), SNP, P, A1/A2, Prev., Gene context
     ## dbl (4): Chr., OR (A1), s.e. (log(OR)), Freq.
@@ -79,7 +81,31 @@ howard <- read_excel(snakemake@input$howard, skip=2, n_max=102) %>%
 
 ``` r
 levey <- read_tsv(snakemake@input$levey, col_types=cols(CHR.BP=col_character()))
+
+giannakopoulou <- read_tsv(snakemake@input$giannakopoulou, col_types=cols('CHR:POS'=col_character())) %>%
+separate(`CHR:POS`, into=c('CHR', 'POS'), convert=TRUE)
+
+gwas_catalog <- read_tsv(snakemake@input$catalog) %>%
+filter(!is.na(CHR_ID)) %>%
+mutate(CHR=if_else(CHR_ID == 'X', true=23, false=as.numeric(CHR_ID)),
+       POS=as.numeric(CHR_POS)) %>%
+filter(!is.na(POS))
 ```
+
+    ## Rows: 2391 Columns: 38
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────
+    ## Delimiter: "\t"
+    ## chr  (28): FIRST AUTHOR, JOURNAL, LINK, STUDY, DISEASE/TRAIT, INITIAL SAMPLE...
+    ## dbl   (8): PUBMEDID, UPSTREAM_GENE_DISTANCE, DOWNSTREAM_GENE_DISTANCE, MERGE...
+    ## date  (2): DATE ADDED TO CATALOG, DATE
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+    ## Warning in replace_with(out, !condition, false, fmt_args(~false), glue("length
+    ## of {fmt_args(~condition)}")): NAs introduced by coercion
+
+    ## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
 # Results
 
@@ -106,8 +132,8 @@ Load list of COJO SNPs
 cojo <- read_tsv(snakemake@input$cojo)
 ```
 
-    ## Rows: 552 Columns: 28
-    ## ── Column specification ───────────────────────────────────────────────────────────────────────────
+    ## Rows: 556 Columns: 28
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (4): SNP, A1, A2, Direction
     ## dbl (24): region, snp_idx, CHR, BP, FRQ_A_525197, FRQ_U_3362335, INFO, OR, S...
@@ -120,14 +146,11 @@ cojo <- read_tsv(snakemake@input$cojo)
 Clumped results from Ricopili
 
 ``` r
-rp <- read_table2(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
+rp <- read_table(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
 ```
 
-    ## Warning: `read_table2()` was deprecated in readr 2.0.0.
-    ## Please use `read_table()` instead.
-
     ## 
-    ## ── Column specification ───────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   SNP = col_character(),
@@ -153,6 +176,8 @@ rp_gr <- with(rp, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=ran
 wray_gr <- with(wray, GRanges(seqnames=Chr., ranges=IRanges(start=range.left, end=range.right, SNP=SNP)))
 howard_gr <- with(howard, GRanges(seqnames=Chromosome, ranges=IRanges(start=range.left, end=range.right, SNP=`Marker Name`)))
 levey_gr <- with(levey, GRanges(seqnames=CHR, ranges=IRanges(start=BP, width=1)))
+giannakopoulou_gr <- with(giannakopoulou, GRanges(seqnames=CHR, ranges=IRanges(start=POS, width=1)))
+gwas_catalog_gr <- with(gwas_catalog, GRanges(seqnames=CHR, ranges=IRanges(start=POS, width=1)))
 ```
 
 ## GWAS catalog
@@ -208,7 +233,7 @@ Find overlaps between clumped, COJO, and previous results. Append and
 then reduce all regions
 
 ``` r
-all_gr <- reduce(c(cojo_gr, rp_gr, wray_gr, howard_gr, levey_gr))
+all_gr <- reduce(c(cojo_gr, rp_gr, wray_gr, howard_gr, levey_gr, giannakopoulou_gr, gwas_catalog_gr))
 ```
 
 Find overlaps and make lists for an upset plot. Take the index from the
@@ -221,12 +246,14 @@ hits_upset <- list(COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
                    Clump=unique(findOverlaps(all_gr, rp_gr)@from),
                    Wray=unique(findOverlaps(all_gr, wray_gr)@from),
                    Howard=unique(findOverlaps(all_gr, howard_gr)@from),
-                   Levey=unique(findOverlaps(all_gr, levey_gr)@from))
+                   Levey=unique(findOverlaps(all_gr, levey_gr)@from),
+                   Giannakopoulou=unique(findOverlaps(all_gr, giannakopoulou_gr)@from),
+                   Catalog=unique(findOverlaps(all_gr, gwas_catalog_gr)@from))
                    
-upset(fromList(hits_upset), order.by='freq', text.scale=2)
+upset(fromList(hits_upset), nsets=7, order.by='freq', text.scale=2)
 ```
 
-![](/Users/mark/Work/mdd-meta/docs/cojo_files/figure-gfm/upset-1.png)<!-- -->
+![](cojo_files/figure-gfm/upset-1.png)<!-- -->
 
 Find which COJO regions overlap with Howard
 
@@ -250,7 +277,7 @@ cojo_howard_overlaps
     ##   [115]       534         101
     ##   [116]       548         102
     ##   -------
-    ##   queryLength: 552 / subjectLength: 102
+    ##   queryLength: 556 / subjectLength: 102
 
 Count number of regions in Howard that overlap:
 
@@ -285,7 +312,7 @@ cojo_levey_overlaps
     ##   [259]       548         153
     ##   [260]       549         211
     ##   -------
-    ##   queryLength: 552 / subjectLength: 223
+    ##   queryLength: 556 / subjectLength: 223
 
 Count number of regions in Levey that overlap:
 
@@ -329,8 +356,8 @@ select(region, snp_idx, CHR, SNP, BP, P, pJ) %>%
 group_by(region)
 ```
 
-    ## # A tibble: 360 × 7
-    ## # Groups:   region [342]
+    ## # A tibble: 364 × 7
+    ## # Groups:   region [346]
     ##    region snp_idx   CHR SNP               BP        P       pJ
     ##     <dbl>   <dbl> <dbl> <chr>          <dbl>    <dbl>    <dbl>
     ##  1    174       1     5 rs1993739  153215007 5.71e-20 5.72e-20
@@ -343,7 +370,7 @@ group_by(region)
     ##  8    374       1    12 rs7962128  121907336 3.68e-16 3.68e-16
     ##  9     76       1     2 rs13418032 198413692 9.89e-16 9.90e-16
     ## 10     81       1     2 rs72931605 212693775 1.29e-15 1.32e- 9
-    ## # … with 350 more rows
+    ## # … with 354 more rows
 
 ``` r
 rp_gwas_catalog_entries %>% filter(SNP %in% cojo_new$SNP) %>% count(phenotype) %>% arrange(desc(n)) %>% filter(!phenotype %in% catalog_known$phenotype)
@@ -415,7 +442,7 @@ scale_y_continuous('OR', limits=c(1, 1.1))
 
     ## Warning: Removed 2 row(s) containing missing values (geom_path).
 
-![](/Users/mark/Work/mdd-meta/docs/cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
+![](cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
 
 ## Comparison between pre-COJO and post-COJO
 

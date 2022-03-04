@@ -53,7 +53,8 @@ separate(`CHR:POS`, into=c('CHR', 'POS'), convert=TRUE)
 gwas_catalog <- read_tsv(snakemake@input$catalog) %>%
 filter(!is.na(CHR_ID)) %>%
 mutate(CHR=if_else(CHR_ID == 'X', true=23, false=as.numeric(CHR_ID)),
-       POS=as.numeric(CHR_POS))
+       POS=as.numeric(CHR_POS)) %>%
+filter(!is.na(POS))
 
 ```
 
@@ -92,7 +93,7 @@ wray_gr <- with(wray, GRanges(seqnames=Chr., ranges=IRanges(start=range.left, en
 howard_gr <- with(howard, GRanges(seqnames=Chromosome, ranges=IRanges(start=range.left, end=range.right, SNP=`Marker Name`)))
 levey_gr <- with(levey, GRanges(seqnames=CHR, ranges=IRanges(start=BP, width=1)))
 giannakopoulou_gr <- with(giannakopoulou, GRanges(seqnames=CHR, ranges=IRanges(start=POS, width=1)))
-gwas_catalog_gr <- with(gwas_catalog, GRanges(seqnames=CHR_ID, ranges=IRanges(start=CHR_POS, width=1)))
+gwas_catalog_gr <- with(gwas_catalog, GRanges(seqnames=CHR, ranges=IRanges(start=POS, width=1)))
 
 
 ```
@@ -154,7 +155,7 @@ Find overlaps between clumped, COJO, and previous results. Append and then reduc
 
 ```{r}
 
-all_gr <- reduce(c(cojo_gr, rp_gr, wray_gr, howard_gr, levey_gr))
+all_gr <- reduce(c(cojo_gr, rp_gr, wray_gr, howard_gr, levey_gr, giannakopoulou_gr, gwas_catalog_gr))
 
 ```
 
@@ -166,9 +167,11 @@ hits_upset <- list(COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
                    Clump=unique(findOverlaps(all_gr, rp_gr)@from),
                    Wray=unique(findOverlaps(all_gr, wray_gr)@from),
                    Howard=unique(findOverlaps(all_gr, howard_gr)@from),
-                   Levey=unique(findOverlaps(all_gr, levey_gr)@from))
+                   Levey=unique(findOverlaps(all_gr, levey_gr)@from),
+                   Giannakopoulou=unique(findOverlaps(all_gr, giannakopoulou_gr)@from),
+                   Catalog=unique(findOverlaps(all_gr, gwas_catalog_gr)@from))
                    
-upset(fromList(hits_upset), order.by='freq', text.scale=2)
+upset(fromList(hits_upset), nsets=7, order.by='freq', text.scale=2)
 
 ```
 

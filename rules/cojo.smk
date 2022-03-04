@@ -208,6 +208,12 @@ rule cojo_howard:
     input: HTTP.remote("https://static-content.springer.com/esm/art%3A10.1038%2Fs41593-018-0326-7/MediaObjects/41593_2018_326_MOESM3_ESM.xlsx", keep_local=False)
     output: "docs/tables/previous/howard2019_table_s1.xlsx"
     shell: "cp {input} {output}"
+    
+# download GWAS catalogue hits for unipolar depression
+rule cojo_gwas_catalog:
+    input: HTTP.remote("https://www.ebi.ac.uk/gwas/api/search/downloads/full", keep_local=False)
+    output: "docs/tables/previous/gwas_catalog_EFO_0003761.txt"
+    shell: "cat {input} | grep "
 
 # install genpwr R library
 rule cojo_install_genpwr:
@@ -226,7 +232,7 @@ rule cojo_install_ggman:
     """
 
 rule cojo_docs:
-    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", catalog="docs/tables/previous/gwas-association-downloaded_2022-03-03-EFO_0009854-withChildTraits.tsv.gz", rp_clump="docs/tables/meta_snps_full_eur.clump.txt", rmd="docs/cojo.Rmd", genpwr=rules.cojo_install_genpwr.output, ggman=rules.cojo_install_ggman.output
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", catalog="docs/tables/previous/gwas-association-EFO_0003761-withChildTraits.tsv.bz2", rp_clump="docs/tables/meta_snps_full_eur.clump.txt", rmd="docs/cojo.Rmd", genpwr=rules.cojo_install_genpwr.output, ggman=rules.cojo_install_ggman.output
     params: qc=meta_qc_params
     output: "docs/cojo.md"
     conda: "../envs/meta.yaml"
