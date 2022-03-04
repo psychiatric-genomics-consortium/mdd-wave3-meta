@@ -152,7 +152,7 @@ rule cojo_region_bed:
     input: bgen="results/cojo/{analysis}/{chr}:{start}-{stop}.bgen", varids="results/cojo/{analysis}/{chr}:{start}-{stop}.varids", snplist="results/cojo/{analysis}/{chr}:{start}-{stop}.snplist", sample= "resources/cojo/ukb/ukb_imp_chr{chr}_v3.sample", eur_ids="results/cojo/ukb_eur.ids", rel_ids="results/cojo/ukb_rel.dat"
     conda: "../envs/cojo.yaml"
     params: prefix="results/cojo/{analysis}/{chr}:{start}-{stop}"
-    output: temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bed"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.fam"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bim")
+    output: temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bed"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.fam"), "results/cojo/{analysis}/{chr}:{start}-{stop}.bim"
     group: "cojo"
     shell: """plink2 --make-bed --bgen {input.bgen} 'ref-first' \
     --sample {input.sample} --double-id \
@@ -174,16 +174,16 @@ rule cojo_slct:
 # parse regions from the region list file to determine inputs
 # cojo_parse_regions() returns a list ["CHR:START-STOP", "CHR:START-STOP", ...]
 rule cojo_regions_analyse:
-    input: cojo=lambda wildcards: expand("results/cojo/{analysis}/{region}.jma.cojo", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), bim=lambda wildcards: expand("results/cojo/{analysis}/{region}.bim", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), daner="results/cojo/daner_{analysis}.qc.gz", clump="results/distribution/daner_{analysis}.gz.p4.clump.areator.sorted.1mhc"
+    input: cojo=lambda wildcards: expand("results/cojo/{analysis}/{region}.jma.cojo", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), bim=lambda wildcards: expand("results/cojo/{analysis}/{region}.bim", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), daner="results/cojo/daner_{analysis}.qc.gz", clump="results/distribution/daner_{analysis}.gz.p4.clump.areator.sorted.1mhc.txt"
     conda: "../envs/meta.yaml"
     log: "logs/cojo/{analysis}.log"
     output: cojo="results/cojo/{analysis}.cojo", singletons="results/cojo/{analysis}.singleton.cojo"
     script: "../scripts/meta/cojo.R"
     
 rule cojo_table_eur:
-    input: expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.cojo", version=analysis_version)
-    output: "docs/tables/meta_snps_{cohorts}_{ancestries}.cojo.txt"
-    shell: "cp {input} {output}"
+    input: cojo=expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.cojo", version=analysis_version), singletons=expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.singleton.cojo", version=analysis_version)
+    output: cojo="docs/tables/meta_snps_{cohorts}_eur.cojo.txt", singletons="docs/tables/meta_snps_{cohorts}_eur.cojo.singleton.txt"
+    shell: "cp {input.cojo} {output.cojo}; cp {input.singletons} {output.singletons}"
 
 # run all COJO analyses
 rule cojo_analyse:
@@ -218,7 +218,7 @@ rule cojo_install_genpwr:
     """
 
 rule cojo_docs:
-    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", rp_clump=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc", version=analysis_version), rmd="docs/cojo.Rmd", genpwr=rules.cojo_install_genpwr.output
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", rp_clump="docs/tables/meta_snps_full_eur.cojo.txt", rmd="docs/cojo.Rmd", genpwr=rules.cojo_install_genpwr.output
     params: qc=meta_qc_params
     output: "docs/cojo.md"
     conda: "../envs/meta.yaml"
