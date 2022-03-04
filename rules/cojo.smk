@@ -217,8 +217,16 @@ rule cojo_install_genpwr:
     Rscript -e "devtools::install_github('camillemmoore/Power_Genetics', subdir='genpwr')"
     """
 
+# install ggman R library
+rule cojo_install_ggman:
+    output: touch("resources/cojo/install_ggman.done")
+    conda: "../envs/meta.yaml"
+    shell: """
+    Rscript -e "devtools::install_github('drveera/ggman')"
+    """
+
 rule cojo_docs:
-    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", rp_clump=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc", version=analysis_version), rmd="docs/cojo.Rmd", genpwr=rules.cojo_install_genpwr.output
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", catalog="docs/tables/previous/gwas-association-downloaded_2022-03-03-EFO_0009854-withChildTraits.tsv.gz", rp_clump="docs/tables/meta_snps_full_eur.clump.txt", rmd="docs/cojo.Rmd", genpwr=rules.cojo_install_genpwr.output, ggman=rules.cojo_install_ggman.output
     params: qc=meta_qc_params
     output: "docs/cojo.md"
     conda: "../envs/meta.yaml"
