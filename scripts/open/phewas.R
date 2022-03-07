@@ -13,7 +13,9 @@ filter(P == min(P))
 batch <- c('ebi-a', 'finn-a', 'ieu-a', 'ieu-b', 'met-b', 'ubm-a', 'ukb-a', 'ukb-b',  'ukb-d')
 
 # query for phewas
-phewas_assoc <- phewas(variants=cojo_region_top$SNP, batch=batch, pval=1e-5)
+phewas_assoc_list <- lapply(cojo_region_top$SNP, phewas, batch=batch, pval=1e-5)
+
+phewas_assoc <- bind_rows(phewas_assoc_list) %>% distinct()
 
 write_tsv(phewas_assoc, snakemake@output$phewas)
 

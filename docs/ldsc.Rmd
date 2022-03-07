@@ -12,21 +12,16 @@ library(ggplot2)
 
 Read in LDSC rg tables
 ```{r}
-
-
 ldsc_rg_info <- read_tsv(snakemake@input$full)
 ldsc_noukbb_rg_info <- read_tsv(snakemake@input$noukbb)
 ldsc_rg_mr_candidates <- read_tsv(snakemake@input$mr)
-
 ```
 
 Plot size of genetic correlation versus covariance intercept
 
 ```{r ldsc_rg_gcov}
-
 ggplot(ldsc_rg_info, aes(x=abs(rg), y=gcov_int)) +
 geom_point()
-
 ```
 
 Compare genetic covariance for `full` versus `noUKBB` sumstats
@@ -76,6 +71,15 @@ group_by(subcategory) %>%
 filter(rg==max(rg)) %>%
 filter(p==min(p)) %>%
 select(-id)
+
+```
+
+Plot rg for known subcategories
+```{r}
+
+ggplot(ldsc_rg_info %>% filter(!is.na(subcategory)), aes(x=trait, y=rg, ymin=rg+se*qnorm(0.025), ymax=rg+se*qnorm(0.975))) +
+geom_pointrange() +
+coord_flip()
 
 ```
 
