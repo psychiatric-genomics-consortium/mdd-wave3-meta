@@ -90,11 +90,11 @@ rule open_gwas_ldsc_log:
     shell: "cat {input} | tail -n 5 | head -n 2 > {output}"
     
 # list all IDs to fetch and run LDSC on, then generate report
-rule open_gwas_rg_all_datasets:
-    input: ldsc_full=expand("results/open_gwas/ldsc/full_eur_v{version}_{dataset}.rg.txt", version=analysis_version, dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo)), ldsc_noukbb=expand("results/open_gwas/ldsc/noUKBB_eur_v{version}_{dataset}.rg.txt", version=analysis_version, dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo)), gwasinfo="results/open_gwas/gwasinfo.txt"
-    conda: "../envs/reports.yaml"
-    output: full="docs/tables/ldsc_open_rg.txt", noukbb="docs/tables/ldsc_open_noUKBB.txt",  mr='docs/tables/ldsc_open_mr_candidates.txt'
-    script: "../scripts/open/ldsc.R"
+# rule open_gwas_rg_all_datasets:
+#     input: ldsc_full=expand("results/open_gwas/ldsc/full_eur_v{version}_{dataset}.rg.txt", version=analysis_version, dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo)), ldsc_noukbb=expand("results/open_gwas/ldsc/noUKBB_eur_v{version}_{dataset}.rg.txt", version=analysis_version, dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo)), gwasinfo="results/open_gwas/gwasinfo.txt"
+#     conda: "../envs/reports.yaml"
+#     output: full="docs/tables/ldsc_open_rg.txt", noukbb="docs/tables/ldsc_open_noUKBB.txt",  mr='docs/tables/ldsc_open_mr_candidates.txt'
+#     script: "../scripts/open/ldsc.R"
     
 rule open_gwas:
     input: full="docs/tables/ldsc_open_rg.txt", noukbb="docs/tables/ldsc_open_noUKBB.txt",  mr='docs/tables/ldsc_open_mr_candidates.txt'
