@@ -29,24 +29,7 @@ library(ggpubr)
 
 -   Models: ***results/phewas/models.rds***
 
--   Phenotypes used in the PheWAS: ***results/phewas/data_dictionary/fields.final\****
-
-    Use the following commands to retrieve a complete list of phenotypes:
-
-    ```{r, eval=F}
-    f.dic_dir = 'results/phewas/data_dictionary/fields.final.brain_imaging_QC_cov_phenotype.txt'
-
-    d.path = f.dic_dir %>% strsplit(.,'/') %>% unlist %>% 
-      .[1:(length(.)-1)] %>% 
-      paste0(.,collapse = '/')
-
-    fields.all = list.files(d.path,pattern='^fields.final',full.names = T,include.dirs = T) %>% 
-      as.list %>%
-      lapply(fread,stringsAsFactors=F,header=T,sep='\t',quote="") %>%
-      lapply(as.data.frame) %>% 
-      lapply(mutate,field_used=as.character(field_used),FieldID=as.character(FieldID)) %>% 
-      Reduce(function(dtf1,dtf2) bind_rows(dtf1,dtf2[,colnames(dtf1)]), .)
-    ```
+-   Phenotypes used in the PheWAS can be found [here](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/phewas/scripts/phewas/SUMMARY/supple_docs/phenotypes_prs_phewas.md).
 
 ------------------------------------------------------------------------
 
