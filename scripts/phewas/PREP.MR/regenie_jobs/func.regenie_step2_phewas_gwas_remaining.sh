@@ -2,7 +2,7 @@
 #$ -cwd
 #$ -m beas
 #$ -l h_vmem=2G
-#$ -pe sharedmem 32
+#$ -pe sharedmem 15
 #$ -l h_rt=48:00:00
 . /etc/profile.d/modules.sh
 
