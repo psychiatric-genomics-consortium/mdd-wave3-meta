@@ -73,6 +73,15 @@ rule install_mesc:
   shell:
     "git clone git@github.com:douglasyao/mesc.git {output}"
 
+# Install ggvenn
+rule install_ggvenn:
+  output:
+    touch("resources/software/install_ggvenn.done")
+  conda:
+    "../envs/twas.yaml"
+  shell:
+    "Rscript -e 'devtools::install_github(\"yanlinlin82/ggvenn\")'"
+
 ####
 # Download required data
 ####
@@ -208,9 +217,9 @@ rule focus_db:
 # Format sumstats file so FOCUS can read it
 rule pre_munge:
   input:
-    "results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff.gz"
+    "results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.10.neff.gz"
   output:
-    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff_premunged.gz"
+    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.10.neff_premunged.gz"
   conda:
     "../envs/twas.yaml"
   shell:
@@ -222,11 +231,11 @@ rule focus_munge:
     premunged=rules.pre_munge.output,
     focus=rules.install_focus.output
   output:
-    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff_munged.sumstats.gz"
+    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.10.neff_munged.sumstats.gz"
   conda:
     "../envs/twas.yaml"
   shell:
-    "focus munge {input.premunged} --output results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff_munged"
+    "focus munge {input.premunged} --output results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.10.neff_munged"
 
 ###
 # Run TWAS
@@ -454,25 +463,37 @@ rule process_conditional:
 # Finemap TWAS associations
 ########
 
+# Note I was having a conda compatability error
+# So I used a local installation of focus in the end
 rule run_focus:
   input:
     sumstats=rules.focus_munge.output,
     prep_1kg=rules.prep_1kg.output
   output:
     "results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.tsv"
-  conda: 
-    "../envs/twas.yaml"
+#  conda: 
+#    "../envs/twas.yaml"
   shell:
-    "focus finemap {input.sumstats} \
+    "/users/k1806347/brc_scratch/Software/focus-master/bin/focus finemap {input.sumstats} \
     	resources/twas/1kg/EUR/EUR_phase3.MAF_001.chr{wildcards.chr} \
     	/scratch/groups/biomarkers-brc-mh/TWAS_resource/FOCUS/MDD_TWAS_db/MDD_TWAS.db \
     	--chr {wildcards.chr} \
     	--p-threshold 1e-4 \
-    	--plot \
     	--out results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{wildcards.chr}"
 
+# Check FOCUS completed
+rule check_focus:
+  input:
+    "results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.tsv"
+  output:
+    "results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.complete"
+  conda: 
+    "../envs/twas.yaml"
+  shell:
+    "if [ $(grep -c ERROR results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{wildcards.chr}.log) -eq 0 ]; then touch results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{wildcards.chr}.focus.complete; else rm results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{wildcards.chr}.focus.tsv; fi"
+
 rule focus:
-    input: expand("results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.tsv", chr=chr)
+    input: expand("results/twas/focus/p_1e-4/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{chr}.focus.complete", chr=chr)
 
 # Run FOCUS using only genome-wide significance threshold out of interest
 rule run_focus_gw:
@@ -489,7 +510,6 @@ rule run_focus_gw:
     	resources/twas/1kg/EUR/EUR_phase3.MAF_001.chr{wildcards.chr} \
     	resources/twas/focus_db/MDD_TWAS.db \
     	--chr {wildcards.chr} \
-    	--plot \
     	--out results/twas/focus/GW_sig/PGC_MDD3_TWAS.FOCUS.MDD_TWAS_db.chr{wildcards.chr}"
 
 rule focus_gw:
@@ -645,7 +665,7 @@ rule format_metabrain_esi:
 # Convert sumstats to COJO format
 rule daner_to_cojo:
   output:
-    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff_COJO.txt"
+    "results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.10.neff_COJO.txt"
   conda: 
     "../envs/twas.yaml"
   shell:
@@ -668,7 +688,7 @@ rule smr_analysis_eQTLGen:
     "/users/k1806347/brc_scratch/Software/smr_Linux \
       --bfile resources/twas/1kg/all_phase3.chr{wildcards.chr} \
       --keep resources/twas/1kg/super_pop_keep_files/EUR_samples.keep \
-      --gwas-summary results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff_COJO.txt \
+      --gwas-summary results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.10.neff_COJO.txt \
       --beqtl-summary resources/twas/eQTLGen/cis-eQTLs-full_eQTLGen_AF_incl_nr_formatted_20191212.new.txt_besd-dense \
       --out results/twas/eqtlgen_smr/eqtlgen_smr_res_chr{wildcards.chr} \
       --thread-num 1"
@@ -694,7 +714,7 @@ rule smr_analysis_MetaBrain:
     "/users/k1806347/brc_scratch/Software/smr_Linux \
       --bfile resources/twas/1kg/all_phase3.chr{wildcards.chr} \
       --keep resources/twas/1kg/super_pop_keep_files/EUR_samples.keep \
-      --gwas-summary results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.09.neff_COJO.txt \
+      --gwas-summary results/twas/munged_gwas/daner_pgc_mdd_full_eur_hg19_v3.49.24.10.neff_COJO.txt \
       --beqtl-summary resources/twas/MetaBrain/{wildcards.tissue}/2020-05-26-{wildcards.tissue}-EUR-{wildcards.chr}-SMR-besd \
       --out results/twas/metabrain_smr/metabrain_{wildcards.tissue}_smr_res_chr{wildcards.chr} \
       --thread-num 1"
@@ -727,7 +747,8 @@ rule create_report:
     rules.plot_loci.input,
     rules.est_h2med.output,
     rules.est_h2med_sets.output,
-    rules.process_smr.output
+    rules.process_smr.output,
+    rules.install_ggvenn.output
   output:
     "docs/twas_report.html"
   conda:
