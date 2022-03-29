@@ -1,136 +1,173 @@
 id	trait	rg	p	qvalue	gcov_int	subcategory
-ebi-a-GCST009984	Trauma exposure in major depressive disorder-negative individuals	0.4004	1.2149e-24	1.8202621302885968e-23	-0.0019	NA
-ieu-b-4858	Ever smoked	0.392	5.6254e-51	4.4256418546895375e-49	0.0193	NA
-ieu-b-24	Age Of Smoking Initiation	-0.3054	1.1064e-40	4.352161755633825e-39	-0.0215	Behavioural
-ieu-b-25	Cigarettes per Day	0.3023	2.6057e-23	2.562461109602101e-22	0.024	Behavioural
-ieu-b-142	Cigarettes smoked per day	0.3023	2.5262e-23	2.5049071206906404e-22	0.024	Behavioural
-ebi-a-GCST006700	Parental longevity (father's age at death)	-0.2838	2.508e-21	1.9731058718600207e-20	-0.0034	NA
-ebi-a-GCST006100	Strenuous sports or other exercises	-0.2727	2.6392e-39	6.921080564876352e-38	-0.0238	NA
-ieu-b-4764	C-reactive protein	0.2158	1e-4	1.156948278368058e-4	-0.0059	NA
-ieu-a-1186	Anorexia Nervosa	0.2122	1.0559e-6	1.735475677765326e-6	0.0125	Psychiatric / neurological
-ebi-a-GCST007090	Knee osteoarthritis	0.2075	1.0576e-19	7.564001631430904e-19	0.0149	NA
-ebi-a-GCST006697	Parental longevity (combined parental attained age, Martingale residuals)	0.2041	2.6641e-14	1.1031124303748597e-13	0.0217	NA
-ieu-a-836	College completion	-0.2007	2.7663e-13	9.83335037231035e-13	4e-4	Education
-ieu-a-755	Years of schooling	-0.1977	7.4803e-14	2.9424688702700385e-13	-0.0076	Education
-ebi-a-GCST005038	Allergic disease (asthma, hay fever or eczema)	0.1959	2.2639e-19	1.4842219508585532e-18	0.0098	NA
-ieu-a-77	Waist-to-hip ratio	0.1849	3.949e-11	9.909669679746627e-11	-0.0074	Anthropometric
-ieu-a-1010	Years of schooling	-0.1831	4.815e-19	2.705771466451925e-18	-0.0108	Education
-ieu-b-4812	25 hydroxyvitamin D level	-0.1801	4.0174e-19	2.3631095030505595e-18	-0.0191	NA
-ieu-a-1001	Years of schooling	-0.1778	1.9209e-24	2.5186995409728296e-23	-0.0199	Education
-ieu-a-1052	Transferrin	0.1771	0.0169	0.010997913494579133	-0.0172	Metal
-ieu-b-4836	Years of schooling	-0.1771	4.4793e-11	1.1012426649499837e-10	-0.0119	NA
-ieu-b-4816	Body mass index	0.1629	3.588e-13	1.2272907336928357e-12	-0.0019	NA
-ieu-a-1011	Years of schooling	-0.1608	4.2006e-16	1.9439507752451455e-15	-0.0231	Education
-ieu-a-1239	Years of schooling	-0.159	3.6102e-26	7.100584946759415e-25	-0.0202	Education
-ieu-b-111	triglycerides	0.1577	3.1015e-18	1.6266847053625344e-17	0.0122	Lipid
-ebi-a-GCST000758	Triglycerides	-0.1467	2.6907e-10	6.226001465209866e-10	0.004	NA
-ieu-b-40	body mass index	0.1408	2.4774e-22	2.1655912134263754e-21	0.0173	Anthropometric
-ieu-a-51	Hip circumference	0.1396	3.9405e-12	1.1481811814142024e-11	0.0087	Anthropometric
-ieu-a-63	Waist circumference	0.1396	3.9405e-12	1.1481811814142024e-11	0.0087	Anthropometric
-ebi-a-GCST002216	Triglycerides	0.1357	4.6716e-8	9.597744523484024e-8	-0.0035	NA
-ebi-a-GCST90000616	Serum 25-Hydroxyvitamin D levels	-0.1357	3.1812e-15	1.390405014965687e-14	-0.0117	NA
-ebi-a-GCST006368	Body mass index	0.1315	3.6862e-16	1.7310212606125385e-15	0.012	NA
-ieu-a-61	Waist circumference	0.1297	2.3445e-12	7.314240496209951e-12	0.0047	Anthropometric
-ebi-a-GCST006098	Vigorous physical activity	-0.1295	5.5966e-9	1.1899957242178317e-8	-0.018	NA
-ieu-b-109	HDL cholesterol	-0.1275	1.545e-12	4.9969297013237414e-12	-0.0191	Lipid
-ieu-b-4879	telomere length	-0.1234	8.0256e-10	1.7538718860977957e-9	-0.0029	Aging
-ieu-b-4822	Age at menarche	-0.1231	2e-4	2.1554104912062448e-4	-2e-4	NA
-ebi-a-GCST90000615	Serum 25-Hydroxyvitamin D levels	-0.1209	3.5449e-13	1.2149532022854017e-12	-0.0096	NA
-ieu-a-974	Body mass index	0.118	3.0202e-11	7.864075484392908e-11	0.0116	Anthropometric
-ieu-a-1095	Age at menarche	-0.1166	2.5088e-10	5.832931934861585e-10	-0.0083	Reproductive aging
-ieu-b-4850	Triglycerides	0.116	6.5552e-6	9.917574232622383e-6	0.0095	NA
-ieu-a-79	Waist-to-hip ratio	0.1127	2.9775e-7	5.447612044678621e-7	-0.0048	Anthropometric
-ieu-a-59	Hip circumference	-0.1127	1.0089e-5	1.4913930988214681e-5	0.0105	Anthropometric
-ebi-a-GCST002783	Body mass index	0.1117	2.3597e-11	6.313160215285516e-11	0.0083	NA
-ieu-a-835	Body mass index	0.1092	2.8683e-11	7.514794039835764e-11	0.0091	Anthropometric
-ebi-a-GCST000755	HDL cholesterol	0.1087	8.3211e-5	1.0017082838044285e-4	0.004	NA
-ieu-b-18	multiple sclerosis	0.1081	1.5135e-6	2.4177446482430204e-6	0.0102	Psychiatric / neurological
-ieu-b-35	C-Reactive protein level	0.1054	5.2951e-6	8.09319008173803e-6	0.0085	Immune system
-ieu-a-90	Obesity class 1	0.1054	2.399e-7	4.482762412485708e-7	0.0217	Anthropometric
-ebi-a-GCST006414	Atrial fibrillation	0.1041	7.4537e-7	1.2747849695828165e-6	0.0075	NA
-ieu-a-1167	ER+ Breast cancer (GWAS)	0.1019	2e-4	2.1554104912062448e-4	-0.0094	Cancer
-ieu-a-30	Crohn's disease	0.1018	1.2346e-5	1.798686063410702e-5	-0.0027	Autoimmune / inflammatory
-ieu-a-95	Body mass index	0.1008	6.6388e-7	1.1490576478360223e-6	0.0093	Anthropometric
-ebi-a-GCST002223	HDL cholesterol	-0.0976	1e-4	1.156948278368058e-4	-0.0065	NA
-ieu-a-1040	Difference in height between adolescence and adulthood	-0.0964	0.064	0.03763117035991522	0.0047	Anthropometric
-ieu-b-4760	Number of children	0.0959	2.1863e-5	3.0909359043614906e-5	-0.0125	NA
-ieu-a-1131	Breast cancer (GWAS)	0.0938	0.0122	0.00843285773559519	0.0163	Cancer
-ieu-a-1133	ER+ Breast cancer (iCOGS)	0.0936	0.001	9.209153520120326e-4	-0.0097	Cancer
-ieu-b-107	apolipoprotein A-I	-0.0935	1.0782e-6	1.76718064779329e-6	-0.0201	Lipid
-ieu-a-1130	Breast cancer (iCOGS)	0.0935	3e-4	3.105492747198471e-4	-0.007	Cancer
-ebi-a-GCST006250	Intelligence	-0.0924	6.92e-8	1.3959322612022394e-7	0.0108	NA
-ebi-a-GCST009763	Snoring	0.0909	7.2691e-5	8.978580191028924e-5	0.0094	NA
-ebi-a-GCST006572	Cognitive performance	-0.0889	1.7185e-7	3.293780760913246e-7	0.0049	NA
-ieu-a-1168	Breast cancer (GWAS)	0.0889	3e-4	3.105492747198471e-4	-0.0029	Cancer
-ebi-a-GCST90000027	Appendicular lean mass	-0.0883	4.0032e-10	8.998333818899562e-10	0.0116	NA
-ieu-b-105	FVC	-0.0865	6.9862e-7	1.203024045457006e-6	-6e-4	NA
-ebi-a-GCST003839	Sleep duration	-0.0864	0.0042	0.003387672026966865	0.0056	NA
-ieu-a-1088	Sleep duration	-0.0863	0.0042	0.003387672026966865	0.0053	Sleeping
-ebi-a-GCST006366	Central corneal thickness	0.0845	0.0087	0.0063209083803349945	-0.0127	NA
-ebi-a-GCST005850	Heart rate response to recovery post exercise (30 sec)	-0.0832	0.0068	0.005156550600268325	-0.002	NA
-ieu-b-72	Urinary sodium-potassium ratio	0.0826	5e-4	4.979271071457464e-4	-0.011	Biomarker
-ieu-b-73	Alcoholic drinks per week	0.0807	8.8765e-5	1.0544373070985085e-4	2e-4	Behavioural
-ebi-a-GCST000568	Fasting blood glucose	0.0807	0.0165	0.010791358277875512	-0.0035	NA
-ieu-b-4844	HDL cholesterol	-0.0777	0.0067	0.005092440892118333	-0.0137	NA
-ieu-b-4870	Sex hormone binding globulin (SHBG)	-0.0773	1.7754e-6	2.793502523843924e-6	-0.0106	NA
-ieu-a-81	Waist-to-hip ratio	0.0766	0.0023	0.001945663556309293	9.3049e-5	Anthropometric
-ebi-a-GCST005848	Heart rate response to recovery post exercise (50 sec)	-0.0754	0.0138	0.009341129113804648	0.0011	NA
-ebi-a-GCST90000025	Appendicular lean mass	-0.0753	1.0439e-7	2.053155123240307e-7	0.0057	NA
-ebi-a-GCST90002039	CD80 on monocyte	0.0733	0.0841	0.0482125997921352	-0.0083	NA
-ieu-b-4862	Chronotype	-0.0732	9e-4	8.414883573053922e-4	-0.0099	NA
-ebi-a-GCST005849	Heart rate response to recovery post exercise (40 sec)	-0.0724	0.0183	0.011704930387001718	-0.0043	NA
-ebi-a-GCST006061	Atrial fibrillation	0.0707	0.0019	0.001639336882568977	0.0102	NA
-ieu-b-4814	Height	-0.0699	7.1015e-5	8.80811402440899e-5	0.0064	NA
-ebi-a-GCST005847	Heart rate response to recovery post exercise (20 sec)	-0.0696	0.0332	0.02039300205176542	-0.0042	NA
-ieu-a-1008	Platelet count	0.0685	0.0087	0.0063209083803349945	-7e-4	Haemotological
-ieu-b-4865	Total Testosterone	-0.0682	4.3662e-5	5.810607947441831e-5	9e-4	NA
-ieu-b-110	LDL cholesterol	-0.0673	3e-4	3.105492747198471e-4	-0.0047	Lipid
-ebi-a-GCST003837	Chronotype	-0.0644	0.009	0.00649589308588304	-0.0082	NA
-ebi-a-GCST007432	FEV1	-0.0642	3.8607e-5	5.2081075740243414e-5	-0.0095	NA
-ieu-a-1087	Chronotype	-0.0634	0.0118	0.008199751426186272	-0.0084	Sleeping
-ebi-a-GCST004137	Optic cup area	-0.0632	0.0427	0.025808824126368982	0.0102	NA
-ebi-a-GCST004620	Sum basophil neutrophil counts	0.0624	1e-4	1.156948278368058e-4	-0.0149	NA
-ebi-a-GCST007429	Lung function (FVC)	-0.0623	1e-4	1.156948278368058e-4	-0.0023	NA
-ieu-a-55	Hip circumference	-0.0622	0.0012	0.0010728065853958355	0.006	Anthropometric
-ieu-a-49	Hip circumference	0.0622	0.001	9.209153520120326e-4	0.009	Anthropometric
-ebi-a-GCST004629	Neutrophil count	0.0616	2e-4	2.1554104912062448e-4	-0.0147	NA
-ebi-a-GCST006288	Heel bone mineral density	-0.0608	2.3902e-5	3.3579101553029025e-5	0.0181	NA
-ebi-a-GCST90000026	Appendicular lean mass	-0.0604	2e-4	2.1554104912062448e-4	0.0014	NA
-ieu-b-4861	Chronotype	-0.0598	0.005	0.0039554677744596065	-0.018	NA
-ebi-a-GCST004626	Myeloid white cell count	0.0597	2e-4	2.1554104912062448e-4	-0.015	NA
-ieu-b-4871	Sex hormone binding globulin (SHBG)	-0.0592	9.4905e-5	1.1111300539434005e-4	-0.0022	NA
-ieu-b-106	FEV1/FVC < 0.7	0.0589	0.002	0.0017170581591652923	0.0015	NA
-ieu-b-113	Fasting glucose	0.0586	0.0588	0.03480468071230898	-0.006	Glycemic
-ieu-a-69	Waist circumference	0.058	0.0154	0.010212519718204824	0.0015	Anthropometric
-ebi-a-GCST004988	Breast cancer	0.0575	0.0012	0.0010728065853958355	0.01	NA
-ebi-a-GCST004610	White blood cell count	0.0574	4e-4	4.060515247949829e-4	-0.0139	NA
-ebi-a-GCST004614	Granulocyte count	0.057	5e-4	4.979271071457464e-4	-0.0132	NA
-ebi-a-GCST005186	Fasting blood glucose	0.0566	0.0633	0.03725286910324555	-0.0055	NA
-ebi-a-GCST007091	Osteoarthritis (hip)	0.0563	0.0181	0.01160541499556855	0.0114	NA
-ebi-a-GCST004613	Sum neutrophil eosinophil counts	0.0562	6e-4	5.879438226012763e-4	-0.013	NA
-ieu-a-96	Height	-0.0554	0.0119	0.008258260159115547	-0.0052	Anthropometric
-ieu-a-1126	Breast cancer (Combined Oncoarray; iCOGS; GWAS meta analysis)	0.0551	0.0022	0.0018702103014562634	0.0108	Cancer
-ebi-a-GCST004625	Monocyte count	0.0551	0.0011	9.979870157389046e-4	-0.0194	NA
-ebi-a-GCST004623	Neutrophil percentage of granulocytes	0.0547	0.0037	0.003021364603889392	-0.0114	NA
-ebi-a-GCST004617	Eosinophil percentage of granulocytes	-0.0532	0.0043	0.003459859919379171	0.0102	NA
-ieu-a-89	Height	-0.053	8e-4	7.595963869009595e-4	-0.0027	Anthropometric
-ebi-a-GCST004612	High light scatter reticulocyte percentage of red cells	0.0524	0.002	0.0017170581591652923	0.0039	NA
-ebi-a-GCST004628	Immature fraction of reticulocytes	0.0515	0.0076	0.005658995381757456	0.0074	NA
-ebi-a-GCST90002412	Low density lipoprotein cholesterol levels	0.0514	8e-4	7.595963869009595e-4	0.0047	NA
-ebi-a-GCST006979	Heel bone mineral density	-0.0511	4.902e-5	6.431734002355602e-5	0.0149	NA
-ebi-a-GCST004600	Eosinophil percentage of white cells	-0.0499	0.0082	0.006024064407136997	0.0103	NA
-ieu-b-4868	Bioavailable Testosterone	-0.0467	0.0349	0.021340657973116996	0.0048	NA
-ieu-b-4869	Bioavailable Testosterone	0.0464	0.0178	0.011455222820011685	-0.0061	NA
-ebi-a-GCST009760	Snoring	0.046	0.016	0.010530237887774898	0.005	NA
-ebi-a-GCST004611	High light scatter reticulocyte count	0.0454	0.0083	0.006083961584874486	0.0024	NA
-ebi-a-GCST004619	Reticulocyte fraction of red cells	0.0452	0.0067	0.005092440892118333	0.0015	NA
-ieu-a-1127	ER+ Breast cancer (Combined Oncoarray; iCOGS; GWAS meta analysis)	0.0444	0.0262	0.016398813546801085	0.0078	Cancer
-ieu-a-67	Waist circumference	0.0428	0.026	0.016282464128594836	-7e-4	Anthropometric
-ebi-a-GCST004601	Red blood cell count	-0.0425	0.0077	0.00572052627809521	-0.0077	NA
-ebi-a-GCST006804	Red cell distribution width	0.0409	0.0359	0.02189412509420235	0.0077	NA
-ebi-a-GCST007430	Peak expiratory flow	-0.0407	0.0138	0.009341129113804648	-0.0098	NA
-ebi-a-GCST004630	Mean corpuscular hemoglobin	0.0403	0.005	0.0039554677744596065	-0.0103	NA
-ebi-a-GCST004602	Mean corpuscular volume	0.0359	0.0125	0.00860607522395737	-0.0018	NA
-ebi-a-GCST004622	Reticulocyte count	0.0358	0.0349	0.021340657973116996	-0.0012	NA
-ieu-b-39	diastolic blood pressure	0.035	0.0098	0.006996009458631677	-0.0188	Blood pressure
-ebi-a-GCST004627	Lymphocyte counts	0.0288	0.0865	0.049440776765465926	-0.0038	NA
+ebi-a-GCST009984	Trauma exposure in major depressive disorder-negative individuals	0.3995	3.1593e-24	4.372177447906496e-23	-0.0011	NA
+ieu-b-4858	Ever smoked	0.3902	1.155e-50	1.1188888255728809e-48	0.0211	NA
+ieu-b-24	Age Of Smoking Initiation	-0.3071	6.730599999999999e-41	2.1733890705341502e-39	-0.0208	Behavioural
+ieu-b-25	Cigarettes per Day	0.3031	1.8288e-23	1.9684693450771377e-22	0.0237	Behavioural
+ieu-b-142	Cigarettes smoked per day	0.3031	1.825e-23	1.965476208382092e-22	0.0237	Behavioural
+ebi-a-GCST006700	Parental longevity (father's age at death)	-0.2852	2.4184999999999996e-21	1.802219530235106e-20	-0.0031	NA
+ebi-a-GCST005195	Coronary artery disease	0.2781	6.980599999999999e-40	1.3524701880162859e-38	0.0112	NA
+ebi-a-GCST006100	Strenuous sports or other exercises	-0.2736	3.7863e-40	9.169802511399563e-39	-0.0234	NA
+ebi-a-GCST005194	Coronary artery disease	0.2462	2.5829999999999998e-45	1.2511211413224031e-43	0.0086	NA
+ieu-a-1186	Anorexia Nervosa	0.2128	3.0331e-7	5.559018568702311e-7	0.0118	Psychiatric / neurological
+ieu-b-4764	C-reactive protein	0.2112	1e-4	1.1396881340187227e-4	-0.0048	NA
+ebi-a-GCST007090	Knee osteoarthritis	0.2059	1.6064e-20	1.1115541183675173e-19	0.0162	NA
+ebi-a-GCST006697	Parental longevity (combined parental attained age, Martingale residuals)	0.2052	4.5161000000000003e-14	1.9885926112434818e-13	0.0214	NA
+ieu-b-4808	25 hydroxyvitamin D level	-0.2042	1.4013e-22	1.1312401957253089e-21	-0.0241	NA
+ieu-a-836	College completion	-0.2005	2.0854e-13	8.400834624159898e-13	3e-4	Education
+ebi-a-GCST005038	Allergic disease (asthma, hay fever or eczema)	0.1971	6.030000000000001e-19	3.650919706820602e-18	0.0093	NA
+ieu-a-755	Years of schooling	-0.1964	4.431e-13	1.6514165978695336e-12	-0.0081	Education
+ieu-a-1010	Years of schooling	-0.1839	8.9874e-18	4.8672023996170384e-17	-0.0104	Education
+ieu-b-4812	25 hydroxyvitamin D level	-0.1814	2.9061000000000005e-19	1.8768270222206923e-18	-0.0178	NA
+ieu-a-77	Waist-to-hip ratio	0.1811	5.1136e-10	1.1581796137153166e-9	-0.0056	Anthropometric
+ieu-a-76	Waist-to-hip ratio	0.1808	2.2905e-10	5.623865812829886e-10	-0.0057	Anthropometric
+ieu-a-1001	Years of schooling	-0.1788	1.0798e-22	9.151940536054657e-22	-0.0193	Education
+ieu-a-1052	Transferrin	0.1759	0.0177	0.011507790588128645	-0.017	Metal
+ieu-b-4836	Years of schooling	-0.1732	3.0995e-10	7.402578883131167e-10	-0.0145	NA
+ieu-b-4816	Body mass index	0.1619	8.2203e-14	3.4623007012447774e-13	-0.0011	NA
+ieu-a-1011	Years of schooling	-0.1617	1.071e-15	5.18757546401972e-15	-0.0225	Education
+ieu-b-111	triglycerides	0.1587	2.8505e-17	1.4533573011143754e-16	0.0111	Lipid
+ieu-a-1239	Years of schooling	-0.1581	1.9606e-24	3.04318646345965e-23	-0.0219	Education
+ebi-a-GCST000758	Triglycerides	-0.1475	4.9587e-11	1.298288058820228e-10	0.0044	NA
+ieu-a-51	Hip circumference	0.1423	2.6193e-12	8.458024533399845e-12	0.0067	Anthropometric
+ieu-a-63	Waist circumference	0.1423	2.6193e-12	8.458024533399845e-12	0.0067	Anthropometric
+ieu-a-62	Waist circumference	0.1418	2.1109e-12	7.0011833314321336e-12	0.0061	Anthropometric
+ieu-b-40	body mass index	0.1407	2.7381e-23	2.6524930677931647e-22	0.0171	Anthropometric
+ebi-a-GCST002216	Triglycerides	0.1367	1.9957e-8	4.113413335536149e-8	-0.0039	NA
+ebi-a-GCST90000616	Serum 25-Hydroxyvitamin D levels	-0.1363	2.7652e-14	1.2632160624154672e-13	-0.0111	NA
+ebi-a-GCST006368	Body mass index	0.1319	9.4852e-18	5.1048024474862374e-17	0.0115	NA
+ebi-a-GCST006098	Vigorous physical activity	-0.1309	8.4678e-9	1.8198974857888602e-8	-0.0173	NA
+ieu-a-61	Waist circumference	0.1298	3.9312e-12	1.1900908417457005e-11	0.0044	Anthropometric
+ieu-b-109	HDL cholesterol	-0.1295	4.4399e-13	1.6542639016520258e-12	-0.0162	Lipid
+ieu-a-60	Waist circumference	0.129	3.7727e-12	1.1507979475097166e-11	0.004	Anthropometric
+ieu-b-4879	telomere length	-0.1236	5.3319e-10	1.2012087645368053e-9	-0.0033	Aging
+ieu-a-302	Triglycerides	0.1222	1.2009e-8	2.5290299089600465e-8	-0.0073	Lipid
+ebi-a-GCST90000615	Serum 25-Hydroxyvitamin D levels	-0.1217	6.9365e-13	2.488751751991755e-12	-0.0089	NA
+ieu-b-4822	Age at menarche	-0.1214	2e-4	2.1059454650345963e-4	-0.0011	NA
+ieu-a-974	Body mass index	0.1194	1.9799e-11	5.6317696109806495e-11	0.0105	Anthropometric
+ieu-a-1095	Age at menarche	-0.1169	3.4201e-10	8.080903119716629e-10	-0.0082	Reproductive aging
+ieu-b-4850	Triglycerides	0.1151	9.9417e-6	1.4374435662205737e-5	0.0101	NA
+ebi-a-GCST004132	Crohn's disease	0.1148	1.0742e-8	2.2786135500194793e-8	-0.0088	NA
+ieu-a-79	Waist-to-hip ratio	0.112	3.5838e-7	6.432384452864859e-7	-0.0046	Anthropometric
+ebi-a-GCST002783	Body mass index	0.1109	2.803e-11	7.730870793482245e-11	0.009	NA
+ieu-a-58	Hip circumference	-0.1107	5.6207e-6	8.376874354841814e-6	0.009	Anthropometric
+ieu-a-78	Waist-to-hip ratio	0.1102	3.3357e-7	6.04343481404144e-7	-0.0042	Anthropometric
+ieu-b-18	multiple sclerosis	0.1102	1.4228e-6	2.3236834433145945e-6	0.0094	Psychiatric / neurological
+ieu-a-59	Hip circumference	-0.1096	8.3948e-6	1.2268925884327197e-5	0.0086	Anthropometric
+ebi-a-GCST008046	Triglyceride levels	0.1096	6e-4	5.965816185405922e-4	-0.0036	NA
+ieu-a-2	Body mass index	0.1096	1.9378e-11	5.520863467044407e-11	0.0085	Anthropometric
+ieu-a-835	Body mass index	0.1091	3.4791e-11	9.36201566390238e-11	0.0094	Anthropometric
+ieu-a-1038	Difference in height between adolescence and adulthood	-0.1089	0.087	0.04899996366900264	0.0053	Anthropometric
+ebi-a-GCST000755	HDL cholesterol	0.1074	1e-4	1.1396881340187227e-4	0.0046	NA
+ieu-b-35	C-Reactive protein level	0.1056	5.2639e-6	7.900274346724343e-6	0.0083	Immune system
+ieu-a-90	Obesity class 1	0.1052	2.4172e-7	4.53745985509765e-7	0.0217	Anthropometric
+ebi-a-GCST006414	Atrial fibrillation	0.104	4.2657e-7	7.513331858711118e-7	0.0077	NA
+ieu-a-1167	ER+ Breast cancer (GWAS)	0.1033	1e-4	1.1396881340187227e-4	-0.01	Cancer
+ieu-a-95	Body mass index	0.1021	6.512e-7	1.1067371507755146e-6	0.0086	Anthropometric
+ieu-a-30	Crohn's disease	0.1016	3.2651e-6	5.101331609592648e-6	-0.0027	Autoimmune / inflammatory
+ieu-a-1040	Difference in height between adolescence and adulthood	-0.0979	0.0598	0.035185309598107756	0.0052	Anthropometric
+ebi-a-GCST002223	HDL cholesterol	-0.0969	2e-4	2.1059454650345963e-4	-0.0069	NA
+ieu-b-4760	Number of children	0.0965	1.7599e-5	2.487764362213689e-5	-0.0124	NA
+ieu-b-107	apolipoprotein A-I	-0.0953	3.5971e-7	6.45303029416099e-7	-0.0179	Lipid
+ieu-a-1130	Breast cancer (iCOGS)	0.0936	2e-4	2.1059454650345963e-4	-0.0066	Cancer
+ieu-a-1133	ER+ Breast cancer (iCOGS)	0.0935	0.001	9.497401116822687e-4	-0.0094	Cancer
+ieu-a-1131	Breast cancer (GWAS)	0.0932	0.0093	0.006732046721462443	0.0163	Cancer
+ieu-a-50	Hip circumference	0.0923	4.2922e-6	6.567670117176157e-6	0.0084	Anthropometric
+ebi-a-GCST90002341	Monocyte count	0.0921	0.0024	0.0020394419240335033	-0.0039	NA
+ebi-a-GCST004131	Inflammatory bowel disease	0.0916	5.1231e-6	7.710349625647104e-6	0.0024	NA
+ebi-a-GCST009763	Snoring	0.0903	5.1222e-5	6.594028975892964e-5	0.0096	NA
+ebi-a-GCST006366	Central corneal thickness	0.0902	0.0046	0.003611899172452446	-0.0148	NA
+ebi-a-GCST006250	Intelligence	-0.09	2.7918e-7	5.164595548783852e-7	0.008	NA
+ebi-a-GCST008049	White blood cell count	0.0899	0.0019	0.0016767871320058218	0.006	NA
+ieu-a-1168	Breast cancer (GWAS)	0.0889	2e-4	2.1059454650345963e-4	-0.0026	Cancer
+ebi-a-GCST90000027	Appendicular lean mass	-0.0884	3.1696e-10	7.552146188355654e-10	0.0111	NA
+ebi-a-GCST008025	Body mass index	0.0869	0.0027	0.0022548140237698	0.0018	NA
+ebi-a-GCST006572	Cognitive performance	-0.0865	9.091e-7	1.5184084659326852e-6	0.002	NA
+ieu-b-105	FVC	-0.086	5.547e-7	9.571597972197346e-7	-0.0014	NA
+ebi-a-GCST003839	Sleep duration	-0.0844	0.004	0.003199124586719221	0.0045	NA
+ieu-a-1088	Sleep duration	-0.084	0.0046	0.003611899172452446	0.0042	Sleeping
+ebi-a-GCST005850	Heart rate response to recovery post exercise (30 sec)	-0.0832	0.0084	0.006161632440117024	-0.0019	NA
+ieu-b-72	Urinary sodium-potassium ratio	0.0817	0.0011	0.0010345712672888403	-0.0104	Biomarker
+ebi-a-GCST000568	Fasting blood glucose	0.0816	0.0167	0.010972698982549057	-0.0038	NA
+ieu-a-299	HDL cholesterol	-0.0807	2.9429e-5	4.021288544651e-5	-0.003	Lipid
+ieu-b-73	Alcoholic drinks per week	0.079	6.9477e-5	8.530462421275762e-5	0.0015	Behavioural
+ieu-b-4870	Sex hormone binding globulin (SHBG)	-0.0783	1.6898e-6	2.728280429225186e-6	-0.0092	NA
+ebi-a-GCST001969	Heart rate	0.0779	0.0102	0.007287645047448243	-0.0085	NA
+ieu-b-4844	HDL cholesterol	-0.0771	0.0085	0.0062257618563629595	-0.0139	NA
+ebi-a-GCST90002039	CD80 on monocyte	0.0769	0.0769	0.04389258664621114	-0.0091	NA
+ieu-a-81	Waist-to-hip ratio	0.0769	0.0021	0.001825152736363316	-4e-4	Anthropometric
+ebi-a-GCST005848	Heart rate response to recovery post exercise (50 sec)	-0.0768	0.0172	0.011241654999353133	0.0017	NA
+ieu-a-1056	Heart rate	0.0767	0.011	0.007769533467133501	-0.0078	Hemodynamic
+ieu-a-80	Waist-to-hip ratio	0.0757	0.0021	0.001825152736363316	-3e-4	Anthropometric
+ebi-a-GCST90000025	Appendicular lean mass	-0.0756	6.3929e-8	1.290213631494385e-7	0.0058	NA
+ebi-a-GCST005849	Heart rate response to recovery post exercise (40 sec)	-0.0731	0.025	0.01583616754804447	-0.0038	NA
+ebi-a-GCST005847	Heart rate response to recovery post exercise (20 sec)	-0.071	0.0387	0.023671506364235644	-0.0035	NA
+ieu-b-4862	Chronotype	-0.0705	9e-4	8.644518353640594e-4	-0.0118	NA
+ieu-b-4814	Height	-0.0703	4.402e-5	5.7774000802251006e-5	0.0064	NA
+ebi-a-GCST010118	Type 2 diabetes	0.0698	2e-4	2.1059454650345963e-4	-0.0011	NA
+ebi-a-GCST006061	Atrial fibrillation	0.0696	0.0016	0.0014454581211944774	0.011	NA
+ieu-a-1008	Platelet count	0.068	0.0096	0.006918863625833215	-4e-4	Haemotological
+ieu-b-110	LDL cholesterol	-0.0674	3e-4	3.0917071720720665e-4	-0.0047	Lipid
+ieu-a-1112	Primary sclerosing cholangitis	-0.0666	0.0812	0.0460007456198668	-0.006	Autoimmune / inflammatory
+ieu-b-4865	Total Testosterone	-0.0665	6.6885e-5	8.266492784332525e-5	-8e-4	NA
+ebi-a-GCST007432	FEV1	-0.0653	2.5974e-5	3.584095340384314e-5	-0.0088	NA
+ebi-a-GCST004620	Sum basophil neutrophil counts	0.0647	6.0315e-5	7.58150485862788e-5	-0.0163	NA
+ebi-a-GCST004629	Neutrophil count	0.064	7.4355e-5	9.017952735298706e-5	-0.0162	NA
+ieu-a-48	Hip circumference	0.0638	8e-4	7.772085269239426e-4	0.0075	Anthropometric
+ieu-a-49	Hip circumference	0.0635	9e-4	8.644518353640594e-4	0.0081	Anthropometric
+ebi-a-GCST007429	Lung function (FVC)	-0.0631	1e-4	1.1396881340187227e-4	-0.0018	NA
+ebi-a-GCST004626	Myeloid white cell count	0.0618	1e-4	1.1396881340187227e-4	-0.0163	NA
+ebi-a-GCST90000026	Appendicular lean mass	-0.0607	2e-4	2.1059454650345963e-4	0.0018	NA
+ieu-b-113	Fasting glucose	0.0607	0.0485	0.029130435701762464	-0.0068	Glycemic
+ebi-a-GCST003837	Chronotype	-0.0604	0.0126	0.008701049993889104	-0.0105	NA
+ieu-b-4871	Sex hormone binding globulin (SHBG)	-0.0601	1e-4	1.1396881340187227e-4	-0.0014	NA
+ieu-a-69	Waist circumference	0.0601	0.0122	0.008472090286576453	-2e-4	Anthropometric
+ebi-a-GCST004610	White blood cell count	0.0596	1e-4	1.1396881340187227e-4	-0.0154	NA
+ebi-a-GCST90002375	White blood cell count	0.0596	0.0051	0.003944549350076776	0.0024	NA
+ieu-a-68	Waist circumference	0.0595	0.0122	0.008472090286576453	-4e-4	Anthropometric
+ieu-a-1087	Chronotype	-0.0594	0.0134	0.009151390052686122	-0.0107	Sleeping
+ebi-a-GCST004137	Optic cup area	-0.0594	0.0505	0.03022038182524844	0.0084	NA
+ebi-a-GCST006288	Heel bone mineral density	-0.0592	7.8656e-5	9.438012224201613e-5	0.0163	NA
+ieu-a-55	Hip circumference	-0.0591	0.0023	0.0019690804844381938	0.0035	Anthropometric
+ebi-a-GCST004614	Granulocyte count	0.059	2e-4	2.1059454650345963e-4	-0.0144	NA
+ieu-a-54	Hip circumference	-0.0589	0.0022	0.00189765880397227	0.0036	Anthropometric
+ieu-b-4861	Chronotype	-0.0587	0.0051	0.003944549350076776	-0.0188	NA
+ieu-b-106	FEV1/FVC < 0.7	0.0583	0.0026	0.002183853274145702	0.0022	NA
+ebi-a-GCST004613	Sum neutrophil eosinophil counts	0.0583	3e-4	3.0917071720720665e-4	-0.0143	NA
+ebi-a-GCST005186	Fasting blood glucose	0.0582	0.0566	0.03349585682508749	-0.0061	NA
+ebi-a-GCST004623	Neutrophil percentage of granulocytes	0.0579	0.0023	0.0019690804844381938	-0.0135	NA
+ieu-a-980	Femoral neck bone mineral density	-0.0578	0.0307	0.019064206318729852	0.0026	Bone
+ebi-a-GCST007091	Osteoarthritis (hip)	0.0574	0.0144	0.009700529206015142	0.0109	NA
+ebi-a-GCST004988	Breast cancer	0.057	0.0015	0.0013658952148489026	0.0107	NA
+ebi-a-GCST004617	Eosinophil percentage of granulocytes	-0.0565	0.0029	0.0024011378208172226	0.0124	NA
+ebi-a-GCST004625	Monocyte count	0.0563	9e-4	8.644518353640594e-4	-0.0202	NA
+ieu-a-1126	Breast cancer (Combined Oncoarray; iCOGS; GWAS meta analysis)	0.0541	0.0021	0.001825152736363316	0.0119	Cancer
+ieu-a-96	Height	-0.0529	0.0143	0.009646288622069154	-0.0067	Anthropometric
+ebi-a-GCST004600	Eosinophil percentage of white cells	-0.0528	0.0053	0.004074837336312972	0.0124	NA
+ebi-a-GCST004612	High light scatter reticulocyte percentage of red cells	0.0525	0.0021	0.001825152736363316	0.0037	NA
+ebi-a-GCST90002412	Low density lipoprotein cholesterol levels	0.0519	0.001	9.497401116822687e-4	0.0042	NA
+ebi-a-GCST004628	Immature fraction of reticulocytes	0.0519	0.0077	0.005707350407668277	0.0071	NA
+ieu-a-89	Height	-0.0518	0.001	9.497401116822687e-4	-0.0046	Anthropometric
+ebi-a-GCST006979	Heel bone mineral density	-0.0515	5.4038e-5	6.904899815563275e-5	0.0153	NA
+ebi-a-GCST90002350	Neutrophil count	0.0479	0.0043	0.0034074111491520904	-0.007	NA
+ieu-b-4869	Bioavailable Testosterone	0.047	0.0167	0.010972698982549057	-0.0068	NA
+ebi-a-GCST004904	Body mass index	0.0462	0.0196	0.012656189102485511	0.0067	NA
+ebi-a-GCST009760	Snoring	0.0458	0.0145	0.00975462239706997	0.0048	NA
+ebi-a-GCST004611	High light scatter reticulocyte count	0.0456	0.009	0.006543583853176512	0.0021	NA
+ebi-a-GCST004619	Reticulocyte fraction of red cells	0.0454	0.0051	0.003944549350076776	0.0012	NA
+ieu-b-4959	Malignant non-melanoma skin cancer	-0.0448	0.0683	0.03957962601673863	-0.0193	Cancer
+ieu-a-67	Waist circumference	0.0445	0.0236	0.015023397441712705	-0.0022	Anthropometric
+ieu-a-1127	ER+ Breast cancer (Combined Oncoarray; iCOGS; GWAS meta analysis)	0.0439	0.0264	0.016640964135138984	0.0084	Cancer
+ieu-b-4868	Bioavailable Testosterone	-0.0437	0.047	0.028307692436804217	0.0026	NA
+ieu-a-66	Waist circumference	0.0432	0.0272	0.017097312980317803	-0.0017	Anthropometric
+ebi-a-GCST004630	Mean corpuscular hemoglobin	0.0425	0.0052	0.004009887802875823	-0.0122	NA
+ebi-a-GCST004601	Red blood cell count	-0.0423	0.0075	0.0055758015565730784	-0.008	NA
+ebi-a-GCST006097	Moderate to vigorous physical activity levels	-0.0421	0.0705	0.040695439259812775	-0.0101	NA
+ebi-a-GCST007430	Peak expiratory flow	-0.0399	0.0152	0.010148452770379079	-0.0109	NA
+ebi-a-GCST006804	Red cell distribution width	0.0397	0.0414	0.025195423082963263	0.0092	NA
+ebi-a-GCST004602	Mean corpuscular volume	0.0377	0.0137	0.009317715853934814	-0.0034	NA
+ebi-a-GCST004622	Reticulocyte count	0.0361	0.0297	0.018507102932356974	-0.0015	NA
+ieu-b-39	diastolic blood pressure	0.0348	0.0093	0.006732046721462443	-0.0185	Blood pressure
+ebi-a-GCST004606	Eosinophil counts	-0.0321	0.0707	0.040796446094594055	0.0071	NA
+ebi-a-GCST004624	Sum eosinophil basophil counts	-0.0311	0.0743	0.042602422729132644	0.0079	NA
+ebi-a-GCST004633	Neutrophil percentage of white cells	0.0311	0.0801	0.04546445252970842	-0.0079	NA
+ebi-a-GCST004627	Lymphocyte counts	0.0295	0.0723	0.041601934614727006	-0.0046	NA
