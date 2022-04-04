@@ -2,7 +2,7 @@
 #$ -cwd
 #$ -m beas
 #$ -l h_vmem=2G
-#$ -pe sharedmem 15
+#$ -pe sharedmem 20
 #$ -l h_rt=48:00:00
 . /etc/profile.d/modules.sh
 
@@ -17,8 +17,6 @@
   --approx \
   --pred ${3} \
   --bsize 400 \
-  --threads 32 \
-  --no-split \
+  --threads 20 \
   --starting-block ${5} \
-  --gz \
   --out ${4}

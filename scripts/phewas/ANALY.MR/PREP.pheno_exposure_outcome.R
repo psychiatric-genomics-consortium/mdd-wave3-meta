@@ -58,7 +58,7 @@ inputs.gwas = readRDS(gwas.f_and_label)
 ### Load ref data
 # Neale gwas
 ref.neale = fread(f.Neale) %>% 
-   filter(info>0.1,minor_AF>0.005) %>% 
+   filter(info>0.1,minor_AF>0.01) %>% 
    select(variant,A1=ref,A2=alt,rsid,info,freq=AF,chr,pos,n=n_called)
 # BIG40 IDP gwas
 ref.big40 = fread(f.big40) 
@@ -122,7 +122,7 @@ process_gwas <- function(tmp.input,tmp_process.exposure,tmp_process.outcome,ls.s
          gwas_sumstats = read_delim(tmp.fname,delim=" ")%>% 
             mutate(pval=10^(-`pval(-log10)`),n=tmp.n) %>%
             left_join(.,ref.big40,by=c('chr'='chr','pos'='pos','rsid'='rsid','a1'='a1','a2'='a2')) %>% 
-            filter(info>0.8,chr!='0X') %>% 
+            filter(info>0.9,chr!='0X') %>% 
             mutate(chr=as.numeric(chr)) %>% 
             select(SNP=rsid,Allele1=a2,Allele2=a1,
                    Effect=beta,se,p=pval,Freq1=af,CHR=chr,BP=pos) %>% 
@@ -155,6 +155,7 @@ process_gwas <- function(tmp.input,tmp_process.exposure,tmp_process.outcome,ls.s
          as.data.frame %>% 
          select(SNP,effect_allele=NewAllele1,other_allele=NewAllele2,
                 eaf=NewFreq1,beta=NewEffect,se,pval=p,samplesize=N) %>% 
+         filter(eaf>0.01,(1-eaf)>0.01) %>% 
          mutate(units='unit',Phenotype=target.colname) %>% 
          filter(pval<5e-8)
       

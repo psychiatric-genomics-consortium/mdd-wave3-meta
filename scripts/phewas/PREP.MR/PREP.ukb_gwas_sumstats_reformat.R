@@ -19,29 +19,23 @@ d.output = args[2]
 
 # Load phenos -------------------------------------------------------------
 
-ls.category = list.files(path=d.dat,pattern='.regenie.gz') %>% 
+ls.pheno = list.files(path=d.dat,pattern='.regenie$') %>% 
   .[grepl('step2',.)] %>% 
-  gsub('.regenie.gz','',.,fixed = T) %>% 
-  gsub('_([0-9])','',.) %>% 
-  unique
+  gsub('.regenie','',.,fixed = T) %>% 
+  strsplit(split = '_') %>% 
+  lapply(tail,n=1) %>% unlist %>% unique
+
 
 system('touch data/MR/running_regenie_reformat')
 
-get_pheno <- function(pheno.name,tmp.dat,ref.pheno){
-  real_field = ref.pheno[pheno.name,'field_name']
-  new.fname = paste0(real_field,'.regenie.gz')
-  
+get_pheno <- function(tmp.dat){
   tmp.new.dat = tmp.dat %>% 
-    select(-matches('.Y'),matches(pheno.name)) %>% 
-    rename_with(~gsub(paste0('.',pheno.name), "", .x, fixed = TRUE)) %>% 
+    rename_with(~gsub('.Y[0-9]+', '', .x)) %>% 
     mutate(p=10^(-LOG10P),Freq1=1-A1FREQ) %>% 
     select(SNP=ID,Allele1=ALLELE1,Allele2=ALLELE0,Effect=BETA,se=SE,
            p,Freq1,CHR=CHROM,BP=GENPOS,N) %>% 
     as.data.frame
-  
-  system(paste0('echo ',new.fname,'>> data/MR/running_regenie_reformat'))
-  write_tsv(tmp.new.dat,paste0(d.output,'/',tmp.field,'.regenie.gz'))
-  
+  return(tmp.new.dat)
 }
 
 load_sumstats <- function(tmp.field,tmp.path){
@@ -51,32 +45,18 @@ load_sumstats <- function(tmp.field,tmp.path){
     .$X1 %>% as.character %>% as.vector
   ls.avoid = c(ls.processed,ls.running)
   
+  system(paste0('echo ',tmp.field,'>> data/MR/running_regenie_reformat'))
+  
   if(sum(tmp.field %in% ls.avoid)==0){
-    
-    ls.pheno = list.files(path=tmp.path,pattern=tmp.field,full.names = T) %>% 
-      .[grepl('step2',.)] %>% 
-      .[grepl('regenie.Ydict',.)] %>% 
-      read_delim(.,col_names=F) %>% as.data.frame %>% 
-      rename(pheony_field=X1,field_name=X2)
-    rownames(ls.pheno)=ls.pheno$pheony_field
-    
-    tmp.fs = list.files(path=tmp.path,pattern=tmp.field,full.names = T) %>% 
-      .[grepl('step2',.)] %>% 
-      .[grepl('regenie.gz',.)]
-    
-    dat.gwas = tmp.fs %>% as.list %>% 
-      lapply(read_delim,delim=" ") %>% 
-      bind_rows %>% 
-      as.data.frame
-    
-    ls.pheno$pheony_field %>% 
-      as.list %>% 
-      lapply(get_pheno,tmp.dat=dat.gwas,ref.pheno)
-
+    dat.pheno = list.files(path=tmp.path,pattern=paste0(tmp.field,'.regenie$'),full.names = T) %>% as.list %>% 
+      pblapply(read_delim,col_names=T) %>% lapply(get_pheno) %>% 
+      bind_rows
+    new.fname = paste0(d.output,'/',tmp.field,'.regenie.gz')
+    write_tsv(dat.pheno,file=new.fname)
   }
   gc()
 }
 
 
-ls.category %>% as.list %>% 
+ls.pheno %>% as.list %>% 
   pblapply(load_sumstats,tmp.path=d.dat)

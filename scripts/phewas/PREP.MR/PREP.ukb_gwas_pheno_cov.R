@@ -139,9 +139,9 @@ update_OutputName <- function(output.pattern){
   }else{
     ls.block_log = ls.log %>% gsub(tmp.pattern,'',.) %>% gsub('_','',.) %>% gsub('.log','',.)
     if(length(ls.block_log)==1&nchar(ls.block_log)==0){
-      final.n_block=1+1
+      final.n_block=1
     }else{
-      final.n_block=ls.block_log %>% as.numeric %>% {max(.,na.rm=T)} %>% {.+1}
+      final.n_block=ls.block_log %>% as.numeric %>% {max(.,na.rm=T)}+1
     }
     final.output = paste0(output.pattern,'_',final.n_block)
   }
@@ -190,7 +190,7 @@ inputs.step2 = inputs.step2 %>%
            lapply(find_finishedGWAS) %>% unlist)
 
 inputs.step2.remaining = inputs.step2 %>% 
-  filter(!is.na(starting.block)) %>% 
+  filter(!is.na(starting.block),starting.block!=1) %>% 
   select(-f.out_old)
 
 write_tsv(inputs.step2.remaining, 'data/MR/regenie_step2_ls_remaining.tsv',col_names = F)

@@ -146,7 +146,7 @@ find_sig <- function(x.res,x.pheno,target.column){
 #### MDD as exposure
 
 ```{r,warning=F,echo=F}
-mr.ukb.mdd_to_pheno = mr.ukb %>% filter(exposure=='MDD',nsnp>=30) %>% 
+mr.ukb.mdd_to_pheno = mr.ukb %>% filter(exposure=='MDD',nsnp>=20) %>% 
   group_by(method) %>% 
   mutate(p.fdr = p.adjust(pval,method='fdr'),
          Q_p.fdr = p.adjust(Q_pval,method='fdr'),
@@ -267,10 +267,10 @@ figs.ukb.pheno_to_mdd[[2]]
 
 
 ```{r,echo=F,warning=F,message=F,error=F}
-res_mvmr = read_tsv(here::here('results/phewas/MR/mvmr/res_multivar.pheno_to_mdd.txt')) %>% 
-  mutate(p.fdr = p.adjust(pval,method='fdr')) %>% 
-  left_join(.,mr.ukb[mr.ukb$method=='Inverse variance weighted',c('exposure','label_exposure','pval')],by='exposure') %>% 
-  .[!duplicated(.$exposure),]
+# res_mvmr = read_tsv(here::here('results/phewas/MR/mvmr/res_multivar.pheno_to_mdd.txt')) %>% 
+#   mutate(p.fdr = p.adjust(pval,method='fdr')) %>% 
+#   left_join(.,mr.ukb[mr.ukb$method=='Inverse variance weighted',c('exposure','label_exposure','pval')],by='exposure') %>% 
+#   .[!duplicated(.$exposure),]
   
   
 ```
