@@ -35,9 +35,11 @@ We ran a [conditional and joint analysis](https://www.nature.com/articles/ng.221
 
 ## Previous sumstats
 
-Variants from [Wray et al 2018](https://www.nature.com/articles/s41588-018-0090-3/tables/2), [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions), and [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2), [Giannakopoulou et al 2021](https://jamanetwork.com/journals/jamapsychiatry/article-abstract/2784695), and the [GWAS catalog for unipolar depression](https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761). Parse out regions from Wray and Howard.
+Variants from [Wray et al 2018](https://www.nature.com/articles/s41588-018-0090-3/tables/2), [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions), and [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2), [Giannakopoulou et al 2021](https://jamanetwork.com/journals/jamapsychiatry/article-abstract/2784695), and the [GWAS catalog for unipolar depression](https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761). Parse out regions from Wray and Howard and load queried regions for other results
 
 ```{r}
+tags <- read_table(snakemake@input$tags)
+
 wray <- read_tsv(snakemake@input$wray) %>%
     separate(`Region (Mb)`, into=c('range.left.Mb', 'range.right.Mb'), sep='–', convert=TRUE) %>%
     mutate(range.left=range.left.Mb*1e6, range.right=range.right.Mb*1e6)
@@ -45,16 +47,26 @@ wray <- read_tsv(snakemake@input$wray) %>%
 howard <- read_excel(snakemake@input$howard, skip=2, n_max=102) %>%
     separate(`Region (bp) of clumped variants (P < 10-4) in linkage disequilibrium (r2 > 0.1) with lead variant`, into=c('range.left', 'range.right'), sep='-', convert=TRUE)
 
-levey <- read_tsv(snakemake@input$levey, col_types=cols(CHR.BP=col_character()))
+levey <- read_tsv(snakemake@input$levey, col_types=cols(CHR.BP=col_character())) %>%
+left_join(select(tags, SNP, LEFT, RIGHT), by=c('rsid'='SNP')) %>%
+mutate(LEFT=if_else(is.na(LEFT), true=BP, false=LEFT),
+       RIGHT=if_else(is.na(RIGHT), true=BP, false=RIGHT))
 
 giannakopoulou <- read_tsv(snakemake@input$giannakopoulou, col_types=cols('CHR:POS'=col_character())) %>%
-separate(`CHR:POS`, into=c('CHR', 'POS'), convert=TRUE)
+separate(`CHR:POS`, into=c('CHR', 'POS'), convert=TRUE) %>%
+left_join(select(tags, SNP, LEFT, RIGHT), by='SNP') %>%
+mutate(LEFT=if_else(is.na(LEFT), true=as.numeric(POS), false=LEFT),
+       RIGHT=if_else(is.na(RIGHT), true=as.numeric(POS), false=RIGHT))
 
 gwas_catalog <- read_tsv(snakemake@input$catalog) %>%
 filter(!is.na(CHR_ID)) %>%
 mutate(CHR=if_else(CHR_ID == 'X', true=23, false=as.numeric(CHR_ID)),
-       POS=as.numeric(CHR_POS)) %>%
-filter(!is.na(POS))
+       POS=as.numeric(CHR_POS),
+       SNP=paste0('rs', SNP_ID_CURRENT)) %>%
+filter(!is.na(POS)) %>%
+left_join(select(tags, SNP, LEFT, RIGHT), by='SNP') %>%
+mutate(LEFT=if_else(is.na(LEFT), true=POS, false=LEFT),
+       RIGHT=if_else(is.na(RIGHT), true=POS, false=RIGHT))
 
 ```
 
@@ -91,9 +103,9 @@ rp_gr <- with(rp, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=ran
 
 wray_gr <- with(wray, GRanges(seqnames=Chr., ranges=IRanges(start=range.left, end=range.right, SNP=SNP)))
 howard_gr <- with(howard, GRanges(seqnames=Chromosome, ranges=IRanges(start=range.left, end=range.right, SNP=`Marker Name`)))
-levey_gr <- with(levey, GRanges(seqnames=CHR, ranges=IRanges(start=BP, width=1)))
-giannakopoulou_gr <- with(giannakopoulou, GRanges(seqnames=CHR, ranges=IRanges(start=POS, width=1)))
-gwas_catalog_gr <- with(gwas_catalog, GRanges(seqnames=CHR, ranges=IRanges(start=POS, width=1)))
+levey_gr <- with(levey, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
+giannakopoulou_gr <- with(giannakopoulou, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
+gwas_catalog_gr <- with(gwas_catalog, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
 
 
 ```
@@ -163,8 +175,8 @@ Find overlaps and make lists for an upset plot. Take the index from the combined
 
 ```{r upset, fig.width=10, fig.height=8}
 
-hits_upset <- list(COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
-                   Clump=unique(findOverlaps(all_gr, rp_gr)@from),
+hits_upset <- list(MDD3_COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
+                   MDD3_Clump=unique(findOverlaps(all_gr, rp_gr)@from),
                    Wray=unique(findOverlaps(all_gr, wray_gr)@from),
                    Howard=unique(findOverlaps(all_gr, howard_gr)@from),
                    Levey=unique(findOverlaps(all_gr, levey_gr)@from),
@@ -202,7 +214,9 @@ levey %>% slice(unique(cojo_levey_overlaps@to)) %>% count()
 ```
 
 ```{r}
-cojo_known <- cojo %>% slice(unique(cojo_levey_overlaps@from))
+cojo_known_overlaps <- findOverlaps(cojo_gr, reduce(c(wray_gr, howard_gr, levey_gr, giannakopoulou_gr, gwas_catalog_gr)))
+
+cojo_known <- cojo %>% slice(unique(cojo_known_overlaps@from))
 
 catalog_known <- rp_gwas_catalog_entries %>% filter(SNP %in% cojo_known$SNP) %>% count(phenotype) %>% arrange(desc(n))
 catalog_known
@@ -211,7 +225,7 @@ catalog_known
 Newly discovered regions
 
 ```{r}
-cojo_new <- cojo %>% slice(unique(-cojo_levey_overlaps@from)) %>% arrange(P)
+cojo_new <- cojo %>% slice(unique(-cojo_known_overlaps@from)) %>% arrange(P)
 cojo_new %>%
 select(region, snp_idx, CHR, SNP, BP, P, pJ) %>%
 group_by(region)
@@ -227,9 +241,11 @@ rp_genes_dist %>% filter(SNP %in% cojo_new$SNP) %>% group_by(SNP) %>% filter(dis
 
 Calculate power for previous versus current GWAS
 
-```{r}
+```{r cojo_power, cache=TRUE}
 
 # use sum of effective sample sizes and case rate of 50% rather than sum of cases and controls
+wray_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=405961, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
+
 levey_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=938012, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
 
 mdd2022_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=2*776935, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
@@ -241,63 +257,22 @@ mdd2022_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N
 frq_u_col <- str_subset(names(cojo), 'FRQ_U')
 
 cojo_known_novel <- bind_rows(
-mutate(cojo_known, assoc='Known'),
-mutate(cojo_new, assoc='Novel')) %>%
+mutate(cojo_known, Association='Known'),
+mutate(cojo_new, Association='Novel')) %>%
 mutate(BETA=log(OR)) %>%
-select(SNP, assoc, OR, BETA, FRQ=starts_with('FRQ_U')) %>%
+select(SNP, Association, OR, BETA, FRQ=starts_with('FRQ_U')) %>%
 mutate(MAF=if_else(FRQ <= 0.5, true=FRQ, false=1-FRQ))
 
 power_known_novel <- bind_rows(
 transmute(levey_power, Power='Levey', MAF, OR=`OR_at_Alpha_5e-08`),
-transmute(mdd2022_power, Power='MDD2022', MAF, OR=`OR_at_Alpha_5e-08`)
+transmute(mdd2022_power, Power='MDD3', MAF, OR=`OR_at_Alpha_5e-08`)
 )
 
 ggplot(cojo_known_novel, aes(x=MAF, y=exp(abs(BETA)))) + 
-geom_point(aes(color=assoc)) +
+geom_point(aes(color=Association)) +
 geom_line(mapping=aes(y=OR, linetype=Power), data=power_known_novel, size=1) +
 scale_y_continuous('OR', limits=c(1, 1.1))
 
 ```
-
-## Comparison between pre-COJO and post-COJO
-
-Find regions overlapping between clumped and COJO results
-```{r}
-
-cojo_clumped_overlaps <- findOverlaps(cojo_gr, rp_gr)
-
-```
-
-List COJO results where the selected SNP is not in the clumped results
-```{r}
-cojo_newly_selected <- 
-cojo %>% slice(unique(cojo_clumped_overlaps@from)) %>%
-filter(!SNP %in% rp$SNP) %>%
-select(region, snp_idx, CHR, SNP, P, pJ) 
-cojo_newly_selected
-```
-
-Newly selected SNPs that were not GWsig in the clumped results
-```{r}
-cojo_newly_selected %>%
-filter(P > 5e-8)
-```
-
-List clumped SNPs in retained regions that were not selected by COJO
-```{r}
-rp %>% slice(unique(cojo_clumped_overlaps@to)) %>%
-filter(!SNP %in% cojo$SNP)
-```
-
-
-Line up non-selected SNPs with selected SNPs in the region
-```{r}
-bind_cols(
-select(slice(cojo, cojo_clumped_overlaps@from), region, snp_idx, SNP.cojo=SNP, BP.cojo=BP, P.cojo=P, PJ.cojo=pJ),
-select(slice(rp, cojo_clumped_overlaps@to), SNP.rp=SNP, BP.rp=BP, P.rp=P)
-) %>%
-filter(!SNP.rp %in% cojo$SNP)
-```
-
 
 
