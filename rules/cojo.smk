@@ -210,10 +210,26 @@ rule cojo_howard:
     shell: "cp {input} {output}"
     
 # download GWAS catalogue hits for unipolar depression
-rule cojo_gwas_catalog:
-    input: HTTP.remote("https://www.ebi.ac.uk/gwas/api/search/downloads/full", keep_local=False)
-    output: "docs/tables/previous/gwas_catalog_EFO_0003761.txt"
-    shell: "cat {input} | grep "
+# https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761
+# rule cojo_gwas_catalog:
+#     input: HTTP.remote("https://www.ebi.ac.uk/gwas/api/search/downloads/full", keep_local=False)
+#     output: "docs/tables/previous/gwas_catalog_EFO_0003761.txt"
+#     shell: "cat {input} | grep "
+
+# find range of tagging variants for previous sumstats
+rule cojo_previous_variants:
+    input: levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", catalog="docs/tables/previous/gwas-association-EFO_0003761-withChildTraits.tsv.bz2", bim="resources/1kg/1kg_phase1_all.bim"
+    conda: "../envs/meta.yaml"
+    output: "results/cojo/previous/previous.snpid"
+    script: "../scripts/meta/cojo_previous.R"
+    
+rule cojo_previous_tagging_variants:
+    input: snpids="results/cojo/previous/previous.snpid", bed="resources/1kg/1kg_phase1_all.bed", bim="resources/1kg/1kg_phase1_all.bim", fam="resources/1kg/1kg_phase1_all.fam", dups="resources/1kg/1kg_phase1_all.dups"
+    conda: "../envs/meta.yaml"
+    params: prefix="results/cojo/previous/previous"
+    output: "results/cojo/previous/previous.tags.list"
+    shell: "plink --bfile resources/1kg/1kg_phase1_all --maf 0.01 --exclude {input.dups} --show-tags {input.snpids} --list-all --tag-kb 500 --tag-r2 0.8 --out {params.prefix}"
+    
 
 # install genpwr R library
 rule cojo_install_genpwr:
@@ -232,7 +248,7 @@ rule cojo_install_ggman:
     """
 
 rule cojo_docs:
-    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", catalog="docs/tables/previous/gwas-association-EFO_0003761-withChildTraits.tsv.bz2", rp_clump="docs/tables/meta_snps_full_eur.clump.txt", rmd="docs/cojo.Rmd", genpwr=rules.cojo_install_genpwr.output, ggman=rules.cojo_install_ggman.output
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", catalog="docs/tables/previous/gwas-association-EFO_0003761-withChildTraits.tsv.bz2", rp_clump="docs/tables/meta_snps_full_eur.clump.txt", tags="results/cojo/previous/previous.tags.list", rmd="docs/cojo.Rmd", genpwr=ancient(rules.cojo_install_genpwr.output), ggman=ancient(rules.cojo_install_ggman.output)
     params: qc=meta_qc_params
     output: "docs/cojo.md"
     conda: "../envs/meta.yaml"
