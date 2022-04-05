@@ -17,7 +17,7 @@ library(ggman)
 ```
 
 
-```{r echo=FALSE}
+```{r qc, echo=FALSE}
 qc <- snakemake@params$qc
 ```
 
@@ -37,7 +37,7 @@ We ran a [conditional and joint analysis](https://www.nature.com/articles/ng.221
 
 Variants from [Wray et al 2018](https://www.nature.com/articles/s41588-018-0090-3/tables/2), [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions), and [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2), [Giannakopoulou et al 2021](https://jamanetwork.com/journals/jamapsychiatry/article-abstract/2784695), and the [GWAS catalog for unipolar depression](https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761). Parse out regions from Wray and Howard and load queried regions for other results
 
-```{r}
+```{r previous}
 tags <- read_table(snakemake@input$tags)
 
 wray <- read_tsv(snakemake@input$wray) %>%
@@ -76,12 +76,12 @@ mutate(LEFT=if_else(is.na(LEFT), true=POS, false=LEFT),
 
 List of clumped and COJO SNPs and regions
 
-```{r echo=F, results='asis'}
+```{r log, echo=F, results='asis'}
 cat(paste('- ', readLines(snakemake@input$log)[-1], '\n'))
 ```
 
 Load list of COJO SNPs
-```{r}
+```{r cojo}
 cojo <- read_tsv(snakemake@input$cojo)
 ```
 
@@ -89,7 +89,7 @@ cojo <- read_tsv(snakemake@input$cojo)
 
 Clumped results from Ricopili
 
-```{r}
+```{r rp}
 rp <- read_table(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
 ```
 
@@ -97,7 +97,7 @@ rp <- read_table(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
 
 Construct genomic range objects so that SNPs and regions can be intersected and compared.
 
-```{r}
+```{r granges}
 cojo_gr <- with(cojo, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=range.right), SNP=SNP))
 rp_gr <- with(rp, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=range.right), SNP=SNP))
 
@@ -114,7 +114,7 @@ gwas_catalog_gr <- with(gwas_catalog, GRanges(seqnames=CHR, ranges=IRanges(start
 
 Tally entries in the GWAS catalog for each region
 
-```{r}
+```{r catalog}
 
 parse_catalog_entry <- function(catalog_entry) {
     # extract LD and RSID from first element
@@ -149,7 +149,7 @@ plyr::ddply(filter(rp, gwas_catalog_span.6 != '-'), ~SNP, function(rp_entry) {
 
 # Parse gene list
 
-```{r}
+```{r genes}
 
 rp_genes_dist <- 
 plyr::ddply(filter(rp, `genes.6.50kb(dist2index)` != '-'), ~SNP, function(rp_entry) {
@@ -165,7 +165,7 @@ plyr::ddply(filter(rp, `genes.6.50kb(dist2index)` != '-'), ~SNP, function(rp_ent
 
 Find overlaps between clumped, COJO, and previous results. Append and then reduce all regions
 
-```{r}
+```{r all_gr}
 
 all_gr <- reduce(c(cojo_gr, rp_gr, wray_gr, howard_gr, levey_gr, giannakopoulou_gr, gwas_catalog_gr))
 
@@ -189,31 +189,33 @@ upset(fromList(hits_upset), nsets=7, order.by='freq', text.scale=2)
 
 Find which COJO regions overlap with Howard
 
-```{r}
+```{r howard_overlaps}
 cojo_howard_overlaps <- findOverlaps(cojo_gr, howard_gr)
 cojo_howard_overlaps
 ```
 
 Count number of regions in Howard that overlap:
 
-```{r}
+```{r howard_count}
 howard %>% slice(unique(cojo_howard_overlaps@to)) %>% count()
 ```
 
 Find which COJO regions overlap with Levey
 
-```{r}
+```{r levey_overlaps}
 cojo_levey_overlaps <- findOverlaps(cojo_gr, levey_gr)
 cojo_levey_overlaps
 ```
 
 Count number of regions in Levey that overlap:
 
-```{r}
+```{r levey_count}
 levey %>% slice(unique(cojo_levey_overlaps@to)) %>% count()
 ```
 
-```{r}
+Overlaps with previous findings.
+
+```{r known_overlaps}
 cojo_known_overlaps <- findOverlaps(cojo_gr, reduce(c(wray_gr, howard_gr, levey_gr, giannakopoulou_gr, gwas_catalog_gr)))
 
 cojo_known <- cojo %>% slice(unique(cojo_known_overlaps@from))
@@ -224,18 +226,18 @@ catalog_known
 
 Newly discovered regions
 
-```{r}
+```{r cojo_new}
 cojo_new <- cojo %>% slice(unique(-cojo_known_overlaps@from)) %>% arrange(P)
 cojo_new %>%
 select(region, snp_idx, CHR, SNP, BP, P, pJ) %>%
 group_by(region)
 ```
 
-```{r}
+```{r not_known}
 rp_gwas_catalog_entries %>% filter(SNP %in% cojo_new$SNP) %>% count(phenotype) %>% arrange(desc(n)) %>% filter(!phenotype %in% catalog_known$phenotype)
 ```
 
-```{r}
+```{r closest_genes}
 rp_genes_dist %>% filter(SNP %in% cojo_new$SNP) %>% group_by(SNP) %>% filter(dist2index == min(dist2index)) %>% ungroup() %>% select(gene) %>% distinct()
 ```
 
@@ -272,6 +274,29 @@ ggplot(cojo_known_novel, aes(x=MAF, y=exp(abs(BETA)))) +
 geom_point(aes(color=Association)) +
 geom_line(mapping=aes(y=OR, linetype=Power), data=power_known_novel, size=1) +
 scale_y_continuous('OR', limits=c(1, 1.1))
+
+```
+
+## Manhattan plot
+
+```{r daner, cache=TRUE}
+
+daner <- read_tsv(snakemake@input$daner)
+
+
+
+```
+
+```{r gwas, cache=TRUE}
+
+gwas <- daner %>% filter(-log10(P)>=3) %>% mutate(CHR=if_else(CHR!=23, true=as.character(CHR), false='X'))
+
+```
+
+```{r manhattn, fig.width=12, fig.height=6, dpi=300, cache=TRUE}
+
+manhattn <- ggman(as.data.frame(gwas), snp = "SNP", bp = "BP", chrom = "CHR", pvalue = "P", ymin=3)
+manhattn
 
 ```
 

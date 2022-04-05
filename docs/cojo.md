@@ -281,7 +281,7 @@ hits_upset <- list(MDD3_COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
 upset(fromList(hits_upset), nsets=7, order.by='freq', text.scale=2)
 ```
 
-![](/Users/mark/Work/mdd-meta/docs/cojo_files/figure-gfm/upset-1.png)<!-- -->
+![](cojo_files/figure-gfm/upset-1.png)<!-- -->
 
 Find which COJO regions overlap with Howard
 
@@ -352,6 +352,8 @@ levey %>% slice(unique(cojo_levey_overlaps@to)) %>% count()
     ##       n
     ##   <int>
     ## 1   193
+
+Overlaps with previous findings.
 
 ``` r
 cojo_known_overlaps <- findOverlaps(cojo_gr, reduce(c(wray_gr, howard_gr, levey_gr, giannakopoulou_gr, gwas_catalog_gr)))
@@ -474,4 +476,36 @@ scale_y_continuous('OR', limits=c(1, 1.1))
 
     ## Warning: Removed 2 row(s) containing missing values (geom_path).
 
-![](/Users/mark/Work/mdd-meta/docs/cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
+![](cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
+
+## Manhattan plot
+
+``` r
+daner <- read_tsv(snakemake@input$daner)
+```
+
+    ## Rows: 7131733 Columns: 20
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
+    ## Delimiter: "\t"
+    ## chr  (4): SNP, A1, A2, Direction
+    ## dbl (16): CHR, BP, FRQ_A_525197, FRQ_U_3362335, INFO, OR, SE, P, ngt, HetISq...
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+gwas <- daner %>% filter(-log10(P)>=3) %>% mutate(CHR=if_else(CHR!=23, true=as.character(CHR), false='X'))
+```
+
+``` r
+manhattn <- ggman(as.data.frame(gwas), snp = "SNP", bp = "BP", chrom = "CHR", pvalue = "P", ymin=3)
+```
+
+    ## Warning: `guides(<scale> = FALSE)` is deprecated. Please use `guides(<scale> =
+    ## "none")` instead.
+
+``` r
+manhattn
+```
+
+![](cojo_files/figure-gfm/manhattn-1.png)<!-- -->
