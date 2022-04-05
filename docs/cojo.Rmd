@@ -173,7 +173,7 @@ all_gr <- reduce(c(cojo_gr, rp_gr, wray_gr, howard_gr, levey_gr, giannakopoulou_
 
 Find overlaps and make lists for an upset plot. Take the index from the combined set as the element, then find which of them are found within each of the sets of SNPs. The upset plot function handles finding each combination of intersections.
 
-```{r upset, fig.width=10, fig.height=8}
+```{r upset, fig.width=10, fig.height=8, dpi=300}
 
 hits_upset <- list(MDD3_COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
                    MDD3_Clump=unique(findOverlaps(all_gr, rp_gr)@from),
@@ -252,7 +252,7 @@ mdd2022_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N
 
 ```
 
-```{r cojo_known_novel}
+```{r cojo_known_novel, dpi=300}
 
 frq_u_col <- str_subset(names(cojo), 'FRQ_U')
 
