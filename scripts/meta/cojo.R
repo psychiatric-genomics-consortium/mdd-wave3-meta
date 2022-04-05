@@ -128,7 +128,7 @@ cojo_clump_daner_regions %>%
 filter(n_sig_snps == 1) %>%
 arrange(CHR, BP) %>%
 group_by(CHR, range.left, range.right) %>%
-mutate(region=nrow(cojo_nonsingleton_regions)+cur_group_id(), snp_idx=row_number()) %>%
+mutate(region=max(cojo_nonsingleton_regions$region)+cur_group_id(), snp_idx=row_number()) %>%
 ungroup() %>%
 select(region, snp_idx, everything())
 
