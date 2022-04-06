@@ -7,7 +7,7 @@
 ###
     
 # cohort sets for analysts
-cohorts_analyst = ["full", "noUKBB", "noALSPAC"]
+cohorts_analyst = ["full", "noUKBB"]
 
 # cohort sets for public
 cohorts_public = ["no23andMe"]
@@ -218,5 +218,5 @@ rule postimp_reclump_top10k_x:
     --clump-p2 {params.p2} \
     --clump-r2 {params.r2} \
     --clump-kb {params.window} \
-    --out {params.outname} 
+    --out {params.outname} --threads 16
     """

@@ -1,8 +1,12 @@
 # Project updates
 
+# 3 Mar 2022
+
+- **v3.49.24.11**: Finalise sumstats case/control counts. 
+
 # 15 Nov 2021
 
-- **v3.49.25.09**: Update large cohort sumstats to address variation in Neff. Pre-meta checks with DENTIST. 
+- **v3.49.24.09**: Update large cohort sumstats to address variation in Neff. Pre-meta checks with DENTIST. 
 
 # 25 June 2021
 
