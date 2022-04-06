@@ -16,13 +16,14 @@ meta_ehr_sums = ['iPSYCH', 'deCODE', 'HUNT', 'BioVU', 'PBK', 'SHARE', 'MoBa', 'M
 # Questionnaire-derived diagnosis, completed by the participant
 meta_quest_geno = ['prote']
 meta_quest_sums = ['AGDS', 'ALSPAC', 'BASIC', 'STAGE', 'UKBB']
+meta_questnoukbb_sums = ['AGDS', 'ALSPAC', 'BASIC', 'STAGE']
 
 # Self-reported diagnosis
 meta_selfrep_geno = []
 meta_selfrep_sums = ['23andMe', 'Airwave']
 
-meta_structured_groups_geno = {'Clin': meta_clin_geno, 'EHR': meta_ehr_geno, 'Quest': meta_quest_geno, 'SelfRep': meta_selfrep_geno}
-meta_structured_groups_sums = {'Clin': meta_clin_sums, 'EHR': meta_ehr_sums, 'Quest': meta_quest_sums, 'SelfRep': meta_selfrep_sums}
+meta_structured_groups_geno = {'Clin': meta_clin_geno, 'EHR': meta_ehr_geno, 'Quest': meta_quest_geno, 'SelfRep': meta_selfrep_geno, 'Questnub': meta_quest_geno}
+meta_structured_groups_sums = {'Clin': meta_clin_sums, 'EHR': meta_ehr_sums, 'Quest': meta_quest_sums, 'SelfRep': meta_selfrep_sums, 'Questnub': meta_questnoukbb_sums}
 
 # create reference info file linking to imputation panel
 rule meta_gsem_refdir:
@@ -102,7 +103,7 @@ rule meta_gsem_neff:
     shell: """zcat {input} | awk '{{if(NR == 1) {{print $1, $2, $3, $4, $5, "MAF", $8, $9, $10, $11, "N"}} else {{print $1, $2, $3, $4, $5, $7, $8, $9, $10, $11, 2*$19}}}}' > {output}"""
     
 rule meta_gsem_munge:
-    input: sumstats="results/meta/gsem/neff/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.txt", hm3="resources/ldsc/w_hm3.snplist", gsem="resources/ldsc/install_genomicsem.done"
+    input: sumstats="results/meta/gsem/neff/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.txt", hm3="resources/ldsc/w_hm3.snplist", gsem=ancient("resources/ldsc/install_genomicsem.done")
     params: prefix="results/meta/gsem/munged/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}"
     output: "results/meta/gsem/munged/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.sumstats.gz"
     conda: "../envs/gsem.yaml"

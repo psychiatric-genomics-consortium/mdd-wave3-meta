@@ -30,9 +30,9 @@ echo "Converting deCODE to daner from $(basename $text_gz)" > $log
 
 daner=$(dirname $daner_gz)/$(basename $daner_gz .gz)
 
-# filling in based on preliminary information
-Nca=20000
-Nco=28000
+# Numbers for the whole analysis
+Nca=20340 
+Nco=331329
 
 echo "Nca: ${Nca}" >> $log
 echo "Nco: ${Nco}" >> $log
