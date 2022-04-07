@@ -105,7 +105,7 @@ theme(axis.line=element_blank(),
   axis.title.y=element_blank())
 ```
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/meta_sample_size-1.png)<!-- -->
+![](metaqc_files/figure-gfm/meta_sample_size-1.png)<!-- -->
 
 # Reference panel alignment
 
@@ -174,7 +174,7 @@ geom_point() +
 coord_flip(ylim=c(0.8, 1.25))
 ```
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/meta_qc_align_mean_OR-1.png)<!-- -->
+![](metaqc_files/figure-gfm/meta_qc_align_mean_OR-1.png)<!-- -->
 
 Mean standard error versus effective sample size:
 
@@ -189,7 +189,7 @@ geom_text(size=2) +
 scale_x_log10(breaks=c(1, 100, 1000, 5000, 10000, 50000, 100000, 500000))
 ```
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/meta_qc_align_Neff_SE-1.png)<!-- -->
+![](metaqc_files/figure-gfm/meta_qc_align_Neff_SE-1.png)<!-- -->
 
 # Genetic correlation with clinical cohorts
 
@@ -236,7 +236,7 @@ coord_flip(ylim=c(0, 1.25))
 
     ## Warning: Removed 6 rows containing missing values (geom_point).
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/metq_qc_ldsc_rg-1.png)<!-- -->
+![](metaqc_files/figure-gfm/metq_qc_ldsc_rg-1.png)<!-- -->
 
 Genetic covariance:
 
@@ -247,7 +247,7 @@ geom_point() +
 coord_flip()
 ```
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/metq_qc_ldsc_gcov-1.png)<!-- -->
+![](metaqc_files/figure-gfm/metq_qc_ldsc_gcov-1.png)<!-- -->
 
 # Genetic correlation with previous meta analysis
 
@@ -262,7 +262,7 @@ coord_flip(ylim=c(0, 1.25))
 
     ## Warning: Removed 6 rows containing missing values (geom_point).
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/metq_qc_ldsc_rg_mdd2-1.png)<!-- -->
+![](metaqc_files/figure-gfm/metq_qc_ldsc_rg_mdd2-1.png)<!-- -->
 
 Genetic covariance:
 
@@ -273,7 +273,7 @@ geom_point() +
 coord_flip()
 ```
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/metq_qc_ldsc_gcov_mdd2-1.png)<!-- -->
+![](metaqc_files/figure-gfm/metq_qc_ldsc_gcov_mdd2-1.png)<!-- -->
 
 # Heritabilities
 
@@ -318,7 +318,7 @@ theme_minimal()
 
     ## Warning: Width not defined. Set with `position_dodge2(width = ?)`
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/meta_qc_h2_liab-1.png)<!-- -->
+![](metaqc_files/figure-gfm/meta_qc_h2_liab-1.png)<!-- -->
 
 # Genetic covariance intercepts
 
@@ -374,7 +374,7 @@ geom_histogram()
 
     ## Warning: Removed 19 rows containing non-finite values (stat_bin).
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/meta_qc_ldcs_pairs_hist-1.png)<!-- -->
+![](metaqc_files/figure-gfm/meta_qc_ldcs_pairs_hist-1.png)<!-- -->
 
 Pairwise intercepts
 
@@ -639,7 +639,7 @@ coord_flip(ylim=c(gcov_int_min-0.01, gcov_int_max+0.01))
 
     ## Warning: Removed 1 rows containing missing values (geom_segment).
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/plot_cohort_gcov_int-1.png)<!-- -->
+![](metaqc_files/figure-gfm/plot_cohort_gcov_int-1.png)<!-- -->
 
 ``` r
 ggplot(meta_qc_ldsc_pairs_mdd3_all %>% filter(cohort1 %in% meta_qc_ldsc_pairs_mdd3_all_het$cohort1[5:8]),
@@ -658,7 +658,7 @@ coord_flip(ylim=c(gcov_int_min-0.01, gcov_int_max+0.01))
 
     ## Warning: Removed 1 rows containing missing values (geom_segment).
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/plot_cohort_gcov_int2-1.png)<!-- -->
+![](metaqc_files/figure-gfm/plot_cohort_gcov_int2-1.png)<!-- -->
 
 ## Clustering
 
@@ -711,13 +711,13 @@ and larger values `==` more dissimilar.
 plot(hclust(as.dist(1-gcov_int_mat)))
 ```
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/gcov_int_dist-1.png)<!-- -->
+![](metaqc_files/figure-gfm/gcov_int_dist-1.png)<!-- -->
 
 ``` r
 corrplot(gcov_int_mat, is.corr=FALSE, diag=FALSE)
 ```
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/gcov_int_mat_corr-1.png)<!-- -->
+![](metaqc_files/figure-gfm/gcov_int_mat_corr-1.png)<!-- -->
 
 ## Genetic correlations
 
@@ -774,4 +774,4 @@ corrplot.mixed(rg_mat_1[has_rg_idx,has_rg_idx],
                na.label='.', tl.pos='lt', diag='u', plotCI='rect', number.cex=0.75)
 ```
 
-![](/gpfs/igmmfs01/eddie/GenScotDepression/madams23/projects/mdd-meta/docs/metaqc_files/figure-gfm/rg_mat_corr-1.png)<!-- -->
+![](metaqc_files/figure-gfm/rg_mat_corr-1.png)<!-- -->
