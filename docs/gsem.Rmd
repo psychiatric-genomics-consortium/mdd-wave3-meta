@@ -39,7 +39,7 @@ Genetic correlations
 
 ```{r rg, results='hide'}
 
-corrplot(cov2cor(mdd_covstruct$S), method='number')
+corrplot(cov2cor(mdd_covstruct$S), method = "number")
 
 ```
 
@@ -50,7 +50,10 @@ corrplot(cov2cor(mdd_covstruct$S), method='number')
 common.model <- "A =~ NA*Clin + EHR + Quest + SelfRep
 A ~~ 1*A"
 
-common.fit <- usermodel(covstruc=mdd_covstruct, estimation='DWLS', model=common.model)
+common.fit <- usermodel(covstruc = mdd_covstruct,
+                        estimation = "DWLS",
+                        model = common.model,
+                        imp_cov=TRUE)
 
 ```
 
@@ -63,11 +66,25 @@ knitr::kable(common.fit$modelfit)
 ```{r results}
 
 common.fit.results <- common.fit$results %>%
-    mutate(Unstand_SE=as.numeric(Unstand_SE),
-           STD_Genotype_SE=as.numeric(STD_Genotype_SE),
-           p_value=if_else(p_value == '< 5e-300', true=0, false=as.numeric(p_value)))
+    mutate(Unstand_SE = as.numeric(Unstand_SE),
+           STD_Genotype_SE = as.numeric(STD_Genotype_SE),
+           p_value=if_else(p_value == "< 5e-300",
+                           true = 0,
+                           false = as.numeric(p_value)))
 
-knitr::kable(common.fit.results, digits=4)
+knitr::kable(select(common.fit.results,
+                    lhs, op, rhs,
+                    STD_Genotype, STD_Genotype_SE,
+                    p_value),
+                    digits = 4)
+
+```
+
+Model-implied correlations
+
+```{r imp_cov}
+
+cov2cor(common.fit$resid_cov$Model)
 
 ```
 
@@ -75,7 +92,7 @@ knitr::kable(common.fit.results, digits=4)
 
 Miami plot of P values and Q values
 
-```{r gwas}
+```{r gwas, dpi=300}
 
 common.gwas <- read_tsv(snakemake@input$commonfactor_eur)
 
