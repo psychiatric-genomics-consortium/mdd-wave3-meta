@@ -22,7 +22,7 @@ rule open_gwas_install_gwasvcf:
 #  ieugwasr::get_access_token()
 # in R
 rule open_gwas_phewas_lookup:
-    input: "docs/tables/meta_snps_full_eur.cojo.txt", ieugwas=ancient("resources/open_gwas/install_ieugwasr.done")
+    input: ancient("docs/tables/meta_snps_full_eur.cojo.txt"), ieugwas=ancient("resources/open_gwas/install_ieugwasr.done")
     output: phewas="results/open_gwas/phewas.txt", gwasinfo="results/open_gwas/gwasinfo.txt"
     conda: "../envs/open.yaml"
     script: "../scripts/open/phewas.R"
@@ -95,6 +95,10 @@ rule open_gwas_rg_all_datasets:
     conda: "../envs/reports.yaml"
     output: full="docs/tables/ldsc_open_rg.txt", noukbb="docs/tables/ldsc_open_noUKBB.txt",  mr='docs/tables/ldsc_open_mr_candidates.txt'
     script: "../scripts/open/ldsc.R"
+    
+# compare results to Howard
+rule open_gwas_rg_all_datasets_previous:
+    input: ldsc_full=expand("results/open_gwas/ldsc/howard_eur_v2_{dataset}.rg.txt", dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo))
     
 rule open_gwas:
     input: full="docs/tables/ldsc_open_rg.txt", noukbb="docs/tables/ldsc_open_noUKBB.txt",  mr='docs/tables/ldsc_open_mr_candidates.txt'
