@@ -22,8 +22,8 @@ meta_questnoukbb_sums = ['AGDS', 'ALSPAC', 'BASIC', 'STAGE']
 meta_selfrep_geno = []
 meta_selfrep_sums = ['23andMe', 'Airwave']
 
-meta_structured_groups_geno = {'Clin': meta_clin_geno, 'EHR': meta_ehr_geno, 'Quest': meta_quest_geno, 'SelfRep': meta_selfrep_geno, 'Questnub': meta_quest_geno}
-meta_structured_groups_sums = {'Clin': meta_clin_sums, 'EHR': meta_ehr_sums, 'Quest': meta_quest_sums, 'SelfRep': meta_selfrep_sums, 'Questnub': meta_questnoukbb_sums}
+meta_structured_groups_geno = {'Clin': meta_clin_geno, 'EHR': meta_ehr_geno, 'Quest': meta_quest_geno, 'SelfRep': meta_selfrep_geno}
+meta_structured_groups_sums = {'Clin': meta_clin_sums, 'EHR': meta_ehr_sums, 'Quest': meta_quest_sums, 'SelfRep': meta_selfrep_sums}
 
 # create reference info file linking to imputation panel
 rule meta_gsem_refdir:
@@ -99,7 +99,7 @@ rule install_ggmiami:
 # Neff as input sample size allows unbiased estimates of ldsc h2: https://www.medrxiv.org/content/10.1101/2021.09.22.21263909v1
 rule meta_gsem_neff:
     input: "results/meta/gsem/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
-    output: "results/meta/gsem/neff/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.txt"
+    output: temp("results/meta/gsem/neff/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.txt")
     shell: """zcat {input} | awk '{{if(NR == 1) {{print $1, $2, $3, $4, $5, "MAF", $8, $9, $10, $11, "N"}} else {{print $1, $2, $3, $4, $5, $7, $8, $9, $10, $11, 2*$19}}}}' > {output}"""
     
 rule meta_gsem_munge:
