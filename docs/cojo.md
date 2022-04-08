@@ -49,7 +49,24 @@ first and last rows with table captions), and [Levey et al
 2021](https://jamanetwork.com/journals/jamapsychiatry/article-abstract/2784695),
 and the [GWAS catalog for unipolar
 depression](https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761). Parse out
-regions from Wray and Howard.
+regions from Wray and Howard and load queried regions for other results
+
+``` r
+tags <- read_table(snakemake@input$tags)
+```
+
+    ## 
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
+    ## cols(
+    ##   SNP = col_character(),
+    ##   CHR = col_double(),
+    ##   BP = col_double(),
+    ##   NTAG = col_double(),
+    ##   LEFT = col_double(),
+    ##   RIGHT = col_double(),
+    ##   KBSPAN = col_double(),
+    ##   TAGS = col_character()
+    ## )
 
 ``` r
 wray <- read_tsv(snakemake@input$wray) %>%
@@ -58,7 +75,8 @@ wray <- read_tsv(snakemake@input$wray) %>%
 ```
 
     ## Rows: 44 Columns: 11
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────
+
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr (6): Region (Mb), SNP, P, A1/A2, Prev., Gene context
     ## dbl (4): Chr., OR (A1), s.e. (log(OR)), Freq.
@@ -80,20 +98,30 @@ howard <- read_excel(snakemake@input$howard, skip=2, n_max=102) %>%
     ## * ...
 
 ``` r
-levey <- read_tsv(snakemake@input$levey, col_types=cols(CHR.BP=col_character()))
+levey <- read_tsv(snakemake@input$levey, col_types=cols(CHR.BP=col_character())) %>%
+left_join(select(tags, SNP, LEFT, RIGHT), by=c('rsid'='SNP')) %>%
+mutate(LEFT=if_else(is.na(LEFT), true=BP, false=LEFT),
+       RIGHT=if_else(is.na(RIGHT), true=BP, false=RIGHT))
 
 giannakopoulou <- read_tsv(snakemake@input$giannakopoulou, col_types=cols('CHR:POS'=col_character())) %>%
-separate(`CHR:POS`, into=c('CHR', 'POS'), convert=TRUE)
+separate(`CHR:POS`, into=c('CHR', 'POS'), convert=TRUE) %>%
+left_join(select(tags, SNP, LEFT, RIGHT), by='SNP') %>%
+mutate(LEFT=if_else(is.na(LEFT), true=as.numeric(POS), false=LEFT),
+       RIGHT=if_else(is.na(RIGHT), true=as.numeric(POS), false=RIGHT))
 
 gwas_catalog <- read_tsv(snakemake@input$catalog) %>%
 filter(!is.na(CHR_ID)) %>%
 mutate(CHR=if_else(CHR_ID == 'X', true=23, false=as.numeric(CHR_ID)),
-       POS=as.numeric(CHR_POS)) %>%
-filter(!is.na(POS))
+       POS=as.numeric(CHR_POS),
+       SNP=paste0('rs', SNP_ID_CURRENT)) %>%
+filter(!is.na(POS)) %>%
+left_join(select(tags, SNP, LEFT, RIGHT), by='SNP') %>%
+mutate(LEFT=if_else(is.na(LEFT), true=POS, false=LEFT),
+       RIGHT=if_else(is.na(RIGHT), true=POS, false=RIGHT))
 ```
 
     ## Rows: 2391 Columns: 38
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (28): FIRST AUTHOR, JOURNAL, LINK, STUDY, DISEASE/TRAIT, INITIAL SAMPLE...
     ## dbl   (8): PUBMEDID, UPSTREAM_GENE_DISTANCE, DOWNSTREAM_GENE_DISTANCE, MERGE...
@@ -133,7 +161,7 @@ cojo <- read_tsv(snakemake@input$cojo)
 ```
 
     ## Rows: 556 Columns: 28
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (4): SNP, A1, A2, Direction
     ## dbl (24): region, snp_idx, CHR, BP, FRQ_A_525197, FRQ_U_3362335, INFO, OR, S...
@@ -150,7 +178,7 @@ rp <- read_table(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
 ```
 
     ## 
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   SNP = col_character(),
@@ -175,9 +203,9 @@ rp_gr <- with(rp, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=ran
 
 wray_gr <- with(wray, GRanges(seqnames=Chr., ranges=IRanges(start=range.left, end=range.right, SNP=SNP)))
 howard_gr <- with(howard, GRanges(seqnames=Chromosome, ranges=IRanges(start=range.left, end=range.right, SNP=`Marker Name`)))
-levey_gr <- with(levey, GRanges(seqnames=CHR, ranges=IRanges(start=BP, width=1)))
-giannakopoulou_gr <- with(giannakopoulou, GRanges(seqnames=CHR, ranges=IRanges(start=POS, width=1)))
-gwas_catalog_gr <- with(gwas_catalog, GRanges(seqnames=CHR, ranges=IRanges(start=POS, width=1)))
+levey_gr <- with(levey, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
+giannakopoulou_gr <- with(giannakopoulou, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
+gwas_catalog_gr <- with(gwas_catalog, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
 ```
 
 ## GWAS catalog
@@ -242,8 +270,8 @@ each of the sets of SNPs. The upset plot function handles finding each
 combination of intersections.
 
 ``` r
-hits_upset <- list(COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
-                   Clump=unique(findOverlaps(all_gr, rp_gr)@from),
+hits_upset <- list(MDD3_COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
+                   MDD3_Clump=unique(findOverlaps(all_gr, rp_gr)@from),
                    Wray=unique(findOverlaps(all_gr, wray_gr)@from),
                    Howard=unique(findOverlaps(all_gr, howard_gr)@from),
                    Levey=unique(findOverlaps(all_gr, levey_gr)@from),
@@ -297,7 +325,7 @@ cojo_levey_overlaps <- findOverlaps(cojo_gr, levey_gr)
 cojo_levey_overlaps
 ```
 
-    ## Hits object with 260 hits and 0 metadata columns:
+    ## Hits object with 262 hits and 0 metadata columns:
     ##         queryHits subjectHits
     ##         <integer>   <integer>
     ##     [1]         1         110
@@ -306,11 +334,11 @@ cojo_levey_overlaps
     ##     [4]         8          77
     ##     [5]         8          26
     ##     ...       ...         ...
-    ##   [256]       537         154
-    ##   [257]       538         154
-    ##   [258]       544         120
-    ##   [259]       548         153
-    ##   [260]       549         211
+    ##   [258]       537         154
+    ##   [259]       538         154
+    ##   [260]       544         120
+    ##   [261]       548         153
+    ##   [262]       549         211
     ##   -------
     ##   queryLength: 556 / subjectLength: 223
 
@@ -323,97 +351,103 @@ levey %>% slice(unique(cojo_levey_overlaps@to)) %>% count()
     ## # A tibble: 1 × 1
     ##       n
     ##   <int>
-    ## 1   191
+    ## 1   193
+
+Overlaps with previous findings.
 
 ``` r
-cojo_known <- cojo %>% slice(unique(cojo_levey_overlaps@from))
+cojo_known_overlaps <- findOverlaps(cojo_gr, reduce(c(wray_gr, howard_gr, levey_gr, giannakopoulou_gr, gwas_catalog_gr)))
+
+cojo_known <- cojo %>% slice(unique(cojo_known_overlaps@from))
 
 catalog_known <- rp_gwas_catalog_entries %>% filter(SNP %in% cojo_known$SNP) %>% count(phenotype) %>% arrange(desc(n))
 catalog_known
 ```
 
-    ## # A tibble: 166 × 2
+    ## # A tibble: 199 × 2
     ##    phenotype                   n
     ##    <chr>                   <int>
     ##  1 Serum_metabolit...        186
-    ##  2 Schizophrenia              45
-    ##  3 Intelligence_(MTAG)        42
-    ##  4 Trans_fatty_acid_levels    29
-    ##  5 Waist_circumfer...         29
-    ##  6 Depression_(broad)         28
-    ##  7 Glycerophosphol...         27
-    ##  8 Neuroticism                26
-    ##  9 Autism_spectrum...         24
-    ## 10 Depression                 22
-    ## # … with 156 more rows
+    ##  2 Schizophrenia              64
+    ##  3 Intelligence_(MTAG)        61
+    ##  4 Waist_circumfer...         44
+    ##  5 Neuroticism                32
+    ##  6 Autism_spectrum...         30
+    ##  7 Trans_fatty_acid_levels    29
+    ##  8 Depression_(broad)         28
+    ##  9 Glycerophosphol...         27
+    ## 10 Depressive_symp...         24
+    ## # … with 189 more rows
 
 Newly discovered regions
 
 ``` r
-cojo_new <- cojo %>% slice(unique(-cojo_levey_overlaps@from)) %>% arrange(P)
+cojo_new <- cojo %>% slice(unique(-cojo_known_overlaps@from)) %>% arrange(P)
 cojo_new %>%
 select(region, snp_idx, CHR, SNP, BP, P, pJ) %>%
 group_by(region)
 ```
 
-    ## # A tibble: 364 × 7
-    ## # Groups:   region [346]
-    ##    region snp_idx   CHR SNP               BP        P       pJ
-    ##     <dbl>   <dbl> <dbl> <chr>          <dbl>    <dbl>    <dbl>
-    ##  1    174       1     5 rs1993739  153215007 5.71e-20 5.72e-20
-    ##  2    487       1    20 rs17805843  51205902 9.34e-20 9.36e-20
-    ##  3     49       2     2 rs359247    60477052 2.67e-18 6.59e-17
-    ##  4    166       1     5 rs6863440  120084621 3.25e-18 3.26e-18
-    ##  5    211       1     7 rs10499337   3521803 1.19e-17 1.43e-16
-    ##  6    362       1    12 rs2363585   60791165 1.69e-16 1.69e-16
-    ##  7    310       1    10 rs12778915  77617557 2.35e-16 2.35e-16
-    ##  8    374       1    12 rs7962128  121907336 3.68e-16 3.68e-16
-    ##  9     76       1     2 rs13418032 198413692 9.89e-16 9.90e-16
-    ## 10     81       1     2 rs72931605 212693775 1.29e-15 1.32e- 9
-    ## # … with 354 more rows
+    ## # A tibble: 252 × 7
+    ## # Groups:   region [248]
+    ##    region snp_idx   CHR SNP                BP        P       pJ
+    ##     <dbl>   <dbl> <dbl> <chr>           <dbl>    <dbl>    <dbl>
+    ##  1    174       1     5 rs1993739   153215007 5.71e-20 5.72e-20
+    ##  2    362       1    12 rs2363585    60791165 1.69e-16 1.69e-16
+    ##  3    310       1    10 rs12778915   77617557 2.35e-16 2.35e-16
+    ##  4    237       1     7 rs12666306  115082406 1.38e-15 1.39e-15
+    ##  5    395       1    14 rs17100626   33772933 2.05e-15 2.06e-15
+    ##  6    318       1    10 rs3808964   125426627 7.13e-15 7.14e-15
+    ##  7    101       1     3 rs116310555  71814431 4.24e-14 4.24e-14
+    ##  8    392       1    13 rs9524024    94022948 8.23e-14 8.24e-14
+    ##  9    136       1     4 rs13134858  115522306 9.96e-14 9.97e-14
+    ## 10    355       1    12 rs7973992    39168233 1.20e-13 1.21e-13
+    ## # … with 242 more rows
 
 ``` r
 rp_gwas_catalog_entries %>% filter(SNP %in% cojo_new$SNP) %>% count(phenotype) %>% arrange(desc(n)) %>% filter(!phenotype %in% catalog_known$phenotype)
 ```
 
-    ## # A tibble: 61 × 2
-    ##    phenotype                    n
-    ##    <chr>                    <int>
-    ##  1 Body_mass_index...           9
-    ##  2 Morning_vs._eve...           5
-    ##  3 Obesity                      5
-    ##  4 Hip_circumference            4
-    ##  5 Diastolic_blood_pressure     3
-    ##  6 Monocyte_count               3
-    ##  7 Pulse_pressure               3
-    ##  8 Ulcerative_colitis           3
-    ##  9 Waist_circumference          3
-    ## 10 Adiponectin_levels           2
-    ## # … with 51 more rows
+    ## # A tibble: 28 × 2
+    ##    phenotype                   n
+    ##    <chr>                   <int>
+    ##  1 Monocyte_count              3
+    ##  2 Pulse_pressure              3
+    ##  3 Blood_osmolalit...          2
+    ##  4 Blood_pressure              2
+    ##  5 Mean_corpuscular_volume     2
+    ##  6 Aspirin_hydroly...          1
+    ##  7 Bladder_cancer              1
+    ##  8 Butyrylcholines...          1
+    ##  9 Cardiovascular_...          1
+    ## 10 Chin_dimples                1
+    ## # … with 18 more rows
 
 ``` r
 rp_genes_dist %>% filter(SNP %in% cojo_new$SNP) %>% group_by(SNP) %>% filter(dist2index == min(dist2index)) %>% ungroup() %>% select(gene) %>% distinct()
 ```
 
-    ## # A tibble: 374 × 1
-    ##    gene    
-    ##    <chr>   
-    ##  1 NISCH   
-    ##  2 STAB1   
-    ##  3 NT5DC2  
-    ##  4 SMIM4   
-    ##  5 PBRM1   
-    ##  6 NTRK3   
-    ##  7 GTF2IRD1
-    ##  8 NXPH1   
-    ##  9 MAGI2   
-    ## 10 ETV6    
-    ## # … with 364 more rows
+    ## # A tibble: 253 × 1
+    ##    gene     
+    ##    <chr>    
+    ##  1 NTRK3    
+    ##  2 GTF2IRD1 
+    ##  3 NXPH1    
+    ##  4 MAGI2    
+    ##  5 ETV6     
+    ##  6 AQP12A   
+    ##  7 SHTN1    
+    ##  8 VAX1     
+    ##  9 MIR3663HG
+    ## 10 MIR3663  
+    ## # … with 243 more rows
 
 Calculate power for previous versus current GWAS
 
 ``` r
 # use sum of effective sample sizes and case rate of 50% rather than sum of cases and controls
+wray_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=405961, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
+
 levey_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=938012, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
 
 mdd2022_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=2*776935, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
@@ -423,19 +457,19 @@ mdd2022_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N
 frq_u_col <- str_subset(names(cojo), 'FRQ_U')
 
 cojo_known_novel <- bind_rows(
-mutate(cojo_known, assoc='Known'),
-mutate(cojo_new, assoc='Novel')) %>%
+mutate(cojo_known, Association='Known'),
+mutate(cojo_new, Association='Novel')) %>%
 mutate(BETA=log(OR)) %>%
-select(SNP, assoc, OR, BETA, FRQ=starts_with('FRQ_U')) %>%
+select(SNP, Association, OR, BETA, FRQ=starts_with('FRQ_U')) %>%
 mutate(MAF=if_else(FRQ <= 0.5, true=FRQ, false=1-FRQ))
 
 power_known_novel <- bind_rows(
 transmute(levey_power, Power='Levey', MAF, OR=`OR_at_Alpha_5e-08`),
-transmute(mdd2022_power, Power='MDD2022', MAF, OR=`OR_at_Alpha_5e-08`)
+transmute(mdd2022_power, Power='MDD3', MAF, OR=`OR_at_Alpha_5e-08`)
 )
 
 ggplot(cojo_known_novel, aes(x=MAF, y=exp(abs(BETA)))) + 
-geom_point(aes(color=assoc)) +
+geom_point(aes(color=Association)) +
 geom_line(mapping=aes(y=OR, linetype=Power), data=power_known_novel, size=1) +
 scale_y_continuous('OR', limits=c(1, 1.1))
 ```
@@ -444,107 +478,34 @@ scale_y_continuous('OR', limits=c(1, 1.1))
 
 ![](cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
 
-## Comparison between pre-COJO and post-COJO
-
-Find regions overlapping between clumped and COJO results
+## Manhattan plot
 
 ``` r
-cojo_clumped_overlaps <- findOverlaps(cojo_gr, rp_gr)
+daner <- read_tsv(snakemake@input$daner)
 ```
 
-List COJO results where the selected SNP is not in the clumped results
+    ## Rows: 7131733 Columns: 20
+    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
+    ## Delimiter: "\t"
+    ## chr  (4): SNP, A1, A2, Direction
+    ## dbl (16): CHR, BP, FRQ_A_525197, FRQ_U_3362335, INFO, OR, SE, P, ngt, HetISq...
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 ``` r
-cojo_newly_selected <- 
-cojo %>% slice(unique(cojo_clumped_overlaps@from)) %>%
-filter(!SNP %in% rp$SNP) %>%
-select(region, snp_idx, CHR, SNP, P, pJ) 
-cojo_newly_selected
+gwas <- daner %>% filter(-log10(P)>=3) %>% mutate(CHR=if_else(CHR!=23, true=as.character(CHR), false='X'))
 ```
-
-    ## # A tibble: 58 × 6
-    ##    region snp_idx   CHR SNP                P       pJ
-    ##     <dbl>   <dbl> <dbl> <chr>          <dbl>    <dbl>
-    ##  1      1       1     1 rs301806    1.87e-16 1.87e-16
-    ##  2     10       1     1 rs437021    5.70e-11 5.71e-11
-    ##  3     13       1     1 rs3101341   5.22e-27 2.56e-11
-    ##  4     13       2     1 rs2797104   5.84e-32 4.26e-10
-    ##  5     47       1     2 rs858938    3.87e- 8 2.49e-10
-    ##  6     48       2     2 rs56873970  2.76e- 3 1.93e- 8
-    ##  7     49       1     2 rs7576017   1.18e-13 2.96e-12
-    ##  8     50       1     2 rs149044563 7.75e-13 7.76e-13
-    ##  9     53       1     2 rs73949838  5.43e- 9 5.43e- 9
-    ## 10     55       1     2 rs3860446   1.10e-10 3.30e-11
-    ## # … with 48 more rows
-
-Newly selected SNPs that were not GWsig in the clumped results
 
 ``` r
-cojo_newly_selected %>%
-filter(P > 5e-8)
+manhattn <- ggman(as.data.frame(gwas), snp = "SNP", bp = "BP", chrom = "CHR", pvalue = "P", ymin=3)
 ```
 
-    ## # A tibble: 9 × 6
-    ##   region snp_idx   CHR SNP                   P       pJ
-    ##    <dbl>   <dbl> <dbl> <chr>             <dbl>    <dbl>
-    ## 1     48       2     2 rs56873970 0.00276      1.93e- 8
-    ## 2     60       1     2 rs2381462  0.00000896   9.53e-11
-    ## 3     69       2     2 rs1371187  0.0000000835 4.46e-11
-    ## 4    118       1     3 rs13073224 0.0000000573 2.01e- 8
-    ## 5    186       2     6 rs2747467  0.144        9.44e-13
-    ## 6    248       1     8 rs10503484 0.000000367  7.74e- 9
-    ## 7    341       4    11 rs73004019 0.000154     4.81e-10
-    ## 8    386       2    13 rs2329076  0.000000154  3.24e- 8
-    ## 9    412       2    15 rs4774501  0.00000214   6.01e-11
-
-List clumped SNPs in retained regions that were not selected by COJO
+    ## Warning: `guides(<scale> = FALSE)` is deprecated. Please use `guides(<scale> =
+    ## "none")` instead.
 
 ``` r
-rp %>% slice(unique(cojo_clumped_overlaps@to)) %>%
-filter(!SNP %in% cojo$SNP)
+manhattn
 ```
 
-    ## # A tibble: 246 × 23
-    ##    SNP         CHR     BP        P    OR     SE A1A2  FRQ_A_524857 FRQ_U_3059006
-    ##    <chr>     <dbl>  <dbl>    <dbl> <dbl>  <dbl> <chr>        <dbl>         <dbl>
-    ##  1 rs301817      1 8.50e6 3.23e-17 1.02  0.0028 C/A         0.419         0.426 
-    ##  2 rs759861…     1 5.28e7 1.99e- 8 0.967 0.0061 A/G         0.044         0.0458
-    ##  3 rs446952      1 6.17e7 1.78e-11 1.02  0.0027 T/C         0.465         0.458 
-    ##  4 rs2568957     1 7.28e7 1.58e-32 0.963 0.0031 A/G         0.176         0.172 
-    ##  5 rs121277…     1 7.27e7 4.91e-23 1.04  0.0038 T/G         0.119         0.119 
-    ##  6 rs127480…     1 7.30e7 1.47e-14 1.02  0.003  A/T         0.279         0.277 
-    ##  7 rs758052…     1 7.39e7 6.32e-13 0.950 0.0071 T/C         0.0301        0.0304
-    ##  8 rs617719…     1 7.33e7 3.66e-12 0.977 0.0034 A/G         0.156         0.158 
-    ##  9 rs121282…     1 7.31e7 4.20e-12 0.977 0.0034 G/A         0.163         0.164 
-    ## 10 rs107364…     1 7.40e7 1.18e-11 1.03  0.0036 C/T         0.12          0.118 
-    ## # … with 236 more rows, and 14 more variables: INFO <dbl>,
-    ## #   `(Nca,Nco,Neff)Dir` <chr>, ngt <dbl>, `LD-friends(0.1).p0.001` <chr>,
-    ## #   range.left <dbl>, range.right <dbl>, `span(kb)` <dbl>,
-    ## #   `LD-friends(0.6).p0.001` <chr>, range.left.6 <dbl>, range.right.6 <dbl>,
-    ## #   `span.6(kb)` <dbl>, gwas_catalog_span.6 <chr>,
-    ## #   `genes.6.50kb(dist2index)` <chr>, N.genes.6.50kb <chr>
-
-Line up non-selected SNPs with selected SNPs in the region
-
-``` r
-bind_cols(
-select(slice(cojo, cojo_clumped_overlaps@from), region, snp_idx, SNP.cojo=SNP, BP.cojo=BP, P.cojo=P, PJ.cojo=pJ),
-select(slice(rp, cojo_clumped_overlaps@to), SNP.rp=SNP, BP.rp=BP, P.rp=P)
-) %>%
-filter(!SNP.rp %in% cojo$SNP)
-```
-
-    ## # A tibble: 400 × 9
-    ##    region snp_idx SNP.cojo   BP.cojo   P.cojo  PJ.cojo SNP.rp     BP.rp     P.rp
-    ##     <dbl>   <dbl> <chr>        <dbl>    <dbl>    <dbl> <chr>      <dbl>    <dbl>
-    ##  1      1       1 rs301806   8482078 1.87e-16 1.87e-16 rs301817  8.50e6 3.23e-17
-    ##  2      9       1 rs7413471 52339759 2.96e-15 2.96e-15 rs759861… 5.28e7 1.99e- 8
-    ##  3     10       1 rs437021  61738270 5.70e-11 5.71e-11 rs446952  6.17e7 1.78e-11
-    ##  4     13       1 rs3101341 72747844 5.22e-27 2.56e-11 rs2568957 7.28e7 1.58e-32
-    ##  5     13       1 rs3101341 72747844 5.22e-27 2.56e-11 rs121277… 7.27e7 4.91e-23
-    ##  6     13       1 rs3101341 72747844 5.22e-27 2.56e-11 rs127480… 7.30e7 1.47e-14
-    ##  7     13       1 rs3101341 72747844 5.22e-27 2.56e-11 rs758052… 7.39e7 6.32e-13
-    ##  8     13       1 rs3101341 72747844 5.22e-27 2.56e-11 rs617719… 7.33e7 3.66e-12
-    ##  9     13       1 rs3101341 72747844 5.22e-27 2.56e-11 rs121282… 7.31e7 4.20e-12
-    ## 10     13       1 rs3101341 72747844 5.22e-27 2.56e-11 rs107364… 7.40e7 1.18e-11
-    ## # … with 390 more rows
+![](cojo_files/figure-gfm/manhattn-1.png)<!-- -->

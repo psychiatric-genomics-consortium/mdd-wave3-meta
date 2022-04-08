@@ -32,6 +32,12 @@ rule resources_1kg_bed:
 	output: "resources/1kg/1kg_phase1_all.bed", "resources/1kg/1kg_phase1_all.bim", "resources/1kg/1kg_phase1_all.fam"
 	shell: "tar --directory $(dirname {input}) -xzf {input}"
     
+# find duplicate SNP IDs 
+rule resource_1kg_dups:
+    input: "resources/1kg/1kg_phase1_all.bim"
+    output: "resources/1kg/1kg_phase1_all.dups"
+    shell: "cat {input} | awk '{{print $2}}' | sort | uniq -d > {output}"
+    
 ## Calculate ancestries frequencies for 1000G files
 rule resources_1kg_phase3_frq:
     input: psam="resources/1kg/phase3_corrected.psam", pvar="resources/1kg/all_phase3.pvar.zst", pgen="resources/1kg/all_phase3.pgen"
