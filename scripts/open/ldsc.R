@@ -46,7 +46,7 @@ left_join(gwasinfo, by='id')
 
 ldsc_rg_mr_candidates <- 
 ldsc_rg_info %>%
-filter(abs(gcov_int) <= 0.025, !str_detect(id, 'ukb')) %>%
+filter(abs(gcov_int) <= 0.05, !str_detect(id, 'ukb')) %>%
 mutate(qvalue=fdrtool::fdrtool(p, statistic='p')$qval) %>%
 filter(qvalue <= 0.05) %>%
 arrange(desc(abs(rg))) %>%
