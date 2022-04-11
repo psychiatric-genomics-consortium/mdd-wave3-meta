@@ -1,26 +1,29 @@
 ---
 title: LD Score Genetic Correlations
-output: github_document
+output:
+  github_document
 ---
 
 ```{r}
 library(readr)
 library(dplyr)
 library(stringr)
+library(tidyr)
 library(ggplot2)
 ```
 
 Read in LDSC rg tables
 ```{r}
-ldsc_rg_info <- read_tsv(snakemake@input$full)
-ldsc_noukbb_rg_info <- read_tsv(snakemake@input$noukbb)
+ldsc_rg_info <- read_tsv(snakemake@input$full) %>%
+    mutate(dataset=str_match(p1, 'pgc_mdd_([:alpha:]+)_')[,2])
+    
 ldsc_rg_mr_candidates <- read_tsv(snakemake@input$mr)
 ```
 
 Plot size of genetic correlation versus covariance intercept
 
 ```{r ldsc_rg_gcov}
-ggplot(ldsc_rg_info, aes(x=abs(rg), y=gcov_int)) +
+ggplot(ldsc_rg_info %>% filter(dataset=='full'), aes(x=abs(rg), y=gcov_int)) +
 geom_point()
 ```
 
@@ -29,14 +32,12 @@ Compare genetic covariance for `full` versus `noUKBB` sumstats
 ```{r ldsc_noukbb_gcov_point}
 
 ldsc_full_vs_noukbb_gcov <-
-inner_join(
-ldsc_rg_info %>% transmute(id, trait, gcov_int.full=gcov_int),
-ldsc_noukbb_rg_info %>% transmute(id, trait, gcov_int.noUKBB=gcov_int),
-by=c('id', 'trait')
-) %>%
+ldsc_rg_info %>%
+select(id, trait, dataset, gcov_int) %>%
+pivot_wider(names_from=dataset, values_from=gcov_int) %>%
 mutate(ukb=str_detect(id, 'ukb'))
 
-ggplot(ldsc_full_vs_noukbb_gcov, aes(x=gcov_int.full, y=gcov_int.noUKBB, colour=ukb)) +
+ggplot(ldsc_full_vs_noukbb_gcov, aes(x=full, y=noUKBB, colour=ukb)) +
 geom_point() + 
 facet_grid(~ukb) +
 coord_equal()
@@ -46,18 +47,16 @@ coord_equal()
 ```{r ldsc_noukbb_gcov_hist}
 
 ldsc_full_noukbb_gcov <-
-bind_rows(
-ldsc_rg_info %>% transmute(id, trait, gcov_int, cohorts='full'),
-ldsc_noukbb_rg_info %>% transmute(id, trait, gcov_int=gcov_int, cohorts='noUKBB')
-) %>%
+ldsc_rg_info %>%
+filter(dataset %in% c('full', 'noUKBB')) %>%
 mutate(ukb=if_else(str_detect(id, 'ukb'), 'sumstats from UKBB', 'other sumstats'))
 
-ggplot(ldsc_full_noukbb_gcov, aes(x=gcov_int, fill=cohorts)) +
+ggplot(ldsc_full_noukbb_gcov, aes(x=gcov_int, fill=dataset)) +
 geom_density() +
-facet_grid(cohorts~ukb)
+facet_grid(dataset~ukb)
 
 ldsc_full_noukbb_gcov %>%
-group_by(cohorts, ukb) %>%
+group_by(dataset, ukb) %>%
 summarize(max_gov=max(abs(gcov_int)))
 
 ```
@@ -75,11 +74,60 @@ select(-id)
 ```
 
 Plot rg for known subcategories
-```{r}
+```{r rg_subcats}
 
-ggplot(ldsc_rg_info %>% filter(!is.na(subcategory)), aes(x=trait, y=rg, ymin=rg+se*qnorm(0.025), ymax=rg+se*qnorm(0.975))) +
+ggplot(ldsc_rg_info %>% filter(!is.na(subcategory), dataset %in% 'full'),
+aes(x=trait, y=rg, ymin=rg+se*qnorm(0.025), ymax=rg+se*qnorm(0.975))) +
 geom_pointrange() +
 coord_flip()
 
 ```
 
+Compare new and previous results
+
+```{r rg_previous}
+
+ldsc_rg_full_howard <-
+ldsc_rg_info %>%
+filter(dataset %in% c('full', 'howard')) %>%
+select(dataset, rg, se, p, gcov_int, id, trait) %>%
+pivot_wider(id_cols=c(id, trait),
+            names_from=dataset,
+            values_from=c(rg, se, p, gcov_int))
+```
+
+Results that were `NA` with the previous sumstats
+```{r}
+ldsc_rg_full_howard %>%
+filter(!is.na(p_full), is.na(p_howard))
+```
+
+Traits that were not significantly correlated before, after FDR correction
+
+```{r rg_previous_fdr}
+
+ldsc_rg_full_howard_fdr <-
+ldsc_rg_full_howard %>%
+filter(!is.na(p_full), !is.na(p_howard)) %>%
+mutate(q_full=fdrtool::fdrtool(p_full, statistic='p', plot=FALSE)$qval,
+       q_howard=fdrtool::fdrtool(p_howard, statistic='p', plot=FALSE)$qval)
+
+ldsc_rg_full_howard_fdr %>%
+filter(p_full <= 0.05, q_full <= 0.05, q_howard > 0.05) %>%
+select(trait, rg_full, q_full) %>%
+arrange(desc(abs(rg_full))) %>%
+print(n=Inf)
+
+```
+
+Non-UKB/overlapping phenotypes sorted by magnitude of genetic correlation
+
+```{r rg_full}
+
+ldsc_rg_full_howard_fdr %>%
+    filter(!str_detect(id, 'ukb'), p_full <= 0.05, q_full <= 0.05, abs(gcov_int_full) <= 0.05) %>%
+    arrange(desc(abs(rg_full))) %>%
+    select(trait, rg_full, id, p=p_full, q=q_full) %>%
+    print(n=40)
+
+```

@@ -105,7 +105,7 @@ rule open_gwas_rg_all_datasets:
     script: "../scripts/open/ldsc.R"
     
 rule open_gwas:
-    input: full="docs/tables/ldsc_open_rg.txt", noukbb="docs/tables/ldsc_open_noUKBB.txt",  mr='docs/tables/ldsc_open_mr_candidates.txt'
+    input: full="docs/tables/ldsc_open_rg.txt",  mr='docs/tables/ldsc_open_mr_candidates.txt'
     conda: "../envs/reports.yaml"
     output: "docs/ldsc.md"
     script: "../docs/ldsc.Rmd"
