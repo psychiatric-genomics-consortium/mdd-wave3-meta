@@ -31,7 +31,7 @@ ldsc_rg_info <- read_tsv(snakemake@input$full) %>%
 ```
 
     ## 
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ─────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   p1 = col_character(),
@@ -58,7 +58,7 @@ ldsc_rg_mr_candidates <- read_tsv(snakemake@input$mr)
 ```
 
     ## 
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ─────────────────────────────────────────────────────────────────────
     ## cols(
     ##   id = col_character(),
     ##   trait = col_character(),
@@ -127,42 +127,6 @@ summarize(max_gov=max(abs(gcov_int)))
     ## 3 noUKBB  other sumstats       0.245
     ## 4 noUKBB  sumstats from UKBB   0.032
 
-FDR corrected associations, removing phenotypes from UKB and with large
-genetic covariance intercepts
-
-``` r
-ldsc_rg_mr_candidates %>%
-group_by(subcategory) %>%
-filter(rg==max(rg)) %>%
-filter(p==min(p)) %>%
-select(-id)
-```
-
-    ## # A tibble: 20 × 6
-    ## # Groups:   subcategory [20]
-    ##    trait                                  rg         p    qvalue gcov_int subcategory
-    ##    <chr>                               <dbl>     <dbl>     <dbl>    <dbl> <chr>      
-    ##  1 Neuroticism                        0.702  2.02e-162 4.89e-161   0.0446 <NA>       
-    ##  2 Neuroticism                        0.658  3.36e-194 1.63e-192   0.0446 Personality
-    ##  3 bipolar disorder                   0.402  1.10e- 77 9.65e- 77   0.0468 Psychiatri…
-    ##  4 smoking initiation                 0.341  9.66e- 92 1.04e- 90   0.0479 Behavioural
-    ##  5 Waist-to-hip ratio                 0.181  5.11e- 10 8.43e- 10  -0.0056 Anthropome…
-    ##  6 Transferrin                        0.176  1.77e-  2 1.03e-  2  -0.017  Metal      
-    ##  7 triglycerides                      0.159  2.85e- 17 8.12e- 17   0.0111 Lipid      
-    ##  8 Years of schooling                -0.158  1.96e- 24 9.49e- 24  -0.0219 Education  
-    ##  9 telomere length                   -0.124  5.33e- 10 8.75e- 10  -0.0033 Aging      
-    ## 10 Age at menarche                   -0.117  3.42e- 10 5.81e- 10  -0.0082 Reproducti…
-    ## 11 C-Reactive protein level           0.106  5.26e-  6 6.33e-  6   0.0083 Immune sys…
-    ## 12 ER+ Breast cancer (GWAS)           0.103  1   e-  4 9.59e-  5  -0.01   Cancer     
-    ## 13 Crohn's disease                    0.102  3.27e-  6 4.05e-  6  -0.0027 Autoimmune…
-    ## 14 Urinary sodium-potassium ratio     0.0817 1.1 e-  3 8.95e-  4  -0.0104 Biomarker  
-    ## 15 Heart rate                         0.0767 1.1 e-  2 6.91e-  3  -0.0078 Hemodynamic
-    ## 16 Platelet count                     0.068  9.6 e-  3 6.14e-  3  -0.0004 Haemotolog…
-    ## 17 Fasting glucose                    0.0607 4.85e-  2 2.63e-  2  -0.0068 Glycemic   
-    ## 18 Chronotype                        -0.0594 1.34e-  2 8.17e-  3  -0.0107 Sleeping   
-    ## 19 Femoral neck bone mineral density -0.0578 3.07e-  2 1.72e-  2   0.0026 Bone       
-    ## 20 diastolic blood pressure           0.0348 9.3 e-  3 5.97e-  3  -0.0185 Blood pres…
-
 Plot rg for known subcategories
 
 ``` r
@@ -180,8 +144,8 @@ Compare new and previous results
 ldsc_rg_full_howard <-
 ldsc_rg_info %>%
 filter(dataset %in% c('full', 'howard')) %>%
-select(dataset, rg, se, p, gcov_int, id, trait) %>%
-pivot_wider(id_cols=c(id, trait),
+select(dataset, rg, se, p, gcov_int, id, trait, subcategory) %>%
+pivot_wider(id_cols=c(subcategory, id, trait),
             names_from=dataset,
             values_from=c(rg, se, p, gcov_int))
 ```
@@ -193,11 +157,11 @@ ldsc_rg_full_howard %>%
 filter(!is.na(p_full), is.na(p_howard))
 ```
 
-    ## # A tibble: 1 × 10
-    ##   id     trait rg_full rg_howard se_full se_howard p_full p_howard gcov_int_full
-    ##   <chr>  <chr>   <dbl>     <dbl>   <dbl>     <dbl>  <dbl>    <dbl>         <dbl>
-    ## 1 ebi-a… CD27…   0.106        NA   0.170        NA  0.534       NA        0.0048
-    ## # … with 1 more variable: gcov_int_howard <dbl>
+    ## # A tibble: 1 × 11
+    ##   subcategory id      trait  rg_full rg_howard se_full se_howard p_full p_howard
+    ##   <chr>       <chr>   <chr>    <dbl>     <dbl>   <dbl>     <dbl>  <dbl>    <dbl>
+    ## 1 <NA>        ebi-a-… CD27 …   0.106        NA   0.170        NA  0.534       NA
+    ## # … with 2 more variables: gcov_int_full <dbl>, gcov_int_howard <dbl>
 
 Traits that were not significantly correlated before, after FDR
 correction
@@ -223,35 +187,35 @@ mutate(q_full=fdrtool::fdrtool(p_full, statistic='p', plot=FALSE)$qval,
 ``` r
 ldsc_rg_full_howard_fdr %>%
 filter(p_full <= 0.05, q_full <= 0.05, q_howard > 0.05) %>%
-select(trait, rg_full, q_full) %>%
+select(trait, rg_full, p_full, q_full) %>%
 arrange(desc(abs(rg_full))) %>%
 print(n=Inf)
 ```
 
-    ## # A tibble: 21 × 3
-    ##    trait                                                        rg_full   q_full
-    ##    <chr>                                                          <dbl>    <dbl>
-    ##  1 Added milk to instant coffee                                 -0.165   6.52e-3
-    ##  2 Added milk to standard tea                                   -0.112   3.26e-3
-    ##  3 Alcohol drinker status: Never                                -0.0888  3.65e-3
-    ##  4 Pulse rate (during blood-pressure measurement)                0.0857  2.20e-3
-    ##  5 Relative age voice broke                                      0.0819  4.52e-4
-    ##  6 HDL cholesterol                                              -0.0771  1.81e-3
-    ##  7 Corneal resistance factor (left)                              0.0705  7.24e-5
-    ##  8 Mineral and other dietary supplements: Glucosamine           -0.0589  5.14e-3
-    ##  9 Mineral and other dietary supplements: Fish oil (including …  0.0563  5.02e-3
-    ## 10 Types of transport used (excluding work): Walk               -0.0527  2.46e-3
-    ## 11 Relative age of first facial hair                            -0.0486  4.54e-3
-    ## 12 Waist circumference                                           0.0445  4.77e-3
-    ## 13 Waist circumference                                           0.0432  5.46e-3
-    ## 14 Mean corpuscular hemoglobin                                   0.0425  1.13e-3
-    ## 15 Mean reticulocyte volume                                      0.0404  6.41e-4
-    ## 16 Red cell distribution width                                   0.0397  8.18e-3
-    ## 17 Red blood cell (erythrocyte) distribution width               0.0382  2.62e-3
-    ## 18 Mean corpuscular volume                                       0.0377  2.85e-3
-    ## 19 Heel bone mineral density (BMD) T-score  automated (left)     0.0355  8.82e-3
-    ## 20 diastolic blood pressure                                      0.0348  1.98e-3
-    ## 21 Mean corpuscular volume                                       0.0304  4.70e-3
+    ## # A tibble: 21 × 4
+    ##    trait                                                 rg_full p_full   q_full
+    ##    <chr>                                                   <dbl>  <dbl>    <dbl>
+    ##  1 Added milk to instant coffee                          -0.165  0.0327  6.52e-3
+    ##  2 Added milk to standard tea                            -0.112  0.0158  3.26e-3
+    ##  3 Alcohol drinker status: Never                         -0.0888 0.0178  3.65e-3
+    ##  4 Pulse rate (during blood-pressure measurement)         0.0857 0.0104  2.20e-3
+    ##  5 Relative age voice broke                               0.0819 0.002   4.52e-4
+    ##  6 HDL cholesterol                                       -0.0771 0.0085  1.81e-3
+    ##  7 Corneal resistance factor (left)                       0.0705 0.0003  7.24e-5
+    ##  8 Mineral and other dietary supplements: Glucosamine    -0.0589 0.0255  5.14e-3
+    ##  9 Mineral and other dietary supplements: Fish oil (inc…  0.0563 0.0249  5.02e-3
+    ## 10 Types of transport used (excluding work): Walk        -0.0527 0.0117  2.46e-3
+    ## 11 Relative age of first facial hair                     -0.0486 0.0224  4.54e-3
+    ## 12 Waist circumference                                    0.0445 0.0236  4.77e-3
+    ## 13 Waist circumference                                    0.0432 0.0272  5.46e-3
+    ## 14 Mean corpuscular hemoglobin                            0.0425 0.0052  1.13e-3
+    ## 15 Mean reticulocyte volume                               0.0404 0.0029  6.41e-4
+    ## 16 Red cell distribution width                            0.0397 0.0414  8.18e-3
+    ## 17 Red blood cell (erythrocyte) distribution width        0.0382 0.0125  2.62e-3
+    ## 18 Mean corpuscular volume                                0.0377 0.0137  2.85e-3
+    ## 19 Heel bone mineral density (BMD) T-score  automated (…  0.0355 0.0448  8.82e-3
+    ## 20 diastolic blood pressure                               0.0348 0.0093  1.98e-3
+    ## 21 Mean corpuscular volume                                0.0304 0.0232  4.70e-3
 
 Non-UKB/overlapping phenotypes sorted by magnitude of genetic
 correlation
@@ -259,52 +223,61 @@ correlation
 ``` r
 ldsc_rg_full_howard_fdr %>%
     filter(!str_detect(id, 'ukb'), p_full <= 0.05, q_full <= 0.05, abs(gcov_int_full) <= 0.05) %>%
-    arrange(desc(abs(rg_full))) %>%
-    select(trait, rg_full, id, p=p_full, q=q_full) %>%
-    print(n=40)
+    group_by(subcategory, word(str_to_lower(trait), 1)) %>%
+    filter(p_full == min(p_full)) %>% 
+    filter(rg_full == max(rg_full)) %>%
+    arrange(subcategory, desc(abs(rg_full))) %>%
+    group_by(subcategory) %>%
+    slice(1:6) %>%
+    select(trait, rg=rg_full, se=se_full, FDR=q_full, id) %>%
+    print(n=Inf)
 ```
 
-    ## # A tibble: 177 × 5
-    ##    trait                                  rg_full id                 p         q
-    ##    <chr>                                    <dbl> <chr>          <dbl>     <dbl>
-    ##  1 Neuroticism                              0.702 ebi-a-GCS… 2.02e-162 5.44e-162
-    ##  2 Neuroticism                              0.671 ebi-a-GCS… 8.31e-164 2.28e-163
-    ##  3 Neuroticism                              0.658 ieu-a-1007 3.36e-194 1.20e-193
-    ##  4 Wellbeing                               -0.631 ieu-b-4852 1.27e- 26 7.04e- 27
-    ##  5 Feeling tense                            0.585 ebi-a-GCS… 8.55e-219 3.80e-218
-    ##  6 Irritable mood                           0.496 ebi-a-GCS… 6.67e-143 1.50e-142
-    ##  7 Feeling worry                            0.447 ebi-a-GCS… 1.96e-144 4.48e-144
-    ##  8 Feeling nervous                          0.403 ebi-a-GCS… 2.25e- 85 3.02e- 85
-    ##  9 bipolar disorder                         0.402 ieu-b-41   1.10e- 77 1.37e- 77
-    ## 10 Trauma exposure in major depressive d…   0.400 ebi-a-GCS… 3.16e- 24 1.66e- 24
-    ## 11 Ever smoked                              0.390 ieu-b-4858 1.16e- 50 1.07e- 50
-    ## 12 schizophrenia                            0.374 ieu-b-42   1.57e- 97 2.36e- 97
-    ## 13 Schizophrenia                            0.365 ieu-a-22   7.32e- 98 1.13e- 97
-    ## 14 Bipolar disorder                         0.356 ieu-a-801  3.96e- 24 2.08e- 24
-    ## 15 Worry too long after an embarrassing …   0.343 ebi-a-GCS… 3.17e- 63 3.39e- 63
-    ## 16 smoking initiation                       0.341 ieu-b-4877 9.66e- 92 1.39e- 91
-    ## 17 Age Of Smoking Initiation               -0.307 ieu-b-24   6.73e- 41 5.12e- 41
-    ## 18 Cigarettes per Day                       0.303 ieu-b-25   1.83e- 23 9.46e- 24
-    ## 19 Cigarettes smoked per day                0.303 ieu-b-142  1.83e- 23 9.44e- 24
-    ## 20 Parental longevity (father's age at d…  -0.285 ebi-a-GCS… 2.42e- 21 1.17e- 21
-    ## 21 Coronary artery disease                  0.278 ebi-a-GCS… 6.98e- 40 5.20e- 40
-    ## 22 Strenuous sports or other exercises     -0.274 ebi-a-GCS… 3.79e- 40 2.84e- 40
-    ## 23 Coronary artery disease                  0.246 ebi-a-GCS… 2.58e- 45 2.13e- 45
-    ## 24 Type 2 diabetes                          0.215 ebi-a-GCS… 1.38e- 24 7.40e- 25
-    ## 25 Anorexia Nervosa                         0.213 ieu-a-1186 3.03e-  7 9.13e-  8
-    ## 26 C-reactive protein                       0.211 ieu-b-4764 1   e-  4 2.49e-  5
-    ## 27 Knee osteoarthritis                      0.206 ebi-a-GCS… 1.61e- 20 7.67e- 21
-    ## 28 Parental longevity (combined parental…   0.205 ebi-a-GCS… 4.52e- 14 1.82e- 14
-    ## 29 25 hydroxyvitamin D level               -0.204 ieu-b-4808 1.40e- 22 7.04e- 23
-    ## 30 College completion                      -0.200 ieu-a-836  2.09e- 13 8.23e- 14
-    ## 31 Allergic disease (asthma, hay fever o…   0.197 ebi-a-GCS… 6.03e- 19 2.77e- 19
-    ## 32 Years of schooling                      -0.196 ieu-a-755  4.43e- 13 1.72e- 13
-    ## 33 Years of schooling                      -0.184 ieu-a-1010 8.99e- 18 3.96e- 18
-    ## 34 25 hydroxyvitamin D level               -0.181 ieu-b-4812 2.91e- 19 1.34e- 19
-    ## 35 Waist-to-hip ratio                       0.181 ieu-a-77   5.11e- 10 1.74e- 10
-    ## 36 Waist-to-hip ratio                       0.181 ieu-a-76   2.29e- 10 7.94e- 11
-    ## 37 Years of schooling                      -0.179 ieu-a-1001 1.08e- 22 5.45e- 23
-    ## 38 Transferrin                              0.176 ieu-a-1052 1.77e-  2 3.63e-  3
-    ## 39 Years of schooling                      -0.173 ieu-b-4836 3.10e- 10 1.07e- 10
-    ## 40 Accelerometer-based physical activity…  -0.172 ebi-a-GCS… 5.61e- 13 2.16e- 13
-    ## # … with 137 more rows
+    ## Adding missing grouping variables: `subcategory`
+
+    ## # A tibble: 42 × 6
+    ## # Groups:   subcategory [20]
+    ##    subcategory                trait                  rg     se       FDR id     
+    ##    <chr>                      <chr>               <dbl>  <dbl>     <dbl> <chr>  
+    ##  1 Aging                      telomere length   -0.124  0.0199 1.81e- 10 ieu-b-…
+    ##  2 Anthropometric             Waist-to-hip rat…  0.181  0.0285 7.94e- 11 ieu-a-…
+    ##  3 Anthropometric             Hip circumference  0.142  0.0203 9.76e- 13 ieu-a-…
+    ##  4 Anthropometric             Waist circumfere…  0.142  0.0202 7.91e- 13 ieu-a-…
+    ##  5 Anthropometric             body mass index    0.141  0.0141 1.41e- 23 ieu-b-…
+    ##  6 Anthropometric             Obesity class 1    0.105  0.0204 7.33e-  8 ieu-a-…
+    ##  7 Anthropometric             Height            -0.0518 0.0158 2.33e-  4 ieu-a-…
+    ##  8 Autoimmune / inflammatory  Crohn's disease    0.102  0.0218 9.04e-  7 ieu-a-…
+    ##  9 Behavioural                smoking initiati…  0.341  0.0168 1.39e- 91 ieu-b-…
+    ## 10 Behavioural                Age Of Smoking I… -0.307  0.0229 5.12e- 41 ieu-b-…
+    ## 11 Behavioural                Cigarettes smoke…  0.303  0.0304 9.44e- 24 ieu-b-…
+    ## 12 Behavioural                Alcoholic drinks…  0.079  0.0199 1.77e-  5 ieu-b-…
+    ## 13 Biomarker                  Urinary sodium-p…  0.0817 0.025  2.55e-  4 ieu-b-…
+    ## 14 Blood pressure             diastolic blood …  0.0348 0.0134 1.98e-  3 ieu-b-…
+    ## 15 Bone                       Femoral neck bon… -0.0578 0.0267 6.14e-  3 ieu-a-…
+    ## 16 Cancer                     ER+ Breast cance…  0.103  0.0266 2.49e-  5 ieu-a-…
+    ## 17 Cancer                     Breast cancer (i…  0.0936 0.0254 4.88e-  5 ieu-a-…
+    ## 18 Education                  College completi… -0.200  0.0273 8.23e- 14 ieu-a-…
+    ## 19 Education                  Years of schooli… -0.158  0.0155 1.04e- 24 ieu-a-…
+    ## 20 Glycemic                   Fasting glucose    0.0607 0.0308 9.52e-  3 ieu-b-…
+    ## 21 Haemotological             Platelet count     0.068  0.0262 2.04e-  3 ieu-a-…
+    ## 22 Hemodynamic                Heart rate         0.0767 0.0302 2.32e-  3 ieu-a-…
+    ## 23 Immune system              C-Reactive prote…  0.106  0.0232 1.43e-  6 ieu-b-…
+    ## 24 Lipid                      triglycerides      0.159  0.0188 1.23e- 17 ieu-b-…
+    ## 25 Lipid                      HDL cholesterol   -0.130  0.0179 1.72e- 13 ieu-b-…
+    ## 26 Lipid                      apolipoprotein A… -0.0953 0.0187 1.07e-  7 ieu-b-…
+    ## 27 Lipid                      LDL cholesterol   -0.0674 0.0188 7.24e-  5 ieu-b-…
+    ## 28 Metal                      Transferrin        0.176  0.0742 3.63e-  3 ieu-a-…
+    ## 29 Personality                Neuroticism        0.658  0.0221 1.20e-193 ieu-a-…
+    ## 30 Psychiatric / neurological bipolar disorder   0.402  0.0215 1.37e- 77 ieu-b-…
+    ## 31 Psychiatric / neurological Schizophrenia      0.365  0.0174 1.13e- 97 ieu-a-…
+    ## 32 Psychiatric / neurological Anorexia Nervosa   0.213  0.0416 9.13e-  8 ieu-a-…
+    ## 33 Psychiatric / neurological multiple scleros…  0.110  0.0229 4.07e-  7 ieu-b-…
+    ## 34 Reproductive aging         Age at menarche   -0.117  0.0186 1.18e- 10 ieu-a-…
+    ## 35 Sleeping                   Sleep duration    -0.084  0.0297 1.00e-  3 ieu-a-…
+    ## 36 Sleeping                   Chronotype        -0.0594 0.024  2.79e-  3 ieu-a-…
+    ## 37 <NA>                       Neuroticism        0.671  0.0246 2.28e-163 ebi-a-…
+    ## 38 <NA>                       Wellbeing         -0.631  0.0591 7.04e- 27 ieu-b-…
+    ## 39 <NA>                       Feeling tense      0.585  0.0185 3.80e-218 ebi-a-…
+    ## 40 <NA>                       Irritable mood     0.496  0.0195 1.50e-142 ebi-a-…
+    ## 41 <NA>                       Trauma exposure …  0.400  0.0393 1.66e- 24 ebi-a-…
+    ## 42 <NA>                       Ever smoked        0.390  0.0261 1.07e- 50 ieu-b-…

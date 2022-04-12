@@ -61,18 +61,6 @@ summarize(max_gov=max(abs(gcov_int)))
 
 ```
 
-FDR corrected associations, removing phenotypes from UKB and with large genetic covariance intercepts
-
-```{r}
-
-ldsc_rg_mr_candidates %>%
-group_by(subcategory) %>%
-filter(rg==max(rg)) %>%
-filter(p==min(p)) %>%
-select(-id)
-
-```
-
 Plot rg for known subcategories
 ```{r rg_subcats}
 
@@ -90,8 +78,8 @@ Compare new and previous results
 ldsc_rg_full_howard <-
 ldsc_rg_info %>%
 filter(dataset %in% c('full', 'howard')) %>%
-select(dataset, rg, se, p, gcov_int, id, trait) %>%
-pivot_wider(id_cols=c(id, trait),
+select(dataset, rg, se, p, gcov_int, id, trait, subcategory) %>%
+pivot_wider(id_cols=c(subcategory, id, trait),
             names_from=dataset,
             values_from=c(rg, se, p, gcov_int))
 ```
@@ -114,7 +102,7 @@ mutate(q_full=fdrtool::fdrtool(p_full, statistic='p', plot=FALSE)$qval,
 
 ldsc_rg_full_howard_fdr %>%
 filter(p_full <= 0.05, q_full <= 0.05, q_howard > 0.05) %>%
-select(trait, rg_full, q_full) %>%
+select(trait, rg_full, p_full, q_full) %>%
 arrange(desc(abs(rg_full))) %>%
 print(n=Inf)
 
@@ -126,8 +114,13 @@ Non-UKB/overlapping phenotypes sorted by magnitude of genetic correlation
 
 ldsc_rg_full_howard_fdr %>%
     filter(!str_detect(id, 'ukb'), p_full <= 0.05, q_full <= 0.05, abs(gcov_int_full) <= 0.05) %>%
-    arrange(desc(abs(rg_full))) %>%
-    select(trait, rg_full, id, p=p_full, q=q_full) %>%
-    print(n=40)
+    group_by(subcategory, word(str_to_lower(trait), 1)) %>%
+    filter(p_full == min(p_full)) %>% 
+    filter(rg_full == max(rg_full)) %>%
+    arrange(subcategory, desc(abs(rg_full))) %>%
+    group_by(subcategory) %>%
+    slice(1:6) %>%
+    select(trait, rg=rg_full, se=se_full, FDR=q_full, id) %>%
+    print(n=Inf)
 
 ```
