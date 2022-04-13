@@ -82,6 +82,13 @@ select(dataset, rg, se, p, gcov_int, id, trait, subcategory) %>%
 pivot_wider(id_cols=c(subcategory, id, trait),
             names_from=dataset,
             values_from=c(rg, se, p, gcov_int))
+			
+ggplot(filter(ldsc_rg_full_howard, se_full <= 0.5),
+	aes(x=rg_full,
+	    y=rg_howard, ymin=rg_howard-se_howard, ymax=rg_howard+se_howard)) +
+geom_segment(aes(y=rg_howard, yend=rg_howard, x=rg_full-se_full, xend=rg_full+se_full), alpha=0.1) +
+geom_pointrange(alpha=0.1) 
+
 ```
 
 Results that were `NA` with the previous sumstats
