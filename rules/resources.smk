@@ -7,12 +7,12 @@ rule resources_1kg_bed_download:
 	shell: "cp {input} {output}"
 
 rule resources_1kg_phase3_psam_download:
-	input: HTTP.remote("https://www.dropbox.com/s/yozrzsdrwqej63q/phase3_corrected.psam?dl=1", keep_local=False)
+	input: HTTP.remote("https://www.dropbox.com/s/6ppo144ikdzery5/phase3_corrected.psam?dl=1", keep_local=False)
 	output: "resources/1kg/phase3_corrected.psam"
 	shell: "cp {input} {output}"	
     
 rule resources_1kg_phase3_pgen_download:
-    input: HTTP.remote("https://www.dropbox.com/s/afvvf1e15gqzsqo/all_phase3.pgen.zst?dl=1", keep_local=False)
+    input: HTTP.remote("https://www.dropbox.com/s/y6ytfoybz48dc0u/all_phase3.pgen.zst?dl=1", keep_local=False)
     output: temp("resources/1kg/all_phase3.pgen.zst")
     shell: "cp {input} {output}"	
     
@@ -23,7 +23,7 @@ rule resources_1kg_phase3_pgen_decompress:
     shell: "plink2 --zst-decompress {input} > {output}"
 
 rule resources_1kg_phase3_pvar_download:
-    input: HTTP.remote("https://www.dropbox.com/s/op9osq6luy3pjg8/all_phase3.pvar.zst?dl=1", keep_local=False)
+    input: HTTP.remote("https://www.dropbox.com/s/odlexvo8fummcvt/all_phase3.pvar.zst?dl=1", keep_local=False)
     output: "resources/1kg/all_phase3.pvar.zst"
     shell: "cp {input} {output}"	
 	
@@ -42,6 +42,22 @@ rule resources_1kg_phase3_frq:
     --pvar {input.pvar} \
     --pgen {input.pgen} \
     --freq 'cols'='chrom,pos,ref,alt,reffreq,altfreq,nobs' \
+    --keep-if SuperPop == {params.popname} \
+    --rm-dup 'exclude-all' \
+    --max-alleles 2 \
+    --out {params.prefix}
+    """
+
+## convert to BED
+rule resources_1kg_phase3_bed:
+    input: psam="resources/1kg/phase3_corrected.psam", pvar="resources/1kg/all_phase3.pvar.zst", pgen="resources/1kg/all_phase3.pgen"
+    params: prefix="resources/1kg/all_phase3.{ancestries}", popname=lambda wildcards: wildcards.ancestries.upper()
+    output: expand("resources/1kg/all_phase3.{{ancestries}}.{ext}", ext=['bed', 'bim', 'fam'])
+    conda: "../envs/cojo.yaml"
+    shell: """plink2 --psam {input.psam} \
+    --pvar {input.pvar} \
+    --pgen {input.pgen} \
+    --make-bed \\
     --keep-if SuperPop == {params.popname} \
     --rm-dup 'exclude-all' \
     --max-alleles 2 \
