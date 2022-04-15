@@ -1,31 +1,50 @@
+####################
+## Gene Priorisation
+####################
+
 ## GeneMatrix.tsv.gz downloaded from https://figshare.com/articles/dataset/geneMatrix/13335548 on 31st January 2022
+rule genes_genematrix:
+    output: "resources/fastBAT/geneMatrix.tsv.gz"
+    shell: "curl -L https://figshare.com/ndownloader/files/28235607 > {output}"
+
 
 ## Remove double quotes, select only protein_coding genes (N = 19878) and those with known positions on hg19
-zcat geneMatrix.tsv.gz | sed 's/\"//g' | awk '($5 == "protein_coding" && $12 ~ /^chr/)' | awk -v range=3 '{print substr($12,range+1),$13,$14,$3}' > geneMatrixForFastBAT.txt
+rule genes_genematrix_protein:
+    input: "resources/fastBAT/geneMatrix.tsv.gz"
+    output: "resources/fastBAT/geneMatrix.protein.txt"
+    shell: """
+    zcat {input} | sed 's/\"//g' | awk '($5 == "protein_coding" && $12 ~ /^chr/)' | awk -v range=3 '{{print substr($12,range+1),$13,$14,$3}}' > {output}
+    """
 
 ## Remove double quotes, select all genes (N = 58844) with known positions on hg19
-zcat geneMatrix.tsv.gz | sed 's/\"//g' | awk '($12 ~ /^chr/)' | awk -v range=3 '{print substr($12,range+1),$13,$14,$3}' > AllgeneMatrixForFastBAT.txt
-
+rule genes_genematrix_all:
+    input: "resources/fastBAT/geneMatrix.tsv.gz"
+    output: "resources/fastBAT/geneMatrix.all.txt"
+    shell: """
+    zcat {input} | sed 's/\"//g' | awk '($12 ~ /^chr/)' | awk -v range=3 '{{print substr($12,range+1),$13,$14,$3}}' > {output}
+    """
 
 ## Extract header row and apply MAF >= 0.01 and infoscore > 0.8 to summary stats
-
-zcat daner_pgc_mdd_full_eur_hg19_v3.49.24.11.neff.gz | head -n 1 | awk '{print $2, $11}' > mdd_fastbat_neff_maf01_info80.txt
-zcat daner_pgc_mdd_full_eur_hg19_v3.49.24.11.neff.gz | awk '($7 >= 0.01 && $7 <= 0.99 && $8 >= 0.8)' | awk '{print $2, $11}' >> mdd_fastbat_neff_maf01_info80.txt
-
-
-## Run fastBAT within GCTA using qc'd summary stats and geneMatrix protein coding gene list (N = 19878)
-
-./gcta_v1.94.0Beta_linux_kernel_3_x86_64/gcta_v1.94.0Beta_linux_kernel_3_x86_64_static \
---bfile all_phase3.eur \
---fastBAT mdd_fastbat_neff_maf01_info80.txt \
---fastBAT-gene-list geneMatrixForFastBAT.txt \
---out mdd_fastbat_geneMatrix
+rule genes_fastbat_assoc:
+    input: "results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.gz"
+    output: "results/fastBAT/pgc_mdd_{cohorts}_{ancestries}_v{version}.assoc.txt"
+    shell: "zcat {input} | awk '{{if(NR == 1) {{print $2, $11}} else if($7 >= 0.01 && $7 <= 0.99 && $8 >= 0.8) {{print $2, $11}}}}' > {output}"
 
 
-## Run fastBAT within GCTA using qc'd summary stats and all geneMatrix gene list (N = 58844)
+## Run fastBAT within GCTA
+rule genes_fastbat:
+    input: assoc="results/fastBAT/pgc_mdd_{cohorts}_{ancestries}_v{version}.assoc.txt", genelist="resources/fastBAT/geneMatrix.{genes}.txt", bed="resources/1kg/all_phase3.{ancestries}.bed"
+    output: "results/fastBAT/pgc_mdd_{cohorts}_{ancestries}_v{version}.{genes}.fbat"
+    params: prefix="results/fastBAT/pgc_mdd_{cohorts}_{ancestries}_v{version}.{genes}", bfile="resources/1kg/all_phase3.{ancestries}"
+    conda: "../envs/genes.yaml"
+    shell: """gcta64 \
+    --bfile {params.bfile} \
+    --fastBAT {input.assoc} \
+    --fastBAT-gene-list {input.genelist} \
+    --out {params.prefix} \
+    --threads 4
+    """
 
-./gcta_v1.94.0Beta_linux_kernel_3_x86_64/gcta_v1.94.0Beta_linux_kernel_3_x86_64_static \
---bfile all_phase3.eur \
---fastBAT mdd_fastbat_neff_maf01_info80.txt \
---fastBAT-gene-list AllgeneMatrixForFastBAT.txt \
---out mdd_fastbat_AllgeneMatrix
+# Run fastbat geneMatrix protein coding gene list (N = 19878) and all geneMatrix gene list (N = 58844)
+rule genes_fastbat_analyse:
+    input: expand("results/fastBAT/pgc_mdd_full_{ancestries}_v{version}.{genes}.fbat", ancestries=['eur'], version=analysis_version, genes=['protein', 'all'])

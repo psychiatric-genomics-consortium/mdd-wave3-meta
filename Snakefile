@@ -15,7 +15,7 @@ wildcard_constraints:
     
 # current European ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count].[Revision]
-analysis_version_eur = ["3.49.24.09"]
+analysis_version_eur = ["3.49.24.11"]
 analysis_version = analysis_version_eur
 
 # current East Asian ancestries analysis
@@ -34,6 +34,7 @@ include: "rules/meta_gsem.smk"
 include: "rules/metaqc.smk"
 include: "rules/meta_post.smk"
 include: "rules/cojo.smk"
+include: "rules/genes.smk"
 include: "rules/distribution.smk"
 include: "rules/finemapping.smk"
 include: "rules/open_gwas.smk"

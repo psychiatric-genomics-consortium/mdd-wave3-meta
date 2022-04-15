@@ -60,6 +60,7 @@ rule resources_1kg_phase3_bed:
     --make-bed \\
     --keep-if SuperPop == {params.popname} \
     --rm-dup 'exclude-all' \
+    --set-missing-var-ids @:# \
     --max-alleles 2 \
     --out {params.prefix}
     """
