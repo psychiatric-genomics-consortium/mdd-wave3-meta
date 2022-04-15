@@ -6,7 +6,6 @@ library(stringr)
 library(readr)
 library(GenomicSEM)
 
-
 # Trait sumstats
 sumstats <- snakemake@input$sumstats
 
@@ -51,7 +50,7 @@ mean_chisq <- as.numeric(str_extract(str_subset(covstruct_capture, "Mean Chi"), 
 
 lambda_gc <- as.numeric(str_extract(str_subset(covstruct_capture, "Lambda GC"), digit_regx))
 
-intercept <- as.numeric(str_extract(str_subset(covstruct_capture, "\"Intercept"), digit_regx))
+intercept <- as.numeric(str_extract(str_subset(covstruct_capture, "^Intercept"), digit_regx))
 
 h2_obs_match <- str_match(sapply(str_split(str_subset(covstruct_capture, "Total Observed Scale h2"), ":"), last), "(.+) \\((.+)\\)")
 h2_obs <- as.numeric(h2_obs_match[,2])

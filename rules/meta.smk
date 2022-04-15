@@ -65,6 +65,7 @@ cohorts_geno_eur=[['antpo', 'sa-qc4'],
 ['i2b3', 'sr-qc'],
 ['ihseu', 'sa-qc1'],
 ['iruts', 'sa-qc4'],
+['janpy', 'sa-qc3'],
 ['mazdr', 'sa-qc2'],
 ['mmi2', 'sr-qc'],
 ['mmo4', 'sr-qc'],
@@ -217,7 +218,7 @@ rule meta_ma:
     script: "../scripts/meta/ma.R"
     
 rule dentist:
-    input: "results/sumstats/dentist/ma/mdd_{cohort}.{ancestries}.hg19.{release}.ma"
+    input: ancient("results/sumstats/dentist/ma/mdd_{cohort}.{ancestries}.hg19.{release}.ma")
     params: popname=lambda wildcards: wildcards.ancestries.upper(), prefix="results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}"
     output: dentist="results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}.DENTIST.txt", outliers="results/sumstats/dentist/{cohort}/mdd_{cohort}.{ancestries}.hg19.{release}.{chr}.DENTIST.outliers.txt"
     shell: "resources/meta/DENTIST_1.1.0.0 --gwas-summary {input} --bfile {config[refdir]}/pop_{params.popname}/HRC.r1-1.EGA.GRCh37.chr{wildcards.chr}.impute.plink.{params.popname} --chrID {wildcards.chr} --maf 0.001 --delta-MAF 0.15 --out {params.prefix} --thread-num 16"

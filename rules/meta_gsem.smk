@@ -1,19 +1,24 @@
 # Structured meta-analysis in GenomicSEM
 
+# Grouping cohorts based on phenotypic measurement
+
 # study types
 # Clinical interview assessed (genotyped and sumstats)
-meta_clin_geno=['gep3', 'grdg', 'grnd', 'gsk2', 'gsmse', 'gsrdf', 'gsrdg', 'gsrdi', 'gsrdp', 'i2b3', 'ihseu', 'jjp2', 'mazdr', 'mmi2', 'mmo4', 'mrive', 'muen2', 'muspc', 'nes1', 'pfm2', 'qi3c', 'qi6c', 'qio2', 'rad3', 'rage', 'rai2', 'rau2', 'rde4', 'roc3', 'rot4', 'shp0', 'shpt', 'stm2', 'topmd', 'trail', 'twg2', 'yapeu']
+# In-person interviews, clinic samples, review of medical records
+meta_clin_geno=['antpo', 'bidi1', 'boma', 'cardm', 'cof3', 'col3', 'edi2', 'emcbp', 'formm', 'gens', 'gep3', 'grdg', 'grnd', 'gsk2', 'gsmse', 'gsrdf', 'gsrdg', 'gsrdi', 'gsrdp', 'i2b3', 'ihseu', 'mazdr', 'mmi2', 'mmo4', 'mrive', 'muen2', 'muspc', 'nes1', 'pfm2', 'qi3c', 'qi6c', 'qio2', 'rad3', 'rage', 'rai2', 'rau2', 'rde4', 'roc3', 'rot4', 'shp0', 'shpt', 'stm2', 'topmd', 'trail', 'twg2', 'yapeu']
 meta_clin_sums=['GenScot', 'lgic2', 'tkda1']
 
 # Health register/EHR
+# Diagnostic record codes
 meta_ehr_geno=['iruts']
 meta_ehr_sums = ['iPSYCH', 'deCODE', 'HUNT', 'BioVU', 'PBK', 'SHARE', 'MoBa', 'MVP', 'GERA', 'DBDS', 'EXCEED', 'FinnGen', 'PREFECT', 'ESTBB']
 
-# questionnaire derived diagnosis
+# Questionnaire-derived diagnosis, completed by the participant
 meta_quest_geno = ['prote']
 meta_quest_sums = ['AGDS', 'ALSPAC', 'BASIC', 'STAGE', 'UKBB']
+meta_questnoukbb_sums = ['AGDS', 'ALSPAC', 'BASIC', 'STAGE']
 
-# self-reported diagnosis
+# Self-reported diagnosis
 meta_selfrep_geno = []
 meta_selfrep_sums = ['23andMe', 'Airwave']
 
@@ -78,7 +83,7 @@ rule meta_gsem_postimp:
         dataset=lambda wildcards, input: os.path.basename(input.dataset)
     output: touch("results/meta/gsem/{cohorts}_{ancestries}_v{version}.done")
     log: "logs/meta/gsem/pgc_mdd_meta_{cohorts}_{ancestries}_hg19_v{version}.postimp_navi.log"
-    shell: "cd results/meta/gsem; postimp_navi --result {params.dataset} --popname {params.popname} --onlymeta --nolahunt --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
+    shell: "cd results/meta/gsem; postimp_navi --result {params.dataset} --popname {params.popname} --onlymeta --nolahunt --noldsc --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
 	
 rule install_gsem:
 	output: "resources/ldsc/install_genomicsem.done"
@@ -94,11 +99,11 @@ rule install_ggmiami:
 # Neff as input sample size allows unbiased estimates of ldsc h2: https://www.medrxiv.org/content/10.1101/2021.09.22.21263909v1
 rule meta_gsem_neff:
     input: "results/meta/gsem/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
-    output: "results/meta/gsem/neff/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.txt"
+    output: temp("results/meta/gsem/neff/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.txt")
     shell: """zcat {input} | awk '{{if(NR == 1) {{print $1, $2, $3, $4, $5, "MAF", $8, $9, $10, $11, "N"}} else {{print $1, $2, $3, $4, $5, $7, $8, $9, $10, $11, 2*$19}}}}' > {output}"""
     
 rule meta_gsem_munge:
-    input: sumstats="results/meta/gsem/neff/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.txt", hm3="resources/ldsc/w_hm3.snplist"
+    input: sumstats="results/meta/gsem/neff/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.txt", hm3="resources/ldsc/w_hm3.snplist", gsem=ancient("resources/ldsc/install_genomicsem.done")
     params: prefix="results/meta/gsem/munged/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}"
     output: "results/meta/gsem/munged/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.sumstats.gz"
     conda: "../envs/gsem.yaml"

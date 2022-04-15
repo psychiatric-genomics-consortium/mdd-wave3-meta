@@ -3,3 +3,8 @@ channels:
   - bioconda
 dependencies:
   - gcta =1.93.2beta
+  - python=3.10
+  - numpy
+  - scipy
+  - pandas
+  - scikit-learn
