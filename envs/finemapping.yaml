@@ -25,3 +25,4 @@ dependencies:
   - r-expm
   - pandas-plink
   - r-remotes
+  - r-data.table

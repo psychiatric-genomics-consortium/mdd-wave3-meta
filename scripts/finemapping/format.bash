@@ -12,10 +12,13 @@ echo "Duplicate variant positions:"
 gunzip -c $input | awk '{print $1"_"$3}' | sort | uniq -d | wc -l
 
 # Limit to necessary columns, rename FREQ column
+# Restrict to variants with Neff/2 > 80% of max
+
+max=$(gunzip -c $input | sort -k19,19gr | awk 'NR == 1 {print $19}')
 
 cat \
 <(echo "CHR SNP BP A1 A2 FREQ INFO OR SE P N") \
-<(gunzip -c $input | awk 'NR > 1 {print $1, $2, $3, $4, $5, $7, $8, $9, $10, $11, $17 + $18}') \
+<(gunzip -c $input | awk -v max=$max 'NR > 1 && $19 > 0.8*max {print $1, $2, $3, $4, $5, $7, $8, $9, $10, $11, $17 + $18}') \
 > $outputroot
 
 # Identify multiallelics for drop
