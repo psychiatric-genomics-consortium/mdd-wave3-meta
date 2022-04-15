@@ -124,6 +124,7 @@ rule cojo_region_bgen:
     input: bgen="resources/cojo/ukb/ukb_imp_chr{chr}_v3.bgen", bgi="resources/cojo/ukb/ukb_imp_chr{chr}_v3.bgen.bgi", regions="results/cojo/{analysis}.regions"
     output: temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bgen")
     params: chr0=lambda wildcards: wildcards.chr.zfill(2)
+    group: "cojo"
     conda: "../envs/cojo.yaml"
     shell: "bgenix -g {input.bgen} -incl-range {params.chr0}:{wildcards.start}-{wildcards.stop} > {output}"
     
@@ -132,12 +133,14 @@ rule cojo_region_bgen:
 rule cojo_varids:
     input: "results/cojo/daner_{analysis}.qc.gz"
     output: "results/cojo/{analysis}/{chr}:{start}-{stop}.varids"
+    group: "cojo"
     shell: """zcat {input} | awk '{{if(NR > 1 && $1 == {wildcards.chr} && {wildcards.start} <= $3 && $3 <= {wildcards.stop}) {{print $1, $2, 0, $3, $4, $5}}}}' > {output}"""
  
 # list of SNPs to keep 
 rule cojo_snplist:
     input: "results/cojo/{analysis}/{chr}:{start}-{stop}.varids"
     output: "results/cojo/{analysis}/{chr}:{start}-{stop}.snplist"
+    group: "cojo"
     shell: "cat {input} | awk '{{print $2}}' > {output}"
     
     
@@ -149,7 +152,8 @@ rule cojo_region_bed:
     input: bgen="results/cojo/{analysis}/{chr}:{start}-{stop}.bgen", varids="results/cojo/{analysis}/{chr}:{start}-{stop}.varids", snplist="results/cojo/{analysis}/{chr}:{start}-{stop}.snplist", sample= "resources/cojo/ukb/ukb_imp_chr{chr}_v3.sample", eur_ids="results/cojo/ukb_eur.ids", rel_ids="results/cojo/ukb_rel.dat"
     conda: "../envs/cojo.yaml"
     params: prefix="results/cojo/{analysis}/{chr}:{start}-{stop}"
-    output: temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bed"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.fam"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bim")
+    output: temp("results/cojo/{analysis}/{chr}:{start}-{stop}.bed"), temp("results/cojo/{analysis}/{chr}:{start}-{stop}.fam"), "results/cojo/{analysis}/{chr}:{start}-{stop}.bim"
+    group: "cojo"
     shell: """plink2 --make-bed --bgen {input.bgen} 'ref-first' \
     --sample {input.sample} --double-id \
     --keep {input.eur_ids} --remove {input.rel_ids} \
@@ -164,21 +168,22 @@ rule cojo_slct:
     conda: "../envs/cojo.yaml"
     params: prefix="results/cojo/{analysis}/{chr}:{start}-{stop}"
     output: jma="results/cojo/{analysis}/{chr}:{start}-{stop}.jma.cojo", jma_ldr="results/cojo/{analysis}/{chr}:{start}-{stop}.ldr.cojo"
+    group: "cojo"
     shell: "gcta64 --bfile {params.prefix} --cojo-file {input.ma} --cojo-slct --out {params.prefix}; if grep -e 'No SNPs have been selected' {params.prefix}.log; then touch {output}; fi"
     
 # parse regions from the region list file to determine inputs
 # cojo_parse_regions() returns a list ["CHR:START-STOP", "CHR:START-STOP", ...]
 rule cojo_regions_analyse:
-    input: cojo=lambda wildcards: expand("results/cojo/{analysis}/{region}.jma.cojo", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), bim=lambda wildcards: expand("results/cojo/{analysis}/{region}.bim", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), daner="results/cojo/daner_{analysis}.qc.gz", clump="results/distribution/daner_{analysis}.gz.p4.clump.areator.sorted.1mhc"
+    input: cojo=lambda wildcards: expand("results/cojo/{analysis}/{region}.jma.cojo", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), bim=lambda wildcards: expand("results/cojo/{analysis}/{region}.bim", analysis=wildcards.analysis, region=cojo_parse_regions("results/cojo/" + wildcards.analysis + '.regions', meta_qc_params['cojo_kb'])), daner="results/cojo/daner_{analysis}.qc.gz", clump="results/distribution/daner_{analysis}.gz.p4.clump.areator.sorted.1mhc.txt"
     conda: "../envs/meta.yaml"
     log: "logs/cojo/{analysis}.log"
     output: cojo="results/cojo/{analysis}.cojo", singletons="results/cojo/{analysis}.singleton.cojo"
     script: "../scripts/meta/cojo.R"
     
 rule cojo_table_eur:
-    input: expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.cojo", version=analysis_version)
-    output: "docs/tables/meta_snps_{cohorts}_{ancestries}.cojo.txt"
-    shell: "cp {input} {output}"
+    input: cojo=expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.cojo", version=analysis_version), singletons=expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.singleton.cojo", version=analysis_version)
+    output: cojo="docs/tables/meta_snps_{cohorts}_eur.cojo.txt", singletons="docs/tables/meta_snps_{cohorts}_eur.cojo.singleton.txt"
+    shell: "cp {input.cojo} {output.cojo}; cp {input.singletons} {output.singletons}"
 
 # run all COJO analyses
 rule cojo_analyse:
@@ -203,6 +208,28 @@ rule cojo_howard:
     input: HTTP.remote("https://static-content.springer.com/esm/art%3A10.1038%2Fs41593-018-0326-7/MediaObjects/41593_2018_326_MOESM3_ESM.xlsx", keep_local=False)
     output: "docs/tables/previous/howard2019_table_s1.xlsx"
     shell: "cp {input} {output}"
+    
+# download GWAS catalogue hits for unipolar depression
+# https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761
+# rule cojo_gwas_catalog:
+#     input: HTTP.remote("https://www.ebi.ac.uk/gwas/api/search/downloads/full", keep_local=False)
+#     output: "docs/tables/previous/gwas_catalog_EFO_0003761.txt"
+#     shell: "cat {input} | grep "
+
+# find range of tagging variants for previous sumstats
+rule cojo_previous_variants:
+    input: levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", catalog="docs/tables/previous/gwas-association-EFO_0003761-withChildTraits.tsv.bz2", bim="resources/1kg/1kg_phase1_all.bim"
+    conda: "../envs/meta.yaml"
+    output: "results/cojo/previous/previous.snpid"
+    script: "../scripts/meta/cojo_previous.R"
+    
+rule cojo_previous_tagging_variants:
+    input: snpids="results/cojo/previous/previous.snpid", bed="resources/1kg/1kg_phase1_all.bed", bim="resources/1kg/1kg_phase1_all.bim", fam="resources/1kg/1kg_phase1_all.fam", dups="resources/1kg/1kg_phase1_all.dups"
+    conda: "../envs/meta.yaml"
+    params: prefix="results/cojo/previous/previous"
+    output: "results/cojo/previous/previous.tags.list"
+    shell: "plink --bfile resources/1kg/1kg_phase1_all --maf 0.01 --exclude {input.dups} --show-tags {input.snpids} --list-all --tag-kb 500 --tag-r2 0.8 --out {params.prefix}"
+    
 
 # install genpwr R library
 rule cojo_install_genpwr:
@@ -212,8 +239,16 @@ rule cojo_install_genpwr:
     Rscript -e "devtools::install_github('camillemmoore/Power_Genetics', subdir='genpwr')"
     """
 
+# install ggman R library
+rule cojo_install_ggman:
+    output: touch("resources/cojo/install_ggman.done")
+    conda: "../envs/meta.yaml"
+    shell: """
+    Rscript -e "devtools::install_github('drveera/ggman')"
+    """
+
 rule cojo_docs:
-    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", rp_clump=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc", version=analysis_version), rmd="docs/cojo.Rmd", genpwr=rules.cojo_install_genpwr.output
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", catalog="docs/tables/previous/gwas-association-EFO_0003761-withChildTraits.tsv.bz2", rp_clump="docs/tables/meta_snps_full_eur.clump.txt", tags="results/cojo/previous/previous.tags.list", daner=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.neff.gz", version=analysis_version), rmd="docs/cojo.Rmd", genpwr=ancient(rules.cojo_install_genpwr.output), ggman=ancient(rules.cojo_install_ggman.output)
     params: qc=meta_qc_params
     output: "docs/cojo.md"
     conda: "../envs/meta.yaml"

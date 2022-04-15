@@ -5,7 +5,7 @@ rule open_gwas_install_ieugwasr:
     output: touch("resources/open_gwas/install_ieugwasr.done")
     conda: "../envs/open.yaml"
     shell: """
-    Rscript -e "devtools::install_github('mrcieu/ieugwasr')"
+    Rscript -e "devtools::install_github('mrcieu/ieugwasr', upgrade='never')"
     """
     
 # Install the GWAS VCF R library
@@ -13,7 +13,7 @@ rule open_gwas_install_gwasvcf:
     output: touch("resources/open_gwas/install_gwasvcf.done")
     conda: "../envs/open.yaml"
     shell: """
-    Rscript -e "devtools::install_github('mrcieu/gwasvcf')"
+    Rscript -e "devtools::install_github('mrcieu/gwasvcf', upgrade='never')"
     """
 
 # Do a lookup of all top SNPs 
@@ -22,7 +22,7 @@ rule open_gwas_install_gwasvcf:
 #  ieugwasr::get_access_token()
 # in R
 rule open_gwas_phewas_lookup:
-    input: "docs/tables/meta_snps_full_eur.cojo.txt", ieugwas="resources/open_gwas/install_ieugwasr.done"
+    input: ancient("docs/tables/meta_snps_full_eur.cojo.txt"), ieugwas=ancient("resources/open_gwas/install_ieugwasr.done")
     output: phewas="results/open_gwas/phewas.txt", gwasinfo="results/open_gwas/gwasinfo.txt"
     conda: "../envs/open.yaml"
     script: "../scripts/open/phewas.R"
@@ -49,14 +49,14 @@ rule open_gwas_fetch_dataset_index:
 
 # convert to text file
 rule open_gwas_vcf2txt:
-    input: vcf="resources/open_gwas/datasets/{dataset}.vcf.gz", tbi="resources/open_gwas/datasets/{dataset}.vcf.gz.tbi", hm3="resources/ldsc/w_hm3.snplist", gwasvcf_install="resources/open_gwas/install_gwasvcf.done", gwasinfo="results/open_gwas/gwasinfo.txt"
+    input: vcf="resources/open_gwas/datasets/{dataset}.vcf.gz", tbi="resources/open_gwas/datasets/{dataset}.vcf.gz.tbi", hm3=ancient("resources/ldsc/w_hm3.snplist"), gwasvcf_install=ancient("resources/open_gwas/install_gwasvcf.done"), gwasinfo=ancient("results/open_gwas/gwasinfo.txt")
     output: temp("resources/open_gwas/datasets/{dataset}.hm3.txt.gz")
     conda: "../envs/open.yaml"
     script: "../scripts/open/vcf2txt.R"
 
 # munge for LDSC
 rule open_gwas_munge:
-    input: txt="resources/open_gwas/datasets/{dataset}.hm3.txt.gz", ldsc=rules.ldsc_install.output, hm3="resources/ldsc/w_hm3.snplist"
+    input: txt="resources/open_gwas/datasets/{dataset}.hm3.txt.gz", ldsc=ancient(rules.ldsc_install.output), hm3=ancient("resources/ldsc/w_hm3.snplist")
     output: sumstats="resources/open_gwas/datasets/{dataset}.hm3.sumstats.gz"
     params: prefix="resources/open_gwas/datasets/{dataset}.hm3"
     conda: "../envs/ldsc.yaml"
@@ -64,7 +64,7 @@ rule open_gwas_munge:
     
 # genetic correlation
 rule open_gwas_ldsc_rg:
-    input: mdd="results/distribution/daner_pgc_mdd_{cohorts}_eur_hg19_v{version}.gz.ldsc.sumstats.gz",other="resources/open_gwas/datasets/{dataset}.hm3.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
+    input: mdd="results/ldsc/munged/pgc_mdd_{cohorts}_eur_hg19_v{version}.sumstats.gz",other="resources/open_gwas/datasets/{dataset}.hm3.sumstats.gz", w_ld=rules.ldsc_unzip_eur_w_ld_chr.output
     output: "results/open_gwas/ldsc/{cohorts}_eur_v{version}_{dataset}.rg.log"
     params: prefix="results/open_gwas/ldsc/{cohorts}_eur_v{version}_{dataset}.rg"
     conda: "../envs/ldsc.yaml"
@@ -91,13 +91,21 @@ rule open_gwas_ldsc_log:
     
 # list all IDs to fetch and run LDSC on, then generate report
 rule open_gwas_rg_all_datasets:
-    input: ldsc_full=expand("results/open_gwas/ldsc/full_eur_v{version}_{dataset}.rg.txt", version=analysis_version, dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo)), ldsc_noukbb=expand("results/open_gwas/ldsc/noUKBB_eur_v{version}_{dataset}.rg.txt", version=analysis_version, dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo)), gwasinfo="results/open_gwas/gwasinfo.txt"
+    input: ldsc_full=expand("results/open_gwas/ldsc/full_eur_v{version}_{dataset}.rg.txt",\
+                version=analysis_version,\
+                dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo)),\
+            ldsc_noukbb=expand("results/open_gwas/ldsc/noUKBB_eur_v{version}_{dataset}.rg.txt",\
+                version=analysis_version,\
+                dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo)),\
+            ldsc_previous=expand("results/open_gwas/ldsc/howard_eur_v2_{dataset}.rg.txt",\
+                dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo)),\
+            gwasinfo="results/open_gwas/gwasinfo.txt"
     conda: "../envs/reports.yaml"
-    output: full="docs/tables/ldsc_open_rg.txt", noukbb="docs/tables/ldsc_open_noUKBB.txt",  mr='docs/tables/ldsc_open_mr_candidates.txt'
+    output: full="docs/tables/ldsc_open_rg.txt",  mr='docs/tables/ldsc_open_mr_candidates.txt'
     script: "../scripts/open/ldsc.R"
     
 rule open_gwas:
-    input: full="docs/tables/ldsc_open_rg.txt", noukbb="docs/tables/ldsc_open_noUKBB.txt",  mr='docs/tables/ldsc_open_mr_candidates.txt'
+    input: full="docs/tables/ldsc_open_rg.txt",  mr='docs/tables/ldsc_open_mr_candidates.txt'
     conda: "../envs/reports.yaml"
     output: "docs/ldsc.md"
     script: "../docs/ldsc.Rmd"
