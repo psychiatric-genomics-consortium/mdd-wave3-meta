@@ -1,0 +1,174 @@
+---
+title: "PGC3 MDD PWAS"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    fig_caption: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = '../../')
+
+library(knitr)
+library(data.table)
+```
+
+<style>
+p.caption {
+  font-size: 1.5em;
+}
+</style>
+
+```{css, echo=F}
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+```
+
+***
+
+This documents the Proteome-wide Association Study (TWAS) component of the PGC MDD3 study.
+
+This analysis is another approach for identifying genes/proteins that underlie GWAS associations. There are some methodoloigcal parallels with TWAS analysis, however we will use the same PWAS study design as a recent publication that derived the PWAS and SMR pQTL data we will use: https://doi.org/10.1038/s41588-020-00773-z. This involves performing PWAS using ROSMAP data, PWAS using Banner et al data, and SMR using ROSMAP data. 
+
+The previous study 'replicated' associations by showing statistical significance in ROSMAP and Banner PWAS, and identified 'causal' associations by using ROSMAP data in FUSION-coloc (threshold not specified but is lower than 0.8) and SMR-HEIDI (appears to be standard p > 0.05) analyses.
+
+We will use the same approach but also show results that are significant in ROSMAP PWAS, and replicate in Banner PWAS and ROSMAP SMR analysis, and show evidence of colocalisation using ROSMAP-coloc, Banner-coloc, and ROSMAP-heidi.
+
+***
+
+# Results
+
+***
+
+```{R, eval=T, echo=F}
+# Read in the PWAS results from ROSMAP
+pwas_rosmap<-NULL
+for(i in 1:22){
+  if(i != 6){
+    pwas_rosmap<-rbind(pwas_rosmap, fread(paste0('results/pwas/PGC_MDD3_pwas_banner_chr',i)))
+  } else {
+    pwas_rosmap<-rbind(pwas_rosmap, fread(paste0('results/pwas/PGC_MDD3_pwas_banner_chr',i)))
+    pwas_rosmap<-rbind(pwas_rosmap, fread(paste0('results/pwas/PGC_MDD3_pwas_banner_chr',i,'.MHC')))
+  }
+}
+
+pwas_rosmap$TWAS.P.FDR<-p.adjust(pwas_rosmap$TWAS.P, method='fdr')
+pwas_rosmap$ID<-gsub('.*\\.','', pwas_rosmap$ID)
+
+pwas_rosmap_sig<-pwas_rosmap[pwas_rosmap$TWAS.P.FDR < 0.05,]
+pwas_rosmap_sig$rosmap.causal<-pwas_rosmap_sig$COLOC.PP4 > 0.8
+
+# Read in the PWAS results from Banner
+pwas_banner<-NULL
+for(i in 1:22){
+  if(i != 6){
+    pwas_banner<-rbind(pwas_banner, fread(paste0('results/pwas/PGC_MDD3_pwas_banner_chr',i)))
+  } else {
+    pwas_banner<-rbind(pwas_banner, fread(paste0('results/pwas/PGC_MDD3_pwas_banner_chr',i)))
+    pwas_banner<-rbind(pwas_banner, fread(paste0('results/pwas/PGC_MDD3_pwas_banner_chr',i,'.MHC')))
+  }
+}
+
+pwas_banner$ID<-gsub('.*\\.','', pwas_banner$ID)
+
+# Look up the significant genes in ROSMAP in Banner
+pwas_rosmap_sig_banner<-merge(pwas_rosmap_sig[,c('CHR','P0','P1','ID','TWAS.Z','TWAS.P','TWAS.P.FDR','COLOC.PP4','rosmap.causal'),with=F], pwas_banner[,c('ID','TWAS.Z','TWAS.P','COLOC.PP4'),with=F], by='ID', all.x=T)
+
+names(pwas_rosmap_sig_banner)[grepl('.x',names(pwas_rosmap_sig_banner))]<-paste0('rosmap.',gsub('.x','',names(pwas_rosmap_sig_banner)[grepl('.x',names(pwas_rosmap_sig_banner))]))
+names(pwas_rosmap_sig_banner)[names(pwas_rosmap_sig_banner) == 'TWAS.P.FDR']<-'rosmap.TWAS.P.FDR'
+
+names(pwas_rosmap_sig_banner)[grepl('.y',names(pwas_rosmap_sig_banner))]<-paste0('banner.',gsub('.y','',names(pwas_rosmap_sig_banner)[grepl('.y',names(pwas_rosmap_sig_banner))]))
+
+# Adjust banner replication results for multiple testing
+pwas_rosmap_sig_banner$banner.TWAS.P.FDR<-p.adjust(pwas_rosmap_sig_banner$banner.TWAS.P, method='fdr')
+
+# Define replication as being FDR significant in rosmap and banner and have same direction of effect.
+pwas_rosmap_sig_banner$banner_replicated<-pwas_rosmap_sig_banner$banner.TWAS.P.FDR < 0.05 & sign(pwas_rosmap_sig_banner$rosmap.TWAS.Z) == sign(pwas_rosmap_sig_banner$banner.TWAS.Z)
+
+pwas_rosmap_sig_banner$banner.causal<-pwas_rosmap_sig_banner$banner.COLOC.PP4 > 0.8
+
+# Show results that were significant in ROSMAP and Banner PWAS
+pwas_rep_table<-pwas_rosmap_sig_banner[pwas_rosmap_sig_banner$banner_replicated == T,]
+pwas_rep_table<-pwas_rep_table[order(pwas_rep_table$CHR, pwas_rep_table$P0),]
+pwas_rep_table<-pwas_rep_table[,c('ID','CHR','P0','P1','rosmap.TWAS.Z','rosmap.TWAS.P','rosmap.TWAS.P.FDR','banner.TWAS.Z','banner.TWAS.P','banner.TWAS.P.FDR'), with=F]
+
+pwas_rep_table$rosmap.TWAS.Z<-round(pwas_rep_table$rosmap.TWAS.Z,2)
+pwas_rep_table$banner.TWAS.Z<-round(pwas_rep_table$banner.TWAS.Z,2)
+
+pwas_rep_table$rosmap.TWAS.P<-format(pwas_rep_table$rosmap.TWAS.P, scientific = TRUE, digits = 2)
+pwas_rep_table$banner.TWAS.P<-format(pwas_rep_table$banner.TWAS.P, scientific = TRUE, digits = 2)
+pwas_rep_table$rosmap.TWAS.P.FDR<-format(pwas_rep_table$rosmap.TWAS.P.FDR, scientific = TRUE, digits = 2)
+pwas_rep_table$banner.TWAS.P.FDR<-format(pwas_rep_table$banner.TWAS.P.FDR, scientific = TRUE, digits = 2)
+
+names(pwas_rep_table)<-c('ID','CHR','P0','P1','Discovery PWAS Z','Discovery PWAS P',"Discovery PWAS P (FDR)",'Replication PWAS Z','Replication PWAS P',"Replication PWAS P (FDR)")
+
+```
+
+<details><summary>PWAS discovery and replication results for replicated proteins</summary>
+
+```{r, echo=F, eval=T}
+
+kable(pwas_rep_table, row.names = FALSE, caption='', digits = 32)
+
+```
+
+</details> 
+
+```{r, echo=F, eval=T}
+# Read in the SMR results
+smr_rosmap<-fread('results/pwas/rosmap_smr/rosmap_smr_res_GW.txt.gz')
+smr_rosmap<-smr_rosmap[,c('external_gene_name','b_SMR','p_SMR','p_HEIDI'), with=F]
+names(smr_rosmap)[1]<-'ID'
+smr_rosmap$p_SMR.FDR<-p.adjust(smr_rosmap$p_SMR, method='fdr')
+smr_rosmap$smr.causal<-smr_rosmap$p_HEIDI > 0.05
+
+pwas_rosmap_sig_banner_smr_rosmap<-merge(pwas_rosmap_sig_banner, smr_rosmap, by='ID', all.x=T)
+
+# Define replication as being FDR significant in rosmap PWAS and rosmap SMR and have same direction of effect.
+pwas_rosmap_sig_banner$smr_replicated<-pwas_rosmap_sig_banner_smr_rosmap$p_SMR.FDR < 0.05 & sign(pwas_rosmap_sig_banner_smr_rosmap$rosmap.TWAS.Z) == sign(pwas_rosmap_sig_banner_smr_rosmap$b_SMR) 
+
+coloc_heidi_table<-pwas_rosmap_sig_banner_smr_rosmap[pwas_rosmap_sig_banner_smr_rosmap$rosmap.causal == T & pwas_rosmap_sig_banner_smr_rosmap$smr.causal == T,]
+coloc_heidi_table<-coloc_heidi_table[,c('ID','CHR','P0','P1','rosmap.COLOC.PP4',"rosmap.causal","p_HEIDI","smr.causal"), with=F]
+names(coloc_heidi_table)<-c('ID','CHR','P0','P1','COLOC PP4',"COLOC (colocalised)",'HEIDI p-value',"HEIDI (colocalised)")
+  
+```
+
+<details><summary>Colocalised COLOC and HEIDI results for significant genes in the discovery PWAS</summary>
+
+```{r, echo=F, eval=T}
+
+kable(coloc_heidi_table, row.names = FALSE, caption='', digits = 32)
+
+```
+
+</details> 
+
+```{r, echo=F, eval=T}
+
+# Show results that were significant in ROSMAP, Banner PWAS and ROSMAP SMR (with consistent direction), and colocalised in ROSMAP PWAS, Banner PWAS ROSMAP SMR
+sig_coloc_all_table<-pwas_rosmap_sig_banner_smr_rosmap[pwas_rosmap_sig_banner$banner_replicated == T & pwas_rosmap_sig_banner$smr_replicated == T & pwas_rosmap_sig_banner_smr_rosmap$rosmap.causal == T & pwas_rosmap_sig_banner_smr_rosmap$banner.causal == T & pwas_rosmap_sig_banner_smr_rosmap$smr.causal == T,]
+
+sig_coloc_all_table$Direction<-'-'
+sig_coloc_all_table$Direction[sig_coloc_all_table$rosmap.TWAS.Z > 0]<-'+'
+
+sig_coloc_all_table<-sig_coloc_all_table[,c('ID','CHR','P0','P1','Direction'),]
+
+```
+
+<details><summary>Significant in discovery PWAS, replication PWAS and SMR, and colocalised using ROSMAP COLOC, Banner COLOC, and ROSMAP HEIDI</summary>
+
+```{r, echo=F, eval=T}
+
+kable(sig_coloc_all_table, row.names = FALSE, caption='', digits = 32)
+
+```
+
+</details> 
+

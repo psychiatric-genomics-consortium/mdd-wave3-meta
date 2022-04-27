@@ -93,4 +93,14 @@ for(i in 1:22){
   system(paste0('plink --bfile ', output_dir,'/all_phase3.chr',i,' --keep ',output_dir,'/super_pop_keep_files/EUR_samples.keep --maf 0.001 --make-bed --out ',output_dir,'/EUR/EUR_phase3.MAF_001.chr',i))
 }
 
+####################
+# Compute allele frequencies across all individuals
+####################
+
+for(chr in 1:22){
+  system(paste0('plink --bfile ',output_dir,'/EUR/EUR_phase3.MAF_001.chr',chr,' --freq --out ',output_dir,'/EUR/EUR_phase3.MAF_001.chr',chr))
+}
+
+# Delete the log and nosex files
+system(paste0('rm ',output_dir,'/EUR/EUR_phase3.MAF_001.chr*.log'))
 

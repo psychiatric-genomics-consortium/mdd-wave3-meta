@@ -18,14 +18,16 @@ The PGC3 MDD study is including the following analyses to identify genes associa
 - SMR: Overlapping GWAS and eQTL association
 - HEIDI: No evidence of horizontal pleitropy in SMR association
 
-# Harmonising data
+***
+
+# Read in results from each analysis
+
+***
+
+## Nearest gene
 
 ```{r, eval=T, echo=T}
 library(data.table)
-
-#########
-# Nearest gene to GWAS hits
-#########
 
 # Read in GWAS results
 # Currently we are using results only for lead indepdendant associations from COJO
@@ -33,126 +35,140 @@ library(data.table)
 indep_hits<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/docs/tables/meta_snps_full_eur.cojo.txt')
 
 # Link SNPs to nearest gene
-# This is already done by FUMA
-# Read in FUMA gene data
-fuma_gene<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/results/fuma/3.49.24.05/genes.txt')
+# Insert nearest gene information
+library(biomaRt)
+ensembl = useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl", GRCh=37)
+Genes<-getBM(attributes=c('external_gene_name','chromosome_name','start_position','end_position'), mart = ensembl)
+
+window<-50000
 
 for(i in 1:nrow(indep_hits)){
-  snp<-indep_hits$SNP[i]
-  fuma_gene_snp<-fuma_gene[grepl(paste0(snp,';|',snp,'$'), fuma_gene$IndSigSNPs),]
-  
-  if(nrow(fuma_gene_snp) > 0){
-    dist<-data.frame(start=fuma_gene_snp$start-indep_hits$BP[i],
-                     end=fuma_gene_snp$end-indep_hits$BP[i])
-    
-    dist$position<-F
-    dist$position[dist$start < 0 & dist$end > 0]<-'within'
-    dist$position[dist$start < 0 & dist$end < 0]<-'downstream'
-    dist$position[dist$start > 0 & dist$end > 0]<-'upstream'
-  
-    abs_min<-function(x){
-      return(min(abs(x)))
+  Genes_i<-Genes[Genes$start_position < (indep_hits$BP[i] + window) & Genes$end_position > (indep_hits$BP[i] - window) & Genes$chromosome_name == indep_hits$CHR[i],]
+  if(nrow(Genes_i) != 0){
+    gene_string<-NULL
+    for(j in 1:nrow(Genes_i)){
+      if(indep_hits$BP[i] > Genes_i$start_position[j] & indep_hits$BP[i] < Genes_i$end_position[j]){
+        gene_string<-rbind(gene_string, data.frame(ID=Genes_i$external_gene_name[j],
+                                                   Dist=0,
+                                                   Pos=NA))
+      }
+      if(indep_hits$BP[i] < Genes_i$start_position[j]){
+        gene_string<-rbind(gene_string, data.frame(ID=Genes_i$external_gene_name[j],
+                                                   Dist=abs(indep_hits$BP[i] - Genes_i$start_position[j]),
+                                                   Pos='-'))
+      }
+      if(indep_hits$BP[i] > Genes_i$end_position[j]){
+        gene_string<-rbind(gene_string, data.frame(ID=Genes_i$external_gene_name[j],
+                                                   Dist=abs(indep_hits$BP[i] - Genes_i$end_position[j]),
+                                                   Pos='+'))
+      }
     }
-    
-    dist$min<-apply(dist[,c('start','end')], 1, abs_min)
-    dist$min[dist$position == 'within']<-0
-    
-    indep_hits$nearestGene[i]<-paste0(fuma_gene_snp$symbol[dist$min == min(dist$min)], collapse=';')
-    indep_hits$distanceToGene[i]<-paste0(round(dist$min[dist$min == min(dist$min)]/1000),'kb ',dist$position[dist$min == min(dist$min)], collapse=';')
-
+    gene_string<-gene_string[order(gene_string$Dist),]
+    indep_hits$NearestGene[i]<-as.character(gene_string$ID[1])
   } else {
-    indep_hits$nearestGene[i]<-NA
-    indep_hits$distanceToGene[i]<-NA
-
+    indep_hits$NearestGene[i]<-NA
   }
 }
 
-# Many SNPs have no gene linked. This might be because FUMA selects SNPs differently, or because FUMA only list genes within a certain region. It might be more controlled if we use bioMart to obtain gene positions for ourselves.
+```
 
-#########
-# Nearest gene to finemapped SNPs
-#########
+***
 
-# Read in finemapping results
-# These finemapping results only containing results for lead independent SNPs from COJO
-# Really we want full finemapping results to be not be limited to the lead SNPs (some finemapped SNPs won't be the most significant)
-finemap<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/results/finemapping/finemap_PIP.csv')
+## SNP-finemapping
 
-# Merge SNP data
-finemap<-merge(indep_hits[,c('SNP','CHR','BP','P'),with=F], finemap, by='SNP', all=T)
-finemap<-finemap[!is.na(finemap$P),]
+```{r, eval=T, echo=T}
 
-# Extract robust finemapped SNPs
-finemap<-finemap[finemap$Finemapping.Max.PIP > 0.8,]
+# Read in finemapping results from Joni. This table shows genes implicated by the finemapping results, by a gene containing the entire 95% credible set.
+finemap<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/results/finemapping/Locus_FineMapping_Top_Results.csv')
 
-# Now link SNPs to genes
-# This is already done by FUMA
-# Read in FUMA gene data
-fuma_gene<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/results/fuma/3.49.24.05/genes.txt')
+finemap_genes<-unlist(strsplit(finemap$High.Confidence.Genes.Names, ','))
+finemap_genes<-finemap_genes[finemap_genes != '-']
 
-for(i in 1:nrow(finemap)){
-  snp<-finemap$SNP[i]
-  fuma_gene_snp<-fuma_gene[grepl(paste0(snp,';|',snp,'$'), fuma_gene$IndSigSNPs),]
-  
-  if(nrow(fuma_gene_snp) > 0){
-    dist<-data.frame(start=fuma_gene_snp$start-finemap$BP[i],
-                     end=fuma_gene_snp$end-finemap$BP[i])
-    
-    dist$position<-F
-    dist$position[dist$start < 0 & dist$end > 0]<-'within'
-    dist$position[dist$start < 0 & dist$end < 0]<-'downstream'
-    dist$position[dist$start > 0 & dist$end > 0]<-'upstream'
-  
-    abs_min<-function(x){
-      return(min(abs(x)))
-    }
-    
-    dist$min<-apply(dist[,c('start','end')], 1, abs_min)
-    dist$min[dist$position == 'within']<-0
-    
-    finemap$nearestGene[i]<-paste0(fuma_gene_snp$symbol[dist$min == min(dist$min)], collapse=';')
-    finemap$distanceToGene[i]<-paste0(round(dist$min[dist$min == min(dist$min)]/1000),'kb ',dist$position[dist$min == min(dist$min)], collapse=';')
+```
 
-  } else {
-    finemap$nearestGene[i]<-NA
-    finemap$distanceToGene[i]<-NA
+***
 
-  }
-}
+## FastBAT
 
-#################
-# MAGMA genes
-#################
+```{r, eval=T, echo=T}
 
-# Read in MAGMA results
-magma<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/results/fuma/3.49.24.05/magma.genes.out')
+# Read in FastBAT results
+fastbat<-fread('/mnt/lustre/users/k1806347/Software/mdd-meta/results/Howard/mdd_fastbat_AllgeneMatrix.gene.fastbat')
+fastbat$P.BONF<-p.adjust(fastbat$Pvalue, method='bonferroni')
 
-# Identify Bonferroni significant associations
-magma<-magma[magma$P < 0.05/nrow(magma),]
+```
 
-#################
-# TWAS genes
-#################
+***
 
-twas<-fread('../../results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW_TWSig.txt')
+## H-MAGMA
 
-#################
-# Colocalised genes
-#################
+```{r, echo=T, eval=T}
+
+hmagma<-fread('/mnt/lustre/users/k1806347/Software/mdd-meta/results/Pathak/PGC_MDD_Results_mar2022.csv')
+
+# Exclude astrocytes
+hmagma_noAstr<-hmagma[hmagma$Analysis != 'Astrocytes',]
+
+# Apply bonferroni correction across all tests
+hmagma_noAstr$P.BONF<-p.adjust(hmagma_noAstr$P, method = 'bonferroni')
+
+Genes<-getBM(attributes=c('external_gene_name','ensembl_gene_id'), mart = ensembl)
+Genes<-Genes[!duplicated(Genes$ensembl_gene_id),]
+
+hmagma_noAstr<-merge(hmagma_noAstr, Genes, by.x='GENE', by.y='ensembl_gene_id')
+
+```
+
+***
+
+## TWAS
+
+```{r, echo=T, eval=T}
+
+twas<-fread('../../results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW.txt')
+twas_sig<-twas[twas$TWAS.P < 3.685926e-08,]
+
+```
+
+***
+
+## Colocalisation
+
+```{r, echo=T, eval=T}
 
 coloc<-read.csv('../../results/twas/twas_results/PGC_MDD3_TWAS_colocalisation.csv')
-coloc<-coloc[coloc$COLOC.PP4 > 0.8,]
+coloc_sig<-coloc[coloc$COLOC.PP4 > 0.8,]
+```
 
-#################
-# FOCUS genes
-#################
+***
+
+## FOCUS 
+
+```{r, echo=T, eval=T}
 
 focus<-read.csv('../../results/twas/focus/p_1e-4/PGC_MDD3_TWAS.TWSig.FOCUS.results.csv')
-focus<-focus[focus$FOCUS_pip > 0.5,]
+focus_sig<-focus[focus$FOCUS_pip > 0.5,]
 
-#################
-# SMR genes
-#################
+```
+
+***
+
+## Expression analysis based high confidence genes
+
+```{r, eval=T, echo=T}
+
+expression_highconf_res<-fread('../../results/twas/PGC3_MDD_TWAS_HighConf_results.csv')
+
+# Make more stringent by increase PIP threshold to > 95% like the SNP finemapping
+expression_highconf_res<-expression_highconf_res[expression_highconf_res$FOCUS_pip < 0.95,]
+
+```
+
+***
+
+## SMR
+
+```{r, eval=T, echo=T}
 
 # Read in the SMR results
 smr_res<-list()
@@ -174,25 +190,57 @@ smr_res_dat$p_SMR_bonf_all<-p.adjust(smr_res_dat$p_SMR, method="bonferroni")
 
 smr_res_dat<-smr_res_dat[smr_res_dat$p_SMR_bonf_all < 0.05,]
 
-#################
-# HEIDI genes
-#################
+```
+
+***
+
+## HEIDI
+
+```{r, eval=T, echo=T}
 
 heidi<-smr_res_dat[smr_res_dat$p_HEIDI > 0.05,]
 
-#################
-# Create upset plot
-#################
-# This plot will show the number of genes returned by each analysis and the overlap of each analysis
+```
+
+***
+
+## PWAS
+
+```{r, eval=T, echo=T}
+
+# For no just read in the ROSMAP results
+pwas<-NULL
+for(i in 1:22){
+  if(i != 6){
+    pwas<-rbind(pwas, fread(paste0('/mnt/lustre/users/k1806347/Software/MyGit/GenoFunc/GenoFuncPipe/results/PGC3MDD/pwas/rosmap/PGC3MDD_pwas_rosmap_chr',i)))
+  } else {
+    pwas<-rbind(pwas, fread(paste0('/mnt/lustre/users/k1806347/Software/MyGit/GenoFunc/GenoFuncPipe/results/PGC3MDD/pwas/rosmap/PGC3MDD_pwas_rosmap_chr',i)))
+    pwas<-rbind(pwas, fread(paste0('/mnt/lustre/users/k1806347/Software/MyGit/GenoFunc/GenoFuncPipe/results/PGC3MDD/pwas/rosmap/PGC3MDD_pwas_rosmap_chr',i,'.MHC')))
+  }
+}
+
+pwas$TWAS.P.FDR<-p.adjust(pwas$TWAS.P)
+pwas$ID<-gsub('.*\\.','', pwas$ID)
+
+```
+
+***
+
+# Create UpSet plot
+
+This plot will show the number of genes returned by each analysis and the overlap of each analysis
+
+```{r, eval=T, echo=T}
 
 # Create data.frame listing genes with T/F indicating whether it was supported by each analysis 
 gene_overlap<-list()
-gene_overlap[['gwas']]<-indep_hits$nearestGene
-gene_overlap[['finemap']]<-finemap$nearestGene
-gene_overlap[['magma']]<-magma$SYMBOL
-gene_overlap[['twas']]<-twas$ID
-gene_overlap[['coloc']]<-coloc$ID
-gene_overlap[['focus']]<-focus$ID
+gene_overlap[['gwas']]<-indep_hits$NearestGene[!is.na(indep_hits$NearestGene)]
+gene_overlap[['finemap']]<-finemap_genes
+gene_overlap[['fastbat']]<-fastbat$Gene[fastbat$P.BONF < 0.05]
+gene_overlap[['hmagma']]<-unique(hmagma_noAstr$external_gene_name[hmagma_noAstr$P.BONF < 0.05])
+gene_overlap[['twas']]<-twas_sig$ID
+gene_overlap[['coloc']]<-coloc_sig$ID
+gene_overlap[['focus']]<-focus_sig$ID
 gene_overlap[['smr']]<-smr_res_dat$HGNCName
 gene_overlap[['heidi']]<-heidi$HGNCName
 
@@ -201,9 +249,10 @@ library(UpSetR)
 upset(fromList(gene_overlap), nsets=10, order.by = "freq")
 
 gene_overlap<-list()
-gene_overlap[['NearestGene to finemap']]<-intersect(finemap$nearestGene, indep_hits$nearestGene)
-gene_overlap[['MAGMA']]<-magma$SYMBOL
-gene_overlap[['TWAS COLOC FOCUS']]<-intersect(twas$ID,intersect(coloc$ID,focus$ID))
+gene_overlap[['finemap']]<-finemap_genes
+gene_overlap[['fastbat']]<-fastbat$Gene[fastbat$P.BONF < 0.05]
+gene_overlap[['hmagma']]<-unique(hmagma_noAstr$external_gene_name[hmagma_noAstr$P.BONF < 0.05])
+gene_overlap[['TWAS COLOC FOCUS']]<-expression_highconf_res$ID
 gene_overlap[['SMR-HEIDI']]<-heidi$HGNCName
 
 library(UpSetR)
@@ -211,3 +260,149 @@ library(UpSetR)
 upset(fromList(gene_overlap), nsets=10, order.by = "freq")
 
 ```
+
+***
+
+# Show results of high confidence genes across analyses
+
+```{r, eval=T, echo=T}
+# Define high confidence associations
+# Genes implicated by finemapping
+finemap_highconf<-finemap_genes
+
+# Genes implicated by TWAS, colocalisation and FOCUS from any panel
+expression_highconf<-expression_highconf_res$ID
+
+high_conf<-unique(c(finemap_highconf, expression_highconf))
+high_conf_tab<-data.frame(ID=high_conf)
+
+# finemap
+# Joni said he used the same gene list as David Howard (fastBAT)
+high_conf_tab$finemap<-'NA'
+for(i in 1:nrow(high_conf_tab)){
+  if(high_conf_tab$ID[i] %in% fastbat$Gene | high_conf_tab$ID[i] %in% finemap_genes){
+    if(high_conf_tab$ID[i] %in% finemap_genes){
+      high_conf_tab$finemap[i]<-'Sig'
+    } else {
+      high_conf_tab$finemap[i]<-'Non-Sig'
+    }
+  }
+}
+
+# expression
+high_conf_tab$expression<-'NA'
+for(i in 1:nrow(high_conf_tab)){
+  if(!(high_conf_tab$ID[i] %in% twas$ID)){
+    high_conf_tab$expression[i]<-'NA'
+  } else {
+    if(!(high_conf_tab$ID[i] %in% expression_highconf_res$ID)){
+      high_conf_tab$expression[i]<-'Non-Sig'
+    } else {
+      if(expression_highconf_res$`SNP-weight Set`[expression_highconf_res$ID == high_conf_tab$ID[i]] == "CMC DLPFC Splicing"){
+        high_conf_tab$expression[i]<-'Sig'
+      } else {
+        if(expression_highconf_res$TWAS.Z[expression_highconf_res$ID == high_conf_tab$ID[i]] > 0){
+            high_conf_tab$expression[i]<-'Pos'
+        } else {
+            high_conf_tab$expression[i]<-'Neg'
+        }
+      }
+    }
+  }
+}
+
+# protein
+high_conf_tab$protein<-'NA'
+for(i in 1:nrow(high_conf_tab)){
+  if(!(high_conf_tab$ID[i] %in% pwas$ID)){
+    high_conf_tab$protein[i]<-'NA'
+  } else {
+    if(!(high_conf_tab$ID[i] %in% pwas$ID[pwas$TWAS.P.FDR < 0.05])){
+      high_conf_tab$protein[i]<-'Non-Sig'
+    } else {
+      if(pwas$TWAS.Z[pwas$ID == high_conf_tab$ID[i]] > 0){
+          high_conf_tab$protein[i]<-'Pos'
+      } else {
+          high_conf_tab$protein[i]<-'Neg'
+      }
+    }
+  }
+}
+
+# fastBAT
+high_conf_tab$fastBAT<-'NA'
+for(i in 1:nrow(high_conf_tab)){
+  if(high_conf_tab$ID[i] %in% fastbat$Gene){
+    if(high_conf_tab$ID[i] %in% fastbat$Gene[fastbat$P.BONF < 0.05]){
+      high_conf_tab$fastBAT[i]<-'Sig'
+    } else {
+      high_conf_tab$fastBAT[i]<-'Non-Sig'
+    }
+  }
+}
+
+# hmagma
+high_conf_tab$hmagma<-'NA'
+for(i in 1:nrow(high_conf_tab)){
+  if(high_conf_tab$ID[i] %in% hmagma_noAstr$external_gene_name){
+    if(high_conf_tab$ID[i] %in% hmagma_noAstr$external_gene_name[hmagma_noAstr$P.BONF < 0.05]){
+      high_conf_tab$hmagma[i]<-'Sig'
+    } else {
+      high_conf_tab$hmagma[i]<-'Non-Sig'
+    }
+  }
+}
+
+# Order genes by the number of analyses indicating them as high confidence.
+high_conf_tab_log<-high_conf_tab[,-1]
+high_conf_tab_log[high_conf_tab_log == 'NA']<-'F'
+high_conf_tab_log[high_conf_tab_log == 'Sig']<-'T'
+high_conf_tab_log[high_conf_tab_log == 'Non-Sig']<-'F'
+high_conf_tab_log[high_conf_tab_log == 'Pos']<-'T'
+high_conf_tab_log[high_conf_tab_log == 'Neg']<-'T'
+
+high_conf_tab_log<-data.frame(sapply( high_conf_tab_log, as.logical))
+high_conf_tab_log[is.na(high_conf_tab_log)]<-T
+
+high_conf_tab_log$sum<-rowSums(high_conf_tab_log[,1:3])
+
+high_conf_tab<-high_conf_tab[order(-high_conf_tab_log$sum, high_conf_tab$ID),]
+high_conf_tab$ID<-factor(high_conf_tab$ID, levels = high_conf_tab$ID)
+
+names(high_conf_tab)<-c('ID','Fine-mapping','Expression','Protein','fastBAT','H-MAGMA')
+high_conf_tab_melt<-melt(high_conf_tab, id.vars='ID')
+high_conf_tab_melt$value<-factor(high_conf_tab_melt$value, levels=c('Non-Sig','Sig','Pos','Neg','NA'))
+high_conf_tab_melt$ID<-factor(high_conf_tab_melt$ID, levels=rev(levels(high_conf_tab$ID)))
+
+library(ggplot2)
+library(cowplot)
+
+png('gene_con_heatmap.png', units = 'px', res=300, height=2750, width=2600)
+ggplot(data = high_conf_tab_melt, aes(x='1', y = ID, fill=value)) +
+  theme_minimal_grid(color = "white") +
+  geom_tile(colour = 'black', width=1.5) +
+  scale_fill_manual(values=c('#FFFFFF','#33FF33','#FF6666','#3399FF','#CCCCCC'), drop=F) +
+	theme(axis.text.x = element_text(angle = 45, hjust = 1),plot.title = element_text(hjust = 0.5)) +
+	labs(x ='', y = "", title='', fill='') +
+  facet_grid(~ variable) +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        strip.background = element_rect(color="black", fill="grey95", size=0.1, linetype="solid"))
+dev.off()
+
+# Some genes in Joni's finemapped list are not present in the fastBAT results. This should not be the case as they used the same gene list. I have contacted them both to understand why this is. Answer: Dave has restricted his analysis to protein coding genes. We are now discussing whether all analyses should be restricted, or Dave reruns without filtering.
+
+```
+
+```{bash, eval=T, echo=F}
+cp gene_con_heatmap.png ../../docs/figures/
+```
+
+<center>
+
+![High-confidence genes](../../docs/figures/gene_con_heatmap.png)
+
+\center
+
+***
