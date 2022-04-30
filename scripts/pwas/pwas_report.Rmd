@@ -52,10 +52,10 @@ We will use the same approach but also show results that are significant in ROSM
 pwas_rosmap<-NULL
 for(i in 1:22){
   if(i != 6){
-    pwas_rosmap<-rbind(pwas_rosmap, fread(paste0('results/pwas/PGC_MDD3_pwas_banner_chr',i)))
+    pwas_rosmap<-rbind(pwas_rosmap, fread(paste0('results/pwas/PGC_MDD3_pwas_rosmap_chr',i)))
   } else {
-    pwas_rosmap<-rbind(pwas_rosmap, fread(paste0('results/pwas/PGC_MDD3_pwas_banner_chr',i)))
-    pwas_rosmap<-rbind(pwas_rosmap, fread(paste0('results/pwas/PGC_MDD3_pwas_banner_chr',i,'.MHC')))
+    pwas_rosmap<-rbind(pwas_rosmap, fread(paste0('results/pwas/PGC_MDD3_pwas_rosmap_chr',i)))
+    pwas_rosmap<-rbind(pwas_rosmap, fread(paste0('results/pwas/PGC_MDD3_pwas_rosmap_chr',i,'.MHC')))
   }
 }
 
@@ -76,7 +76,11 @@ for(i in 1:22){
   }
 }
 
+
 pwas_banner$ID<-gsub('.*\\.','', pwas_banner$ID)
+
+pwas_banner<-pwas_banner[order(pwas_banner$TWAS.P),]
+pwas_banner<-pwas_banner[!duplicated(pwas_banner$ID),]
 
 # Look up the significant genes in ROSMAP in Banner
 pwas_rosmap_sig_banner<-merge(pwas_rosmap_sig[,c('CHR','P0','P1','ID','TWAS.Z','TWAS.P','TWAS.P.FDR','COLOC.PP4','rosmap.causal'),with=F], pwas_banner[,c('ID','TWAS.Z','TWAS.P','COLOC.PP4'),with=F], by='ID', all.x=T)
@@ -132,7 +136,7 @@ smr_rosmap$smr.causal<-smr_rosmap$p_HEIDI > 0.05
 pwas_rosmap_sig_banner_smr_rosmap<-merge(pwas_rosmap_sig_banner, smr_rosmap, by='ID', all.x=T)
 
 # Define replication as being FDR significant in rosmap PWAS and rosmap SMR and have same direction of effect.
-pwas_rosmap_sig_banner$smr_replicated<-pwas_rosmap_sig_banner_smr_rosmap$p_SMR.FDR < 0.05 & sign(pwas_rosmap_sig_banner_smr_rosmap$rosmap.TWAS.Z) == sign(pwas_rosmap_sig_banner_smr_rosmap$b_SMR) 
+pwas_rosmap_sig_banner_smr_rosmap$smr_replicated<-pwas_rosmap_sig_banner_smr_rosmap$p_SMR.FDR < 0.05 & sign(pwas_rosmap_sig_banner_smr_rosmap$rosmap.TWAS.Z) == sign(pwas_rosmap_sig_banner_smr_rosmap$b_SMR) 
 
 coloc_heidi_table<-pwas_rosmap_sig_banner_smr_rosmap[pwas_rosmap_sig_banner_smr_rosmap$rosmap.causal == T & pwas_rosmap_sig_banner_smr_rosmap$smr.causal == T,]
 coloc_heidi_table<-coloc_heidi_table[,c('ID','CHR','P0','P1','rosmap.COLOC.PP4',"rosmap.causal","p_HEIDI","smr.causal"), with=F]
@@ -152,17 +156,19 @@ kable(coloc_heidi_table, row.names = FALSE, caption='', digits = 32)
 
 ```{r, echo=F, eval=T}
 
-# Show results that were significant in ROSMAP, Banner PWAS and ROSMAP SMR (with consistent direction), and colocalised in ROSMAP PWAS, Banner PWAS ROSMAP SMR
-sig_coloc_all_table<-pwas_rosmap_sig_banner_smr_rosmap[pwas_rosmap_sig_banner$banner_replicated == T & pwas_rosmap_sig_banner$smr_replicated == T & pwas_rosmap_sig_banner_smr_rosmap$rosmap.causal == T & pwas_rosmap_sig_banner_smr_rosmap$banner.causal == T & pwas_rosmap_sig_banner_smr_rosmap$smr.causal == T,]
+# Show results that were significant in ROSMAP, Banner PWAS, and colocalised in ROSMAP PWAS, ROSMAP SMR
+sig_coloc_all_table<-pwas_rosmap_sig_banner_smr_rosmap[pwas_rosmap_sig_banner$banner_replicated == T & pwas_rosmap_sig_banner_smr_rosmap$rosmap.causal == T & pwas_rosmap_sig_banner_smr_rosmap$smr.causal == T,]
 
 sig_coloc_all_table$Direction<-'-'
 sig_coloc_all_table$Direction[sig_coloc_all_table$rosmap.TWAS.Z > 0]<-'+'
 
 sig_coloc_all_table<-sig_coloc_all_table[,c('ID','CHR','P0','P1','Direction'),]
 
+write.csv(pwas_rosmap_sig_banner_smr_rosmap, 'results/pwas/rosmap_banner_pwas_smr_results.csv', row.names=F, quote=T)
+
 ```
 
-<details><summary>Significant in discovery PWAS, replication PWAS and SMR, and colocalised using ROSMAP COLOC, Banner COLOC, and ROSMAP HEIDI</summary>
+<details><summary>Significant in discovery and replication PWAS, and colocalised using ROSMAP COLOC and ROSMAP HEIDI</summary>
 
 ```{r, echo=F, eval=T}
 

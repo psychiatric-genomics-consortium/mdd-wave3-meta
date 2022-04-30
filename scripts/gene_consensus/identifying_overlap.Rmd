@@ -7,32 +7,37 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+***
+
 The PGC3 MDD study is including the following analyses to identify genes associated with MDD:
 
 - GWAS: Nearest gene to lead SNPs in GWAS
 - Finemapping: Nearest gene to finemapped SNP associations
-- MAGMA: Enrichment of SNP associations within gene regions
-- TWAS: Overlapping GWAS and eQTL associations
-- Colocalisation: Colocalised GWAS and eQTL associations
-- FOCUS: Causal model suported for TWAS association
-- SMR: Overlapping GWAS and eQTL association
+- FastBAT: Enrichment of SNP associations within gene regions
+- TWAS/PWAS: Overlapping GWAS and eQTL/pQTL associations
+- Colocalisation: Colocalised GWAS and eQTL/pQTL associations
+- FOCUS: Causal model suported for TWAS associations
+- SMR: Overlapping GWAS and eQTL/pQTL association
 - HEIDI: No evidence of horizontal pleitropy in SMR association
 
 ***
 
-# Read in results from each analysis
+## Read in results from all analyses
 
-***
-
-## Nearest gene
+<details><summary>Show code</summary>
 
 ```{r, eval=T, echo=T}
+
+##########
+# Nearest gene
+##########
+
 library(data.table)
 
 # Read in GWAS results
 # Currently we are using results only for lead indepdendant associations from COJO
 # I think this is fine
-indep_hits<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/docs/tables/meta_snps_full_eur.cojo.txt')
+indep_hits<-fread('../../docs/tables/meta_snps_full_eur.cojo.txt')
 
 # Link SNPs to nearest gene
 # Insert nearest gene information
@@ -70,105 +75,78 @@ for(i in 1:nrow(indep_hits)){
   }
 }
 
-```
-
-***
-
-## SNP-finemapping
-
-```{r, eval=T, echo=T}
+##########
+# SNP-finemapping
+##########
 
 # Read in finemapping results from Joni. This table shows genes implicated by the finemapping results, by a gene containing the entire 95% credible set.
-finemap<-fread('/users/k1806347/brc_scratch/Software/mdd-meta/results/finemapping/Locus_FineMapping_Top_Results.csv')
+finemap<-fread('../../results/finemapping/Locus_FineMapping_Full_Results.csv')
 
 finemap_genes<-unlist(strsplit(finemap$High.Confidence.Genes.Names, ','))
 finemap_genes<-finemap_genes[finemap_genes != '-']
 
-```
-
-***
-
-## FastBAT
-
-```{r, eval=T, echo=T}
+##########
+# FastBAT
+##########
 
 # Read in FastBAT results
-fastbat<-fread('/mnt/lustre/users/k1806347/Software/mdd-meta/results/Howard/mdd_fastbat_AllgeneMatrix.gene.fastbat')
-fastbat$P.BONF<-p.adjust(fastbat$Pvalue, method='bonferroni')
+fastbat<-fread('../../results/Howard/mdd_fastbat_AllgeneMatrix.gene.fastbat')
+fastbat$P.FDR<-p.adjust(fastbat$Pvalue, method='fdr')
 
-```
+##########
+# H-MAGMA
+##########
 
-***
-
-## H-MAGMA
-
-```{r, echo=T, eval=T}
-
-hmagma<-fread('/mnt/lustre/users/k1806347/Software/mdd-meta/results/Pathak/PGC_MDD_Results_mar2022.csv')
+hmagma<-fread('../../results/Pathak/PGC_MDD_Results_mar2022.csv')
 
 # Exclude astrocytes
 hmagma_noAstr<-hmagma[hmagma$Analysis != 'Astrocytes',]
 
-# Apply bonferroni correction across all tests
-hmagma_noAstr$P.BONF<-p.adjust(hmagma_noAstr$P, method = 'bonferroni')
+# Apply FDR correction across all tests
+hmagma_noAstr$P.FDR<-p.adjust(hmagma_noAstr$P, method = 'fdr')
 
 Genes<-getBM(attributes=c('external_gene_name','ensembl_gene_id'), mart = ensembl)
 Genes<-Genes[!duplicated(Genes$ensembl_gene_id),]
 
 hmagma_noAstr<-merge(hmagma_noAstr, Genes, by.x='GENE', by.y='ensembl_gene_id')
 
-```
-
-***
-
-## TWAS
-
-```{r, echo=T, eval=T}
+##########
+# TWAS
+##########
 
 twas<-fread('../../results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW.txt')
 twas_sig<-twas[twas$TWAS.P < 3.685926e-08,]
 
-```
-
-***
-
-## Colocalisation
-
-```{r, echo=T, eval=T}
+##########
+# Colocalisation
+##########
 
 coloc<-read.csv('../../results/twas/twas_results/PGC_MDD3_TWAS_colocalisation.csv')
 coloc_sig<-coloc[coloc$COLOC.PP4 > 0.8,]
-```
 
-***
-
-## FOCUS 
-
-```{r, echo=T, eval=T}
+##########
+# FOCUS 
+##########
 
 focus<-read.csv('../../results/twas/focus/p_1e-4/PGC_MDD3_TWAS.TWSig.FOCUS.results.csv')
+
+fusion <- fread("../../results/twas/twas_results/PGC_MDD3_twas_AllTissues_TWSig_CLEAN.txt")
+fusion<-fusion[,c('PANEL','PANEL_clean_short','PANEL_clean'), with=F]
+fusion<-fusion[!duplicated(fusion),]
+
+focus<-merge(focus, fusion, by.x='SNP.weight.Set', by.y='PANEL_clean_short')
+
 focus_sig<-focus[focus$FOCUS_pip > 0.5,]
 
-```
-
-***
-
-## Expression analysis based high confidence genes
-
-```{r, eval=T, echo=T}
+##########
+# Expression analysis based high confidence genes
+##########
 
 expression_highconf_res<-fread('../../results/twas/PGC3_MDD_TWAS_HighConf_results.csv')
 
-# Make more stringent by increase PIP threshold to > 95% like the SNP finemapping
-expression_highconf_res<-expression_highconf_res[expression_highconf_res$FOCUS_pip < 0.95,]
-
-```
-
-***
-
-## SMR
-
-```{r, eval=T, echo=T}
+##########
+# SMR
+##########
 
 # Read in the SMR results
 smr_res<-list()
@@ -186,86 +164,110 @@ for(tissue_i in tissue){
 }
 
 smr_res_dat<-do.call(rbind, smr_res)
-smr_res_dat$p_SMR_bonf_all<-p.adjust(smr_res_dat$p_SMR, method="bonferroni")
+smr_res_dat$p_SMR_fdr_all<-p.adjust(smr_res_dat$p_SMR, method="fdr")
 
-smr_res_dat<-smr_res_dat[smr_res_dat$p_SMR_bonf_all < 0.05,]
+smr_res_dat_sig<-smr_res_dat[smr_res_dat$p_SMR_fdr_all < 0.05,]
 
-```
+##########
+# HEIDI
+##########
 
-***
+heidi<-smr_res_dat_sig[smr_res_dat_sig$p_HEIDI > 0.05,]
 
-## HEIDI
-
-```{r, eval=T, echo=T}
-
-heidi<-smr_res_dat[smr_res_dat$p_HEIDI > 0.05,]
-
-```
-
-***
-
-## PWAS
-
-```{r, eval=T, echo=T}
+##########
+# PWAS
+##########
 
 # For no just read in the ROSMAP results
 pwas<-NULL
 for(i in 1:22){
   if(i != 6){
-    pwas<-rbind(pwas, fread(paste0('/mnt/lustre/users/k1806347/Software/MyGit/GenoFunc/GenoFuncPipe/results/PGC3MDD/pwas/rosmap/PGC3MDD_pwas_rosmap_chr',i)))
+    pwas<-rbind(pwas, fread(paste0('../../results/pwas/PGC_MDD3_pwas_rosmap_chr',i)))
   } else {
-    pwas<-rbind(pwas, fread(paste0('/mnt/lustre/users/k1806347/Software/MyGit/GenoFunc/GenoFuncPipe/results/PGC3MDD/pwas/rosmap/PGC3MDD_pwas_rosmap_chr',i)))
-    pwas<-rbind(pwas, fread(paste0('/mnt/lustre/users/k1806347/Software/MyGit/GenoFunc/GenoFuncPipe/results/PGC3MDD/pwas/rosmap/PGC3MDD_pwas_rosmap_chr',i,'.MHC')))
+    pwas<-rbind(pwas, fread(paste0('../../results/pwas/PGC_MDD3_pwas_rosmap_chr',i)))
+    pwas<-rbind(pwas, fread(paste0('../../results/pwas/PGC_MDD3_pwas_rosmap_chr',i,'.MHC')))
   }
 }
 
 pwas$TWAS.P.FDR<-p.adjust(pwas$TWAS.P)
 pwas$ID<-gsub('.*\\.','', pwas$ID)
 
+# Read in PWAS and SMR results for all significant ROSMAP PWAS assoc results
+pwas_smr_rosmap_banner<-fread('../../results/pwas/rosmap_banner_pwas_smr_results.csv')
+
 ```
+
+</details> 
 
 ***
 
-# Create UpSet plot
+## Create UpSet plot
 
 This plot will show the number of genes returned by each analysis and the overlap of each analysis
 
-```{r, eval=T, echo=T}
+<details><summary>Show code</summary>
+
+```{r, eval=T, echo=F}
 
 # Create data.frame listing genes with T/F indicating whether it was supported by each analysis 
 gene_overlap<-list()
-gene_overlap[['gwas']]<-indep_hits$NearestGene[!is.na(indep_hits$NearestGene)]
-gene_overlap[['finemap']]<-finemap_genes
-gene_overlap[['fastbat']]<-fastbat$Gene[fastbat$P.BONF < 0.05]
-gene_overlap[['hmagma']]<-unique(hmagma_noAstr$external_gene_name[hmagma_noAstr$P.BONF < 0.05])
-gene_overlap[['twas']]<-twas_sig$ID
-gene_overlap[['coloc']]<-coloc_sig$ID
-gene_overlap[['focus']]<-focus_sig$ID
-gene_overlap[['smr']]<-smr_res_dat$HGNCName
-gene_overlap[['heidi']]<-heidi$HGNCName
+gene_overlap[['Fine-mapping']]<-finemap_genes
+gene_overlap[['Expression']]<-expression_highconf_res$ID
+gene_overlap[['Protein']]<-pwas_smr_rosmap_banner$ID[which(pwas_smr_rosmap_banner$banner_replicated  & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$smr.causal)]
+gene_overlap[['Nearest Gene']]<-indep_hits$NearestGene[!is.na(indep_hits$NearestGene)]
+gene_overlap[['fastBAT']]<-fastbat$Gene[fastbat$P.FDR < 0.05]
+gene_overlap[['H-MAGMA']]<-unique(hmagma_noAstr$external_gene_name[hmagma_noAstr$P.FDR < 0.05])
 
 library(UpSetR)
 
+png('../../docs/figures/gene_consensus_upset_dense.png', units = 'px', res=300, height=1500, width=2500)
+
 upset(fromList(gene_overlap), nsets=10, order.by = "freq")
+
+dev.off()
 
 gene_overlap<-list()
-gene_overlap[['finemap']]<-finemap_genes
-gene_overlap[['fastbat']]<-fastbat$Gene[fastbat$P.BONF < 0.05]
-gene_overlap[['hmagma']]<-unique(hmagma_noAstr$external_gene_name[hmagma_noAstr$P.BONF < 0.05])
-gene_overlap[['TWAS COLOC FOCUS']]<-expression_highconf_res$ID
-gene_overlap[['SMR-HEIDI']]<-heidi$HGNCName
+gene_overlap[['Fine-mapping']]<-finemap_genes
+gene_overlap[['Expression']]<-expression_highconf_res$ID
+gene_overlap[['Protein']]<-pwas_smr_rosmap_banner$ID[which(pwas_smr_rosmap_banner$banner_replicated & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$smr.causal)]
 
-library(UpSetR)
+png('../../docs/figures/gene_consensus_upset_highconf.png', units = 'px', res=300, height=1400, width=1500)
 
 upset(fromList(gene_overlap), nsets=10, order.by = "freq")
+
+dev.off()
 
 ```
 
+</details> 
+
+<details><summary>Show UpSet plot of genes across all analyses</summary>
+
+<center>
+
+![High-confidence genes](../../docs/figures/gene_consensus_upset_dense.png)
+
+\center
+
+</details> 
+
+<details><summary>Show UpSet plot of genes across high-confidence analyses</summary>
+
+<center>
+
+![High-confidence genes](../../docs/figures/gene_consensus_upset_highconf.png)
+
+\center
+
+</details> 
+
 ***
 
-# Show results of high confidence genes across analyses
+## Compare high confidence genes across all analyses
 
-```{r, eval=T, echo=T}
+<details><summary>Show code</summary>
+
+```{r, eval=T, echo=F}
 # Define high confidence associations
 # Genes implicated by finemapping
 finemap_highconf<-finemap_genes
@@ -273,7 +275,10 @@ finemap_highconf<-finemap_genes
 # Genes implicated by TWAS, colocalisation and FOCUS from any panel
 expression_highconf<-expression_highconf_res$ID
 
-high_conf<-unique(c(finemap_highconf, expression_highconf))
+# Genes implicated by PWAS, SMR, coloc and HEIDI in ROSMAP and Banner
+protein_highconf<-pwas_smr_rosmap_banner$ID[which(pwas_smr_rosmap_banner$banner_replicated & pwas_smr_rosmap_banner$smr_replicated & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$banner.causal & pwas_smr_rosmap_banner$smr.causal)]
+
+high_conf<-unique(c(finemap_highconf, expression_highconf, protein_highconf))
 high_conf_tab<-data.frame(ID=high_conf)
 
 # finemap
@@ -317,10 +322,10 @@ for(i in 1:nrow(high_conf_tab)){
   if(!(high_conf_tab$ID[i] %in% pwas$ID)){
     high_conf_tab$protein[i]<-'NA'
   } else {
-    if(!(high_conf_tab$ID[i] %in% pwas$ID[pwas$TWAS.P.FDR < 0.05])){
+    if(!(high_conf_tab$ID[i] %in% pwas_smr_rosmap_banner$ID[which(pwas_smr_rosmap_banner$banner_replicated & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$smr.causal)])){
       high_conf_tab$protein[i]<-'Non-Sig'
     } else {
-      if(pwas$TWAS.Z[pwas$ID == high_conf_tab$ID[i]] > 0){
+      if(pwas_smr_rosmap_banner$rosmap.TWAS.Z[pwas_smr_rosmap_banner$ID == high_conf_tab$ID[i]] > 0){
           high_conf_tab$protein[i]<-'Pos'
       } else {
           high_conf_tab$protein[i]<-'Neg'
@@ -333,7 +338,7 @@ for(i in 1:nrow(high_conf_tab)){
 high_conf_tab$fastBAT<-'NA'
 for(i in 1:nrow(high_conf_tab)){
   if(high_conf_tab$ID[i] %in% fastbat$Gene){
-    if(high_conf_tab$ID[i] %in% fastbat$Gene[fastbat$P.BONF < 0.05]){
+    if(high_conf_tab$ID[i] %in% fastbat$Gene[fastbat$P.FDR < 0.05]){
       high_conf_tab$fastBAT[i]<-'Sig'
     } else {
       high_conf_tab$fastBAT[i]<-'Non-Sig'
@@ -345,7 +350,7 @@ for(i in 1:nrow(high_conf_tab)){
 high_conf_tab$hmagma<-'NA'
 for(i in 1:nrow(high_conf_tab)){
   if(high_conf_tab$ID[i] %in% hmagma_noAstr$external_gene_name){
-    if(high_conf_tab$ID[i] %in% hmagma_noAstr$external_gene_name[hmagma_noAstr$P.BONF < 0.05]){
+    if(high_conf_tab$ID[i] %in% hmagma_noAstr$external_gene_name[hmagma_noAstr$P.FDR < 0.05]){
       high_conf_tab$hmagma[i]<-'Sig'
     } else {
       high_conf_tab$hmagma[i]<-'Non-Sig'
@@ -377,7 +382,7 @@ high_conf_tab_melt$ID<-factor(high_conf_tab_melt$ID, levels=rev(levels(high_conf
 library(ggplot2)
 library(cowplot)
 
-png('gene_con_heatmap.png', units = 'px', res=300, height=2750, width=2600)
+png('../../docs/figures/gene_con_heatmap.png', units = 'px', res=300, height=14000, width=2600)
 ggplot(data = high_conf_tab_melt, aes(x='1', y = ID, fill=value)) +
   theme_minimal_grid(color = "white") +
   geom_tile(colour = 'black', width=1.5) +
@@ -391,18 +396,213 @@ ggplot(data = high_conf_tab_melt, aes(x='1', y = ID, fill=value)) +
         strip.background = element_rect(color="black", fill="grey95", size=0.1, linetype="solid"))
 dev.off()
 
-# Some genes in Joni's finemapped list are not present in the fastBAT results. This should not be the case as they used the same gene list. I have contacted them both to understand why this is. Answer: Dave has restricted his analysis to protein coding genes. We are now discussing whether all analyses should be restricted, or Dave reruns without filtering.
-
 ```
 
-```{bash, eval=T, echo=F}
-cp gene_con_heatmap.png ../../docs/figures/
-```
+</details> 
 
-<center>
+<details><summary>Show heatmap of high confidence associations</summary>
 
 ![High-confidence genes](../../docs/figures/gene_con_heatmap.png)
 
-\center
+* Significant genes in from expression based analyses that are based on splicing data are indicated as green as direction of effect is challenging to interpret.
+
+</details> 
+
+***
+
+## Compare high confidence genes across expression/protein panels and methods
+
+This will give some indication of how fine-mapped variants may affect gene expression and protein levels, and may also give clarity for associations that have a different direction of effect in the TWAS and PWAS (which is still the case for the GOPC gene).
+
+<details><summary>Show code</summary>
+
+```{r, eval=T, echo=T}
+
+###
+# Create a dataframe containing gene ID, PANEL, Method and Z scores for all expression and protein analyses.
+###
+all_func_res<-NULL
+
+# TWAS
+twas_tmp<-twas[,c('PANEL','ID','TWAS.Z'), with=F]
+twas_tmp$Sig<-twas$TWAS.P < 3.685926e-08
+twas_tmp$Coloc<-twas$COLOC.PP4 > 0.8
+names(twas_tmp)<-c('Panel','ID','Z','Sig','Coloc')
+twas_tmp$Method<-'FUSION'
+twas_tmp$Type<-'Expr.'
+twas_tmp$Type[grepl('SPLIC',twas_tmp$Panel)]<-'Splice'
+# Retain only the most significant assoc for each gene within PANEL (only relevent for splice panel)
+twas_tmp<-twas_tmp[order(-abs(twas_tmp$Z)),]
+twas_tmp<-twas_tmp[!duplicated(paste0(twas_tmp$Panel, twas_tmp$ID)),]
+twas_tmp$Tissue<-NA
+twas_tmp$Tissue[!grepl('Adrenal|BLOOD|Blood|Thyroid',twas_tmp$Panel)]<-'Brain'
+twas_tmp$Tissue[grepl('BLOOD|Blood',twas_tmp$Panel)]<-'Blood'
+twas_tmp$Tissue[grepl('Adrenal|Thyroid',twas_tmp$Panel)]<-'HPA/HPT'
+
+twas_tmp<-merge(twas_tmp, focus_sig[,c('ID','PANEL','FOCUS_pip')], by.x=c('Panel','ID'), by.y=c('PANEL','ID'), all.x=T)
+twas_tmp$FOCUS[twas_tmp$FOCUS_pip > 0.5]<-T
+twas_tmp$FOCUS[twas_tmp$FOCUS_pip < 0.5 | is.na(twas_tmp$FOCUS_pip)]<-F
+twas_tmp<-twas_tmp[order(-twas_tmp$FOCUS_pip),]
+twas_tmp<-twas_tmp[!duplicated(paste0(twas_tmp$Panel, twas_tmp$ID)),]
+twas_tmp$FOCUS_pip<-NULL
+
+all_func_res<-rbind(all_func_res, twas_tmp)
+
+# SMR expression
+smr_res_dat$Z<-smr_res_dat$b_SMR/smr_res_dat$se_SMR
+smr_res_dat$Sig<-smr_res_dat$p_SMR_fdr_all < 0.05
+smr_res_dat$Coloc<-smr_res_dat$p_HEIDI > 0.05
+smr_tmp<-smr_res_dat[,c('eQTL_source','HGNCName','Z','Sig','Coloc'), with=F]
+names(smr_tmp)<-c('Panel','ID','Z','Sig','Coloc')
+smr_tmp$Method<-'SMR'
+smr_tmp$Type<-'Expr.'
+smr_tmp$Tissue<-NA
+smr_tmp$Tissue[!grepl('eQTLGen_Blood',smr_tmp$Panel)]<-'Brain'
+smr_tmp$Tissue[grepl('eQTLGen_Blood',smr_tmp$Panel)]<-'Blood'
+smr_tmp$FOCUS<-F
+
+all_func_res<-rbind(all_func_res, smr_tmp)
+
+# PWAS
+pwas_smr_rosmap_banner$rosmap.sig<-T
+pwas_rosmap_tmp<-pwas_smr_rosmap_banner[,c('ID','rosmap.TWAS.Z','rosmap.sig','rosmap.causal'), with=F]
+pwas_rosmap_tmp$PANEL<-'ROSMAP DLPFC'
+pwas_rosmap_tmp<-pwas_rosmap_tmp[,c('PANEL','ID','rosmap.TWAS.Z','rosmap.sig','rosmap.causal'), with=F]
+names(pwas_rosmap_tmp)<-c('Panel','ID','Z','Sig','Coloc')
+pwas_rosmap_tmp<-pwas_rosmap_tmp[order(-abs(pwas_rosmap_tmp$Z)),]
+pwas_rosmap_tmp<-pwas_rosmap_tmp[!duplicated(paste0(pwas_rosmap_tmp$Panel, pwas_rosmap_tmp$ID)),]
+pwas_rosmap_tmp$Method<-'FUSION'
+pwas_rosmap_tmp$Type<-'Protein'
+pwas_rosmap_tmp$Tissue<-'Brain'
+pwas_rosmap_tmp$FOCUS<-F
+
+all_func_res<-rbind(all_func_res, pwas_rosmap_tmp)
+
+pwas_banner_tmp<-pwas_smr_rosmap_banner[,c('ID','banner.TWAS.Z','banner_replicated','banner.causal'), with=F]
+pwas_banner_tmp$PANEL<-'Banner et al. DLPFC'
+pwas_banner_tmp<-pwas_banner_tmp[,c('PANEL','ID','banner.TWAS.Z','banner_replicated','banner.causal'), with=F]
+names(pwas_banner_tmp)<-c('Panel','ID','Z','Sig','Coloc')
+pwas_banner_tmp<-pwas_banner_tmp[order(-abs(pwas_banner_tmp$Z)),]
+pwas_banner_tmp<-pwas_banner_tmp[!duplicated(paste0(pwas_banner_tmp$Panel, pwas_banner_tmp$ID)),]
+pwas_banner_tmp$Method<-'FUSION'
+pwas_banner_tmp$Type<-'Protein'
+pwas_banner_tmp$Tissue<-'Brain'
+pwas_banner_tmp$FOCUS<-F
+
+all_func_res<-rbind(all_func_res, pwas_banner_tmp)
+
+# SMR protein
+pwas_smr_rosmap_banner$z_SMR<-abs(qnorm(pwas_smr_rosmap_banner$p_SMR/2))
+pwas_smr_rosmap_banner$z_SMR<-sign(pwas_smr_rosmap_banner$b_SMR)*pwas_smr_rosmap_banner$z_SMR
+
+smr_rosmap_tmp<-pwas_smr_rosmap_banner[,c('ID','z_SMR','smr_replicated','smr.causal'), with=F]
+smr_rosmap_tmp$PANEL<-'ROSMAP DLPFC'
+smr_rosmap_tmp<-smr_rosmap_tmp[,c('PANEL','ID','z_SMR','smr_replicated','smr.causal'), with=F]
+names(smr_rosmap_tmp)<-c('Panel','ID','Z','Sig','Coloc')
+smr_rosmap_tmp<-smr_rosmap_tmp[order(-abs(smr_rosmap_tmp$Z)),]
+smr_rosmap_tmp<-smr_rosmap_tmp[!duplicated(paste0(smr_rosmap_tmp$Panel, smr_rosmap_tmp$ID)),]
+smr_rosmap_tmp$Method<-'SMR'
+smr_rosmap_tmp$Type<-'Protein'
+smr_rosmap_tmp$Tissue<-'Brain'
+smr_rosmap_tmp$FOCUS<-F
+
+all_func_res<-rbind(all_func_res, smr_rosmap_tmp)
+
+# Subset to high confidence genes
+all_func_res<-all_func_res[all_func_res$ID %in% high_conf,]
+
+# Remove missing values
+all_func_res<-all_func_res[complete.cases(all_func_res),]
+
+all_func_res$Group<-paste0(all_func_res$Tissue,'\n',all_func_res$Method,'\n',all_func_res$Type )
+all_func_res$Group<-factor(all_func_res$Group, levels=c("Brain\nFUSION\nExpr.","Brain\nFUSION\nSplice","Brain\nSMR\nExpr.","Brain\nFUSION\nProtein","Brain\nSMR\nProtein","Blood\nFUSION\nExpr.","Blood\nSMR\nExpr.","HPA/HPT\nFUSION\nExpr."))
+
+all_func_res$ID<-factor(all_func_res$ID, levels=rev(levels(high_conf_tab$ID)))
+
+all_func_res$Panel[all_func_res$Panel == "Adrenal_Gland"]<-'GTeX Adrenal Gland'
+all_func_res$Panel[all_func_res$Panel == "Brain_Cerebellar_Hemisphere"]<-'GTeX Cerebellar Hemisphere'
+all_func_res$Panel[all_func_res$Panel == "Brain_Cerebellum"]<-'GTeX Cerebellum'
+all_func_res$Panel[all_func_res$Panel == "Brain_Hypothalamus"]<-'GTeX Hypothalamus'
+all_func_res$Panel[all_func_res$Panel == "CMC.BRAIN.RNASEQ"]<-'CMC DLPFC'
+all_func_res$Panel[all_func_res$Panel == "CMC.BRAIN.RNASEQ_SPLICING"]<-'CMC DLPFC'
+all_func_res$Panel[all_func_res$Panel == "Pituitary"]<-'GTeX Pituitary'
+all_func_res$Panel[all_func_res$Panel == "PsychENCODE"]<-'PsychENCODE DLPFC'
+all_func_res$Panel[all_func_res$Panel == "Whole_Blood"]<-'GTeX'
+all_func_res$Panel[all_func_res$Panel == "NTR.BLOOD.RNAARR"]<-'NTR'
+all_func_res$Panel[all_func_res$Panel == "Thyroid"]<-'GTeX Thyroid'
+all_func_res$Panel[all_func_res$Panel == "Brain_Caudate_basal_ganglia"]<-'GTeX Caudate basalganglia'
+all_func_res$Panel[all_func_res$Panel == "YFS.BLOOD.RNAARR"]<-'YFS'
+all_func_res$Panel[all_func_res$Panel == "Brain_Cortex"]<-'GTeX Cortex'
+all_func_res$Panel[all_func_res$Panel == "Brain_Frontal_Cortex_BA9"]<-'GTeX Frontal Cortex BA9'
+all_func_res$Panel[all_func_res$Panel == "Brain_Hippocampus"]<-'GTeX Hippocampus'
+all_func_res$Panel[all_func_res$Panel == "Brain_Amygdala"]<-'GTeX Amygdala'
+all_func_res$Panel[all_func_res$Panel == "Brain_Anterior_cingulate_cortex_BA24"]<-'GTeX Anterior cingulate cortex BA24'
+all_func_res$Panel[all_func_res$Panel == "Brain_Substantia_nigra"]<-'GTeX Substantia nigra'
+all_func_res$Panel[all_func_res$Panel == "Brain_Nucleus_accumbens_basal_ganglia"]<-'GTeX Nucleus accumbens basalganglia'
+all_func_res$Panel[all_func_res$Panel == "Brain_Putamen_basal_ganglia"]<-'GTeX Nucleus Putamen basalganglia'
+all_func_res$Panel[all_func_res$Panel == "eQTLGen_Blood"]<-'eQTLGen'
+all_func_res$Panel[all_func_res$Panel == "MetaBrain_Cerebellum"]<-'MetaBrain Cerebellum'
+all_func_res$Panel[all_func_res$Panel == "MetaBrain_Basalganglia"]<-'MetaBrain Basalganglia'
+all_func_res$Panel[all_func_res$Panel == "MetaBrain_Cortex"]<-'MetaBrain Cortex'
+all_func_res$Panel[all_func_res$Panel == "MetaBrain_Hippocampus"]<-'MetaBrain Hippocampus'
+
+all_func_res$Panel<-factor(all_func_res$Panel, levels=c("GTeX Adrenal Gland" ,"GTeX Amygdala" ,"GTeX Anterior cingulate cortex BA24" ,"GTeX Caudate basalganglia" ,"GTeX Cerebellar Hemisphere" ,"GTeX Cerebellum" ,"GTeX Cortex" ,"GTeX Frontal Cortex BA9" ,"GTeX Hippocampus" ,"GTeX Hypothalamus", "GTeX Nucleus accumbens basalganglia","GTeX Nucleus Putamen basalganglia" ,"GTeX Pituitary",'GTeX Substantia nigra' ,"GTeX Thyroid","CMC DLPFC", "PsychENCODE DLPFC", "GTeX" ,"NTR" ,"YFS", "eQTLGen" ,'MetaBrain Basalganglia',"MetaBrain Cerebellum" ,"MetaBrain Cortex" , 'MetaBrain Hippocampus',"ROSMAP DLPFC" ,"Banner et al. DLPFC"))
+
+
+# Create heatmap
+library(ggplot2)
+
+heatmap<-ggplot(data = all_func_res, aes(x = Panel, y = ID)) +
+	theme_bw()	+
+	geom_tile(aes(fill = Z), width=0.95, height=0.95) +
+  geom_tile(data=all_func_res[all_func_res$Sig == T,], aes(x = Panel, y = ID), colour='black', fill=NA, size=0.3, width=0.95, height=0.95) +
+  geom_tile(data=all_func_res[all_func_res$Coloc ==T & all_func_res$Sig == T,], aes(x = Panel, y = ID), colour='green2', fill=NA, size=0.3, width=0.95, height=0.95) +
+  geom_tile(data=all_func_res[all_func_res$Coloc ==T & all_func_res$Sig == T & all_func_res$FOCUS == T,], aes(x = Panel, y = ID), colour='magenta2', fill=NA, size=0.3, width=0.95, height=0.95) +
+	scale_fill_gradientn(colours=c("dodgerblue2","white","red"), na.value = 'white',name = "Z-score") +
+	theme(axis.text.x = element_text(angle = 45, hjust = 1),plot.title = element_text(hjust = 0.5)) +
+	geom_text(aes(label=round(Z,1)), color="black", size=3) +
+	labs(title="High confidence genes across panels and methods") +
+  facet_wrap(~ Group , nrow=1, scales = "free_x")
+
+group_siz<-NULL
+for(i in c("Brain\nFUSION\nExpr.","Brain\nFUSION\nSplice","Brain\nSMR\nExpr.","Brain\nFUSION\nProtein","Brain\nSMR\nProtein","Blood\nFUSION\nExpr.","Blood\nSMR\nExpr.","HPA/HPT\nFUSION\nExpr.")){
+  group_siz<-rbind(group_siz, data.frame(Group=i,
+                           Size=length(unique(all_func_res$Panel[all_func_res$Group==i]))))
+}
+
+# Set minimum size to 3 to allow space for labels
+group_siz$Size[group_siz$Size < 2]<-2
+group_siz$Prop<-group_siz$Size/sum(group_siz$Size)
+group_siz$Width<-4*group_siz$Prop
+
+library(grid)
+gt = ggplot_gtable(ggplot_build(heatmap))
+
+for(i in 1:nrow(group_siz)){
+  gt$widths[gt$layout$l[grep(paste0('panel-',i,'-1'), gt$layout$name)]] = group_siz$Width[i]*gt$widths[gt$layout$l[grep(paste0('panel-',i,'-1'), gt$layout$name)]]
+
+}
+
+png('../../docs/figures/gene_con_func_heatmap.png', units = 'px', res=300, height=8000, width=2900)
+
+grid.draw(gt)
+
+a<-dev.off()
+
+```
+
+</details> 
+
+<details><summary>Show heatmap of high confidence associations across expression and protein datasets and methods</summary>
+
+![High-confidence genes](../../docs/figures/gene_con_func_heatmap.png)
+
+* Black box indicates significance
+* Green box indicates colocalisation
+* Magenta box indicates FOCUS PIP > 0.5
+* Some MetaBrain Basalganglia, Hippocampus, Spinalcord panels are not present due to not containing any high confidence genes
+* Banner PWAS and ROSMAP SMR results only shown for genes that were signficant in the discovery ROSMAP PWAS.
+
+</details> 
 
 ***
