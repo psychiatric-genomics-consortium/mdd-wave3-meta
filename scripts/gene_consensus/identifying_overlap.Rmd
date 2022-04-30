@@ -19,6 +19,7 @@ The PGC3 MDD study is including the following analyses to identify genes associa
 - FOCUS: Causal model suported for TWAS associations
 - SMR: Overlapping GWAS and eQTL/pQTL association
 - HEIDI: No evidence of horizontal pleitropy in SMR association
+- PsyOPS: Psychiatric Omnilocus Prioritization Score
 
 ***
 
@@ -80,7 +81,7 @@ for(i in 1:nrow(indep_hits)){
 ##########
 
 # Read in finemapping results from Joni. This table shows genes implicated by the finemapping results, by a gene containing the entire 95% credible set.
-finemap<-fread('../../results/finemapping/Locus_FineMapping_Full_Results.csv')
+finemap<-fread('../../docs/tables/finemapping/Locus_FineMapping_Full_Results.csv')
 
 finemap_genes<-unlist(strsplit(finemap$High.Confidence.Genes.Names, ','))
 finemap_genes<-finemap_genes[finemap_genes != '-']
@@ -90,14 +91,14 @@ finemap_genes<-finemap_genes[finemap_genes != '-']
 ##########
 
 # Read in FastBAT results
-fastbat<-fread('../../results/Howard/mdd_fastbat_AllgeneMatrix.gene.fastbat')
+fastbat<-fread('../../docs/tables/fastBAT/mdd_fastbat_AllgeneMatrix.gene.fastbat')
 fastbat$P.FDR<-p.adjust(fastbat$Pvalue, method='fdr')
 
 ##########
 # H-MAGMA
 ##########
 
-hmagma<-fread('../../results/Pathak/PGC_MDD_Results_mar2022.csv')
+hmagma<-fread('../../docs/tables/H-MAGMA/PGC_MDD_Results_mar2022.csv')
 
 # Exclude astrocytes
 hmagma_noAstr<-hmagma[hmagma$Analysis != 'Astrocytes',]
@@ -114,23 +115,23 @@ hmagma_noAstr<-merge(hmagma_noAstr, Genes, by.x='GENE', by.y='ensembl_gene_id')
 # TWAS
 ##########
 
-twas<-fread('../../results/twas/twas_results/PGC_MDD3_twas_AllTissues_GW.txt')
+twas<-fread('../../docs/tables/twas/PGC_MDD3_twas_AllTissues_GW.txt')
 twas_sig<-twas[twas$TWAS.P < 3.685926e-08,]
 
 ##########
 # Colocalisation
 ##########
 
-coloc<-read.csv('../../results/twas/twas_results/PGC_MDD3_TWAS_colocalisation.csv')
+coloc<-read.csv('../../docs/tables/twas/PGC_MDD3_TWAS_colocalisation.csv')
 coloc_sig<-coloc[coloc$COLOC.PP4 > 0.8,]
 
 ##########
 # FOCUS 
 ##########
 
-focus<-read.csv('../../results/twas/focus/p_1e-4/PGC_MDD3_TWAS.TWSig.FOCUS.results.csv')
+focus<-read.csv('../../docs/tables/twas/PGC_MDD3_TWAS.TWSig.FOCUS.results.csv')
 
-fusion <- fread("../../results/twas/twas_results/PGC_MDD3_twas_AllTissues_TWSig_CLEAN.txt")
+fusion <- fread("../../docs/tables/twas/PGC_MDD3_twas_AllTissues_TWSig_CLEAN.txt")
 fusion<-fusion[,c('PANEL','PANEL_clean_short','PANEL_clean'), with=F]
 fusion<-fusion[!duplicated(fusion),]
 
@@ -142,7 +143,7 @@ focus_sig<-focus[focus$FOCUS_pip > 0.5,]
 # Expression analysis based high confidence genes
 ##########
 
-expression_highconf_res<-fread('../../results/twas/PGC3_MDD_TWAS_HighConf_results.csv')
+expression_highconf_res<-fread('../../docs/tables/twas/PGC3_MDD_TWAS_HighConf_results.csv')
 
 ##########
 # SMR
@@ -151,7 +152,7 @@ expression_highconf_res<-fread('../../results/twas/PGC3_MDD_TWAS_HighConf_result
 # Read in the SMR results
 smr_res<-list()
 
-smr_res[['eQTLGen_Blood']]<-fread('../../results/twas/eqtlgen_smr/eqtlgen_smr_res_GW_withIDs.csv')
+smr_res[['eQTLGen_Blood']]<-fread('../../docs/tables/twas/eqtlgen_smr_res_GW_withIDs.csv')
 
 names(smr_res[['eQTLGen_Blood']])[names(smr_res[['eQTLGen_Blood']]) == 'GeneSymbol']<-'HGNCName'
 smr_res[['eQTLGen_Blood']]$eQTL_source<-'eQTLGen_Blood'
@@ -159,7 +160,7 @@ smr_res[['eQTLGen_Blood']]$eQTL_source<-'eQTLGen_Blood'
 tissue<-c("Basalganglia","Cerebellum","Cortex","Hippocampus","Spinalcord")
 
 for(tissue_i in tissue){
-  smr_res[[tissue_i]]<-fread(paste0('../../results/twas/metabrain_smr/metabrain_',tissue_i,'_smr_res_GW_withIDs.csv'))
+  smr_res[[tissue_i]]<-fread(paste0('../../docs/tables/twas/metabrain_',tissue_i,'_smr_res_GW_withIDs.csv'))
   smr_res[[tissue_i]]$eQTL_source<-paste0('MetaBrain_',tissue_i)
 }
 
@@ -182,10 +183,10 @@ heidi<-smr_res_dat_sig[smr_res_dat_sig$p_HEIDI > 0.05,]
 pwas<-NULL
 for(i in 1:22){
   if(i != 6){
-    pwas<-rbind(pwas, fread(paste0('../../results/pwas/PGC_MDD3_pwas_rosmap_chr',i)))
+    pwas<-rbind(pwas, fread(paste0('../../docs/tables/pwas/PGC_MDD3_pwas_rosmap_chr',i)))
   } else {
-    pwas<-rbind(pwas, fread(paste0('../../results/pwas/PGC_MDD3_pwas_rosmap_chr',i)))
-    pwas<-rbind(pwas, fread(paste0('../../results/pwas/PGC_MDD3_pwas_rosmap_chr',i,'.MHC')))
+    pwas<-rbind(pwas, fread(paste0('../../docs/tables/pwas/PGC_MDD3_pwas_rosmap_chr',i)))
+    pwas<-rbind(pwas, fread(paste0('../../docs/tables/pwas/PGC_MDD3_pwas_rosmap_chr',i,'.MHC')))
   }
 }
 
@@ -193,7 +194,21 @@ pwas$TWAS.P.FDR<-p.adjust(pwas$TWAS.P)
 pwas$ID<-gsub('.*\\.','', pwas$ID)
 
 # Read in PWAS and SMR results for all significant ROSMAP PWAS assoc results
-pwas_smr_rosmap_banner<-fread('../../results/pwas/rosmap_banner_pwas_smr_results.csv')
+pwas_smr_rosmap_banner<-fread('../../docs/tables/pwas/rosmap_banner_pwas_smr_results.csv')
+
+########
+# PsyOPS
+########
+
+psyops <- fread('../../docs/tables/psyops/psyops_full_eur.cojo.txt')
+psyops_prioritised<-NULL
+for(i in unique(psyops$lead_variant)){
+  tmp<-psyops[psyops$lead_variant == i,]
+  tmp<-tmp[tmp$PsyOPS_score == max(tmp$PsyOPS_score),]
+  tmp<-tmp[tmp$distance == min(tmp$distance),]
+  psyops_prioritised<-rbind(psyops_prioritised, tmp)
+}
+psyops_genes <- psyops_prioritised$gene
 
 ```
 
@@ -217,6 +232,7 @@ gene_overlap[['Protein']]<-pwas_smr_rosmap_banner$ID[which(pwas_smr_rosmap_banne
 gene_overlap[['Nearest Gene']]<-indep_hits$NearestGene[!is.na(indep_hits$NearestGene)]
 gene_overlap[['fastBAT']]<-fastbat$Gene[fastbat$P.FDR < 0.05]
 gene_overlap[['H-MAGMA']]<-unique(hmagma_noAstr$external_gene_name[hmagma_noAstr$P.FDR < 0.05])
+gene_overlap[['PsyOPS']]<-psyops_genes
 
 library(UpSetR)
 
@@ -230,6 +246,7 @@ gene_overlap<-list()
 gene_overlap[['Fine-mapping']]<-finemap_genes
 gene_overlap[['Expression']]<-expression_highconf_res$ID
 gene_overlap[['Protein']]<-pwas_smr_rosmap_banner$ID[which(pwas_smr_rosmap_banner$banner_replicated & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$smr.causal)]
+gene_overlap[['PsyOPS']]<-psyops_genes
 
 png('../../docs/figures/gene_consensus_upset_highconf.png', units = 'px', res=300, height=1400, width=1500)
 
@@ -276,7 +293,7 @@ finemap_highconf<-finemap_genes
 expression_highconf<-expression_highconf_res$ID
 
 # Genes implicated by PWAS, SMR, coloc and HEIDI in ROSMAP and Banner
-protein_highconf<-pwas_smr_rosmap_banner$ID[which(pwas_smr_rosmap_banner$banner_replicated & pwas_smr_rosmap_banner$smr_replicated & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$banner.causal & pwas_smr_rosmap_banner$smr.causal)]
+protein_highconf<-pwas_smr_rosmap_banner$ID[which(pwas_smr_rosmap_banner$banner_replicated & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$smr.causal)]
 
 high_conf<-unique(c(finemap_highconf, expression_highconf, protein_highconf))
 high_conf_tab<-data.frame(ID=high_conf)
@@ -358,6 +375,18 @@ for(i in 1:nrow(high_conf_tab)){
   }
 }
 
+# PsyOPS
+high_conf_tab$psyops<-'NA'
+for(i in 1:nrow(high_conf_tab)){
+  if(high_conf_tab$ID[i] %in% psyops$gene){
+    if(high_conf_tab$ID[i] %in% psyops_genes){
+      high_conf_tab$psyops[i]<-'Sig'
+    } else {
+      high_conf_tab$psyops[i]<-'Non-Sig'
+    }
+  }
+}
+
 # Order genes by the number of analyses indicating them as high confidence.
 high_conf_tab_log<-high_conf_tab[,-1]
 high_conf_tab_log[high_conf_tab_log == 'NA']<-'F'
@@ -374,7 +403,7 @@ high_conf_tab_log$sum<-rowSums(high_conf_tab_log[,1:3])
 high_conf_tab<-high_conf_tab[order(-high_conf_tab_log$sum, high_conf_tab$ID),]
 high_conf_tab$ID<-factor(high_conf_tab$ID, levels = high_conf_tab$ID)
 
-names(high_conf_tab)<-c('ID','Fine-mapping','Expression','Protein','fastBAT','H-MAGMA')
+names(high_conf_tab)<-c('ID','Fine-mapping','Expression','Protein','fastBAT','H-MAGMA','PsyOPS')
 high_conf_tab_melt<-melt(high_conf_tab, id.vars='ID')
 high_conf_tab_melt$value<-factor(high_conf_tab_melt$value, levels=c('Non-Sig','Sig','Pos','Neg','NA'))
 high_conf_tab_melt$ID<-factor(high_conf_tab_melt$ID, levels=rev(levels(high_conf_tab$ID)))
@@ -382,7 +411,7 @@ high_conf_tab_melt$ID<-factor(high_conf_tab_melt$ID, levels=rev(levels(high_conf
 library(ggplot2)
 library(cowplot)
 
-png('../../docs/figures/gene_con_heatmap.png', units = 'px', res=300, height=14000, width=2600)
+png('../../docs/figures/gene_con_heatmap.png', units = 'px', res=300, height=14000, width=2800)
 ggplot(data = high_conf_tab_melt, aes(x='1', y = ID, fill=value)) +
   theme_minimal_grid(color = "white") +
   geom_tile(colour = 'black', width=1.5) +
