@@ -65,6 +65,17 @@ rule ldsc_h2:
 
 
 ##
-## Stratified LDSC munging and heritability
+## Stratified LDSC resources
 ##
 
+# 1000G Phase 3 plink files for LDSC
+rule ldsc_1kg3:
+    input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/1000G_Phase3_plinkfiles.tgz")
+    output: directory("resources/ldsc/1000G_EUR_Phase3_plink")
+    shell: "tar xzf {input} --cd $(dirname {output})"
+    
+# Gene coordinates file
+rule ldsc_gene_coord:
+    input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/make_annot_sample_files/ENSG_coord.txt")
+    output: "resources/ldsc/ENSG_coord.txt"
+    shell: "mv {input} {output}"

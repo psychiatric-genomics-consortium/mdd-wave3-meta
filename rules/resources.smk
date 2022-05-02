@@ -1,6 +1,10 @@
-# shared resources
+##################
+# Shared resources
+##################
+
 
 ## Download 1000 Genome Resources
+
 rule resources_1kg_bed_download:
 	input: HTTP.remote("https://www.dropbox.com/s/k9ptc4kep9hmvz5/1kg_phase1_all.tar.gz?dl=1", keep_local=False)
 	output: "resources/1kg/1kg_phase1_all.tar.gz"
@@ -70,3 +74,16 @@ rule resources_1kg_phase3_bed:
     --max-alleles 2 \
     --out {params.prefix}
     """
+    
+## Drug Targetor https://drugtargetor.com/
+
+# Download drug targetor databases
+rule resources_drugtargetor_whole:
+    input: HTTP.remote("https://github.com/hagax8/drugtargetor/raw/master/wholedatabase_for_targetor")
+    output: "resources/drug_enrichment/wholedatabase_for_targetor"
+    shell: "mv {input} {output}"
+    
+rule resources_drugtargetor_kidb:
+    input: HTTP.remote("https://github.com/hagax8/drugtargetor/raw/master/kidb_chembl_all_bioact")
+    output: "resources/drug_enrichment/kidb_chembl_all_bioact"
+    shell: "mv {input} {output}"  
