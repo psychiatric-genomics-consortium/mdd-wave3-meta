@@ -1,3 +1,7 @@
+##
+## Reference files LDSC and installation
+##
+
 # fetch LDSC reference files
 rule ldsc_fetch_hm3_bz:
 	input: HTTP.remote("https://data.broadinstitute.org/alkesgroup/LDSCORE/w_hm3.snplist.bz2")
@@ -35,6 +39,10 @@ rule ldsc_install:
 	input: "resources/ldsc/w_hm3.snplist", rules.ldsc_unzip_eur_w_ld_chr.output
 	output: directory("resources/ldsc/ldsc")
 	shell: "git clone https://github.com/bulik/ldsc.git {output}"
+
+##
+## LDSC munging and heritability
+##
 	
 # Run munge with N taken from Neff (doi:10.1101/2021.09.22.21263909), FRQ from FRQ_U column
 rule ldsc_munge:
@@ -54,4 +62,9 @@ rule ldsc_h2:
 	conda: "../envs/ldsc.yaml"
 	output: "results/ldsc/h2/pgc_mdd_{cohorts}_{ancestries}_v{version}.log"
 	shell: "resources/ldsc/ldsc/ldsc.py --h2 {input.sumstats} --ref-ld {params.ld} --w-ld {params.ld} --M $(cat {input.l2_M}) --out {params.prefix}"
+
+
+##
+## Stratified LDSC munging and heritability
+##
 
