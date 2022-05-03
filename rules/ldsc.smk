@@ -72,7 +72,7 @@ rule ldsc_h2:
 rule ldsc_1kg3:
     input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/1000G_Phase3_plinkfiles.tgz")
     output: directory("resources/ldsc/1000G_EUR_Phase3_plink")
-    shell: "tar xzf {input} --cd $(dirname {output})"
+    shell: "tar xzf {input} -C $(dirname {output})"
     
 # Gene coordinates file
 rule ldsc_gene_coord:
@@ -84,4 +84,4 @@ rule ldsc_gene_coord:
 rule ldsc_hapmap3:
     input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/hapmap3_snps.tgz")
     output: directory("resources/ldsc/hapmap3_snps")
-    shell: "tar xzf {input} --cd $(dirname {output})"
+    shell: "tar xzf {input} -C $(dirname {output})"

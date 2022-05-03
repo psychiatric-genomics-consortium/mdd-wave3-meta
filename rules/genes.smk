@@ -121,5 +121,5 @@ rule genes_sldsc_drugtargetor_annot_l2:
     """
     
 rule genes_sldsc_drugtargetor_annot_l2_chr:
-    input: expand("resources/drug_enrichment/sldsc/targetor_whole.{chr}.l2.ldscore", chr=range(1, 23))
+    input: expand("resources/drug_enrichment/sldsc/targetor_whole.{chr}.l2.ldscore.gz", chr=range(1, 23))
 
