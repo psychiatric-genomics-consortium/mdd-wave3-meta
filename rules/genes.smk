@@ -104,3 +104,22 @@ rule genes_sldsc_drugtargetor_annot:
     conda: "../envs/meta.yaml"
     script: "../scripts/genes/drugtargetor_annot.R"
     
+    
+# Compute LD scores with DrugTargettor annotion
+rule genes_sldsc_drugtargetor_annot_l2:
+    input: annot="resources/drug_enrichment/sldsc/targetor_whole.{chr}.annot.gz",  phase3="resources/ldsc/1000G_EUR_Phase3_plink", ldsc="resources/ldsc/ldsc",  hapmap="resources/ldsc/hapmap3_snps"
+    params: bfile="resources/ldsc/1000G_EUR_Phase3_plink/1000G.EUR.QC.{chr}", hm="resources/ldsc/hapmap3_snps/hm.{chr}.snp", prefix="resources/drug_enrichment/sldsc/targetor_whole.{chr}"
+    output: "resources/drug_enrichment/sldsc/targetor_whole.{chr}.l2.ldscore.gz"
+    conda: "../envs/ldsc.yaml"
+    shell: """
+    python {input.ldsc}/ldsc.py \
+    --l2 \
+    --bfile {params.bfile} \
+    --ld-wind-cm 1 \
+    --annot {input.annot} \
+    --out {params.prefix} \
+    --print-snps {params.hm}
+    """
+    
+rule genes_sldsc_drugtargetor_annot_l2_chr:
+    input: expand("resources/drug_enrichment/sldsc/targetor_whole.{chr}.l2.ldscore", chr=range(1, 23))
