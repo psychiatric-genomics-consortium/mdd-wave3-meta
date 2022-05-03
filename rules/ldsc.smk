@@ -79,3 +79,9 @@ rule ldsc_gene_coord:
     input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/make_annot_sample_files/ENSG_coord.txt")
     output: "resources/ldsc/ENSG_coord.txt"
     shell: "mv {input} {output}"
+    
+# hapmap3 snps
+rule ldsc_hapmap3:
+    input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/hapmap3_snps.tgz")
+    output: directory("resources/ldsc/hapmap3_snps")
+    shell: "tar xzf {input} --cd $(dirname {output})"
