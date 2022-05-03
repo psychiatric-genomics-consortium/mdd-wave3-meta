@@ -27,7 +27,7 @@ The PGC3 MDD study is including the following analyses to identify genes associa
 
 <details><summary>Show code</summary>
 
-```{r, eval=T, echo=T}
+```{r analyses, eval=T, echo=T, cache=TRUE}
 
 ##########
 # Nearest gene
@@ -222,7 +222,7 @@ This plot will show the number of genes returned by each analysis and the overla
 
 <details><summary>Show code</summary>
 
-```{r, eval=T, echo=F}
+```{r upset, eval=T, echo=F, cache=TRUE}
 
 # Create data.frame listing genes with T/F indicating whether it was supported by each analysis 
 gene_overlap<-list()
@@ -284,7 +284,7 @@ dev.off()
 
 <details><summary>Show code</summary>
 
-```{r, eval=T, echo=F}
+```{r highconf, eval=T, echo=F, cache=TRUE}
 # Define high confidence associations
 # Genes implicated by finemapping
 finemap_highconf<-finemap_genes
@@ -445,7 +445,7 @@ This will give some indication of how fine-mapped variants may affect gene expre
 
 <details><summary>Show code</summary>
 
-```{r, eval=T, echo=T}
+```{r highconf_expr, eval=T, echo=T, cache=TRUE}
 
 ###
 # Create a dataframe containing gene ID, PANEL, Method and Z scores for all expression and protein analyses.
@@ -633,5 +633,137 @@ a<-dev.off()
 * Banner PWAS and ROSMAP SMR results only shown for genes that were signficant in the discovery ROSMAP PWAS.
 
 </details> 
+
+***
+
+
+## Query GO terms using PANTHER
+
+Conduct an overrepresentation test with [PANTHER](http://pantherdb.org/) using the [PANTHER API](http://pantherdb.org/services/openAPISpec.jsp). The service returns results as [JSON](https://www.json.org). The first step is querying the IDs for humans (the taxon) and the annotation datasets.
+
+<details><summary>Show code</summary>
+
+```{r panther_ids, eval=T, echo=T, cache=TRUE}
+
+library(httr)
+library(jsonlite)
+
+# the PantherDB URL
+panther_db <- "http://pantherdb.org"
+
+# Get list of taxon IDs
+supportedgenomes_response <- GET(modify_url(panther_db, path="/services/oai/pantherdb/supportedgenomes"))
+
+# find the taxon ID for humans
+supportedgenomes <- fromJSON(content(supportedgenomes_response, "text"))
+genomes <- supportedgenomes$search$output$genomes$genome
+human_taxon_id <- genomes$taxon_id[which(genomes$name == 'human')]
+
+# get list of annotation datasets
+supportedannotdatasets_response <- GET(modify_url(panther_db, path="services/oai/pantherdb/supportedannotdatasets"))
+
+# find GO ids for biological process, molecular function, and cellular components
+supportedannotdatasets <- fromJSON(content(supportedannotdatasets_response, "text"))
+annotation_data_types <- supportedannotdatasets$search$annotation_data_sets$annotation_data_type
+biological_process_id = annotation_data_types$id[which(annotation_data_types$label == "biological_process")]
+cellular_component_id = annotation_data_types$id[which(annotation_data_types$label == "cellular_component")]
+molecular_function_id = annotation_data_types$id[which(annotation_data_types$label == "molecular_function")]
+
+```
+
+</details>
+
+The next step is to query the overrepresentation test.
+
+<details><summary>Show code</summary>
+
+```{r panther_overrep, eval=T, echo=T, cache=TRUE}
+
+# construct enrichment overrepresentation query from gene list
+# and annotation ID
+overrep_url <- function(gene_list, annot_data_set_id, url=panther_db, organism_id=human_taxon_id) {
+    modify_url(url,
+        path="/services/oai/pantherdb/enrich/overrep",
+        query=list(geneInputList=paste(gene_list, collapse=","),
+                   organism=organism_id,
+                   annotDataSet=annot_data_set_id,
+                   enrichmentTestType="FISHER",
+                   correction="FDR"))
+}
+
+# construct URL and query PANTHER. Parse out JSON response
+overrep_query <- function(genes, annot_data_set_id, ...) {
+    # make query
+    overrep_response <- GET(overrep_url(genes, annot_data_set_id, ...))
+    # parse JSON
+    overrep <- fromJSON(content(overrep_response, "text"))
+    return(overrep)
+}
+
+high_conf_overrep_biol <- overrep_query(high_conf, biological_process_id)
+
+high_conf_overrep_mol <- overrep_query(high_conf, molecular_function_id)
+
+high_conf_overrep_cell<- overrep_query(high_conf, cellular_component_id)
+
+```
+
+</details>
+
+### Biological processes
+
+<details><summary>Show code</summary>
+
+```{r panther_biol, eval=T, echo=T}
+
+# extract results table from the query
+panther_format <- function(query) {
+    results <- query$results$result
+    results_labels <- results$term
+    results_terms <- cbind(results_labels,
+                           results[,c('fold_enrichment', 'fdr',
+                                      'number_in_list', 'expected', 
+                                      'number_in_reference', 'pValue')])
+                                      
+    return(results_terms)
+}
+
+high_conf_overrep_biol_results <- panther_format(high_conf_overrep_biol)
+high_conf_overrep_mol_results <- panther_format(high_conf_overrep_mol)
+high_conf_overrep_cell_results <- panther_format(high_conf_overrep_cell)
+
+```
+
+</details>
+
+<details><summary>Show Go: Biological Processes table</summary>
+
+```{r panther_biol_kable, eval=T, echo=T}
+# filter for FDR
+knitr::kable(high_conf_overrep_biol_results[which(high_conf_overrep_biol_results$fdr <= 0.05),], caption='GO: Biological Processes')
+
+```
+
+</details>
+
+<details><summary>Show Go: Molecular functions table</summary>
+
+```{r panther_mol_kable, eval=T, echo=T}
+# filter for FDR
+knitr::kable(high_conf_overrep_mol_results[which(high_conf_overrep_mol_results$fdr <= 0.05),], caption='GO: Molecular Functions')
+
+```
+
+</details>
+
+<details><summary>Show Go: Cellular Components table</summary>
+
+```{r panther_cell_kable, eval=T, echo=T}
+# filter for FDR
+knitr::kable(high_conf_overrep_cell_results[which(high_conf_overrep_cell_results$fdr <= 0.05),], caption='GO: Cellular Components')
+
+```
+
+</details>
 
 ***
