@@ -96,29 +96,11 @@ rule genes_psyops_full:
 
 ## Drug Targetor
 
-# translate drug targetor gene names to ENSGID
-rule genes_sldsc_drugtargetor_geneset:
-    input: drugtargetor= "resources/drug_enrichment/wholedatabase_for_targetor", geneMatrix="resources/fastBAT/geneMatrix.tsv.gz"
-    output: "resources/drug_enrichment/wholedatabase_for_targetor.geneset"
-    conda: "../envs/meta.yaml"
-    shell: """
-    Rscript -e "library(dplyr);
-             library(readr);
-             drugtargetor <- read_tsv('{input.drugtargetor}');
-             geneMatrix <- read_tsv('{input.geneMatrix}');
-             write_tsv(geneMatrix %>% filter(gene_name %in% drugtargetor[['gene']]) %>% select(ensgid), '{output}', col_names=F)"
-    """
-    
-# make annotation
+# Make S-LDSC annotations for drug/genes in the DrugTargetor database
 rule genes_sldsc_drugtargetor_annot:
-    input: geneset="resources/drug_enrichment/wholedatabase_for_targetor.geneset", ldsc=ancient("resources/ldsc/ldsc"), ensg="resources/ldsc/ENSG_coord.txt", phase3="resources/ldsc/1000G_EUR_Phase3_plink"
-    output: "results/genes/drug_enrichment/drugtargetor.{chr}.annot.gz"
-    conda: "../envs/ldsc.yaml"
-    shell: """
-    python {input.ldsc}/make_annot.py \
-    --gene-set-file {input.geneset} \
-    --gene-coord-file {input.ensg} \
-    --windowsize 100000 \
-    --bimfile {input.phase3}/1000G.EUR.QC.{wildcards.chr}.bim \
-    --annot-file {output}
-    """
+    input: drugtargetor= "resources/drug_enrichment/wholedatabase_for_targetor", geneMatrix="resources/fastBAT/geneMatrix.tsv.gz", phase3="resources/ldsc/1000G_EUR_Phase3_plink"
+    params: windowsize=100000, bim="resources/ldsc/1000G_EUR_Phase3_plink/1000G.EUR.QC.{chr}.bim"
+    output: "resources/drug_enrichment/sldsc/targetor_whole.{chr}.annot.gz"
+    conda: "../envs/meta.yaml"
+    script: "../scripts/genes/drugtargetor_annot.R"
+    
