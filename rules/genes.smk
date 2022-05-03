@@ -103,8 +103,7 @@ rule genes_sldsc_drugtargetor_annot:
     output: "resources/drug_enrichment/sldsc/targetor_whole.{chr}.annot.gz"
     conda: "../envs/meta.yaml"
     script: "../scripts/genes/drugtargetor_annot.R"
-    
-    
+ 
 # Compute LD scores with DrugTargettor annotion
 rule genes_sldsc_drugtargetor_annot_l2:
     input: annot="resources/drug_enrichment/sldsc/targetor_whole.{chr}.annot.gz",  phase3="resources/ldsc/1000G_EUR_Phase3_plink", ldsc="resources/ldsc/ldsc",  hapmap="resources/ldsc/hapmap3_snps"
@@ -123,3 +122,4 @@ rule genes_sldsc_drugtargetor_annot_l2:
     
 rule genes_sldsc_drugtargetor_annot_l2_chr:
     input: expand("resources/drug_enrichment/sldsc/targetor_whole.{chr}.l2.ldscore", chr=range(1, 23))
+
