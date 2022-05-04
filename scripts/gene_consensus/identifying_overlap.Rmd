@@ -222,7 +222,7 @@ This plot will show the number of genes returned by each analysis and the overla
 
 <details><summary>Show code</summary>
 
-```{r upset, eval=T, echo=F, cache=TRUE}
+```{r upset, eval=T, echo=T, cache=TRUE}
 
 # Create data.frame listing genes with T/F indicating whether it was supported by each analysis 
 gene_overlap<-list()
@@ -284,7 +284,7 @@ dev.off()
 
 <details><summary>Show code</summary>
 
-```{r highconf, eval=T, echo=F, cache=TRUE}
+```{r highconf, eval=T, echo=T, cache=TRUE}
 # Define high confidence associations
 # Genes implicated by finemapping
 finemap_highconf<-finemap_genes
@@ -404,7 +404,7 @@ high_conf_tab<-high_conf_tab[order(-high_conf_tab_log$sum, high_conf_tab$ID),]
 high_conf_tab$ID<-factor(high_conf_tab$ID, levels = high_conf_tab$ID)
 
 names(high_conf_tab)<-c('ID','Fine-mapping','Expression','Protein','fastBAT','H-MAGMA','PsyOPS')
-high_conf_tab_melt<-melt(high_conf_tab, id.vars='ID')
+high_conf_tab_melt<-melt(as.data.table(high_conf_tab), id.vars='ID')
 high_conf_tab_melt$value<-factor(high_conf_tab_melt$value, levels=c('Non-Sig','Sig','Pos','Neg','NA'))
 high_conf_tab_melt$ID<-factor(high_conf_tab_melt$ID, levels=rev(levels(high_conf_tab$ID)))
 
