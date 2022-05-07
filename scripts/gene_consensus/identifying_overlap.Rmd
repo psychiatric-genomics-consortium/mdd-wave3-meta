@@ -43,8 +43,20 @@ indep_hits<-fread('../../docs/tables/meta_snps_full_eur.cojo.txt')
 # Link SNPs to nearest gene
 # Insert nearest gene information
 library(biomaRt)
-ensembl = useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl", GRCh=37)
-Genes<-getBM(attributes=c('external_gene_name','chromosome_name','start_position','end_position'), mart = ensembl)
+gene_attributes = c('ensembl_gene_id', 'hgnc_symbol', 'external_gene_name','chromosome_name','start_position','end_position')
+# GRCh37 for position
+ensembl37 = useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl", GRCh=37)
+Genes37<-getBM(attributes=gene_attributes, mart = ensembl37)
+# GRCH38 for gene names
+ensembl38 = useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")
+Genes38<-getBM(attributes=gene_attributes, mart = ensembl38)
+
+# 37 positions with 38 gene names
+Genes <- merge(Genes37, Genes38[,c('ensembl_gene_id', 'external_gene_name', 'hgnc_symbol')], by='ensembl_gene_id', all.x=TRUE, suffix=c('.37', '.38'))
+
+# copy over build 37 gene name if it is missing in 
+coalesce_gene_name <- which(is.na(Genes$external_gene_name.38))
+Genes$external_gene_name = with(Genes, ifelse(is.na(external_gene_name.38), yes=external_gene_name.37, no=external_gene_name.38))
 
 window<-50000
 
@@ -55,24 +67,29 @@ for(i in 1:nrow(indep_hits)){
     for(j in 1:nrow(Genes_i)){
       if(indep_hits$BP[i] > Genes_i$start_position[j] & indep_hits$BP[i] < Genes_i$end_position[j]){
         gene_string<-rbind(gene_string, data.frame(ID=Genes_i$external_gene_name[j],
+												   ENSGID=Genes_i$ensembl_gene_id[j],
                                                    Dist=0,
                                                    Pos=NA))
       }
       if(indep_hits$BP[i] < Genes_i$start_position[j]){
         gene_string<-rbind(gene_string, data.frame(ID=Genes_i$external_gene_name[j],
+		   										   ENSGID=Genes_i$ensembl_gene_id[j],
                                                    Dist=abs(indep_hits$BP[i] - Genes_i$start_position[j]),
                                                    Pos='-'))
       }
       if(indep_hits$BP[i] > Genes_i$end_position[j]){
         gene_string<-rbind(gene_string, data.frame(ID=Genes_i$external_gene_name[j],
+		                                           ENSGID=Genes_i$ensembl_gene_id[j],
                                                    Dist=abs(indep_hits$BP[i] - Genes_i$end_position[j]),
                                                    Pos='+'))
       }
     }
     gene_string<-gene_string[order(gene_string$Dist),]
     indep_hits$NearestGene[i]<-as.character(gene_string$ID[1])
+	indep_hits$NearestENSG[i]<-as.character(gene_string$ENSGID[1])
   } else {
     indep_hits$NearestGene[i]<-NA
+	indep_hits$NearestENSG[i]<-NA
   }
 }
 
