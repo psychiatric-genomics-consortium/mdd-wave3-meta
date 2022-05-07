@@ -18,7 +18,7 @@ rule genes_genematrix_protein:
     input: "resources/fastBAT/geneMatrix.tsv.gz"
     output: "resources/fastBAT/geneMatrix.protein.txt"
     shell: """
-    zcat {input} | sed 's/\"//g' | awk '($5 == "protein_coding" && $12 ~ /^chr/)' | awk -v range=3 '{{print substr($12,range+1),$13,$14,$3}}' > {output}
+    zcat {input} | sed 's/\"//g' | awk '($5 == "protein_coding" && $12 ~ /^chr/)' | awk -v range=3 '{{print substr($12,range+1),$13,$14,$1}}' > {output}
     """
 
 ## Remove double quotes, select all genes (N = 58844) with known positions on hg19
@@ -26,7 +26,7 @@ rule genes_genematrix_all:
     input: "resources/fastBAT/geneMatrix.tsv.gz"
     output: "resources/fastBAT/geneMatrix.all.txt"
     shell: """
-    zcat {input} | sed 's/\"//g' | awk '($12 ~ /^chr/)' | awk -v range=3 '{{print substr($12,range+1),$13,$14,$3}}' > {output}
+    zcat {input} | sed 's/\"//g' | awk '($12 ~ /^chr/)' | awk -v range=3 '{{print substr($12,range+1),$13,$14,$1}}' > {output}
     """
 
 ## Extract header row and apply MAF >= 0.01 and infoscore > 0.8 to summary stats
