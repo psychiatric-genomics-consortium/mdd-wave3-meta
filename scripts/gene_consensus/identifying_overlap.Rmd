@@ -47,14 +47,22 @@ gene_attributes = c('ensembl_gene_id', 'hgnc_symbol', 'external_gene_name','chro
 # GRCh37 for position
 ensembl37 = useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl", GRCh=37)
 Genes37<-getBM(attributes=gene_attributes, mart = ensembl37)
+Genes37 <- Genes37[!duplicated(Genes37$ensembl_gene_id),]
+
 # GRCH38 for gene names
 ensembl38 = useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")
 Genes38<-getBM(attributes=gene_attributes, mart = ensembl38)
+Genes38 <- Genes38[!duplicated(Genes38$ensembl_gene_id),]
 
 # 37 positions with 38 gene names
-Genes <- merge(Genes37, Genes38[,c('ensembl_gene_id', 'external_gene_name', 'hgnc_symbol')], by='ensembl_gene_id', all.x=TRUE, suffix=c('.37', '.38'))
+Genes <- merge(Genes37, Genes38[,c('ensembl_gene_id', 'chromosome_name', 'external_gene_name', 'hgnc_symbol')], by=c('ensembl_gene_id', 'chromosome_name'), all.x=TRUE, suffix=c('.37', '.38'))
 
-# copy over build 37 gene name if it is missing in 
+
+
+# genes with non-duplicated names
+external_gene_name.37_dups <- Genes37_38[duplicated(Genes37_38$external_gene_name.37),'external_gene_name.37']
+
+# copy over build 37 gene name if it is missing in 38
 coalesce_gene_name <- which(is.na(Genes$external_gene_name.38))
 Genes$external_gene_name = with(Genes, ifelse(is.na(external_gene_name.38), yes=external_gene_name.37, no=external_gene_name.38))
 
@@ -102,6 +110,10 @@ finemap<-fread('../../docs/tables/finemapping/Locus_FineMapping_Full_Results.csv
 
 finemap_genes<-unlist(strsplit(finemap$High.Confidence.Genes.Names, ','))
 finemap_genes<-finemap_genes[finemap_genes != '-']
+finemap_geneids<-unlist(strsplit(finemap$High.Confidence.Genes.IDs, ','))
+finemap_geneids<-finemap_geneids[finemap_geneids != '-']
+finemap_geneids <- sapply(strsplit(finemap_geneids, '\\.'), function(g) g[[1]])
+
 
 ##########
 # FastBAT
@@ -110,6 +122,9 @@ finemap_genes<-finemap_genes[finemap_genes != '-']
 # Read in FastBAT results
 fastbat<-fread('../../docs/tables/fastBAT/mdd_fastbat_AllgeneMatrix.gene.fastbat')
 fastbat$P.FDR<-p.adjust(fastbat$Pvalue, method='fdr')
+
+head(merge(fastbat, Genes, by.x='Gene', by.y='external_gene_name.37', all.x=TRUE))
+
 
 ##########
 # H-MAGMA
