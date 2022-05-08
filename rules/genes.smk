@@ -39,7 +39,7 @@ rule genes_fastbat_assoc:
 ## Run fastBAT within GCTA
 rule genes_fastbat:
     input: assoc="results/fastBAT/pgc_mdd_{cohorts}_{ancestries}_v{version}.assoc.txt", genelist="resources/fastBAT/geneMatrix.{genes}.txt", bed="resources/1kg/all_phase3.{ancestries}.bed"
-    output: "results/fastBAT/pgc_mdd_{cohorts}_{ancestries}_v{version}.{genes}.fbat"
+    output: "results/fastBAT/pgc_mdd_{cohorts}_{ancestries}_v{version}.{genes}.fastbat"
     params: prefix="results/fastBAT/pgc_mdd_{cohorts}_{ancestries}_v{version}.{genes}", bfile="resources/1kg/all_phase3.{ancestries}"
     conda: "../envs/genes.yaml"
     shell: """gcta64 \
@@ -47,14 +47,14 @@ rule genes_fastbat:
     --fastBAT {input.assoc} \
     --fastBAT-gene-list {input.genelist} \
     --out {params.prefix} \
-    --threads 4
+    --threads 16
     """
 
 ## Run fastBAT within GCTA using qc'd summary stats and geneMatrix protein coding gene list (N = 19878)
     
 ## Run fastBAT within GCTA using qc'd summary stats and all geneMatrix gene list (N = 58844)
 rule genes_fastbat_analyse:
-    input: expand("results/fastBAT/pgc_mdd_full_{ancestries}_v{version}.{genes}.fbat", ancestries=['eur'], version=analysis_version, genes=['protein', 'all'])
+    input: expand("results/fastBAT/pgc_mdd_full_{ancestries}_v{version}.{genes}.fastbat", ancestries=['eur'], version=analysis_version, genes=['protein', 'all'])
 
 ##
 ## PysOPS
