@@ -123,3 +123,41 @@ rule genes_sldsc_drugtargetor_annot_l2:
 rule genes_sldsc_drugtargetor_annot_l2_chr:
     input: expand("resources/drug_enrichment/sldsc/targetor_whole.{chr}.l2.ldscore.gz", chr=range(1, 23))
 
+# GO pathways from FUMA. Test pathways identified by MAGMA with S-LDSC
+# list of pathways with Ensemble IDs in results/fuma/go_genesets
+rule genes_sldsc_fuma_go_annot:
+	input: geneset="results/fuma/go_genesets/{geneset}.GeneSet", phase3="resources/ldsc/1000G_EUR_Phase3_plink", ldsc="resources/ldsc/ldsc",  hapmap="resources/ldsc/hapmap3_snps", gene_coord="resources/ldsc/ENSG_coord.txt"
+	params: bim="resources/ldsc/1000G_EUR_Phase3_plink/1000G.EUR.QC.{chr}.bim"
+	output: "results/fuma/sldsc/{geneset}/{geneset}.{chr}.annot.gz"
+	conda: "../envs/ldsc.yaml"
+	shell: """
+	python {input.ldsc}/make_annot.py \
+	--gene-set-file {input.geneset} \
+	--gene-coord-file {input.gene_coord} \
+	--windowsize 100000 \
+	--bimfile {params.bim} \
+	--annot-file {output}
+	"""
+	
+# Estimate ld scores
+rule genes_sldsc_fuma_go_l2:
+	input: annot= "results/fuma/sldsc/{geneset}/{geneset}.{chr}.annot.gz",phase3="resources/ldsc/1000G_EUR_Phase3_plink",hapmap="resources/ldsc/hapmap3_snps", ldsc="resources/ldsc/ldsc"
+	params: bfile="resources/ldsc/1000G_EUR_Phase3_plink/1000G.EUR.QC.{chr}", hm="resources/ldsc/hapmap3_snps/hm.{chr}.snp", prefix="results/fuma/sldsc/{geneset}/{geneset}.{chr}"
+	output: l2="results/fuma/sldsc/{geneset}/{geneset}.{chr}.l2.ldscore.gz", M="results/fuma/sldsc/{geneset}/{geneset}.{chr}.l2.M_5_50"
+	conda: "../envs/ldsc.yaml"
+	shell: """
+	python {input.ldsc}/ldsc.py \
+	--l2 \
+	--bfile {params.bfile} \
+	--ld-wind-cm 1 \
+	--annot {input.annot} \
+	--thin-annot \
+	--out {params.prefix} \
+	--print-snps {params.hm}
+	"""
+	
+genes_ldsc_fuma_genesets, = glob_wildcards("results/fuma/go_genesets/{geneset}.GeneSet")
+
+# list pathway/chromsome pairs to generate all files
+rule genes_ldsc_fuma_go_l2_all:
+	input: expand("results/fuma/sldsc/{geneset}/{geneset}.{chr}.l2.ldscore.gz", geneset=genes_ldsc_fuma_genesets, chr=range(1, 23))
