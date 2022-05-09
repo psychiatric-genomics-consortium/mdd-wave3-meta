@@ -97,3 +97,9 @@ rule ldsc_mac5eur:
     input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/1000G_Phase3_frq.tgz")
     output: directory("resources/ldsc/1000G_Phase3_frq")
     shell: "tar xzf {input} -C $(dirname {output})"
+    
+# baseline annotations
+rule ldsc_baseline:
+    input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/1000G_Phase3_baseline_v1.2_ldscores.tgz")
+    output: directory("resources/ldsc/1000G_Phase3_baseline_v1.2_ldscores")
+    shell: "mkdir -p {output}; tar xzf {input} -C {output}"
