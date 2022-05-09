@@ -101,5 +101,11 @@ rule ldsc_mac5eur:
 # baseline annotations
 rule ldsc_baseline:
     input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/1000G_Phase3_baseline_v1.2_ldscores.tgz")
-    output: directory("resources/ldsc/1000G_Phase3_baseline_v1.2_ldscores")
-    shell: "mkdir -p {output}; tar xzf {input} -C {output}"
+    output: directory("resources/ldsc/baseline_v1.2")
+    shell: "tar xzf {input} -C $(dirname {output})"
+
+# baseline SNPs
+rule ldsc_baseline_snps:
+	input: "resources/ldsc/baseline_v1.2"
+	output: "resources/ldsc/baseline_v1.2_snps/baseline.{chr}.snp"
+	shell: "gunzip -c resources/ldsc/baseline_v1.2/baseline.{wildcards.chr}.l2.ldscore.gz | awk 'NR > 1 {{print $2}}' > {output}"
