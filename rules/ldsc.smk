@@ -85,3 +85,15 @@ rule ldsc_hapmap3:
     input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/hapmap3_snps.tgz")
     output: directory("resources/ldsc/hapmap3_snps")
     shell: "tar xzf {input} -C $(dirname {output})"
+    
+# regression weights
+rule ldsc_weights:
+    input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/weights_hm3_no_hla.tgz")
+    output: directory("resources/ldsc/weights_hm3_no_hla")
+    shell: "tar xzf {input} -C $(dirname {output})"
+    
+# allele frequencies
+rule ldsc_mac5eur:
+    input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/1000G_Phase3_frq.tgz")
+    output: directory("resources/ldsc/1000G_Phase3_frq")
+    shell: "tar xzf {input} -C $(dirname {output})"

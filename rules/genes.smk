@@ -158,6 +158,22 @@ rule genes_sldsc_fuma_go_l2:
 	
 genes_ldsc_fuma_genesets, = glob_wildcards("results/fuma/go_genesets/{geneset}.GeneSet")
 
-# list pathway/chromsome pairs to generate all files
-rule genes_ldsc_fuma_go_l2_all:
-	input: expand("results/fuma/sldsc/{geneset}/{geneset}.{chr}.l2.ldscore.gz", geneset=genes_ldsc_fuma_genesets, chr=range(1, 23))
+# Run S-LDSC
+rule genes_sldsc_fuma_go_h2:
+    input: l2=expand("results/fuma/sldsc/{geneset}/{geneset}.{chr}.l2.ldscore.gz", geneset=genes_ldsc_fuma_genesets, chr=range(1, 23)), sumstats="results/ldsc/munged/{cohort}.sumstats.gz", ldsc="resources/ldsc/ldsc", ld="resources/ldsc/eur_w_ld_chr/", weights="resources/ldsc/weights_hm3_no_hla", frq="resources/ldsc/1000G_Phase3_frq/"
+    params: ref=','.join(expand("results/fuma/sldsc/{geneset}/{geneset}.", geneset=genes_ldsc_fuma_genesets)), prefix="results/go/sldsc/{cohort}"
+    conda: "../envs/ldsc.yaml"
+    output: "results/go/sldsc/{cohort}.results", "results/go/sldsc/{cohort}.log"
+    shell: """
+    python {input.ldsc}/ldsc.py \
+    --h2 {input.sumstats} \
+    --ref-ld-chr {params.ref} \
+    --w-ld-chr {input.weights}/weights. \
+    --frqfile-chr {input.frq}/1000G.EUR.QC. \
+    --overlap-annot \
+    --print-coefficients \
+    --out {params.prefix}
+    """
+
+rule genes_sldsc_go_h2_all:
+    input: expand("results/go/sldsc/pgc_mdd_full_eur_hg19_v{version}.results", version=analysis_version)
