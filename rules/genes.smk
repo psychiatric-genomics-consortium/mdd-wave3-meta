@@ -126,7 +126,7 @@ rule genes_sldsc_drugtargetor_annot_l2_chr:
 # GO pathways from FUMA. Test pathways identified by MAGMA with S-LDSC
 # list of pathways with Ensemble IDs in results/fuma/go_genesets
 rule genes_sldsc_fuma_go_annot:
-	input: geneset="results/fuma/go_genesets/{geneset}.GeneSet", phase3="resources/ldsc/1000G_EUR_Phase3_plink", ldsc="resources/ldsc/ldsc",  hapmap="resources/ldsc/hapmap3_snps", gene_coord="resources/ldsc/ENSG_coord.txt"
+	input: geneset="results/fuma/go_genesets/{geneset}.GeneSet", phase3=ancient("resources/ldsc/1000G_EUR_Phase3_plink"), ldsc=ancient("resources/ldsc/ldsc"),  hapmap=ancient("resources/ldsc/hapmap3_snps"), gene_coord=ancient("resources/ldsc/ENSG_coord.txt")
 	params: bim="resources/ldsc/1000G_EUR_Phase3_plink/1000G.EUR.QC.{chr}.bim"
 	output: "results/fuma/sldsc/{geneset}/{geneset}.{chr}.annot.gz"
 	conda: "../envs/ldsc.yaml"
@@ -141,7 +141,7 @@ rule genes_sldsc_fuma_go_annot:
 	
 # Estimate ld scores
 rule genes_sldsc_fuma_go_l2:
-	input: annot= "results/fuma/sldsc/{geneset}/{geneset}.{chr}.annot.gz",phase3="resources/ldsc/1000G_EUR_Phase3_plink",hapmap="resources/ldsc/hapmap3_snps", ldsc="resources/ldsc/ldsc"
+	input: annot= "results/fuma/sldsc/{geneset}/{geneset}.{chr}.annot.gz", phase3=ancient("resources/ldsc/1000G_EUR_Phase3_plink"), hapmap=ancient("resources/ldsc/hapmap3_snps"), ldsc=ancient("resources/ldsc/ldsc")
 	params: bfile="resources/ldsc/1000G_EUR_Phase3_plink/1000G.EUR.QC.{chr}", hm="resources/ldsc/hapmap3_snps/hm.{chr}.snp", prefix="results/fuma/sldsc/{geneset}/{geneset}.{chr}"
 	output: l2="results/fuma/sldsc/{geneset}/{geneset}.{chr}.l2.ldscore.gz", M="results/fuma/sldsc/{geneset}/{geneset}.{chr}.l2.M_5_50"
 	conda: "../envs/ldsc.yaml"
@@ -158,16 +158,19 @@ rule genes_sldsc_fuma_go_l2:
 	
 genes_ldsc_fuma_genesets, = glob_wildcards("results/fuma/go_genesets/{geneset}.GeneSet")
 
-# Run S-LDSC
+# Run S-LDSC. List out all the LDScores that need to be generated, then generate
+# the prefixes that are concatenated into a comma separated list, which is the 
+# actual argument to ldsc.py (--ref-ld-chr). Mark all other input reference 
+# files as ancient since they might be re-downloaded but don't actually change.
 rule genes_sldsc_fuma_go_h2:
-    input: l2=expand("results/fuma/sldsc/{geneset}/{geneset}.{chr}.l2.ldscore.gz", geneset=genes_ldsc_fuma_genesets, chr=range(1, 23)), sumstats="results/ldsc/munged/{cohort}.sumstats.gz", ldsc="resources/ldsc/ldsc", ld="resources/ldsc/eur_w_ld_chr/", weights="resources/ldsc/weights_hm3_no_hla", frq="resources/ldsc/1000G_Phase3_frq/"
-    params: ref=','.join(expand("results/fuma/sldsc/{geneset}/{geneset}.", geneset=genes_ldsc_fuma_genesets)), prefix="results/go/sldsc/{cohort}"
+    input: l2=expand("results/fuma/sldsc/{geneset}/{geneset}.{chr}.l2.ldscore.gz", geneset=genes_ldsc_fuma_genesets, chr=range(1, 23)), sumstats="results/ldsc/munged/{cohort}.sumstats.gz", ldsc=ancient("resources/ldsc/ldsc"), ld=ancient("resources/ldsc/eur_w_ld_chr/"), weights=ancient("resources/ldsc/weights_hm3_no_hla"), frq=ancient("resources/ldsc/1000G_Phase3_frq/"), baseline="resources/ldsc/1000G_Phase3_baseline_v1.2_ldscores/"
+    params: ref=','.join(expand("results/fuma/sldsc/{geneset}/{geneset}.", geneset=genes_ldsc_fuma_genesets[0])), prefix="results/go/sldsc/{cohort}"
     conda: "../envs/ldsc.yaml"
     output: "results/go/sldsc/{cohort}.results", "results/go/sldsc/{cohort}.log"
     shell: """
     python {input.ldsc}/ldsc.py \
     --h2 {input.sumstats} \
-    --ref-ld-chr {params.ref} \
+    --ref-ld-chr {input.baseline}/baseline_v1.2/baseline.,{params.ref} \
     --w-ld-chr {input.weights}/weights. \
     --frqfile-chr {input.frq}/1000G.EUR.QC. \
     --overlap-annot \
