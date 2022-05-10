@@ -180,4 +180,8 @@ rule genes_sldsc_go_h2:
 
 # Analyse all extracted GO terms
 rule genes_sldsc_go_h2_analyse:
-    input: expand("results/go/sldsc/pgc_mdd_full_eur_hg19_v{version}-{geneset}.results", geneset=genes_fuma_genesets, version=analysis_version)
+    input: sldsc=expand("results/go/sldsc/pgc_mdd_full_eur_hg19_v{version}-{geneset}.results", geneset=genes_fuma_genesets, version=analysis_version)
+    params: genesets=genes_fuma_genesets
+    output: "docs/tables/sldsc/sldsc_go_full_eur.txt"
+    conda: "../envs/meta.yaml"
+    script: "../scripts/genes/sldsc_go.R"
