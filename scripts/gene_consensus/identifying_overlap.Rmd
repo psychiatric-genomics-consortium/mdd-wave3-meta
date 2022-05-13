@@ -613,7 +613,8 @@ smr_rosmap_tmp$FOCUS<-F
 all_func_res<-rbind(all_func_res, smr_rosmap_tmp)
 
 # Subset to high confidence genes
-all_func_res<-all_func_res[all_func_res$ID %in% high_conf,]
+high_conf_id<-Genes$external_gene_name[Genes$ensembl_gene_id %in% high_conf]
+all_func_res<-all_func_res[all_func_res$ID %in% high_conf_id,]
 
 # Remove missing values
 all_func_res<-all_func_res[complete.cases(all_func_res),]
@@ -621,7 +622,7 @@ all_func_res<-all_func_res[complete.cases(all_func_res),]
 all_func_res$Group<-paste0(all_func_res$Tissue,'\n',all_func_res$Method,'\n',all_func_res$Type )
 all_func_res$Group<-factor(all_func_res$Group, levels=c("Brain\nFUSION\nExpr.","Brain\nFUSION\nSplice","Brain\nSMR\nExpr.","Brain\nFUSION\nProtein","Brain\nSMR\nProtein","Blood\nFUSION\nExpr.","Blood\nSMR\nExpr.","HPA/HPT\nFUSION\nExpr."))
 
-all_func_res$ID<-factor(all_func_res$ID, levels=rev(levels(high_conf_tab$ID)))
+all_func_res$ID<-factor(all_func_res$ID, levels=rev(levels(high_conf_tab_ordered$ID)))
 
 all_func_res$Panel[all_func_res$Panel == "Adrenal_Gland"]<-'GTeX Adrenal Gland'
 all_func_res$Panel[all_func_res$Panel == "Brain_Cerebellar_Hemisphere"]<-'GTeX Cerebellar Hemisphere'
@@ -687,7 +688,7 @@ for(i in 1:nrow(group_siz)){
 
 }
 
-png('../../docs/figures/gene_con_func_heatmap.png', units = 'px', res=300, height=8000, width=2900)
+png('../../docs/figures/gene_con_func_heatmap.png', units = 'px', res=300, height=8000, width=3200)
 
 grid.draw(gt)
 
@@ -710,7 +711,6 @@ a<-dev.off()
 </details> 
 
 ***
-
 
 ## Query GO terms using PANTHER
 
