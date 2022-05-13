@@ -43,20 +43,37 @@ indep_hits<-fread('../../docs/tables/meta_snps_full_eur.cojo.txt')
 # Link SNPs to nearest gene
 # Insert nearest gene information
 library(biomaRt)
+library(GenomicRanges)
 gene_attributes = c('ensembl_gene_id', 'hgnc_symbol', 'external_gene_name','chromosome_name','start_position','end_position')
 # GRCh37 for position
 ensembl37 = useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl", GRCh=37)
 Genes37<-getBM(attributes=gene_attributes, mart = ensembl37)
+# remove alternative contigs
+Genes37 <- Genes37[Genes37$chromosome_name %in% c(as.character(1:22), 'X'),]
+# remove duplicated entries
+Genes37$cpid <- with(Genes37, paste0(chromosome_name, ':', start_position, '-', end_position))
+Genes37 <- Genes37[!duplicated(Genes37$ensembl_gene_id),]
+Genes37 <- Genes37[!duplicated(Genes37$cpid),]
+Genes37 <- Genes37[!duplicated(Genes37$external_gene_name),]
+
 # GRCH38 for gene names
 ensembl38 = useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl")
 Genes38<-getBM(attributes=gene_attributes, mart = ensembl38)
+# remove alternative contigs
+Genes38 <- Genes38[Genes38$chromosome_name %in% c(as.character(1:22), 'X'),]
+# remove duplicated entries
+Genes38$cpid <- with(Genes38, paste0(chromosome_name, ':', start_position, '-', end_position))
+Genes38 <- Genes38[!duplicated(Genes38$ensembl_gene_id),]
+Genes38 <- Genes38[!duplicated(Genes38$cpid),]
+Genes38 <- Genes38[!duplicated(Genes38$external_gene_name),]
 
 # 37 positions with 38 gene names
-Genes <- merge(Genes37, Genes38[,c('ensembl_gene_id', 'external_gene_name', 'hgnc_symbol')], by='ensembl_gene_id', all.x=TRUE, suffix=c('.37', '.38'))
+Genes <- merge(Genes37, Genes38[,c('ensembl_gene_id', 'chromosome_name', 'external_gene_name', 'hgnc_symbol')], by=c('ensembl_gene_id', 'chromosome_name'), all.x=TRUE, suffix=c('.37', '.38'))
 
-# copy over build 37 gene name if it is missing in 
+
+# copy over build 37 gene name if it is missing in 38
 coalesce_gene_name <- which(is.na(Genes$external_gene_name.38))
-Genes$external_gene_name = with(Genes, ifelse(is.na(external_gene_name.38), yes=external_gene_name.37, no=external_gene_name.38))
+Genes$external_gene_name = with(Genes, ifelse(is.na(external_gene_name.38) | external_gene_name.38 == "", yes=external_gene_name.37, no=external_gene_name.38))
 
 window<-50000
 
@@ -100,8 +117,14 @@ for(i in 1:nrow(indep_hits)){
 # Read in finemapping results from Joni. This table shows genes implicated by the finemapping results, by a gene containing the entire 95% credible set.
 finemap<-fread('../../docs/tables/finemapping/Locus_FineMapping_Full_Results.csv')
 
+# parse out gene names
 finemap_genes<-unlist(strsplit(finemap$High.Confidence.Genes.Names, ','))
 finemap_genes<-finemap_genes[finemap_genes != '-']
+# parse out ensembl ids
+finemap_geneids<-unlist(strsplit(finemap$High.Confidence.Genes.IDs, ','))
+finemap_geneids<-finemap_geneids[finemap_geneids != '-']
+finemap_geneids <- sapply(strsplit(finemap_geneids, '\\.'), function(g) g[[1]])
+
 
 ##########
 # FastBAT
@@ -123,9 +146,6 @@ hmagma_noAstr<-hmagma[hmagma$Analysis != 'Astrocytes',]
 # Apply FDR correction across all tests
 hmagma_noAstr$P.FDR<-p.adjust(hmagma_noAstr$P, method = 'fdr')
 
-Genes<-getBM(attributes=c('external_gene_name','ensembl_gene_id'), mart = ensembl)
-Genes<-Genes[!duplicated(Genes$ensembl_gene_id),]
-
 hmagma_noAstr<-merge(hmagma_noAstr, Genes, by.x='GENE', by.y='ensembl_gene_id')
 
 ##########
@@ -133,7 +153,34 @@ hmagma_noAstr<-merge(hmagma_noAstr, Genes, by.x='GENE', by.y='ensembl_gene_id')
 ##########
 
 twas<-fread('../../docs/tables/twas/PGC_MDD3_twas_AllTissues_GW.txt')
-twas_sig<-twas[twas$TWAS.P < 3.685926e-08,]
+twas$chromosome_name <- as.character(twas$CHR)
+twas$twas_id <- 1:nrow(twas)
+
+# merge by scaffold (exact overlap)
+twas_gr <- with(twas, GRanges(seqnames=chromosome_name, ranges=IRanges(start=P0, end=P1)))
+genes_gr <- with(Genes, GRanges(seqnames=chromosome_name, ranges=IRanges(start=start_position, end=end_position)))
+
+twas_genes_overlaps <- findOverlaps(twas_gr, genes_gr, type='equal')
+
+twas_scaffolds <- twas[twas_genes_overlaps@from,]
+twas_scaffolds$ensembl_gene_id <- Genes$ensembl_gene_id[twas_genes_overlaps@to]
+twas_scaffolds$external_gene_name.37 <- Genes$external_gene_name.37[twas_genes_overlaps@to]
+
+# merge unmatched twas results by symbol and partial overlap
+twas_unmatched <- twas[!twas$twas_id %in% twas_scaffolds$twas_id,]
+twas_unmatched_gr <- with(twas_unmatched, GRanges(seqnames=chromosome_name, ranges=IRanges(start=P0, end=P1)))
+# find overlaps
+twas_unmatched_genes_overlaps <- findOverlaps(twas_unmatched_gr, genes_gr, maxgap=window)
+# merge in gene names
+twas_symbols <- twas_unmatched[twas_unmatched_genes_overlaps@from,]
+twas_symbols$ensembl_gene_id <-  Genes$ensembl_gene_id[twas_unmatched_genes_overlaps@to]
+twas_symbols$external_gene_name.37 <- Genes$external_gene_name.37[twas_unmatched_genes_overlaps@to]
+# keep matches with symbols match
+twas_matched_symbols <- twas_symbols[which(twas_symbols$ID == twas_symbols$external_gene_name.37),]
+
+twas_genes <- rbind(twas_scaffolds, twas_matched_symbols)
+
+twas_sig<-twas_genes[twas_genes$TWAS.P < 3.685926e-08,]
 
 ##########
 # Colocalisation
@@ -141,6 +188,8 @@ twas_sig<-twas[twas$TWAS.P < 3.685926e-08,]
 
 coloc<-read.csv('../../docs/tables/twas/PGC_MDD3_TWAS_colocalisation.csv')
 coloc_sig<-coloc[coloc$COLOC.PP4 > 0.8,]
+
+coloc_sig <- merge(coloc_sig, Genes[,c('ensembl_gene_id', 'external_gene_name.37')], by.x='ID', by.y='external_gene_name.37', all.x=TRUE)
 
 ##########
 # FOCUS 
@@ -156,11 +205,15 @@ focus<-merge(focus, fusion, by.x='SNP.weight.Set', by.y='PANEL_clean_short')
 
 focus_sig<-focus[focus$FOCUS_pip > 0.5,]
 
+focus_sig <- merge(focus_sig, Genes[,c('ensembl_gene_id', 'external_gene_name.37')], by.x='ID', by.y='external_gene_name.37', all.x=TRUE)
+
 ##########
 # Expression analysis based high confidence genes
 ##########
 
 expression_highconf_res<-fread('../../docs/tables/twas/PGC3_MDD_TWAS_HighConf_results.csv')
+
+expression_highconf_res <- merge(expression_highconf_res, Genes[,c('ensembl_gene_id', 'external_gene_name.37')], by.x='ID', by.y='external_gene_name.37', all.x=TRUE)
 
 ##########
 # SMR
@@ -208,24 +261,37 @@ for(i in 1:22){
 }
 
 pwas$TWAS.P.FDR<-p.adjust(pwas$TWAS.P)
-pwas$ID<-gsub('.*\\.','', pwas$ID)
+pwas$ID<-gsub('\\..*','', pwas$ID)
 
 # Read in PWAS and SMR results for all significant ROSMAP PWAS assoc results
 pwas_smr_rosmap_banner<-fread('../../docs/tables/pwas/rosmap_banner_pwas_smr_results.csv')
+
+pwas_smr_rosmap_banner <- merge(pwas_smr_rosmap_banner, Genes[,c('ensembl_gene_id', 'external_gene_name.37')], by.x='ID', by.y='external_gene_name.37', all.x=TRUE)
+
+
 
 ########
 # PsyOPS
 ########
 
 psyops <- fread('../../docs/tables/psyops/psyops_full_eur.cojo.txt')
+psyops$psy_id <- 1:nrow(psyops)
+psyops_genes37 <- merge(psyops, Genes[,c('ensembl_gene_id', 'external_gene_name.37')], by.x='gene', by.y='external_gene_name.37')
+psyops_genes38 <- merge(psyops, Genes[,c('ensembl_gene_id', 'external_gene_name.38')], by.x='gene', by.y='external_gene_name.38')
+psyops_genesen <- merge(psyops, Genes[,c('ensembl_gene_id','external_gene_name')], by.x='gene', by.y='ensembl_gene_id')
+psyops_genesen$ensembl_gene_id <- psyops_genesen$gene
+psyops_genesen$external_gene_name <- NULL
+
+psyops_genes <- unique(rbind(psyops_genes37, psyops_genes38, psyops_genesen))
+psyops_genes <- psyops_genes[!duplicated(psyops_genes$psy_id),]
+
 psyops_prioritised<-NULL
-for(i in unique(psyops$lead_variant)){
-  tmp<-psyops[psyops$lead_variant == i,]
+for(i in unique(psyops_genes$lead_variant)){
+  tmp<-psyops_genes[psyops_genes$lead_variant == i,]
   tmp<-tmp[tmp$PsyOPS_score == max(tmp$PsyOPS_score),]
   tmp<-tmp[tmp$distance == min(tmp$distance),]
   psyops_prioritised<-rbind(psyops_prioritised, tmp)
 }
-psyops_genes <- psyops_prioritised$gene
 
 ```
 
@@ -243,13 +309,13 @@ This plot will show the number of genes returned by each analysis and the overla
 
 # Create data.frame listing genes with T/F indicating whether it was supported by each analysis 
 gene_overlap<-list()
-gene_overlap[['Fine-mapping']]<-finemap_genes
-gene_overlap[['Expression']]<-expression_highconf_res$ID
-gene_overlap[['Protein']]<-pwas_smr_rosmap_banner$ID[which(pwas_smr_rosmap_banner$banner_replicated  & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$smr.causal)]
-gene_overlap[['Nearest Gene']]<-indep_hits$NearestGene[!is.na(indep_hits$NearestGene)]
+gene_overlap[['Fine-mapping']]<-finemap_geneids
+gene_overlap[['Expression']]<-expression_highconf_res$ensembl_gene_id
+gene_overlap[['Protein']]<-pwas_smr_rosmap_banner$ensembl_gene_id[which(pwas_smr_rosmap_banner$banner_replicated  & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$smr.causal)]
+gene_overlap[['Nearest Gene']]<-indep_hits$NearestENSG[!is.na(indep_hits$NearestENSG)]
 gene_overlap[['fastBAT']]<-fastbat$Gene[fastbat$P.FDR < 0.05]
-gene_overlap[['H-MAGMA']]<-unique(hmagma_noAstr$external_gene_name[hmagma_noAstr$P.FDR < 0.05])
-gene_overlap[['PsyOPS']]<-psyops_genes
+gene_overlap[['H-MAGMA']]<-unique(hmagma_noAstr$GENE[hmagma_noAstr$P.FDR < 0.05])
+gene_overlap[['PsyOPS']]<-psyops_prioritised$ensembl_gene_id
 
 library(UpSetR)
 
@@ -259,15 +325,11 @@ upset(fromList(gene_overlap), nsets=10, order.by = "freq")
 
 dev.off()
 
-gene_overlap<-list()
-gene_overlap[['Fine-mapping']]<-finemap_genes
-gene_overlap[['Expression']]<-expression_highconf_res$ID
-gene_overlap[['Protein']]<-pwas_smr_rosmap_banner$ID[which(pwas_smr_rosmap_banner$banner_replicated & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$smr.causal)]
-gene_overlap[['PsyOPS']]<-psyops_genes
+gene_overlap_highconf <- gene_overlap[c('Fine-mapping','Expression', 'Protein', 'PsyOPS')]
 
 png('../../docs/figures/gene_consensus_upset_highconf.png', units = 'px', res=300, height=1400, width=1500)
 
-upset(fromList(gene_overlap), nsets=10, order.by = "freq")
+upset(fromList(gene_overlap_highconf), nsets=10, order.by = "freq")
 
 dev.off()
 
@@ -303,24 +365,20 @@ dev.off()
 
 ```{r highconf, eval=T, echo=T, cache=TRUE}
 # Define high confidence associations
-# Genes implicated by finemapping
-finemap_highconf<-finemap_genes
-
-# Genes implicated by TWAS, colocalisation and FOCUS from any panel
-expression_highconf<-expression_highconf_res$ID
-
-# Genes implicated by PWAS, SMR, coloc and HEIDI in ROSMAP and Banner
-protein_highconf<-pwas_smr_rosmap_banner$ID[which(pwas_smr_rosmap_banner$banner_replicated & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$smr.causal)]
-
-high_conf<-unique(c(finemap_highconf, expression_highconf, protein_highconf))
-high_conf_tab<-data.frame(ID=high_conf)
+# - Genes implicated by finemapping
+# - Genes implicated by TWAS, colocalisation and FOCUS from any panel
+# - Genes implicated by PWAS, SMR, coloc and HEIDI in ROSMAP and Banner
+high_conf<-unique(unlist(gene_overlap[c('Fine-mapping','Expression', 'Protein')]))
+ENSGIDs <- Genes[,c('ensembl_gene_id', 'external_gene_name')]
+names(ENSGIDs) <- c('ENSGID', 'ID')
+high_conf_tab <- merge(data.frame(ENSGID=high_conf), ENSGIDs)
 
 # finemap
 # Joni said he used the same gene list as David Howard (fastBAT)
 high_conf_tab$finemap<-'NA'
 for(i in 1:nrow(high_conf_tab)){
-  if(high_conf_tab$ID[i] %in% fastbat$Gene | high_conf_tab$ID[i] %in% finemap_genes){
-    if(high_conf_tab$ID[i] %in% finemap_genes){
+  if(high_conf_tab$ENSGID[i] %in% fastbat$Gene | high_conf_tab$ENSGID[i] %in% finemap_geneids){
+    if(high_conf_tab$ENSGID[i] %in% finemap_geneids){
       high_conf_tab$finemap[i]<-'Sig'
     } else {
       high_conf_tab$finemap[i]<-'Non-Sig'
@@ -353,7 +411,7 @@ for(i in 1:nrow(high_conf_tab)){
 # protein
 high_conf_tab$protein<-'NA'
 for(i in 1:nrow(high_conf_tab)){
-  if(!(high_conf_tab$ID[i] %in% pwas$ID)){
+  if(!(high_conf_tab$ENSGID[i] %in% pwas$ID)){
     high_conf_tab$protein[i]<-'NA'
   } else {
     if(!(high_conf_tab$ID[i] %in% pwas_smr_rosmap_banner$ID[which(pwas_smr_rosmap_banner$banner_replicated & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$smr.causal)])){
@@ -371,8 +429,8 @@ for(i in 1:nrow(high_conf_tab)){
 # fastBAT
 high_conf_tab$fastBAT<-'NA'
 for(i in 1:nrow(high_conf_tab)){
-  if(high_conf_tab$ID[i] %in% fastbat$Gene){
-    if(high_conf_tab$ID[i] %in% fastbat$Gene[fastbat$P.FDR < 0.05]){
+  if(high_conf_tab$ENSGID[i] %in% fastbat$Gene){
+    if(high_conf_tab$ENSGID[i] %in% fastbat$Gene[fastbat$P.FDR < 0.05]){
       high_conf_tab$fastBAT[i]<-'Sig'
     } else {
       high_conf_tab$fastBAT[i]<-'Non-Sig'
@@ -383,8 +441,8 @@ for(i in 1:nrow(high_conf_tab)){
 # hmagma
 high_conf_tab$hmagma<-'NA'
 for(i in 1:nrow(high_conf_tab)){
-  if(high_conf_tab$ID[i] %in% hmagma_noAstr$external_gene_name){
-    if(high_conf_tab$ID[i] %in% hmagma_noAstr$external_gene_name[hmagma_noAstr$P.FDR < 0.05]){
+  if(high_conf_tab$ENSGID[i] %in% hmagma_noAstr$GENE){
+    if(high_conf_tab$ENSGID[i] %in% hmagma_noAstr$GENE[hmagma_noAstr$P.FDR < 0.05]){
       high_conf_tab$hmagma[i]<-'Sig'
     } else {
       high_conf_tab$hmagma[i]<-'Non-Sig'
@@ -395,8 +453,8 @@ for(i in 1:nrow(high_conf_tab)){
 # PsyOPS
 high_conf_tab$psyops<-'NA'
 for(i in 1:nrow(high_conf_tab)){
-  if(high_conf_tab$ID[i] %in% psyops$gene){
-    if(high_conf_tab$ID[i] %in% psyops_genes){
+  if(high_conf_tab$ENSGID[i] %in% psyops_genes$ensembl_gene_id){
+    if(high_conf_tab$ENSGID[i] %in% psyops_prioritised$ensembl_gene_id){
       high_conf_tab$psyops[i]<-'Sig'
     } else {
       high_conf_tab$psyops[i]<-'Non-Sig'
@@ -405,7 +463,7 @@ for(i in 1:nrow(high_conf_tab)){
 }
 
 # Order genes by the number of analyses indicating them as high confidence.
-high_conf_tab_log<-high_conf_tab[,-1]
+high_conf_tab_log<-high_conf_tab[,c(-1, -2)]
 high_conf_tab_log[high_conf_tab_log == 'NA']<-'F'
 high_conf_tab_log[high_conf_tab_log == 'Sig']<-'T'
 high_conf_tab_log[high_conf_tab_log == 'Non-Sig']<-'F'
@@ -417,13 +475,13 @@ high_conf_tab_log[is.na(high_conf_tab_log)]<-T
 
 high_conf_tab_log$sum<-rowSums(high_conf_tab_log[,1:3])
 
-high_conf_tab<-high_conf_tab[order(-high_conf_tab_log$sum, high_conf_tab$ID),]
-high_conf_tab$ID<-factor(high_conf_tab$ID, levels = high_conf_tab$ID)
+high_conf_tab_ordered <-high_conf_tab[order(-high_conf_tab_log$sum, high_conf_tab$ID),-1]
+high_conf_tab_ordered$ID<-factor(high_conf_tab_ordered$ID, levels = high_conf_tab_ordered$ID)
 
-names(high_conf_tab)<-c('ID','Fine-mapping','Expression','Protein','fastBAT','H-MAGMA','PsyOPS')
-high_conf_tab_melt<-melt(as.data.table(high_conf_tab), id.vars='ID')
+names(high_conf_tab_ordered)<-c('ID','Fine-mapping','Expression','Protein','fastBAT','H-MAGMA','PsyOPS')
+high_conf_tab_melt<-melt(as.data.table(high_conf_tab_ordered), id.vars='ID')
 high_conf_tab_melt$value<-factor(high_conf_tab_melt$value, levels=c('Non-Sig','Sig','Pos','Neg','NA'))
-high_conf_tab_melt$ID<-factor(high_conf_tab_melt$ID, levels=rev(levels(high_conf_tab$ID)))
+high_conf_tab_melt$ID<-factor(high_conf_tab_melt$ID, levels=rev(levels(high_conf_tab_ordered$ID)))
 
 library(ggplot2)
 library(cowplot)
@@ -555,7 +613,8 @@ smr_rosmap_tmp$FOCUS<-F
 all_func_res<-rbind(all_func_res, smr_rosmap_tmp)
 
 # Subset to high confidence genes
-all_func_res<-all_func_res[all_func_res$ID %in% high_conf,]
+high_conf_id<-Genes$external_gene_name[Genes$ensembl_gene_id %in% high_conf]
+all_func_res<-all_func_res[all_func_res$ID %in% high_conf_id,]
 
 # Remove missing values
 all_func_res<-all_func_res[complete.cases(all_func_res),]
@@ -563,7 +622,7 @@ all_func_res<-all_func_res[complete.cases(all_func_res),]
 all_func_res$Group<-paste0(all_func_res$Tissue,'\n',all_func_res$Method,'\n',all_func_res$Type )
 all_func_res$Group<-factor(all_func_res$Group, levels=c("Brain\nFUSION\nExpr.","Brain\nFUSION\nSplice","Brain\nSMR\nExpr.","Brain\nFUSION\nProtein","Brain\nSMR\nProtein","Blood\nFUSION\nExpr.","Blood\nSMR\nExpr.","HPA/HPT\nFUSION\nExpr."))
 
-all_func_res$ID<-factor(all_func_res$ID, levels=rev(levels(high_conf_tab$ID)))
+all_func_res$ID<-factor(all_func_res$ID, levels=rev(levels(high_conf_tab_ordered$ID)))
 
 all_func_res$Panel[all_func_res$Panel == "Adrenal_Gland"]<-'GTeX Adrenal Gland'
 all_func_res$Panel[all_func_res$Panel == "Brain_Cerebellar_Hemisphere"]<-'GTeX Cerebellar Hemisphere'
@@ -629,7 +688,7 @@ for(i in 1:nrow(group_siz)){
 
 }
 
-png('../../docs/figures/gene_con_func_heatmap.png', units = 'px', res=300, height=8000, width=2900)
+png('../../docs/figures/gene_con_func_heatmap.png', units = 'px', res=300, height=8000, width=3200)
 
 grid.draw(gt)
 
@@ -652,7 +711,6 @@ a<-dev.off()
 </details> 
 
 ***
-
 
 ## Query GO terms using PANTHER
 
