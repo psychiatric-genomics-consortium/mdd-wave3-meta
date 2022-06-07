@@ -47,8 +47,10 @@ corrplot(cov2cor(mdd_covstruct$S), method = "number")
 
 ```{r model}
 
-common.model <- "A =~ NA*Clin + EHR + Quest + SelfRep
-A ~~ 1*A"
+common.model <- "
+MD =~ NA*Clin + EHR + Quest + SelfRep
+MD ~~ 1*MD
+"
 
 common.fit <- usermodel(covstruc = mdd_covstruct,
                         estimation = "DWLS",
@@ -70,11 +72,12 @@ common.fit.results <- common.fit$results %>%
            STD_Genotype_SE = as.numeric(STD_Genotype_SE),
            p_value=if_else(p_value == "< 5e-300",
                            true = 0,
-                           false = as.numeric(p_value)))
+                           false = as.numeric(p_value))) %>%
+                           mutate(STD_All_SE=STD_Genotype_SE*STD_All/STD_Genotype) 
 
 knitr::kable(select(common.fit.results,
                     lhs, op, rhs,
-                    STD_Genotype, STD_Genotype_SE,
+                    STD_All, STD_All_SE,
                     p_value),
                     digits = 4)
 
@@ -84,7 +87,7 @@ Model-implied correlations
 
 ```{r imp_cov}
 
-cov2cor(common.fit$resid_cov$Model)
+cov2cor(common.fit$resid_cov$`Model Implied Covariance Matrix`)
 
 ```
 
@@ -106,35 +109,43 @@ ggmiami(data=bind_rows(p.gwas, q.gwas) %>% filter(pval <= 0.001) %>% as.data.fra
 
 ```
 
-## GWAS-by-subtraction
+## Anchor model
 
-Fit a [GWAS-by-subtraction](https://rpubs.com/MichelNivard/565885) to decompose variance into that of minimally-phenotyped depression shared with maximal phenotypes versus specific to maximal phenotypes.
+Fit a one-factor model where the factor is anchored to the clinical phenotype and explains all of its variance.
 
-```{r gbs_model}
+```{r mdd_model}
 
-md.model <- "MIN =~ NA*SelfRep + Clin + EHR + Quest
-MAX =~ NA*Clin + EHR + Quest
-
-MIN ~~ 1*MIN
-MAX ~~ 1*MAX
-MIN ~~ 0*MAX
-
-SelfRep ~~ 0*Clin + 0*EHR + 0*Quest
-SelfRep ~~ 0*SelfRep"
+mdd.model <-  "
+MDD =~ 1*Clin + EHR + Quest + SelfRep
+MDD ~~ MDD
+Clin ~~ 0*Clin
+"
 
 ```
 
-```{r gbs_fit}
-md.fit <- usermodel(covstruc=mdd_covstruct, estimation='DWLS', model=md.model)
+```{r mdd_fit}
+mdd.fit <- usermodel(covstruc=mdd_covstruct, estimation='DWLS', model=mdd.model, imp_cov=TRUE)
 ```
 
-```{r gbs_results}
 
-md.fit.results <- md.fit$results %>%
+```{r mdd_imp_cov}
+
+cov2cor(mdd.fit$resid_cov$`Model Implied Covariance Matrix`)
+
+```
+
+```{r mdd_results}
+
+mdd.fit.results <- mdd.fit$results %>%
 mutate(Unstand_SE=as.numeric(Unstand_SE),
        STD_Genotype_SE=as.numeric(STD_Genotype_SE),
-       p_value=if_else(p_value == '< 5e-300', true=0, false=as.numeric(p_value)))
+       p_value=if_else(p_value == '< 5e-300', true=0, false=as.numeric(p_value))) %>%
+mutate(STD_All_SE=STD_Genotype_SE*STD_All/STD_Genotype) 
 
-knitr::kable(md.fit.results, digits=4)
+knitr::kable(select(mdd.fit.results,
+    lhs, op, rhs,
+    STD_All, STD_All_SE,
+    p_value),
+    digits = 4)
 
 ```
