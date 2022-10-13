@@ -295,9 +295,14 @@ gwas <- daner %>% filter(-log10(P)>=3) %>% mutate(CHR=if_else(CHR!=23, true=as.c
 
 ```{r manhattn, fig.width=12, fig.height=6, dpi=300, cache=TRUE}
 
-manhattn <- ggman(as.data.frame(gwas), snp = "SNP", bp = "BP", chrom = "CHR", pvalue = "P", ymin=3)
-manhattn
+manhattn <- ggman(as.data.frame(gwas), snp = "SNP", bp = "BP", chrom = "CHR", pvalue = "P", ymin=3, lineColour='#111111')
+manhattn + scale_colour_manual(values=c('#e66101', '#5e3c99')) + theme_minimal() + theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
 
 ```
 
+```{r manhattn_acute, fig.width=12, fig.height=6, dpi=300, cache=TRUE}
+
+manhattn + scale_colour_manual(values=c('#e66101', '#b2abd2')) + theme_minimal() + theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
+
+```
 
