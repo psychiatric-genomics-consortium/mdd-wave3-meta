@@ -21,22 +21,22 @@ analysis](https://www.nature.com/articles/ng.2213) using
 [GCTA](https://cnsgenomics.com/software/gcta/#COJO) to refine the list
 of independent loci.
 
--   Final meta-analysed SNPs from the Ricopili pipeline were used.
--   Ricopili was used for initial clumping with index SNPs identified
-    with *p*\< 10^{-4} and *r*<sup>2</sup>\< 0.1 within 3000kb windows.
-    The extended MHC region was clumped as a single region.
--   Sumstats were filtered for MAF \>= 0.01, INFO \> 0.6, and Neff \>=
-    80% of max.
--   Regions with a genome-wide significant SNP (p \< 5-e8) were
-    identified from the clumped results. Regions within 50kb of each
-    other were merged.
--   SNPs from these regions were extracted and filtered to unrelated of
-    self- and genotype-identified European ancestry participants from UK
-    Biobank.
--   A conditional analysis was performed on each region using the
-    filtered sumstats superimposed on the UK Biobank LD structure.
--   Singleton regions (with only one genome-wide significant variant)
-    were removed.
+- Final meta-analysed SNPs from the Ricopili pipeline were used.
+- Ricopili was used for initial clumping with index SNPs identified with
+  $p <$ 10^{-4} and $r^2 <$ 0.1 within 3000kb windows. The extended MHC
+  region was clumped as a single region.
+- Sumstats were filtered for MAF \>= 0.01, INFO \> 0.6, and Neff \>= 80%
+  of max.
+- Regions with a genome-wide significant SNP (p \< 5-e8) were identified
+  from the clumped results. Regions within 50kb of each other were
+  merged.
+- SNPs from these regions were extracted and filtered to unrelated of
+  self- and genotype-identified European ancestry participants from UK
+  Biobank.
+- A conditional analysis was performed on each region using the filtered
+  sumstats superimposed on the UK Biobank LD structure.
+- Singleton regions (with only one genome-wide significant variant) were
+  removed.
 
 ## Previous sumstats
 
@@ -56,7 +56,7 @@ tags <- read_table(snakemake@input$tags)
 ```
 
     ## 
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   SNP = col_character(),
     ##   CHR = col_double(),
@@ -76,7 +76,7 @@ wray <- read_tsv(snakemake@input$wray) %>%
 
     ## Rows: 44 Columns: 11
 
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr (6): Region (Mb), SNP, P, A1/A2, Prev., Gene context
     ## dbl (4): Chr., OR (A1), s.e. (log(OR)), Freq.
@@ -90,12 +90,44 @@ howard <- read_excel(snakemake@input$howard, skip=2, n_max=102) %>%
 ```
 
     ## New names:
-    ## * `Odds Ratio` -> `Odds Ratio...8`
-    ## * `Lower 95% Confidence Interval` -> `Lower 95% Confidence Interval...9`
-    ## * `Upper 95% Confidence Interval` -> `Upper 95% Confidence Interval...10`
-    ## * `Log(Odds Ratio)` -> `Log(Odds Ratio)...11`
-    ## * `Standard error of the Log(Odds Ratio)` -> `Standard error of the Log(Odds Ratio)...12`
-    ## * ...
+    ## • `Odds Ratio` -> `Odds Ratio...8`
+    ## • `Lower 95% Confidence Interval` -> `Lower 95% Confidence Interval...9`
+    ## • `Upper 95% Confidence Interval` -> `Upper 95% Confidence Interval...10`
+    ## • `Log(Odds Ratio)` -> `Log(Odds Ratio)...11`
+    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the Log(Odds Ratio)...12`
+    ## • `P-value` -> `P-value...13`
+    ## • `Odds Ratio` -> `Odds Ratio...14`
+    ## • `Lower 95% Confidence Interval` -> `Lower 95% Confidence Interval...15`
+    ## • `Upper 95% Confidence Interval` -> `Upper 95% Confidence Interval...16`
+    ## • `Log(Odds Ratio)` -> `Log(Odds Ratio)...17`
+    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the Log(Odds Ratio)...18`
+    ## • `P-value` -> `P-value...19`
+    ## • `Odds Ratio` -> `Odds Ratio...20`
+    ## • `Lower 95% Confidence Interval` -> `Lower 95% Confidence Interval...21`
+    ## • `Upper 95% Confidence Interval` -> `Upper 95% Confidence Interval...22`
+    ## • `Log(Odds Ratio)` -> `Log(Odds Ratio)...23`
+    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the Log(Odds Ratio)...24`
+    ## • `P-value` -> `P-value...25`
+    ## • `Odds Ratio` -> `Odds Ratio...26`
+    ## • `Lower 95% Confidence Interval` -> `Lower 95% Confidence Interval...27`
+    ## • `Upper 95% Confidence Interval` -> `Upper 95% Confidence Interval...28`
+    ## • `Log(Odds Ratio)` -> `Log(Odds Ratio)...29`
+    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the Log(Odds Ratio)...30`
+    ## • `P-value` -> `P-value...31`
+    ## • `Direction` -> `Direction...32`
+    ## • `Odds Ratio` -> `Odds Ratio...33`
+    ## • `Lower 95% Confidence Interval` -> `Lower 95% Confidence Interval...34`
+    ## • `Upper 95% Confidence Interval` -> `Upper 95% Confidence Interval...35`
+    ## • `Log(Odds Ratio)` -> `Log(Odds Ratio)...36`
+    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the Log(Odds Ratio)...37`
+    ## • `P-value` -> `P-value...38`
+    ## • `Odds Ratio` -> `Odds Ratio...39`
+    ## • `Lower 95% Confidence Interval` -> `Lower 95% Confidence Interval...40`
+    ## • `Upper 95% Confidence Interval` -> `Upper 95% Confidence Interval...41`
+    ## • `Log(Odds Ratio)` -> `Log(Odds Ratio)...42`
+    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the Log(Odds Ratio)...43`
+    ## • `P-value` -> `P-value...44`
+    ## • `Direction` -> `Direction...45`
 
 ``` r
 levey <- read_tsv(snakemake@input$levey, col_types=cols(CHR.BP=col_character())) %>%
@@ -121,7 +153,7 @@ mutate(LEFT=if_else(is.na(LEFT), true=POS, false=LEFT),
 ```
 
     ## Rows: 2391 Columns: 38
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (28): FIRST AUTHOR, JOURNAL, LINK, STUDY, DISEASE/TRAIT, INITIAL SAMPLE...
     ## dbl   (8): PUBMEDID, UPSTREAM_GENE_DISTANCE, DOWNSTREAM_GENE_DISTANCE, MERGE...
@@ -130,8 +162,8 @@ mutate(LEFT=if_else(is.na(LEFT), true=POS, false=LEFT),
     ## ℹ Use `spec()` to retrieve the full column specification for this data.
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
-    ## Warning in replace_with(out, !condition, false, fmt_args(~false), glue("length
-    ## of {fmt_args(~condition)}")): NAs introduced by coercion
+    ## Warning in replace_with(out, !condition, false, "`false`", "length of
+    ## `condition`"): NAs introduced by coercion
 
     ## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 
@@ -141,18 +173,17 @@ mutate(LEFT=if_else(is.na(LEFT), true=POS, false=LEFT),
 
 List of clumped and COJO SNPs and regions
 
--   Sumstats:
-    results/cojo/daner_pgc_mdd_full_eur_hg19_v3.49.24.11.qc.gz  
--   Clump file:
-    results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.11.gz.p4.clump.areator.sorted.1mhc  
--   COJO regions: 577  
--   Clumped SNPs: 817  
--   COJO Selected SNPs: 617  
--   Singleton regions: 65  
--   COJO+Clump SNPs: 617  
--   COJO Final SNPs: 552  
--   COJO Final SNPs p \<= 5e-8, pJ \<= 5e-8: 543  
--   COJO Final SNPs p \> 5e-8, pJ \<= 5e-8: 9
+- Sumstats: results/cojo/daner_pgc_mdd_full_eur_hg19_v3.49.24.11.qc.gz  
+- Clump file:
+  results/distribution/daner_pgc_mdd_full_eur_hg19_v3.49.24.11.gz.p4.clump.areator.sorted.1mhc  
+- COJO regions: 577  
+- Clumped SNPs: 817  
+- COJO Selected SNPs: 617  
+- Singleton regions: 65  
+- COJO+Clump SNPs: 617  
+- COJO Final SNPs: 552  
+- COJO Final SNPs p \<= 5e-8, pJ \<= 5e-8: 543  
+- COJO Final SNPs p \> 5e-8, pJ \<= 5e-8: 9
 
 Load list of COJO SNPs
 
@@ -161,7 +192,7 @@ cojo <- read_tsv(snakemake@input$cojo)
 ```
 
     ## Rows: 556 Columns: 28
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (4): SNP, A1, A2, Direction
     ## dbl (24): region, snp_idx, CHR, BP, FRQ_A_525197, FRQ_U_3362335, INFO, OR, S...
@@ -178,7 +209,7 @@ rp <- read_table(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
 ```
 
     ## 
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   SNP = col_character(),
@@ -281,7 +312,7 @@ hits_upset <- list(MDD3_COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
 upset(fromList(hits_upset), nsets=7, order.by='freq', text.scale=2)
 ```
 
-![](cojo_files/figure-gfm/upset-1.png)<!-- -->
+![](/home/madams23/Projects/mdd-meta/docs/cojo_files/figure-gfm/upset-1.png)<!-- -->
 
 Find which COJO regions overlap with Howard
 
@@ -476,7 +507,7 @@ scale_y_continuous('OR', limits=c(1, 1.1))
 
     ## Warning: Removed 2 row(s) containing missing values (geom_path).
 
-![](cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
+![](/home/madams23/Projects/mdd-meta/docs/cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
 
 ## Manhattan plot
 
@@ -485,7 +516,7 @@ daner <- read_tsv(snakemake@input$daner)
 ```
 
     ## Rows: 7131733 Columns: 20
-    ## ── Column specification ──────────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (4): SNP, A1, A2, Direction
     ## dbl (16): CHR, BP, FRQ_A_525197, FRQ_U_3362335, INFO, OR, SE, P, ngt, HetISq...
@@ -498,14 +529,20 @@ gwas <- daner %>% filter(-log10(P)>=3) %>% mutate(CHR=if_else(CHR!=23, true=as.c
 ```
 
 ``` r
-manhattn <- ggman(as.data.frame(gwas), snp = "SNP", bp = "BP", chrom = "CHR", pvalue = "P", ymin=3)
+manhattn <- ggman(as.data.frame(gwas), snp = "SNP", bp = "BP", chrom = "CHR", pvalue = "P", ymin=3, lineColour='#111111')
 ```
 
     ## Warning: `guides(<scale> = FALSE)` is deprecated. Please use `guides(<scale> =
     ## "none")` instead.
 
 ``` r
-manhattn
+manhattn + scale_colour_manual(values=c('#e66101', '#5e3c99')) + theme_minimal() + theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
 ```
 
-![](cojo_files/figure-gfm/manhattn-1.png)<!-- -->
+![](/home/madams23/Projects/mdd-meta/docs/cojo_files/figure-gfm/manhattn-1.png)<!-- -->
+
+``` r
+manhattn + scale_colour_manual(values=c('#e66101', '#b2abd2')) + theme_minimal() + theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
+```
+
+![](/home/madams23/Projects/mdd-meta/docs/cojo_files/figure-gfm/manhattn_acute-1.png)<!-- -->
