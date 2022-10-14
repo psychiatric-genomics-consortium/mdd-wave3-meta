@@ -38,7 +38,7 @@ library(data.table)
 # Read in GWAS results
 # Currently we are using results only for lead indepdendant associations from COJO
 # I think this is fine
-indep_hits<-fread('../../docs/tables/meta_snps_full_eur.cojo.txt')
+indep_hits<-fread(here::here('docs/tables/meta_snps_full_eur.cojo.txt'))
 
 # Link SNPs to nearest gene
 # Insert nearest gene information
@@ -65,10 +65,12 @@ Genes38 <- Genes38[Genes38$chromosome_name %in% c(as.character(1:22), 'X'),]
 Genes38$cpid <- with(Genes38, paste0(chromosome_name, ':', start_position, '-', end_position))
 Genes38 <- Genes38[!duplicated(Genes38$ensembl_gene_id),]
 Genes38 <- Genes38[!duplicated(Genes38$cpid),]
-Genes38 <- Genes38[!duplicated(Genes38$external_gene_name),]
+#no_gene_name38 <- which(Genes38$external_gene_name == "")
+#Genes38$external_gene_name[no_gene_name38] = Genes38$cpid[no_gene_name38]
+#Genes38 <- Genes38[!duplicated(Genes38$external_gene_name),]
 
 # 37 positions with 38 gene names
-Genes <- merge(Genes37, Genes38[,c('ensembl_gene_id', 'chromosome_name', 'external_gene_name', 'hgnc_symbol')], by=c('ensembl_gene_id', 'chromosome_name'), all.x=TRUE, suffix=c('.37', '.38'))
+Genes <- merge(Genes37, Genes38[,c('ensembl_gene_id', 'chromosome_name', 'external_gene_name', 'hgnc_symbol', 'start_position', 'end_position')], by=c('ensembl_gene_id'), all=TRUE, suffix=c('.37', '.38'))
 
 
 # copy over build 37 gene name if it is missing in 38
@@ -78,26 +80,26 @@ Genes$external_gene_name = with(Genes, ifelse(is.na(external_gene_name.38) | ext
 window<-50000
 
 for(i in 1:nrow(indep_hits)){
-  Genes_i<-Genes[Genes$start_position < (indep_hits$BP[i] + window) & Genes$end_position > (indep_hits$BP[i] - window) & Genes$chromosome_name == indep_hits$CHR[i],]
+  Genes_i<-Genes[which(Genes$start_position.37 < (indep_hits$BP[i] + window) & Genes$end_position.37 > (indep_hits$BP[i] - window) & Genes$chromosome_name.37 == indep_hits$CHR[i]),]
   if(nrow(Genes_i) != 0){
     gene_string<-NULL
     for(j in 1:nrow(Genes_i)){
-      if(indep_hits$BP[i] > Genes_i$start_position[j] & indep_hits$BP[i] < Genes_i$end_position[j]){
+      if(indep_hits$BP[i] > Genes_i$start_position.37[j] & indep_hits$BP[i] < Genes_i$end_position.37[j]){
         gene_string<-rbind(gene_string, data.frame(ID=Genes_i$external_gene_name[j],
 												   ENSGID=Genes_i$ensembl_gene_id[j],
                                                    Dist=0,
                                                    Pos=NA))
       }
-      if(indep_hits$BP[i] < Genes_i$start_position[j]){
+      if(indep_hits$BP[i] < Genes_i$start_position.37[j]){
         gene_string<-rbind(gene_string, data.frame(ID=Genes_i$external_gene_name[j],
 		   										   ENSGID=Genes_i$ensembl_gene_id[j],
-                                                   Dist=abs(indep_hits$BP[i] - Genes_i$start_position[j]),
+                                                   Dist=abs(indep_hits$BP[i] - Genes_i$start_position.37[j]),
                                                    Pos='-'))
       }
-      if(indep_hits$BP[i] > Genes_i$end_position[j]){
+      if(indep_hits$BP[i] > Genes_i$end_position.37[j]){
         gene_string<-rbind(gene_string, data.frame(ID=Genes_i$external_gene_name[j],
 		                                           ENSGID=Genes_i$ensembl_gene_id[j],
-                                                   Dist=abs(indep_hits$BP[i] - Genes_i$end_position[j]),
+                                                   Dist=abs(indep_hits$BP[i] - Genes_i$end_position.37[j]),
                                                    Pos='+'))
       }
     }
@@ -115,7 +117,7 @@ for(i in 1:nrow(indep_hits)){
 ##########
 
 # Read in finemapping results from Joni. This table shows genes implicated by the finemapping results, by a gene containing the entire 95% credible set.
-finemap<-fread('../../docs/tables/finemapping/Locus_FineMapping_Full_Results.csv')
+finemap<-fread(here::here('docs/tables/finemapping/Locus_FineMapping_Full_Results.csv'))
 
 # parse out gene names
 finemap_genes<-unlist(strsplit(finemap$High.Confidence.Genes.Names, ','))
@@ -131,14 +133,14 @@ finemap_geneids <- sapply(strsplit(finemap_geneids, '\\.'), function(g) g[[1]])
 ##########
 
 # Read in FastBAT results
-fastbat<-fread('../../docs/tables/fastBAT/mdd_fastbat_AllgeneMatrix.gene.fastbat')
+fastbat<-fread(here::here('docs/tables/fastBAT/mdd_fastbat_AllgeneMatrix.gene.fastbat'))
 fastbat$P.FDR<-p.adjust(fastbat$Pvalue, method='fdr')
 
 ##########
 # H-MAGMA
 ##########
 
-hmagma<-fread('../../docs/tables/H-MAGMA/PGC_MDD_Results_mar2022.csv')
+hmagma<-fread(here::here('docs/tables/H-MAGMA/PGC_MDD_Results_mar2022.csv'))
 
 # Exclude astrocytes
 hmagma_noAstr<-hmagma[hmagma$Analysis != 'Astrocytes',]
@@ -152,13 +154,13 @@ hmagma_noAstr<-merge(hmagma_noAstr, Genes, by.x='GENE', by.y='ensembl_gene_id')
 # TWAS
 ##########
 
-twas<-fread('../../docs/tables/twas/PGC_MDD3_twas_AllTissues_GW.txt')
+twas<-fread(here::here('docs/tables/twas/PGC_MDD3_twas_AllTissues_GW.txt'))
 twas$chromosome_name <- as.character(twas$CHR)
 twas$twas_id <- 1:nrow(twas)
 
 # merge by scaffold (exact overlap)
 twas_gr <- with(twas, GRanges(seqnames=chromosome_name, ranges=IRanges(start=P0, end=P1)))
-genes_gr <- with(Genes, GRanges(seqnames=chromosome_name, ranges=IRanges(start=start_position, end=end_position)))
+genes_gr <- with(Genes[!is.na(Genes$chromosome_name.37),], GRanges(seqnames=chromosome_name.37, ranges=IRanges(start=start_position.37, end=end_position.37)))
 
 twas_genes_overlaps <- findOverlaps(twas_gr, genes_gr, type='equal')
 
@@ -186,7 +188,7 @@ twas_sig<-twas_genes[twas_genes$TWAS.P < 3.685926e-08,]
 # Colocalisation
 ##########
 
-coloc<-read.csv('../../docs/tables/twas/PGC_MDD3_TWAS_colocalisation.csv')
+coloc<-read.csv(here::here('docs/tables/twas/PGC_MDD3_TWAS_colocalisation.csv'))
 coloc_sig<-coloc[coloc$COLOC.PP4 > 0.8,]
 
 coloc_sig <- merge(coloc_sig, Genes[,c('ensembl_gene_id', 'external_gene_name.37')], by.x='ID', by.y='external_gene_name.37', all.x=TRUE)
@@ -195,9 +197,9 @@ coloc_sig <- merge(coloc_sig, Genes[,c('ensembl_gene_id', 'external_gene_name.37
 # FOCUS 
 ##########
 
-focus<-read.csv('../../docs/tables/twas/PGC_MDD3_TWAS.TWSig.FOCUS.results.csv')
+focus<-read.csv(here::here('docs/tables/twas/PGC_MDD3_TWAS.TWSig.FOCUS.results.csv'))
 
-fusion <- fread("../../docs/tables/twas/PGC_MDD3_twas_AllTissues_TWSig_CLEAN.txt")
+fusion <- fread(here::here("docs/tables/twas/PGC_MDD3_twas_AllTissues_TWSig_CLEAN.txt"))
 fusion<-fusion[,c('PANEL','PANEL_clean_short','PANEL_clean'), with=F]
 fusion<-fusion[!duplicated(fusion),]
 
@@ -211,7 +213,7 @@ focus_sig <- merge(focus_sig, Genes[,c('ensembl_gene_id', 'external_gene_name.37
 # Expression analysis based high confidence genes
 ##########
 
-expression_highconf_res<-fread('../../docs/tables/twas/PGC3_MDD_TWAS_HighConf_results.csv')
+expression_highconf_res<-fread(here::here('docs/tables/twas/PGC3_MDD_TWAS_HighConf_results.csv'))
 
 expression_highconf_res <- merge(expression_highconf_res, Genes[,c('ensembl_gene_id', 'external_gene_name.37')], by.x='ID', by.y='external_gene_name.37', all.x=TRUE)
 
@@ -222,7 +224,7 @@ expression_highconf_res <- merge(expression_highconf_res, Genes[,c('ensembl_gene
 # Read in the SMR results
 smr_res<-list()
 
-smr_res[['eQTLGen_Blood']]<-fread('../../docs/tables/twas/eqtlgen_smr_res_GW_withIDs.csv')
+smr_res[['eQTLGen_Blood']]<-fread(here::here('docs/tables/twas/eqtlgen_smr_res_GW_withIDs.csv'))
 
 names(smr_res[['eQTLGen_Blood']])[names(smr_res[['eQTLGen_Blood']]) == 'GeneSymbol']<-'HGNCName'
 smr_res[['eQTLGen_Blood']]$eQTL_source<-'eQTLGen_Blood'
@@ -230,7 +232,7 @@ smr_res[['eQTLGen_Blood']]$eQTL_source<-'eQTLGen_Blood'
 tissue<-c("Basalganglia","Cerebellum","Cortex","Hippocampus","Spinalcord")
 
 for(tissue_i in tissue){
-  smr_res[[tissue_i]]<-fread(paste0('../../docs/tables/twas/metabrain_',tissue_i,'_smr_res_GW_withIDs.csv'))
+  smr_res[[tissue_i]]<-fread(here::here(paste0('docs/tables/twas/metabrain_',tissue_i,'_smr_res_GW_withIDs.csv')))
   smr_res[[tissue_i]]$eQTL_source<-paste0('MetaBrain_',tissue_i)
 }
 
@@ -253,10 +255,10 @@ heidi<-smr_res_dat_sig[smr_res_dat_sig$p_HEIDI > 0.05,]
 pwas<-NULL
 for(i in 1:22){
   if(i != 6){
-    pwas<-rbind(pwas, fread(paste0('../../docs/tables/pwas/PGC_MDD3_pwas_rosmap_chr',i)))
+    pwas<-rbind(pwas, fread(here::here(paste0('docs/tables/pwas/PGC_MDD3_pwas_rosmap_chr',i))))
   } else {
-    pwas<-rbind(pwas, fread(paste0('../../docs/tables/pwas/PGC_MDD3_pwas_rosmap_chr',i)))
-    pwas<-rbind(pwas, fread(paste0('../../docs/tables/pwas/PGC_MDD3_pwas_rosmap_chr',i,'.MHC')))
+    pwas<-rbind(pwas, fread(here::here(paste0('docs/tables/pwas/PGC_MDD3_pwas_rosmap_chr',i))))
+    pwas<-rbind(pwas, fread(here::here(paste0('docs/tables/pwas/PGC_MDD3_pwas_rosmap_chr',i,'.MHC'))))
   }
 }
 
@@ -264,7 +266,7 @@ pwas$TWAS.P.FDR<-p.adjust(pwas$TWAS.P)
 pwas$ID<-gsub('\\..*','', pwas$ID)
 
 # Read in PWAS and SMR results for all significant ROSMAP PWAS assoc results
-pwas_smr_rosmap_banner<-fread('../../docs/tables/pwas/rosmap_banner_pwas_smr_results.csv')
+pwas_smr_rosmap_banner<-fread(here::here('docs/tables/pwas/rosmap_banner_pwas_smr_results.csv'))
 
 pwas_smr_rosmap_banner <- merge(pwas_smr_rosmap_banner, Genes[,c('ensembl_gene_id', 'external_gene_name.37')], by.x='ID', by.y='external_gene_name.37', all.x=TRUE)
 
@@ -274,7 +276,7 @@ pwas_smr_rosmap_banner <- merge(pwas_smr_rosmap_banner, Genes[,c('ensembl_gene_i
 # PsyOPS
 ########
 
-psyops <- fread('../../docs/tables/psyops/psyops_full_eur.cojo.txt')
+psyops <- fread(here::here('docs/tables/psyops/psyops_full_eur.cojo.txt'))
 psyops$psy_id <- 1:nrow(psyops)
 psyops_genes37 <- merge(psyops, Genes[,c('ensembl_gene_id', 'external_gene_name.37')], by.x='gene', by.y='external_gene_name.37')
 psyops_genes38 <- merge(psyops, Genes[,c('ensembl_gene_id', 'external_gene_name.38')], by.x='gene', by.y='external_gene_name.38')
@@ -319,7 +321,7 @@ gene_overlap[['PsyOPS']]<-psyops_prioritised$ensembl_gene_id
 
 library(UpSetR)
 
-png('../../docs/figures/gene_consensus_upset_dense.png', units = 'px', res=300, height=1500, width=2500)
+png(here::here('docs/figures/gene_consensus_upset_dense.png'), units = 'px', res=300, height=1500, width=2500)
 
 upset(fromList(gene_overlap), nsets=10, order.by = "freq")
 
@@ -327,7 +329,7 @@ dev.off()
 
 gene_overlap_highconf <- gene_overlap[c('Fine-mapping','Expression', 'Protein', 'PsyOPS')]
 
-png('../../docs/figures/gene_consensus_upset_highconf.png', units = 'px', res=300, height=1400, width=1500)
+png(here::here('docs/figures/gene_consensus_upset_highconf.png'), units = 'px', res=300, height=1400, width=1500)
 
 upset(fromList(gene_overlap_highconf), nsets=10, order.by = "freq")
 
@@ -486,7 +488,7 @@ high_conf_tab_melt$ID<-factor(high_conf_tab_melt$ID, levels=rev(levels(high_conf
 library(ggplot2)
 library(cowplot)
 
-png('../../docs/figures/gene_con_heatmap.png', units = 'px', res=300, height=14000, width=2800)
+png(here::here('docs/figures/gene_con_heatmap.png'), units = 'px', res=300, height=14000, width=2800)
 ggplot(data = high_conf_tab_melt, aes(x='1', y = ID, fill=value)) +
   theme_minimal_grid(color = "white") +
   geom_tile(colour = 'black', width=1.5) +
@@ -511,6 +513,44 @@ dev.off()
 * Significant genes in from expression based analyses that are based on splicing data are indicated as green as direction of effect is challenging to interpret.
 
 </details> 
+
+<details><summary>Gene table</summary>
+
+Make a simple table of gene-by-method associations.
+
+```{r genes_methods}
+
+methods_genes <- dplyr::bind_rows(lapply(gene_overlap, function(x) data.frame(ENSID=x)), .id='method')
+methods_genes$assoc = TRUE
+genes_methods_wide <- 
+tidyr::pivot_wider(dplyr::distinct(methods_genes), names_from='method', values_from='assoc', values_fill=FALSE)
+
+genes_methods_gene_names <-
+dplyr::left_join(genes_methods_wide,
+  dplyr::select(Genes, ENSID=ensembl_gene_id, Gene=external_gene_name,
+  Chrom_b37=chromosome_name.37, pos_start_b37=start_position.37, pos_end_b37=end_position.37,
+  Chrom_b38=chromosome_name.38, pos_start_b38=start_position.38, pos_end_b38=end_position.38), by='ENSID')
+
+genes_methods_cpid <- dplyr::select(genes_methods_gene_names, ENSID, Gene,
+  Chrom_b37, pos_start_b37, pos_end_b37, Chrom_b38, pos_start_b38, pos_end_b38, 
+  Nearest_gene=`Nearest Gene`, Fine_mapping=`Fine-mapping`, Expression, Protein, fastBAT, HMAGMA=`H-MAGMA`, PsyOPS)
+
+genes_methods_cpid$chrom <- with(genes_methods_cpid, dplyr::coalesce(Chrom_b37, Chrom_b38))
+genes_methods_cpid$chrom <- with(genes_methods_cpid, ifelse(chrom == 'X', yes=23, no=as.numeric(chrom)))
+
+genes_methods_conf <-
+dplyr::arrange(
+  dplyr::filter(genes_methods_cpid, Nearest_gene | Fine_mapping | Expression | Protein | PsyOPS),
+  chrom, pos_start_b37, pos_start_b38
+)
+
+genes_methods_conf$chrom <- NULL
+
+readr::write_tsv(genes_methods_conf, here::here('docs/tables/genes_methods.tsv'))
+
+```
+
+</details>
 
 ***
 
