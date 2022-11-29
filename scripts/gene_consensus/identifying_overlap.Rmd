@@ -362,7 +362,7 @@ gene_overlap[['Fine-mapping']]<-finemap_geneids
 gene_overlap[['Expression']]<-expression_highconf_res$ensembl_gene_id
 gene_overlap[['Protein']]<-pwas_smr_rosmap_banner$ensembl_gene_id[which(pwas_smr_rosmap_banner$banner_replicated  & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$smr.causal)]
 gene_overlap[['Nearest Gene']]<-indep_hits$NearestENSG[!is.na(indep_hits$NearestENSG)]
-gene_overlap[['fastBAT']]<-fastbat$Gene[fastbat$Pvalue < 5e-8]
+gene_overlap[['fastBAT']]<-fastbat$Gene[fastbat$Pvalue < 2e-6]
 gene_overlap[['H-MAGMA']]<-unique(hmagma_noAstr$GENE[hmagma_noAstr$P.FDR < 0.05])
 gene_overlap[['PsyOPS']]<-psyops_prioritised$ensembl_gene_id
 
@@ -479,7 +479,7 @@ for(i in 1:nrow(high_conf_tab)){
 high_conf_tab$fastBAT<-'NA'
 for(i in 1:nrow(high_conf_tab)){
   if(high_conf_tab$ENSGID[i] %in% fastbat$Gene){
-    if(high_conf_tab$ENSGID[i] %in% fastbat$Gene[fastbat$Pvalue < 5e-8]){
+    if(high_conf_tab$ENSGID[i] %in% fastbat$Gene[fastbat$Pvalue < 2e-6]){
       high_conf_tab$fastBAT[i]<-'Sig'
     } else {
       high_conf_tab$fastBAT[i]<-'Non-Sig'
