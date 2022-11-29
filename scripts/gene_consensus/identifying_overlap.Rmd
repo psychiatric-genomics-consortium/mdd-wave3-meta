@@ -29,18 +29,6 @@ The PGC3 MDD study is including the following analyses to identify genes associa
 
 ```{r analyses, eval=T, echo=T, cache=TRUE}
 
-##########
-# Nearest gene
-##########
-
-library(data.table)
-
-# Read in GWAS results
-# Currently we are using results only for lead indepdendant associations from COJO
-# I think this is fine
-indep_hits<-fread(here::here('docs/tables/meta_snps_full_eur.cojo.txt'))
-
-# Link SNPs to nearest gene
 # Insert nearest gene information
 library(biomaRt)
 library(GenomicRanges)
@@ -77,6 +65,23 @@ Genes <- merge(Genes37, Genes38[,c('ensembl_gene_id', 'chromosome_name', 'extern
 coalesce_gene_name <- which(is.na(Genes$external_gene_name.38))
 Genes$external_gene_name = with(Genes, ifelse(is.na(external_gene_name.38) | external_gene_name.38 == "", yes=external_gene_name.37, no=external_gene_name.38))
 
+```
+
+```{r nearest, eval=T, echo=T, cache=TRUE}
+
+##########
+# Nearest gene
+##########
+
+library(data.table)
+
+# Read in GWAS results
+# Currently we are using results only for lead indepdendant associations from COJO
+# I think this is fine
+indep_hits<-fread(here::here('docs/tables/meta_snps_full_eur.cojo.txt'))
+
+# Link SNPs to nearest gene
+
 window<-50000
 
 for(i in 1:nrow(indep_hits)){
@@ -111,6 +116,9 @@ for(i in 1:nrow(indep_hits)){
 	indep_hits$NearestENSG[i]<-NA
   }
 }
+```
+
+```{r fine, eval=T, echo=T, cache=TRUE}
 
 ##########
 # SNP-finemapping
@@ -127,14 +135,19 @@ finemap_geneids<-unlist(strsplit(finemap$High.Confidence.Genes.IDs, ','))
 finemap_geneids<-finemap_geneids[finemap_geneids != '-']
 finemap_geneids <- sapply(strsplit(finemap_geneids, '\\.'), function(g) g[[1]])
 
+```
 
+```{r fastbat, eval=T, echo=T, cache=TRUE}
 ##########
 # FastBAT
 ##########
 
 # Read in FastBAT results
 fastbat<-fread(here::here('docs/tables/fastBAT/mdd_fastbat_AllgeneMatrix.gene.fastbat'))
-fastbat$P.FDR<-p.adjust(fastbat$Pvalue, method='fdr')
+
+```
+
+```{r hmagma, eval=T, echo=T, cache=TRUE}
 
 ##########
 # H-MAGMA
@@ -150,6 +163,10 @@ hmagma_noAstr$P.FDR<-p.adjust(hmagma_noAstr$P, method = 'fdr')
 
 hmagma_noAstr<-merge(hmagma_noAstr, Genes, by.x='GENE', by.y='ensembl_gene_id')
 
+```
+
+
+```{r twas, eval=T, echo=T, cache=TRUE}
 ##########
 # TWAS
 ##########
@@ -184,6 +201,10 @@ twas_genes <- rbind(twas_scaffolds, twas_matched_symbols)
 
 twas_sig<-twas_genes[twas_genes$TWAS.P < 3.685926e-08,]
 
+```
+
+```{r coloc, eval=T, echo=T, cache=TRUE}
+
 ##########
 # Colocalisation
 ##########
@@ -192,6 +213,10 @@ coloc<-read.csv(here::here('docs/tables/twas/PGC_MDD3_TWAS_colocalisation.csv'))
 coloc_sig<-coloc[coloc$COLOC.PP4 > 0.8,]
 
 coloc_sig <- merge(coloc_sig, Genes[,c('ensembl_gene_id', 'external_gene_name.37')], by.x='ID', by.y='external_gene_name.37', all.x=TRUE)
+
+```
+
+```{r focus, eval=T, echo=T, cache=TRUE}
 
 ##########
 # FOCUS 
@@ -209,6 +234,10 @@ focus_sig<-focus[focus$FOCUS_pip > 0.5,]
 
 focus_sig <- merge(focus_sig, Genes[,c('ensembl_gene_id', 'external_gene_name.37')], by.x='ID', by.y='external_gene_name.37', all.x=TRUE)
 
+```
+
+```{r expression, eval=T, echo=T, cache=TRUE}
+
 ##########
 # Expression analysis based high confidence genes
 ##########
@@ -216,6 +245,10 @@ focus_sig <- merge(focus_sig, Genes[,c('ensembl_gene_id', 'external_gene_name.37
 expression_highconf_res<-fread(here::here('docs/tables/twas/PGC3_MDD_TWAS_HighConf_results.csv'))
 
 expression_highconf_res <- merge(expression_highconf_res, Genes[,c('ensembl_gene_id', 'external_gene_name.37')], by.x='ID', by.y='external_gene_name.37', all.x=TRUE)
+
+```
+
+```{r smr, eval=T, echo=T, cache=TRUE}
 
 ##########
 # SMR
@@ -241,12 +274,19 @@ smr_res_dat$p_SMR_fdr_all<-p.adjust(smr_res_dat$p_SMR, method="fdr")
 
 smr_res_dat_sig<-smr_res_dat[smr_res_dat$p_SMR_fdr_all < 0.05,]
 
+```
+
+```{r heidi, eval=T, echo=T, cache=TRUE}
+
 ##########
 # HEIDI
 ##########
 
 heidi<-smr_res_dat_sig[smr_res_dat_sig$p_HEIDI > 0.05,]
 
+```
+
+```{r pwas, eval=T, echo=T, cache=TRUE}
 ##########
 # PWAS
 ##########
@@ -270,7 +310,9 @@ pwas_smr_rosmap_banner<-fread(here::here('docs/tables/pwas/rosmap_banner_pwas_sm
 
 pwas_smr_rosmap_banner <- merge(pwas_smr_rosmap_banner, Genes[,c('ensembl_gene_id', 'external_gene_name.37')], by.x='ID', by.y='external_gene_name.37', all.x=TRUE)
 
+```
 
+```{r psyops, eval=T, echo=T, cache=TRUE}
 
 ########
 # PsyOPS
@@ -315,7 +357,7 @@ gene_overlap[['Fine-mapping']]<-finemap_geneids
 gene_overlap[['Expression']]<-expression_highconf_res$ensembl_gene_id
 gene_overlap[['Protein']]<-pwas_smr_rosmap_banner$ensembl_gene_id[which(pwas_smr_rosmap_banner$banner_replicated  & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$smr.causal)]
 gene_overlap[['Nearest Gene']]<-indep_hits$NearestENSG[!is.na(indep_hits$NearestENSG)]
-gene_overlap[['fastBAT']]<-fastbat$Gene[fastbat$P.FDR < 0.05]
+gene_overlap[['fastBAT']]<-fastbat$Gene[fastbat$Pvalue < 5e-8]
 gene_overlap[['H-MAGMA']]<-unique(hmagma_noAstr$GENE[hmagma_noAstr$P.FDR < 0.05])
 gene_overlap[['PsyOPS']]<-psyops_prioritised$ensembl_gene_id
 
@@ -432,7 +474,7 @@ for(i in 1:nrow(high_conf_tab)){
 high_conf_tab$fastBAT<-'NA'
 for(i in 1:nrow(high_conf_tab)){
   if(high_conf_tab$ENSGID[i] %in% fastbat$Gene){
-    if(high_conf_tab$ENSGID[i] %in% fastbat$Gene[fastbat$P.FDR < 0.05]){
+    if(high_conf_tab$ENSGID[i] %in% fastbat$Gene[fastbat$Pvalue < 5e-8]){
       high_conf_tab$fastBAT[i]<-'Sig'
     } else {
       high_conf_tab$fastBAT[i]<-'Non-Sig'
@@ -478,7 +520,7 @@ high_conf_tab_log[is.na(high_conf_tab_log)]<-T
 high_conf_tab_log$sum<-rowSums(high_conf_tab_log[,1:3])
 
 high_conf_tab_ordered <-high_conf_tab[order(-high_conf_tab_log$sum, high_conf_tab$ID),-1]
-high_conf_tab_ordered$ID<-factor(high_conf_tab_ordered$ID, levels = high_conf_tab_ordered$ID)
+high_conf_tab_ordered$ID<-factor(high_conf_tab_ordered$ID)
 
 names(high_conf_tab_ordered)<-c('ID','Fine-mapping','Expression','Protein','fastBAT','H-MAGMA','PsyOPS')
 high_conf_tab_melt<-melt(as.data.table(high_conf_tab_ordered), id.vars='ID')
@@ -540,7 +582,7 @@ genes_methods_cpid$chrom <- with(genes_methods_cpid, ifelse(chrom == 'X', yes=23
 
 genes_methods_conf <-
 dplyr::arrange(
-  dplyr::filter(genes_methods_cpid, Nearest_gene | Fine_mapping | Expression | Protein | PsyOPS),
+  dplyr::filter(genes_methods_cpid, Nearest_gene | Fine_mapping | Expression | Protein | fastBAT | PsyOPS),
   chrom, pos_start_b37, pos_start_b38
 )
 
