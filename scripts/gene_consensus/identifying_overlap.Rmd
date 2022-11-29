@@ -27,11 +27,14 @@ The PGC3 MDD study is including the following analyses to identify genes associa
 
 <details><summary>Show code</summary>
 
+```{r bioc}
+library(biomaRt)
+library(GenomicRanges)
+```
+
 ```{r analyses, eval=T, echo=T, cache=TRUE}
 
 # Insert nearest gene information
-library(biomaRt)
-library(GenomicRanges)
 gene_attributes = c('ensembl_gene_id', 'hgnc_symbol', 'external_gene_name','chromosome_name','start_position','end_position')
 # GRCh37 for position
 ensembl37 = useEnsembl(biomart="ensembl", dataset="hsapiens_gene_ensembl", GRCh=37)
@@ -67,7 +70,7 @@ Genes$external_gene_name = with(Genes, ifelse(is.na(external_gene_name.38) | ext
 
 ```
 
-```{r nearest, eval=T, echo=T, cache=TRUE}
+```{r nearest, eval=T, echo=T}
 
 ##########
 # Nearest gene
@@ -118,7 +121,7 @@ for(i in 1:nrow(indep_hits)){
 }
 ```
 
-```{r fine, eval=T, echo=T, cache=TRUE}
+```{r fine, eval=T, echo=T}
 
 ##########
 # SNP-finemapping
@@ -137,7 +140,7 @@ finemap_geneids <- sapply(strsplit(finemap_geneids, '\\.'), function(g) g[[1]])
 
 ```
 
-```{r fastbat, eval=T, echo=T, cache=TRUE}
+```{r fastbat, eval=T, echo=T}
 ##########
 # FastBAT
 ##########
@@ -147,7 +150,7 @@ fastbat<-fread(here::here('docs/tables/fastBAT/mdd_fastbat_AllgeneMatrix.gene.fa
 
 ```
 
-```{r hmagma, eval=T, echo=T, cache=TRUE}
+```{r hmagma, eval=T, echo=T}
 
 ##########
 # H-MAGMA
@@ -166,7 +169,7 @@ hmagma_noAstr<-merge(hmagma_noAstr, Genes, by.x='GENE', by.y='ensembl_gene_id')
 ```
 
 
-```{r twas, eval=T, echo=T, cache=TRUE}
+```{r twas, eval=T, echo=T}
 ##########
 # TWAS
 ##########
@@ -203,7 +206,7 @@ twas_sig<-twas_genes[twas_genes$TWAS.P < 3.685926e-08,]
 
 ```
 
-```{r coloc, eval=T, echo=T, cache=TRUE}
+```{r coloc, eval=T, echo=T}
 
 ##########
 # Colocalisation
@@ -216,7 +219,7 @@ coloc_sig <- merge(coloc_sig, Genes[,c('ensembl_gene_id', 'external_gene_name.37
 
 ```
 
-```{r focus, eval=T, echo=T, cache=TRUE}
+```{r focus, eval=T, echo=T}
 
 ##########
 # FOCUS 
@@ -236,7 +239,7 @@ focus_sig <- merge(focus_sig, Genes[,c('ensembl_gene_id', 'external_gene_name.37
 
 ```
 
-```{r expression, eval=T, echo=T, cache=TRUE}
+```{r expression, eval=T, echo=T}
 
 ##########
 # Expression analysis based high confidence genes
@@ -248,7 +251,7 @@ expression_highconf_res <- merge(expression_highconf_res, Genes[,c('ensembl_gene
 
 ```
 
-```{r smr, eval=T, echo=T, cache=TRUE}
+```{r smr, eval=T, echo=T}
 
 ##########
 # SMR
@@ -276,7 +279,7 @@ smr_res_dat_sig<-smr_res_dat[smr_res_dat$p_SMR_fdr_all < 0.05,]
 
 ```
 
-```{r heidi, eval=T, echo=T, cache=TRUE}
+```{r heidi, eval=T, echo=T}
 
 ##########
 # HEIDI
@@ -286,7 +289,7 @@ heidi<-smr_res_dat_sig[smr_res_dat_sig$p_HEIDI > 0.05,]
 
 ```
 
-```{r pwas, eval=T, echo=T, cache=TRUE}
+```{r pwas, eval=T, echo=T}
 ##########
 # PWAS
 ##########
@@ -312,7 +315,7 @@ pwas_smr_rosmap_banner <- merge(pwas_smr_rosmap_banner, Genes[,c('ensembl_gene_i
 
 ```
 
-```{r psyops, eval=T, echo=T, cache=TRUE}
+```{r psyops, eval=T, echo=T}
 
 ########
 # PsyOPS
@@ -329,9 +332,11 @@ psyops_genesen$external_gene_name <- NULL
 psyops_genes <- unique(rbind(psyops_genes37, psyops_genes38, psyops_genesen))
 psyops_genes <- psyops_genes[!duplicated(psyops_genes$psy_id),]
 
+psyops_select <- psyops_genes[with(psyops_genes, which(extreme_pLI | brain_enriched_expression | neurodevelopmental_disorder)),]
+
 psyops_prioritised<-NULL
-for(i in unique(psyops_genes$lead_variant)){
-  tmp<-psyops_genes[psyops_genes$lead_variant == i,]
+for(i in unique(psyops_select$lead_variant)){
+  tmp<-psyops_select[psyops_select$lead_variant == i,]
   tmp<-tmp[tmp$PsyOPS_score == max(tmp$PsyOPS_score),]
   tmp<-tmp[tmp$distance == min(tmp$distance),]
   psyops_prioritised<-rbind(psyops_prioritised, tmp)
@@ -349,7 +354,7 @@ This plot will show the number of genes returned by each analysis and the overla
 
 <details><summary>Show code</summary>
 
-```{r upset, eval=T, echo=T, cache=TRUE}
+```{r upset, eval=T, echo=T}
 
 # Create data.frame listing genes with T/F indicating whether it was supported by each analysis 
 gene_overlap<-list()
@@ -407,7 +412,7 @@ dev.off()
 
 <details><summary>Show code</summary>
 
-```{r highconf, eval=T, echo=T, cache=TRUE}
+```{r highconf, eval=T, echo=T}
 # Define high confidence associations
 # - Genes implicated by finemapping
 # - Genes implicated by TWAS, colocalisation and FOCUS from any panel
@@ -602,7 +607,7 @@ This will give some indication of how fine-mapped variants may affect gene expre
 
 <details><summary>Show code</summary>
 
-```{r highconf_expr, eval=T, echo=T, cache=TRUE}
+```{r highconf_expr, eval=T, echo=T}
 
 ###
 # Create a dataframe containing gene ID, PANEL, Method and Z scores for all expression and protein analyses.
