@@ -239,13 +239,14 @@ rule cojo_install_genpwr:
     Rscript -e "devtools::install_github('camillemmoore/Power_Genetics', subdir='genpwr')"
     """
 
-# install ggman R library
-rule cojo_install_ggman:
-    output: touch("resources/cojo/install_ggman.done")
+# install fastman R library
+rule cojo_install_fastman:
+    output: touch("resources/cojo/install_fastman.done")
     conda: "../envs/meta.yaml"
     shell: """
-    Rscript -e "devtools::install_github('drveera/ggman')"
+    Rscript -e "devtools::install_github('kaustubhad/fastman')"
     """
+    
 # install microshades R library
 rule cojo_install_microshades:
     output: touch("resources/cojo/install_microshades.done")
@@ -255,7 +256,7 @@ rule cojo_install_microshades:
     """
 
 rule cojo_docs:
-    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", singleton="docs/tables/meta_snps_full_eur.cojo.singleton.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", catalog="docs/tables/previous/gwas-association-EFO_0003761-withChildTraits.tsv.bz2", rp_clump="docs/tables/meta_snps_full_eur.clump.txt", tags="results/cojo/previous/previous.tags.list", daner=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.neff.gz", version=analysis_version), rmd="docs/cojo.Rmd", genpwr=ancient(rules.cojo_install_genpwr.output), ggman=ancient(rules.cojo_install_ggman.output), microshades=ancient(rules.cojo_install_microshades.output)
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", singleton="docs/tables/meta_snps_full_eur.cojo.singleton.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", catalog="docs/tables/previous/gwas-association-EFO_0003761-withChildTraits.tsv.bz2", rp_clump="docs/tables/meta_snps_full_eur.clump.txt", tags="results/cojo/previous/previous.tags.list", daner=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.neff.gz", version=analysis_version), rmd="docs/cojo.Rmd", genpwr=ancient(rules.cojo_install_genpwr.output), fastman=ancient(rules.cojo_install_fastman.output), microshades=ancient(rules.cojo_install_microshades.output)
     params: qc=meta_qc_params
     output: md="docs/cojo.md"
     conda: "../envs/meta.yaml"
