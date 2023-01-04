@@ -12,6 +12,7 @@ library(UpSetR)
 library(genpwr)
 library(ggplot2)
 library(ggman)
+library(microshades)
 ```
 
 # Methods
@@ -563,6 +564,12 @@ manhattn + scale_colour_manual(values=c('#ca0020', '#92c5de'))
 
 ![](/home/madams23/Projects/mdd-meta/docs/cojo_files/figure-gfm/manhattn_acute-1.png)<!-- -->
 
+``` r
+manhattn + scale_colour_manual(values=microshades_palette('micro_cvd_blue', 2, lightest = FALSE))
+```
+
+![](/home/madams23/Projects/mdd-meta/docs/cojo_files/figure-gfm/manhattn_micro-1.png)<!-- -->
+
 ## Table
 
 Format COJO results for supplementary table
@@ -576,7 +583,7 @@ select(Locus=region, SNP.Index=snp_idx, SNP, CHR, BP, A1, A2,
     INFO, OR, SE, P, ngt, Direction,
     HetISqt, HetPVa, Nca, Nco, Neff_half,
     bJ, bJ_se, pJ, LD_r,
-    Locus.Left=range.left, Locus.right=range.right, N.Sig.SNPs=n_sig_snps)
+    Locus.Left=range.left, Locus.Right=range.right, N.Sig.SNPs=n_sig_snps)
 
 write_tsv(cojo_format, "docs/tables/meta_snps_full_eur.cojo.format.txt")
 ```
