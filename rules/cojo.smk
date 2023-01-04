@@ -248,8 +248,8 @@ rule cojo_install_ggman:
     """
 
 rule cojo_docs:
-    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", catalog="docs/tables/previous/gwas-association-EFO_0003761-withChildTraits.tsv.bz2", rp_clump="docs/tables/meta_snps_full_eur.clump.txt", tags="results/cojo/previous/previous.tags.list", daner=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.neff.gz", version=analysis_version), rmd="docs/cojo.Rmd", genpwr=ancient(rules.cojo_install_genpwr.output), ggman=ancient(rules.cojo_install_ggman.output)
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", singleton="docs/tables/meta_snps_full_eur.cojo.singleton.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", catalog="docs/tables/previous/gwas-association-EFO_0003761-withChildTraits.tsv.bz2", rp_clump="docs/tables/meta_snps_full_eur.clump.txt", tags="results/cojo/previous/previous.tags.list", daner=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.neff.gz", version=analysis_version), rmd="docs/cojo.Rmd", genpwr=ancient(rules.cojo_install_genpwr.output), ggman=ancient(rules.cojo_install_ggman.output)
     params: qc=meta_qc_params
-    output: "docs/cojo.md"
+    output: md="docs/cojo.md"
     conda: "../envs/meta.yaml"
     script: "../docs/cojo.Rmd"

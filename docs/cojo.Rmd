@@ -31,7 +31,7 @@ We ran a [conditional and joint analysis](https://www.nature.com/articles/ng.221
 - Regions with a genome-wide significant SNP (p < 5-e8) were identified from the clumped results. Regions within `r qc$cojo_kb`kb of each other were merged.
 - SNPs from these regions were extracted and filtered to unrelated of self- and genotype-identified European ancestry participants from UK Biobank.
 - A conditional analysis was performed on each region using the filtered sumstats superimposed on the UK Biobank LD structure.
-- Singleton regions (with only one genome-wide significant variant) were removed.
+- Singleton regions (with only one genome-wide significant variant) were separated out.
 
 ## Previous sumstats
 
@@ -80,9 +80,11 @@ List of clumped and COJO SNPs and regions
 cat(paste('- ', readLines(snakemake@input$log)[-1], '\n'))
 ```
 
-Load list of COJO SNPs
+Load list of COJO SNPs (with multiple or single GW-sig SNPs)
 ```{r cojo}
-cojo <- read_tsv(snakemake@input$cojo)
+cojo_mult <- read_tsv(snakemake@input$cojo)
+cojo_single <- read_tsv(snakemake@input$singleton)
+cojo <- bind_rows(cojo_mult, cojo_single) %>% arrange(CHR, BP)
 ```
 
 ## Clumped results
@@ -308,3 +310,20 @@ manhattn + scale_colour_manual(values=c('#ca0020', '#92c5de'))
 
 ```
 
+## Table
+
+Format COJO results for supplementary table
+
+```{r table}
+cojo_format <-
+cojo %>%
+arrange(region) %>%
+select(Locus=region, SNP.Index=snp_idx, SNP, CHR, BP, A1, A2,
+    FRQ_A=starts_with('FRQ_A'), FRQ_U=starts_with('FRQ_U'),
+    INFO, OR, SE, P, ngt, Direction,
+    HetISqt, HetPVa, Nca, Nco, Neff_half,
+    bJ, bJ_se, pJ, LD_r,
+    Locus.Left=range.left, Locus.right=range.right, N.Sig.SNPs=n_sig_snps)
+
+write_tsv(cojo_format, "docs/tables/meta_snps_full_eur.cojo.format.txt")
+```
