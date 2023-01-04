@@ -13,7 +13,7 @@ library(tidyr)
 library(UpSetR)
 library(genpwr)
 library(ggplot2)
-library(ggman)
+library(fastman)
 library(microshades)
 ```
 
@@ -290,30 +290,10 @@ daner <- read_tsv(snakemake@input$daner)
 
 ```
 
-```{r gwas, cache=TRUE}
-
-gwas <- daner %>% filter(-log10(P)>=3) %>% mutate(CHR=if_else(CHR!=23, true=as.character(CHR), false='X'))
-manhattn <- ggman(as.data.frame(gwas), snp = "SNP", bp = "BP", chrom = "CHR", pvalue = "P", ymin=3, lineColour='#111111') +
-    theme_minimal() +
-    theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
-
-```
-
-```{r manhattn, fig.width=12, fig.height=6, dpi=300, cache=TRUE}
-
-manhattn
-
-```
-
-```{r manhattn_acute, fig.width=12, fig.height=6, dpi=300, cache=TRUE}
-
-manhattn + scale_colour_manual(values=c('#ca0020', '#92c5de'))
-
-```
-
-```{r manhattn_micro, fig.width=12, fig.height=6, dpi=300, cache=TRUE}
-
-manhattn + scale_colour_manual(values=microshades_palette('micro_cvd_blue', 2, lightest = FALSE))
+```{r manhattn, fig.width=12, fig.height=6, dpi=300}
+    
+fastman(daner, maxP=NULL, chrlabs=c(1:22, "X"), suggestiveline=NULL, cex.axis=0.6,
+    col=microshades_palette('micro_cvd_blue', 2, lightest = FALSE))
 
 ```
 
