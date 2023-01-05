@@ -57,7 +57,7 @@ tags <- read_table(snakemake@input$tags)
 ```
 
     ## 
-    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   SNP = col_character(),
     ##   CHR = col_double(),
@@ -77,7 +77,7 @@ wray <- read_tsv(snakemake@input$wray) %>%
 
     ## Rows: 44 Columns: 11
 
-    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr (6): Region (Mb), SNP, P, A1/A2, Prev., Gene context
     ## dbl (4): Chr., OR (A1), s.e. (log(OR)), Freq.
@@ -154,7 +154,7 @@ mutate(LEFT=if_else(is.na(LEFT), true=POS, false=LEFT),
 ```
 
     ## Rows: 2391 Columns: 38
-    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (28): FIRST AUTHOR, JOURNAL, LINK, STUDY, DISEASE/TRAIT, INITIAL SAMPLE...
     ## dbl   (8): PUBMEDID, UPSTREAM_GENE_DISTANCE, DOWNSTREAM_GENE_DISTANCE, MERGE...
@@ -193,7 +193,7 @@ cojo_mult <- read_tsv(snakemake@input$cojo)
 ```
 
     ## Rows: 556 Columns: 28
-    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (4): SNP, A1, A2, Direction
     ## dbl (24): region, snp_idx, CHR, BP, FRQ_A_525197, FRQ_U_3362335, INFO, OR, S...
@@ -206,7 +206,7 @@ cojo_single <- read_tsv(snakemake@input$singleton)
 ```
 
     ## Rows: 66 Columns: 28
-    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (4): SNP, A1, A2, Direction
     ## dbl (24): region, snp_idx, CHR, BP, FRQ_A_525197, FRQ_U_3362335, INFO, OR, S...
@@ -227,7 +227,7 @@ rp <- read_table(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
 ```
 
     ## 
-    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   SNP = col_character(),
@@ -330,7 +330,7 @@ hits_upset <- list(MDD3_COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
 upset(fromList(hits_upset), nsets=7, order.by='freq', text.scale=2)
 ```
 
-![](/Users/mark/Work/mdd-meta/docs/cojo_files/figure-gfm/upset-1.png)<!-- -->
+![](/home/madams23/Projects/mdd-meta/docs/cojo_files/figure-gfm/upset-1.png)<!-- -->
 
 Find which COJO regions overlap with Howard
 
@@ -523,12 +523,9 @@ geom_line(mapping=aes(y=OR, linetype=Power), data=power_known_novel, size=1) +
 scale_y_continuous('OR', limits=c(1, 1.1))
 ```
 
-    ## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-    ## ℹ Please use `linewidth` instead.
+    ## Warning: Removed 2 row(s) containing missing values (geom_path).
 
-    ## Warning: Removed 2 rows containing missing values (`geom_line()`).
-
-![](/Users/mark/Work/mdd-meta/docs/cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
+![](/home/madams23/Projects/mdd-meta/docs/cojo_files/figure-gfm/cojo_known_novel-1.png)<!-- -->
 
 ## Manhattan plot
 
@@ -537,7 +534,7 @@ daner <- read_tsv(snakemake@input$daner)
 ```
 
     ## Rows: 7131733 Columns: 20
-    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────
+    ## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (4): SNP, A1, A2, Direction
     ## dbl (16): CHR, BP, FRQ_A_525197, FRQ_U_3362335, INFO, OR, SE, P, ngt, HetISq...
@@ -546,11 +543,11 @@ daner <- read_tsv(snakemake@input$daner)
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 ``` r
-fastman(daner, maxP=NULL, chrlabs=c(1:22, "X"), suggestiveline=NULL, cex.axis=0.6,
+fastman(daner, maxP=NULL, chrlabs=c(1:22, "X"), suggestiveline=NULL, cex.axis=0.45,
     col=microshades_palette('micro_cvd_blue', 2, lightest = FALSE))
 ```
 
-![](/Users/mark/Work/mdd-meta/docs/cojo_files/figure-gfm/manhattn-1.png)<!-- -->
+![](/home/madams23/Projects/mdd-meta/docs/cojo_files/figure-gfm/manhattn-1.png)<!-- -->
 
 ## Table
 
