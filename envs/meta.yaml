@@ -5,14 +5,20 @@ dependencies:
   - dropbox
   - r-base =4.0.5
   - r-essentials
+  - r-remotes
   - bioconductor-rtracklayer =1.48.0
+  - openssl =1.1.1
   - r-dplyr
   - r-tidyr
   - r-stringr
+  - r-purrr
+  - r-tidyselect
+  - r-forcats
+  - r-ggplot2
+  - r-nleqslv
   - r-gdata
   - plink =1.90b6.21
   - bitarray
   - cmake
   - r-upsetr
-  - r-devtools
   - r-cowplot
