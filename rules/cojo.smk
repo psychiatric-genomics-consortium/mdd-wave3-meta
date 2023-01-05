@@ -236,15 +236,15 @@ rule cojo_install_genpwr:
     output: touch("resources/cojo/install_genpwr.done")
     conda: "../envs/meta.yaml"
     shell: """
-    Rscript -e "devtools::install_github('camillemmoore/Power_Genetics', subdir='genpwr')"
+    Rscript -e "remotes::install_github('camillemmoore/Power_Genetics', subdir='genpwr', upgrade='never')"
     """
 
-# install fastman R library
+# install custom version of fastman R library
 rule cojo_install_fastman:
     output: touch("resources/cojo/install_fastman.done")
     conda: "../envs/meta.yaml"
     shell: """
-    Rscript -e "devtools::install_github('kaustubhad/fastman')"
+    Rscript -e "remotes::install_github('mja/fastman', upgrade='never')"
     """
     
 # install microshades R library
@@ -252,7 +252,7 @@ rule cojo_install_microshades:
     output: touch("resources/cojo/install_microshades.done")
     conda: "../envs/meta.yaml"
     shell: """
-    Rscript -e "devtools::install_github('KarstensLab/microshades')"
+    Rscript -e "remotes::install_github('KarstensLab/microshades', upgrade='never')"
     """
 
 rule cojo_docs:
