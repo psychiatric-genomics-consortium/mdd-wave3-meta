@@ -363,7 +363,7 @@ gene_overlap[['Expression']]<-expression_highconf_res$ensembl_gene_id
 gene_overlap[['Protein']]<-pwas_smr_rosmap_banner$ensembl_gene_id[which(pwas_smr_rosmap_banner$banner_replicated  & pwas_smr_rosmap_banner$rosmap.causal & pwas_smr_rosmap_banner$smr.causal)]
 gene_overlap[['Nearest Gene']]<-indep_hits$NearestENSG[!is.na(indep_hits$NearestENSG)]
 gene_overlap[['fastBAT']]<-fastbat$Gene[fastbat$Pvalue < 2e-6]
-gene_overlap[['H-MAGMA']]<-unique(hmagma_noAstr$GENE[hmagma_noAstr$P.FDR < 0.05])
+gene_overlap[['H-MAGMA']]<-unique(hmagma_noAstr$GENE[hmagma_noAstr$P.FDR < 3.73e-6])
 gene_overlap[['PsyOPS']]<-psyops_prioritised$ensembl_gene_id
 
 library(UpSetR)
@@ -587,13 +587,19 @@ genes_methods_cpid$chrom <- with(genes_methods_cpid, ifelse(chrom == 'X', yes=23
 
 genes_methods_conf <-
 dplyr::arrange(
-  dplyr::filter(genes_methods_cpid, Nearest_gene | Fine_mapping | Expression | Protein | fastBAT | PsyOPS),
+  dplyr::filter(genes_methods_cpid, Nearest_gene | Fine_mapping | Expression | Protein | fastBAT | HMAGMA | PsyOPS),
   chrom, pos_start_b37, pos_start_b38
 )
 
 genes_methods_conf$chrom <- NULL
+genes_methods_conf$Chrom_b38 <- paste0('chr', genes_methods_conf$Chrom_b38)
 
-readr::write_tsv(genes_methods_conf, here::here('docs/tables/genes_methods.tsv'))
+genes_methods_conf <-
+dplyr::select(genes_methods_conf, ENSID, Gene,
+  Nearest_gene, Fine_mapping, Expression, Protein, fastBAT, HMAGMA, PsyOPS,
+  ends_with('b37'), ends_with('b38'))
+
+readr::write_tsv(genes_methods_conf, here::here('docs/tables/genes_methods.tsv'), na='')
 
 ```
 
