@@ -295,6 +295,13 @@ fastman(daner, maxP=NULL, chrlabs=c(1:22, "X"), suggestiveline=NULL, cex.axis=0.
 
 ```
 
+```{r manhattn-16-10, fig.width=8, fig.height=5, dpi=300}
+	
+fastman(daner, maxP=NULL, chrlabs=c(1:22, "X"), suggestiveline=NULL, cex.axis=0.45,
+	col=microshades_palette('micro_cvd_blue', 2, lightest = FALSE))
+
+```
+
 ## Table
 
 Format COJO results for supplementary table
