@@ -70,10 +70,10 @@ Boundaries$Locus.Gene.IDs <- NA
 ### Fill indicator columns
 
 for(i in Boundaries$locus){
-    Boundaries$HC.Locus.Gene.Names[i] <- ifelse(is.na(match(i, Boundaries_Genes_HC_Locus$locus)), NA, paste(Boundaries_Genes_HC_Locus[Boundaries_Genes_HC_Locus$locus == i, "gene_name"], collapse=","))
-    Boundaries$HC.Locus.Gene.IDs[i] <- ifelse(is.na(match(i, Boundaries_Genes_HC_Locus$locus)), NA, paste(Boundaries_Genes_HC_Locus[Boundaries_Genes_HC_Locus$locus == i, "gene_id"], collapse=","))
-    Boundaries$Locus.Gene.Names[i] <- ifelse(is.na(match(i, Boundaries_Genes_Locus$locus)), NA, paste(Boundaries_Genes_Locus[Boundaries_Genes_Locus$locus == i, "gene_name"], collapse=","))
-    Boundaries$Locus.Gene.IDs[i] <- ifelse(is.na(match(i, Boundaries_Genes_Locus$locus)), NA, paste(Boundaries_Genes_Locus[Boundaries_Genes_Locus$locus == i, "gene_id"], collapse=","))
+    Boundaries[Boundaries$locus == i, "HC.Locus.Gene.Names"] <- ifelse(is.na(match(i, Boundaries_Genes_HC_Locus$locus)), NA, paste(Boundaries_Genes_HC_Locus[Boundaries_Genes_HC_Locus$locus == i, "gene_name"], collapse=","))
+    Boundaries[Boundaries$locus == i, "HC.Locus.Gene.IDs"] <- ifelse(is.na(match(i, Boundaries_Genes_HC_Locus$locus)), NA, paste(Boundaries_Genes_HC_Locus[Boundaries_Genes_HC_Locus$locus == i, "gene_id"], collapse=","))
+    Boundaries[Boundaries$locus == i, "Locus.Gene.Names"] <- ifelse(is.na(match(i, Boundaries_Genes_Locus$locus)), NA, paste(Boundaries_Genes_Locus[Boundaries_Genes_Locus$locus == i, "gene_name"], collapse=","))
+    Boundaries[Boundaries$locus == i, "Locus.Gene.IDs"] <- ifelse(is.na(match(i, Boundaries_Genes_Locus$locus)), NA, paste(Boundaries_Genes_Locus[Boundaries_Genes_Locus$locus == i, "gene_id"], collapse=","))
 }
 
 ### Write output
