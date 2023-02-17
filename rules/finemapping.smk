@@ -94,7 +94,7 @@ rule get_genomewide_loci:
     shell: "Rscript scripts/finemapping/get_genomewide_loci.R {input} {output}"
 
 rule get_cojo_loci:
-    input: "docs/tables/meta_snps_full_eur.cojo.txt"
+    input: "docs/tables/meta_snps_full_eur.cojo.format.txt"
     output: finemapping="results/finemapping/cojo_loci_{cohorts}_{ancestries}_hg19_v{version}.rp",
         credible="results/finemapping/cojo_loci_{cohorts}_{ancestries}_hg19_v{version}.rp.credible"
     log: "logs/finemapping/cojo_loci_{cohorts}_{ancestries}_hg19_v{version}.rp.log"
