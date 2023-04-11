@@ -6,7 +6,7 @@
 ## Download 1000 Genome Resources
 
 rule resources_1kg_bed_download:
-	input: HTTP.remote("https://www.dropbox.com/s/k9ptc4kep9hmvz5/1kg_phase1_all.tar.gz?dl=1", keep_local=False)
+	input: HTTP.remote("https://www.dropbox.com/s/dl/k9ptc4kep9hmvz5/1kg_phase1_all.tar.gz", keep_local=False)
 	output: "resources/1kg/1kg_phase1_all.tar.gz"
 	shell: "cp {input} {output}"
 
