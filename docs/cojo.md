@@ -45,9 +45,11 @@ Variants from [Wray et al
 2018](https://www.nature.com/articles/s41588-018-0090-3/tables/2),
 [Howard et al
 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove
-first and last rows with table captions), and [Levey et al
+first and last rows with table captions), [Levey et al
 2021](https://doi.org/10.1038/s41593-021-00860-2), [Giannakopoulou et al
 2021](https://jamanetwork.com/journals/jamapsychiatry/article-abstract/2784695),
+[Als et al
+2022](https://www.medrxiv.org/content/10.1101/2022.08.24.22279149v1),
 and the [GWAS catalog for unipolar
 depression](https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761). Parse out
 regions from Wray and Howard and load queried regions for other results
@@ -57,7 +59,7 @@ tags <- read_table(snakemake@input$tags)
 ```
 
     ## 
-    ## ── Column specification ───────────────────────────────────────────────────
+    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   SNP = col_character(),
     ##   CHR = col_double(),
@@ -77,7 +79,7 @@ wray <- read_tsv(snakemake@input$wray) %>%
 
     ## Rows: 44 Columns: 11
 
-    ## ── Column specification ───────────────────────────────────────────────────
+    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr (6): Region (Mb), SNP, P, A1/A2, Prev., Gene context
     ## dbl (4): Chr., OR (A1), s.e. (log(OR)), Freq.
@@ -96,44 +98,38 @@ howard <- read_excel(snakemake@input$howard, skip=2, n_max=102) %>%
     ## • `Lower 95% Confidence Interval` -> `Lower 95% Confidence Interval...9`
     ## • `Upper 95% Confidence Interval` -> `Upper 95% Confidence Interval...10`
     ## • `Log(Odds Ratio)` -> `Log(Odds Ratio)...11`
-    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the
-    ##   Log(Odds Ratio)...12`
+    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the Log(Odds Ratio)...12`
     ## • `P-value` -> `P-value...13`
     ## • `Odds Ratio` -> `Odds Ratio...14`
     ## • `Lower 95% Confidence Interval` -> `Lower 95% Confidence Interval...15`
     ## • `Upper 95% Confidence Interval` -> `Upper 95% Confidence Interval...16`
     ## • `Log(Odds Ratio)` -> `Log(Odds Ratio)...17`
-    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the
-    ##   Log(Odds Ratio)...18`
+    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the Log(Odds Ratio)...18`
     ## • `P-value` -> `P-value...19`
     ## • `Odds Ratio` -> `Odds Ratio...20`
     ## • `Lower 95% Confidence Interval` -> `Lower 95% Confidence Interval...21`
     ## • `Upper 95% Confidence Interval` -> `Upper 95% Confidence Interval...22`
     ## • `Log(Odds Ratio)` -> `Log(Odds Ratio)...23`
-    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the
-    ##   Log(Odds Ratio)...24`
+    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the Log(Odds Ratio)...24`
     ## • `P-value` -> `P-value...25`
     ## • `Odds Ratio` -> `Odds Ratio...26`
     ## • `Lower 95% Confidence Interval` -> `Lower 95% Confidence Interval...27`
     ## • `Upper 95% Confidence Interval` -> `Upper 95% Confidence Interval...28`
     ## • `Log(Odds Ratio)` -> `Log(Odds Ratio)...29`
-    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the
-    ##   Log(Odds Ratio)...30`
+    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the Log(Odds Ratio)...30`
     ## • `P-value` -> `P-value...31`
     ## • `Direction` -> `Direction...32`
     ## • `Odds Ratio` -> `Odds Ratio...33`
     ## • `Lower 95% Confidence Interval` -> `Lower 95% Confidence Interval...34`
     ## • `Upper 95% Confidence Interval` -> `Upper 95% Confidence Interval...35`
     ## • `Log(Odds Ratio)` -> `Log(Odds Ratio)...36`
-    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the
-    ##   Log(Odds Ratio)...37`
+    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the Log(Odds Ratio)...37`
     ## • `P-value` -> `P-value...38`
     ## • `Odds Ratio` -> `Odds Ratio...39`
     ## • `Lower 95% Confidence Interval` -> `Lower 95% Confidence Interval...40`
     ## • `Upper 95% Confidence Interval` -> `Upper 95% Confidence Interval...41`
     ## • `Log(Odds Ratio)` -> `Log(Odds Ratio)...42`
-    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the
-    ##   Log(Odds Ratio)...43`
+    ## • `Standard error of the Log(Odds Ratio)` -> `Standard error of the Log(Odds Ratio)...43`
     ## • `P-value` -> `P-value...44`
     ## • `Direction` -> `Direction...45`
 
@@ -148,6 +144,8 @@ separate(`CHR:POS`, into=c('CHR', 'POS'), convert=TRUE) %>%
 left_join(select(tags, SNP, LEFT, RIGHT), by='SNP') %>%
 mutate(LEFT=if_else(is.na(LEFT), true=as.numeric(POS), false=LEFT),
        RIGHT=if_else(is.na(RIGHT), true=as.numeric(POS), false=RIGHT))
+       
+als <- read_excel(snakemake@input$als, sheet=1)
 
 gwas_catalog <- read_tsv(snakemake@input$catalog) %>%
 filter(!is.na(CHR_ID)) %>%
@@ -161,7 +159,7 @@ mutate(LEFT=if_else(is.na(LEFT), true=POS, false=LEFT),
 ```
 
     ## Rows: 2391 Columns: 38
-    ## ── Column specification ───────────────────────────────────────────────────
+    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (28): FIRST AUTHOR, JOURNAL, LINK, STUDY, DISEASE/TRAIT, INITIAL SAMPLE...
     ## dbl   (8): PUBMEDID, UPSTREAM_GENE_DISTANCE, DOWNSTREAM_GENE_DISTANCE, MERGE...
@@ -172,10 +170,9 @@ mutate(LEFT=if_else(is.na(LEFT), true=POS, false=LEFT),
 
     ## Warning: There were 2 warnings in `mutate()`.
     ## The first warning was:
-    ## ℹ In argument: `CHR = if_else(CHR_ID == "X", true = 23, false =
-    ##   as.numeric(CHR_ID))`.
+    ## ℹ In argument: `CHR = if_else(CHR_ID == "X", true = 23, false = as.numeric(CHR_ID))`.
     ## Caused by warning in `if_else()`:
-    ## !  強制変換により NA が生成されました 
+    ## ! NAs introduced by coercion
     ## ℹ Run `dplyr::last_dplyr_warnings()` to see the 1 remaining warning.
 
 # Results
@@ -203,7 +200,7 @@ cojo_mult <- read_tsv(snakemake@input$cojo)
 ```
 
     ## Rows: 556 Columns: 28
-    ## ── Column specification ───────────────────────────────────────────────────
+    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (4): SNP, A1, A2, Direction
     ## dbl (24): region, snp_idx, CHR, BP, FRQ_A_525197, FRQ_U_3362335, INFO, OR, S...
@@ -216,7 +213,7 @@ cojo_single <- read_tsv(snakemake@input$singleton)
 ```
 
     ## Rows: 66 Columns: 28
-    ## ── Column specification ───────────────────────────────────────────────────
+    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (4): SNP, A1, A2, Direction
     ## dbl (24): region, snp_idx, CHR, BP, FRQ_A_525197, FRQ_U_3362335, INFO, OR, S...
@@ -237,7 +234,7 @@ rp <- read_table(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
 ```
 
     ## 
-    ## ── Column specification ───────────────────────────────────────────────────
+    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## cols(
     ##   .default = col_double(),
     ##   SNP = col_character(),
@@ -264,6 +261,7 @@ wray_gr <- with(wray, GRanges(seqnames=Chr., ranges=IRanges(start=range.left, en
 howard_gr <- with(howard, GRanges(seqnames=Chromosome, ranges=IRanges(start=range.left, end=range.right, SNP=`Marker Name`)))
 levey_gr <- with(levey, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
 giannakopoulou_gr <- with(giannakopoulou, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
+als_gr <- with(als, GRanges(seqnames=CHR, ranges=IRanges(start=range.left.index.SNP, end=range.right.index.SNP)))
 gwas_catalog_gr <- with(gwas_catalog, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
 ```
 
@@ -320,7 +318,7 @@ Find overlaps between clumped, COJO, and previous results. Append and
 then reduce all regions
 
 ``` r
-all_gr <- reduce(c(cojo_gr, rp_gr, wray_gr, howard_gr, levey_gr, giannakopoulou_gr, gwas_catalog_gr))
+all_gr <- reduce(c(cojo_gr, rp_gr, wray_gr, howard_gr, levey_gr, giannakopoulou_gr, als_gr, gwas_catalog_gr))
 ```
 
 Find overlaps and make lists for an upset plot. Take the index from the
@@ -335,6 +333,7 @@ hits_upset <- list(MDD3_COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
                    Howard=unique(findOverlaps(all_gr, howard_gr)@from),
                    Levey=unique(findOverlaps(all_gr, levey_gr)@from),
                    Giannakopoulou=unique(findOverlaps(all_gr, giannakopoulou_gr)@from),
+                   Als=unique(findOverlaps(all_gr, als_gr)@from),
                    Catalog=unique(findOverlaps(all_gr, gwas_catalog_gr)@from))
                    
 upset(fromList(hits_upset), nsets=7, order.by='freq', text.scale=2)
@@ -415,7 +414,7 @@ levey %>% slice(unique(cojo_levey_overlaps@to)) %>% count()
 Overlaps with previous findings.
 
 ``` r
-cojo_known_overlaps <- findOverlaps(cojo_gr, reduce(c(wray_gr, howard_gr, levey_gr, giannakopoulou_gr, gwas_catalog_gr)))
+cojo_known_overlaps <- findOverlaps(cojo_gr, reduce(c(wray_gr, howard_gr, levey_gr, giannakopoulou_gr, als_gr, gwas_catalog_gr)))
 
 cojo_known <- cojo %>% slice(unique(cojo_known_overlaps@from))
 
@@ -423,12 +422,12 @@ catalog_known <- rp_gwas_catalog_entries %>% filter(SNP %in% cojo_known$SNP) %>%
 catalog_known
 ```
 
-    ## # A tibble: 201 × 2
+    ## # A tibble: 206 × 2
     ##    phenotype                   n
     ##    <chr>                   <int>
     ##  1 Serum_metabolit...        186
     ##  2 Schizophrenia              64
-    ##  3 Intelligence_(MTAG)        61
+    ##  3 Intelligence_(MTAG)        62
     ##  4 Waist_circumfer...         44
     ##  5 Neuroticism                32
     ##  6 Autism_spectrum...         30
@@ -436,7 +435,7 @@ catalog_known
     ##  8 Depression_(broad)         28
     ##  9 Glycerophosphol...         27
     ## 10 Depressive_symp...         24
-    ## # … with 191 more rows
+    ## # … with 196 more rows
 
 Newly discovered regions
 
@@ -447,59 +446,59 @@ select(region, snp_idx, CHR, SNP, BP, P, pJ) %>%
 group_by(region)
 ```
 
-    ## # A tibble: 309 × 7
-    ## # Groups:   region [305]
-    ##    region snp_idx   CHR SNP                BP        P       pJ
-    ##     <dbl>   <dbl> <dbl> <chr>           <dbl>    <dbl>    <dbl>
-    ##  1    174       1     5 rs1993739   153215007 5.71e-20 5.72e-20
-    ##  2    362       1    12 rs2363585    60791165 1.69e-16 1.69e-16
-    ##  3    310       1    10 rs12778915   77617557 2.35e-16 2.35e-16
-    ##  4    237       1     7 rs12666306  115082406 1.38e-15 1.39e-15
-    ##  5    395       1    14 rs17100626   33772933 2.05e-15 2.06e-15
-    ##  6    318       1    10 rs3808964   125426627 7.13e-15 7.14e-15
-    ##  7    101       1     3 rs116310555  71814431 4.24e-14 4.24e-14
-    ##  8    392       1    13 rs9524024    94022948 8.23e-14 8.24e-14
-    ##  9    136       1     4 rs13134858  115522306 9.96e-14 9.97e-14
-    ## 10    355       1    12 rs7973992    39168233 1.20e-13 1.21e-13
-    ## # … with 299 more rows
+    ## # A tibble: 274 × 7
+    ## # Groups:   region [271]
+    ##    region snp_idx   CHR SNP               BP        P        pJ
+    ##     <dbl>   <dbl> <dbl> <chr>          <dbl>    <dbl>     <dbl>
+    ##  1    362       1    12 rs2363585   60791165 1.69e-16  1.69e-16
+    ##  2    395       1    14 rs17100626  33772933 2.05e-15  2.06e-15
+    ##  3    318       1    10 rs3808964  125426627 7.13e-15  7.14e-15
+    ##  4    136       1     4 rs13134858 115522306 9.96e-14  9.97e-14
+    ##  5    355       1    12 rs7973992   39168233 1.20e-13  1.21e-13
+    ##  6    172       1     5 rs358667   143877756 1.56e-13  1.56e-13
+    ##  7    188       1     6 rs6925661   39995063 2.07e-13  2.07e-13
+    ##  8    214       1     7 rs10238024   8680443 2.17e-13  2.17e-13
+    ##  9    570       1    23 rs1378559   21380266 3.24e-13 NA       
+    ## 10     42       1     2 rs1401649   22171546 3.74e-13  3.75e-13
+    ## # … with 264 more rows
 
 ``` r
 rp_gwas_catalog_entries %>% filter(SNP %in% cojo_new$SNP) %>% count(phenotype) %>% arrange(desc(n)) %>% filter(!phenotype %in% catalog_known$phenotype)
 ```
 
-    ## # A tibble: 50 × 2
+    ## # A tibble: 45 × 2
     ##    phenotype                   n
     ##    <chr>                   <int>
     ##  1 Body_mass_index_(adult)     3
-    ##  2 Monocyte_count              3
-    ##  3 Pulse_pressure              3
-    ##  4 Blood_osmolalit...          2
-    ##  5 Blood_pressure              2
-    ##  6 Mean_corpuscular_volume     2
-    ##  7 Survival_in_col...          2
-    ##  8 Adiposity                   1
-    ##  9 Aspirin_hydroly...          1
-    ## 10 Bladder_cancer              1
-    ## # … with 40 more rows
+    ##  2 Blood_osmolalit...          2
+    ##  3 Blood_pressure              2
+    ##  4 Mean_corpuscular_volume     2
+    ##  5 Survival_in_col...          2
+    ##  6 Adiposity                   1
+    ##  7 Aspirin_hydroly...          1
+    ##  8 Bladder_cancer              1
+    ##  9 Blood_urea_nitr...          1
+    ## 10 Body_fat_percentage         1
+    ## # … with 35 more rows
 
 ``` r
 rp_genes_dist %>% filter(SNP %in% cojo_new$SNP) %>% group_by(SNP) %>% filter(dist2index == min(dist2index)) %>% ungroup() %>% select(gene) %>% distinct()
 ```
 
-    ## # A tibble: 310 × 1
-    ##    gene     
-    ##    <chr>    
-    ##  1 CDH18    
-    ##  2 NTRK3    
-    ##  3 GTF2IRD1 
-    ##  4 NXPH1    
-    ##  5 MAGI2    
-    ##  6 ETV6     
-    ##  7 AQP12A   
-    ##  8 SHTN1    
-    ##  9 VAX1     
-    ## 10 MIR3663HG
-    ## # … with 300 more rows
+    ## # A tibble: 274 × 1
+    ##    gene    
+    ##    <chr>   
+    ##  1 NTRK3   
+    ##  2 GTF2IRD1
+    ##  3 NXPH1   
+    ##  4 MAGI2   
+    ##  5 AQP12A  
+    ##  6 NTM     
+    ##  7 SLIT1   
+    ##  8 LINGO2  
+    ##  9 GRM8    
+    ## 10 PTPRD   
+    ## # … with 264 more rows
 
 Calculate power for previous versus current GWAS
 
@@ -547,7 +546,7 @@ daner <- read_tsv(snakemake@input$daner)
 ```
 
     ## Rows: 7131733 Columns: 20
-    ## ── Column specification ───────────────────────────────────────────────────
+    ## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
     ## Delimiter: "\t"
     ## chr  (4): SNP, A1, A2, Direction
     ## dbl (16): CHR, BP, FRQ_A_525197, FRQ_U_3362335, INFO, OR, SE, P, ngt, HetISq...

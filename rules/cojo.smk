@@ -208,6 +208,12 @@ rule cojo_howard:
     input: HTTP.remote("https://static-content.springer.com/esm/art%3A10.1038%2Fs41593-018-0326-7/MediaObjects/41593_2018_326_MOESM3_ESM.xlsx", keep_local=False)
     output: "docs/tables/previous/howard2019_table_s1.xlsx"
     shell: "cp {input} {output}"
+
+# download top SNPs from Als 2022
+rule cojo_als:
+	input: HTTP.remote("https://www.medrxiv.org/content/medrxiv/early/2022/08/25/2022.08.24.22279149/DC2/embed/media-2.xlsx?download=true")
+	output: "docs/tables/previous/als2022_table_s2.xlsx"
+	shell: "cp {input} {output}"
     
 # download GWAS catalogue hits for unipolar depression
 # https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761
@@ -256,7 +262,7 @@ rule cojo_install_microshades:
     """
 
 rule cojo_docs:
-    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", singleton="docs/tables/meta_snps_full_eur.cojo.singleton.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", catalog="docs/tables/previous/gwas-association-EFO_0003761-withChildTraits.tsv.bz2", rp_clump="docs/tables/meta_snps_full_eur.clump.txt", tags="results/cojo/previous/previous.tags.list", daner=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.neff.gz", version=analysis_version), rmd="docs/cojo.Rmd", genpwr=ancient(rules.cojo_install_genpwr.output), fastman=ancient(rules.cojo_install_fastman.output), microshades=ancient(rules.cojo_install_microshades.output)
+    input: cojo="docs/tables/meta_snps_full_eur.cojo.txt", singleton="docs/tables/meta_snps_full_eur.cojo.singleton.txt", log="docs/objects/meta_snps_full_eur.cojo.log", wray="docs/tables/previous/wray2018_table_2.txt", howard="docs/tables/previous/howard2019_table_s1.xlsx", levey="docs/tables/previous/levey2021_223snps.txt", giannakopoulou="docs/tables/previous/Giannakopoulou2021_table.txt", als="docs/tables/previous/als2022_table_s2.xlsx", catalog="docs/tables/previous/gwas-association-EFO_0003761-withChildTraits.tsv.bz2", rp_clump="docs/tables/meta_snps_full_eur.clump.txt", tags="results/cojo/previous/previous.tags.list", daner=expand("results/distribution/daner_pgc_mdd_full_eur_hg19_v{version}.neff.gz", version=analysis_version), rmd="docs/cojo.Rmd", genpwr=ancient(rules.cojo_install_genpwr.output), fastman=ancient(rules.cojo_install_fastman.output), microshades=ancient(rules.cojo_install_microshades.output)
     params: qc=meta_qc_params
     output: md="docs/cojo.md"
     conda: "../envs/meta.yaml"
