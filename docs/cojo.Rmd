@@ -290,17 +290,18 @@ daner <- read_tsv(snakemake@input$daner)
 
 ```
 
-```{r manhattn, fig.width=8, fig.height=6, dpi=300}
-    
+```{r mdd3-manhattan, fig.width=8, fig.height=5, dpi=300}
+	
 fastman(daner, maxP=NULL, chrlabs=c(1:22, "X"), suggestiveline=NULL, cex.axis=0.45,
-    col=microshades_palette('micro_cvd_blue', 2, lightest = FALSE))
+	col=c("#ca1c20", "#93c4de"))
 
 ```
 
-```{r manhattn-16-10, fig.width=8, fig.height=5, dpi=300}
-	
+
+```{r mdd3-manhattan-micro, fig.width=8, fig.height=5, dpi=300}
+    
 fastman(daner, maxP=NULL, chrlabs=c(1:22, "X"), suggestiveline=NULL, cex.axis=0.45,
-	col=microshades_palette('micro_cvd_blue', 2, lightest = FALSE))
+    col=microshades_palette('micro_cvd_blue', 2, lightest = FALSE))
 
 ```
 
