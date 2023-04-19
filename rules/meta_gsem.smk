@@ -84,6 +84,13 @@ rule meta_gsem_postimp:
     output: touch("results/meta/gsem/{cohorts}_{ancestries}_v{version}.done")
     log: "logs/meta/gsem/pgc_mdd_meta_{cohorts}_{ancestries}_hg19_v{version}.postimp_navi.log"
     shell: "cd results/meta/gsem; postimp_navi --result {params.dataset} --popname {params.popname} --onlymeta --nolahunt --noldsc --out pgc_mdd_{wildcards.cohorts}_{wildcards.ancestries}_hg19_v{wildcards.version}"
+
+# check Ricopili output for complete rows and duplicates
+rule gsem_postimp_rp:
+	input: autosome="results/meta/gsem/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz"
+	conda: "../envs/meta.yaml"
+	output: "results/meta/gsem/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.rp.gz"
+	script: "../scripts/meta/rp_gsem.R"
 	
 rule install_gsem:
 	output: "resources/ldsc/install_genomicsem.done"
