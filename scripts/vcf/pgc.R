@@ -70,7 +70,7 @@ ntrio <- 0
 
 # Analysed cohorts
 analysis_counts <- read_excel(snakemake@input$basic) %>%
-    mutate(cohort = str_match(Dataset, "mdd_(.+)\\.eur")[, 2])
+    mutate(cohort = str_match(Dataset, "mdd_(.+)(\\.|_)eur")[, 2])
 
 # check if genotyped cohorts are included as their own sumstats
 includes_pgc_mdd <- "MDD49" %in% analysis_counts$cohort
