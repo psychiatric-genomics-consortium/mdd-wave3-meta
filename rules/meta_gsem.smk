@@ -91,6 +91,9 @@ rule gsem_postimp_rp:
 	conda: "../envs/meta.yaml"
 	output: "results/meta/gsem/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.rp.gz"
 	script: "../scripts/meta/rp_gsem.R"
+
+rule gsem_postimp_rp_cohorts:
+	input: neff=expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.gz", cohorts=['Clin', 'EHR', 'Quest', 'SelfRep'], ancestries=['eur'], version=analysis_version)
 	
 rule install_gsem:
 	output: "resources/ldsc/install_genomicsem.done"
