@@ -4,7 +4,7 @@ Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder 
 
 **Current version**: v3.49.24.11 [EUR]
 
-![MDD Manhattan plot](docs/cojo_files/figure-gfm/manhattn-1.png)
+![MDD Manhattan plot](docs/cojo_files/figure-gfm/mdd3-manhattan-micro-1.png)
 
 ## Embargo date
 
