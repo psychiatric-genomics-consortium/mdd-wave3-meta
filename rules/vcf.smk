@@ -110,7 +110,7 @@ rule vcf_daner2vcf:
 # Pull in daner file for sumstats, fai file for genome build info, basic.num file
 # for genotyped and sumstats cohorts with case/control/allele counts
 rule vcf_daner2pgc:
-    input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{major}.{genoN}.{sumN}.{minor}.neff.gz", fasta_fai="resources/fasta/human_grch37.fasta.fai", genotype_cohorts="docs/tables/cohorts/basic.geno.{ancestries}.MDD{genoN}.txt", sumstats_cohorts="docs/tables/cohorts/basic.sumstats.{ancestries}.v{major}.{genoN}.{sumN}.{minor}.txt", cff="CITATION.cff", header_template="scripts/vcf/pgc.glue"
+    input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{major}.{genoN}.{sumN}.{minor}.neff.gz", basic="results/distribution/basic.pgc_mdd_{cohorts}_{ancestries}_hg19_v{major}.{genoN}.{sumN}.{minor}.num.xls", fasta_fai="resources/fasta/human_grch37.fasta.fai", genotype_cohorts="docs/tables/cohorts/basic.geno.{ancestries}.MDD{genoN}.txt", sumstats_cohorts="docs/tables/cohorts/basic.sumstats.{ancestries}.v{major}.{genoN}.{sumN}.{minor}.txt", cff="CITATION.cff", header_template="scripts/vcf/pgc.glue"
     params: analysis="{major}.{genoN}.{sumN}.{minor}"
     conda: "../envs/vcf.yaml"
     output: temp("results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-v{major}.{genoN}.{sumN}.{minor}.pgc")
