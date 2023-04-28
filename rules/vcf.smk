@@ -122,4 +122,4 @@ rule vcf_pgc_gz:
     shell: "gzip -c {input} > {output}"  
     
 rule vcf_pgc:
-    input: expand("results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-v{analysis}.pgc.gz", year=2023, cohorts=['full', 'no23andMe', 'Clin', 'EHR', 'Quest', 'SelfRep'], ancestries=['eur'], analysis=analysis_version)
+    input: expand("results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-v{analysis}.tsv.gz", year=2023, cohorts=['full', 'no23andMe', 'Clin', 'EHR', 'Quest', 'SelfRep'], ancestries=['eur'], analysis=analysis_version)
