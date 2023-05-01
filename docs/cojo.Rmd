@@ -13,7 +13,8 @@ library(tidyr)
 library(UpSetR)
 library(genpwr)
 library(ggplot2)
-library(ggman)
+library(fastman)
+library(microshades)
 ```
 
 
@@ -31,11 +32,11 @@ We ran a [conditional and joint analysis](https://www.nature.com/articles/ng.221
 - Regions with a genome-wide significant SNP (p < 5-e8) were identified from the clumped results. Regions within `r qc$cojo_kb`kb of each other were merged.
 - SNPs from these regions were extracted and filtered to unrelated of self- and genotype-identified European ancestry participants from UK Biobank.
 - A conditional analysis was performed on each region using the filtered sumstats superimposed on the UK Biobank LD structure.
-- Singleton regions (with only one genome-wide significant variant) were removed.
+- Singleton regions (with only one genome-wide significant variant) were separated out.
 
 ## Previous sumstats
 
-Variants from [Wray et al 2018](https://www.nature.com/articles/s41588-018-0090-3/tables/2), [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions), and [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2), [Giannakopoulou et al 2021](https://jamanetwork.com/journals/jamapsychiatry/article-abstract/2784695), and the [GWAS catalog for unipolar depression](https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761). Parse out regions from Wray and Howard and load queried regions for other results
+Variants from [Wray et al 2018](https://www.nature.com/articles/s41588-018-0090-3/tables/2), [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions), [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2), [Giannakopoulou et al 2021](https://jamanetwork.com/journals/jamapsychiatry/article-abstract/2784695), [Als et al 2022](https://www.medrxiv.org/content/10.1101/2022.08.24.22279149v1), and the [GWAS catalog for unipolar depression](https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761). Parse out regions from Wray and Howard and load queried regions for other results
 
 ```{r previous}
 tags <- read_table(snakemake@input$tags)
@@ -57,6 +58,8 @@ separate(`CHR:POS`, into=c('CHR', 'POS'), convert=TRUE) %>%
 left_join(select(tags, SNP, LEFT, RIGHT), by='SNP') %>%
 mutate(LEFT=if_else(is.na(LEFT), true=as.numeric(POS), false=LEFT),
        RIGHT=if_else(is.na(RIGHT), true=as.numeric(POS), false=RIGHT))
+	   
+als <- read_excel(snakemake@input$als, sheet=1)
 
 gwas_catalog <- read_tsv(snakemake@input$catalog) %>%
 filter(!is.na(CHR_ID)) %>%
@@ -80,9 +83,11 @@ List of clumped and COJO SNPs and regions
 cat(paste('- ', readLines(snakemake@input$log)[-1], '\n'))
 ```
 
-Load list of COJO SNPs
+Load list of COJO SNPs (with multiple or single GW-sig SNPs)
 ```{r cojo}
-cojo <- read_tsv(snakemake@input$cojo)
+cojo_mult <- read_tsv(snakemake@input$cojo)
+cojo_single <- read_tsv(snakemake@input$singleton)
+cojo <- bind_rows(cojo_mult, cojo_single) %>% arrange(CHR, BP)
 ```
 
 ## Clumped results
@@ -105,9 +110,8 @@ wray_gr <- with(wray, GRanges(seqnames=Chr., ranges=IRanges(start=range.left, en
 howard_gr <- with(howard, GRanges(seqnames=Chromosome, ranges=IRanges(start=range.left, end=range.right, SNP=`Marker Name`)))
 levey_gr <- with(levey, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
 giannakopoulou_gr <- with(giannakopoulou, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
+als_gr <- with(als, GRanges(seqnames=CHR, ranges=IRanges(start=range.left.index.SNP, end=range.right.index.SNP)))
 gwas_catalog_gr <- with(gwas_catalog, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
-
-
 ```
 
 ## GWAS catalog
@@ -167,7 +171,7 @@ Find overlaps between clumped, COJO, and previous results. Append and then reduc
 
 ```{r all_gr}
 
-all_gr <- reduce(c(cojo_gr, rp_gr, wray_gr, howard_gr, levey_gr, giannakopoulou_gr, gwas_catalog_gr))
+all_gr <- reduce(c(cojo_gr, rp_gr, wray_gr, howard_gr, levey_gr, giannakopoulou_gr, als_gr, gwas_catalog_gr))
 
 ```
 
@@ -181,6 +185,7 @@ hits_upset <- list(MDD3_COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
                    Howard=unique(findOverlaps(all_gr, howard_gr)@from),
                    Levey=unique(findOverlaps(all_gr, levey_gr)@from),
                    Giannakopoulou=unique(findOverlaps(all_gr, giannakopoulou_gr)@from),
+				   Als=unique(findOverlaps(all_gr, als_gr)@from),
                    Catalog=unique(findOverlaps(all_gr, gwas_catalog_gr)@from))
                    
 upset(fromList(hits_upset), nsets=7, order.by='freq', text.scale=2)
@@ -216,7 +221,7 @@ levey %>% slice(unique(cojo_levey_overlaps@to)) %>% count()
 Overlaps with previous findings.
 
 ```{r known_overlaps}
-cojo_known_overlaps <- findOverlaps(cojo_gr, reduce(c(wray_gr, howard_gr, levey_gr, giannakopoulou_gr, gwas_catalog_gr)))
+cojo_known_overlaps <- findOverlaps(cojo_gr, reduce(c(wray_gr, howard_gr, levey_gr, giannakopoulou_gr, als_gr, gwas_catalog_gr)))
 
 cojo_known <- cojo %>% slice(unique(cojo_known_overlaps@from))
 
@@ -283,21 +288,37 @@ scale_y_continuous('OR', limits=c(1, 1.1))
 
 daner <- read_tsv(snakemake@input$daner)
 
-
-
 ```
 
-```{r gwas, cache=TRUE}
-
-gwas <- daner %>% filter(-log10(P)>=3) %>% mutate(CHR=if_else(CHR!=23, true=as.character(CHR), false='X'))
-
-```
-
-```{r manhattn, fig.width=12, fig.height=6, dpi=300, cache=TRUE}
-
-manhattn <- ggman(as.data.frame(gwas), snp = "SNP", bp = "BP", chrom = "CHR", pvalue = "P", ymin=3)
-manhattn
+```{r mdd3-manhattan, fig.width=8, fig.height=5, dpi=300}
+	
+fastman(daner, maxP=NULL, chrlabs=c(1:22, "X"), suggestiveline=NULL, cex.axis=0.45,
+	col=c("#ca1c20", "#93c4de"))
 
 ```
 
 
+```{r mdd3-manhattan-micro, fig.width=8, fig.height=5, dpi=300}
+    
+fastman(daner, maxP=NULL, chrlabs=c(1:22, "X"), suggestiveline=NULL, cex.axis=0.45,
+    col=microshades_palette('micro_cvd_blue', 2, lightest = FALSE))
+
+```
+
+## Table
+
+Format COJO results for supplementary table
+
+```{r table}
+cojo_format <-
+cojo %>%
+arrange(region) %>%
+select(Locus=region, SNP.Index=snp_idx, SNP, CHR, BP, A1, A2,
+    FRQ_A=starts_with('FRQ_A'), FRQ_U=starts_with('FRQ_U'),
+    INFO, OR, SE, P, ngt, Direction,
+    HetISqt, HetPVa, Nca, Nco, Neff_half,
+    bJ, bJ_se, pJ, LD_r,
+    Locus.Left=range.left, Locus.Right=range.right, N.Sig.SNPs=n_sig_snps)
+
+write_tsv(cojo_format, "docs/tables/meta_snps_full_eur.cojo.format.txt")
+```
