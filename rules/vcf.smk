@@ -114,8 +114,8 @@ rule vcf_daner2pgc:
     script: "../scripts/vcf/pgc.R"
 
 rule vcf_pgc_gz:
-    input: "results/vcf/pgc-mdd{sumstats}.pgc"
-    output: "results/vcf/pgc-mdd{sumstats}.pgc.gz"
+    input: "results/vcf/pgc-mdd{sumstats}.tsv"
+    output: "results/vcf/pgc-mdd{sumstats}.tsv.gz"
     shell: "gzip -c {input} > {output}"  
     
 rule vcf_pgc:
