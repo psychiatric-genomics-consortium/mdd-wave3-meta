@@ -1,33 +1,37 @@
 # YAML 1.2
 ---
-authors: 
+authors:
+  -
+    affiliation: "University of Edinburgh"
+    family-names: "Adams"
+    given-names: "Mark James" 
   -
     affiliation: "Major Depressive Disorder Working Group of Psychiatric Genomics Consortium"
     family-names: 
     given-names: 
 cff-version: "1.1.0"
 doi: "10.000/TBD"
-abstract: "We conducted a genome-wide association mega-analysis of major depressive disorder (MDD) in 49 samples of European ancestry (“MDD49”) with combined 28,147 cases and 48,033 controls. We then meta-analysed these results with summary statistics from 24 additional cohorts (total sample size 524,857 cases and 3,059,006 controls)."
+abstract: "In a genome-wide association study (GWAS) of 525,197 individuals with major depression (MD) and 3,362,335 controls, we identify 570 genetic loci, 274 of which are novel. Using fine-mapping and functional genomic datasets, we find 308 high-confidence gene associations and enrichment of postsynaptic density and receptor clustering. Leveraging new single-cell gene expression data, we conducted a causal neural cell type enrichment analysis that implicated excitatory and inhibitory midbrain and forebrain neurons, peptidergic neurons, and medium spiny neurons in MD. Critically, our findings are enriched for the targets of antidepressants and provide potential antidepressant repurposing opportunities (e.g., pregabalin and modafinil). Polygenic scores (PGS) from these data explained 5.7% of the variance in liability to MD in European samples and predicted case control status across diverse ancestries. These findings represent a major advance in our understanding of MD. We provide evidence that MD GWAS reveals known and novel biological targets that may be used to target and develop pharmacotherapies addressing the considerable unmet need for effective treatment."
 references:
     - type: data
       title: "Genome-wide association study summary statistics for Major Depressive Disorder"
       url: https://www.med.unc.edu/pgc/download-results/
     - type: article
       status: in-preparation
-      title: ""
+      title: "Genome-wide study of half a million individuals with major depression identifies 570 loci, infers causal neuronal subtypes and biological targets for novel pharmacotherapies"
       doi: ""
       pmid: ""
       pmcid: ""
       journal: ""
     - type: article
       status: preprint
-      title: ""
+      title: "Genome-wide study of half a million individuals with major depression identifies 570 loci, infers causal neuronal subtypes and biological targets for novel pharmacotherapies"
       doi: ""
 keywords: 
   - "major depressive disorder"
   - "genome-wide association study"
 message: "If you use this software, please cite it using these metadata."
-repository-code: "https://github.com/psychiatric-genomics-consortium/mdd-meta"
-title: "PGC MDD3"
-version: "3.49.24.09"
+repository-code: "https://github.com/psychiatric-genomics-consortium/mdd-wave3-meta"
+title: "PGC MDD2023"
+version: "3.49.24.11"
 ...

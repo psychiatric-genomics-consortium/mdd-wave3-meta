@@ -1,3 +1,7 @@
+##
+## Reference files LDSC and installation
+##
+
 # fetch LDSC reference files
 rule ldsc_fetch_hm3_bz:
 	input: HTTP.remote("https://data.broadinstitute.org/alkesgroup/LDSCORE/w_hm3.snplist.bz2")
@@ -35,6 +39,10 @@ rule ldsc_install:
 	input: "resources/ldsc/w_hm3.snplist", rules.ldsc_unzip_eur_w_ld_chr.output
 	output: directory("resources/ldsc/ldsc")
 	shell: "git clone https://github.com/bulik/ldsc.git {output}"
+
+##
+## LDSC munging and heritability
+##
 	
 # Run munge with N taken from Neff (doi:10.1101/2021.09.22.21263909), FRQ from FRQ_U column
 rule ldsc_munge:
@@ -55,3 +63,49 @@ rule ldsc_h2:
 	output: "results/ldsc/h2/pgc_mdd_{cohorts}_{ancestries}_v{version}.log"
 	shell: "resources/ldsc/ldsc/ldsc.py --h2 {input.sumstats} --ref-ld {params.ld} --w-ld {params.ld} --M $(cat {input.l2_M}) --out {params.prefix}"
 
+
+##
+## Stratified LDSC resources
+##
+
+# 1000G Phase 3 plink files for LDSC
+rule ldsc_1kg3:
+    input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/1000G_Phase3_plinkfiles.tgz")
+    output: directory("resources/ldsc/1000G_EUR_Phase3_plink")
+    shell: "tar xzf {input} -C $(dirname {output})"
+    
+# Gene coordinates file
+rule ldsc_gene_coord:
+    input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/make_annot_sample_files/ENSG_coord.txt")
+    output: "resources/ldsc/ENSG_coord.txt"
+    shell: "mv {input} {output}"
+    
+# hapmap3 snps
+rule ldsc_hapmap3:
+    input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/hapmap3_snps.tgz")
+    output: directory("resources/ldsc/hapmap3_snps")
+    shell: "tar xzf {input} -C $(dirname {output})"
+    
+# regression weights
+rule ldsc_weights:
+    input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/weights_hm3_no_hla.tgz")
+    output: directory("resources/ldsc/weights_hm3_no_hla")
+    shell: "tar xzf {input} -C $(dirname {output})"
+    
+# allele frequencies
+rule ldsc_mac5eur:
+    input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/1000G_Phase3_frq.tgz")
+    output: directory("resources/ldsc/1000G_Phase3_frq")
+    shell: "tar xzf {input} -C $(dirname {output})"
+    
+# baseline annotations
+rule ldsc_baseline:
+    input: HTTP.remote("https://storage.googleapis.com/broad-alkesgroup-public/LDSCORE/1000G_Phase3_baseline_v1.2_ldscores.tgz")
+    output: directory("resources/ldsc/baseline_v1.2")
+    shell: "tar xzf {input} -C $(dirname {output})"
+
+# baseline SNPs
+rule ldsc_baseline_snps:
+	input: "resources/ldsc/baseline_v1.2"
+	output: "resources/ldsc/baseline_v1.2_snps/baseline.{chr}.snp"
+	shell: "gunzip -c resources/ldsc/baseline_v1.2/baseline.{wildcards.chr}.l2.ldscore.gz | awk 'NR > 1 {{print $2}}' > {output}"
