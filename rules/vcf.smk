@@ -62,7 +62,7 @@ rule vcf_logOR:
 builds = {"19": "GRCh37", "38": "GRCh38"}
 rule vcf_daner2vcf_json:
     input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.rp.gz"
-    output: vcf="results/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json"
+    output: vcf="results/vcf/gwas/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json"
     log: "logs/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json.log"
     run:
         with gzip.open(input.daner, 'r') as daner:
@@ -93,27 +93,34 @@ rule vcf_daner2vcf_json:
 
 # Convert daner to vcf
 rule vcf_daner2vcf:
-    input: beta="results/vcf/beta/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.gz", json="results/vcf/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json", fasta=lambda wildcards: expand("resources/fasta/human_{build}.fasta", build=builds[wildcards.hg].lower()), fai=lambda wildcards: expand("resources/fasta/human_{build}.fasta.fai", build=builds[wildcards.hg].lower()), dbsnp=lambda wildcards: expand("resources/dbsnp/human_{build}.dbsnp.v153.vcf.gz", build=builds[wildcards.hg].lower()), dbsnp_tbi=lambda wildcards: expand("resources/dbsnp/human_{build}.dbsnp.v153.vcf.gz.tbi", build=builds[wildcards.hg].lower()), gwas2vcf=rules.vcf_install_gwas2vcf.output
-    output: "results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-hg{hg}-v{analysis}.vcf.gz"
+    input: beta="results/vcf/beta/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.gz", json="results/vcf/gwas/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.json", fasta=lambda wildcards: expand("resources/fasta/human_{build}.fasta", build=builds[wildcards.hg].lower()), fai=lambda wildcards: expand("resources/fasta/human_{build}.fasta.fai", build=builds[wildcards.hg].lower()), dbsnp=lambda wildcards: expand("resources/dbsnp/human_{build}.dbsnp.v153.vcf.gz", build=builds[wildcards.hg].lower()), dbsnp_tbi=lambda wildcards: expand("resources/dbsnp/human_{build}.dbsnp.v153.vcf.gz.tbi", build=builds[wildcards.hg].lower()), gwas2vcf=rules.vcf_install_gwas2vcf.output
+    output: "results/vcf/gwas/pgc-mdd{year}-{cohorts}-{ancestries}-hg{hg}-v{analysis}.vcf.gz"
     log: "logs/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-hg{hg}-v{analysis}.log"
     conda: "../envs/vcf.yaml"
     shell: "python resources/vcf/vendor/gwas2vcf/main.py --out {output} --data {input.beta} --json {input.json} --ref {input.fasta} --dbsnp {input.dbsnp} > {log}"
 	
 # Annotation for effective sample size
 rule vcf_neff_annotation:
-	input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.rp.gz", vcf="results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-hg{hg}-v{analysis}.vcf.gz"
-	output: vcf="results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-hg{hg}-v{analysis}.annot.vcf.gz"
-	params: id=lambda wildcards: "pgc-mdd{year}-{cohorts}-{pops}-v{analysis}".format(analysis=wildcards.analysis, cohorts=wildcards.cohorts, pops=wildcards.ancestries.upper(), year=wildcards.year), annot="results/vcf/annot/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.neff.gz", annot_tbi="results/vcf/annot/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.neff.gz.tbi"
+	input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.rp.gz"
+	output: annot="results/vcf/annot/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.ne.gz", annot_tbi="results/vcf/annot/pgc_mdd_{cohorts}_{ancestries}_hg{hg}_v{analysis}.ne.gz.tbi"
 	shell: """
-	gunzip -c {input.daner} | awk 'OFS="\\t" {{if(NR == 1) {{print "#CHROM", "POS", "NE"}} else {{if($1 == "23") $1 == "X"; print $1, $3, 2*$19}}}}' | bgzip -c > {params.annot}
-	tabix -s1 -b2 -e2 {params.annot}
-	echo -e '##FORMAT=<ID=NE,Number=1,Type=Integer,Description="Effective ample size used to estimate genetic effect">' >> {params.annot}.hdr.txt
-	bcftools annotate -s {params.id} -a {params.annot} -h {params.annot}.hdr.txt -c CHROM,POS,FORMAT/NE -o  {output.vcf} {input.vcf}
+	gunzip -c {input.daner} | awk 'OFS="\\t" {{if(NR == 1) {{print "#CHROM", "POS", "NE"}} else {{if($1 == "23") $1 == "X"; print $1, $3, 2*$19}}}}' | bgzip -c > {output.annot}
+	tabix -s1 -b2 -e2 {output.annot}
+	"""
+	
+# Add NE annotation to VCF FORMAT for the GWAS sample
+rule vcf_neff_annotate:
+	input: annot="results/vcf/annot/pgc_mdd_{cohorts}_{ancestries}_hg19_v{analysis}.ne.gz", annot_tbi="results/vcf/annot/pgc_mdd_{cohorts}_{ancestries}_hg19_v{analysis}.ne.gz.tbi", vcf="results/vcf/gwas/pgc-mdd{year}-{cohorts}-{ancestries}-hg19-v{analysis}.vcf.gz"
+	output: vcf="results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-v{analysis}.vcf.gz"
+	params: id=lambda wildcards: "pgc-mdd{year}-{cohorts}-{pops}-v{analysis}".format(analysis=wildcards.analysis, cohorts=wildcards.cohorts, pops=wildcards.ancestries.upper(), year=wildcards.year)
+	shell: """
+	echo -e '##FORMAT=<ID=NE,Number=1,Type=Integer,Description="Effective sample size used to estimate genetic effect">' >> {input.annot}.hdr.txt
+	bcftools annotate -s {params.id} -a {input.annot} -h {input.annot}.hdr.txt -c CHROM,POS,FORMAT/NE -o  {output.vcf} {input.vcf}
 	"""
 
 # List sumstats to convert to VCF
 rule vcf:
-    input: expand("results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-hg19-v{analysis}.vcf.gz", year=2023, cohorts=['full', 'no23andMe', 'Clin', 'EHR', 'Quest', 'SelfRep'], ancestries=['eur'], analysis=analysis_version)
+    input: expand("results/vcf/pgc-mdd{year}-{cohorts}-{ancestries}-v{analysis}.vcf.gz", year=2023, cohorts=['full', 'no23andMe', 'Clin', 'EHR', 'Quest', 'SelfRep'], ancestries=['eur'], analysis=analysis_version)
     
 # VCF-like PGC sumstats file
 # Pull in daner file for sumstats, fai file for genome build info, basic.num file
