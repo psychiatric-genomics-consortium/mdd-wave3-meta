@@ -10,6 +10,7 @@ library(readxl)
 cat("Formatting sumstats to pgc.gz\n")
 
 filedate <- format(now(), "%Y-%Om-%d")
+year <- snakemake@wildcards$year
 
 # read analyst from config file
 analyst <- snakemake@config$analyst
@@ -70,7 +71,7 @@ ntrio <- 0
 
 # Analysed cohorts
 analysis_counts <- read_excel(snakemake@input$basic) %>%
-    mutate(cohort = str_match(Dataset, "mdd_(.+)\\.eur")[, 2])
+    mutate(cohort = str_match(Dataset, "mdd_(.+)(\\.|_)eur")[, 2])
 
 # check if genotyped cohorts are included as their own sumstats
 includes_pgc_mdd <- "MDD49" %in% analysis_counts$cohort
@@ -86,6 +87,7 @@ genotype_cohort_counts <-
 genotype_cohorts <- genotype_cohort_counts$cohort
 genotype_ncases <- genotype_cohort_counts$N_cases
 genotype_ncontrols <- genotype_cohort_counts$N_controls
+genotype_neffhalf <- genotype_cohort_counts$N_eff_half
 genotype_nsnps <- genotype_cohort_counts$`N-SNPs`
 
 genotype_versions <-
@@ -119,6 +121,7 @@ sumstats_cohorts <- sumstats_grouped_counts$cohortN
 sumstats_versions <- sumstats_grouped_counts$release
 sumstats_ncases <- sumstats_grouped_counts$N_cases
 sumstats_ncontrols <- sumstats_grouped_counts$N_controls
+sumstats_neffhalf <- sumstats_grouped_counts$N_eff_half
 sumstats_nsnps <- sumstats_grouped_counts$`N-SNPs`
 
 
@@ -136,6 +139,8 @@ ncohort <- length(c(genotype_cohorts, sumstats_cohorts))
 # number of cases and controls
 cases_by_cohort <- paste(c(genotype_ncases, sumstats_ncases), collapse = ",")
 controls_by_cohort <- paste(c(genotype_ncontrols, sumstats_ncontrols), collapse = ",")
+neff_by_cohort <- paste(2*c(genotype_neffhalf, sumstats_neffhalf), collapse=",")
+neff <- 2*sum(c(genotype_neffhalf, sumstats_neffhalf))
 trios_by_cohort <- paste(rep(0, ncohort), collapse = ",")
 snps_by_cohort <- paste(c(genotype_nsnps, sumstats_nsnps), collapse = ",")
 processed_by_core <-
