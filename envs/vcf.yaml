@@ -16,3 +16,4 @@ dependencies:
   - r-yaml
   - r-stringr
   - r-lubridate
+  - r-readxl
