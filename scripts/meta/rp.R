@@ -9,11 +9,11 @@ log_path <- snakemake@log[[1]]
 
 # read daner file
 daner_gz <- snakemake@input$autosome
-daner <- read_tsv(daner_gz, col_types=cols("SNP"=col_character()))
+daner <- read_tsv(daner_gz, col_types=cols("SNP"=col_character(), "ngt"=col_character()))
 
 # read daner X file
 daner_x_gz <- snakemake@input$xsome
-daner_x <- read_tsv(daner_x_gz, col_types=cols("SNP"=col_character()))
+daner_x <- read_tsv(daner_x_gz, col_types=cols("SNP"=col_character(), "ngt"=col_character()))
 
 # remove problem rows
 if(nrow(problems(daner)) > 0) {
@@ -38,7 +38,9 @@ if(nrow(problems(daner_x)) > 0) {
 
 # update X column names
 names(daner_x_patch)[6:7] <- names(daner_patch)[6:7]
-daner_complete <- bind_rows(daner_patch, daner_x_patch)
+daner_complete <- bind_rows(daner_patch, daner_x_patch) %>%
+	mutate(ngt=as.numeric(ngt)) %>%
+	mutate(ngt=if_else(is.na(ngt), true=0, false=ngt))
 
 # check for duplicate SNPs and CPIDs
 
