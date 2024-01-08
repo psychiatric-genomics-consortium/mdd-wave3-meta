@@ -20,12 +20,12 @@ cohorts_public = ["no23andMe"]
 rule meta_chr22:
     input: "results/sumstats/filtered/{cohort}.gz"
     output: "results/sumstats/autosome/{cohort}.gz"
-    shell: "zcat {input} | awk '{{if(NR == 1 || $1 != 23) {{print $0}}}}' | gzip -c > {output}"
+    shell: "gunzip -c {input} | awk '{{if(NR == 1 || $1 != 23) {{print $0}}}}' | gzip -c > {output}"
     
 rule meta_chr23:
     input: "results/sumstats/filtered/{cohort}.gz"
     output: "results/sumstats/X/{cohort}.gz"
-    shell: "zcat {input} | awk '{{if(NR == 1 || $1 == 23) {{print $0}}}}' | gzip -c > {output}"
+    shell: "gunzip -c {input} | awk '{{if(NR == 1 || $1 == 23) {{print $0}}}}' | gzip -c > {output}"
 
 ###
 ### Link sumstats inside meta analysis directory
