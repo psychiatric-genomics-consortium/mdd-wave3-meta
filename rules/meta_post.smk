@@ -25,7 +25,7 @@ rule postimp_rp_neff:
 
 # Merge auto- and allosome clumped results
 rule postimp_clumped:
-    input: auto="results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc", allo="results/meta/X/report_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc"
+    input: auto="results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc", allo="results/meta/X/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc"
     output: "results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc.txt"
     conda: "../envs/meta.yaml"
     script: "../scripts/meta/rp_clump.R"
