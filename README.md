@@ -135,18 +135,14 @@ Check the [`rules`](rules/) directory for the analyses to be run. See more on [h
 * **Jonathan Coleman** - *analyst* – [KCL](https://www.kcl.ac.uk/)
 * **Oliver Pain** - *analyst* - [KCL](https://www.kcl.ac.uk/)
 * **Xueyi Shen** - *analyst* - [Edinburgh](https://www.ed.ac.uk)
-* **Alex Kwong** - *analyst* - [Edinburgh](https://www.ed.ac.uk)
 * **Shuyang Yao** - *analyst* – [Karolinska](https://ki.se)
+* **V Kartik Chundru** - *analyst* [Wellcome Sanger](https://www.sanger.ac.uk)
 * **Karmel Choi** - *analyst* – [Harvard/MGH](https://www.hsph.harvard.edu)
-* **Eske Derks** - *analytical group lead* - [QIMR](https://www.qimrberghofer.edu.au)
 * **Karoline Kuchenbaecker** - *analytical group lead* - [UCL](http://www.ucl.ac.uk/)
-* **Patrick Sullivan** - *analytic group director* - [Karolinska](https://ki.se)
 * **Naomi Wray** - *analytical group director* - [Queensland](https://cnsgenomics.com/)
 * **Stephan Ripke** - *analytical group director* - [Broad](https://www.broadinstitute.org/)
 * **Cathryn Lewis** - *workgroup chair* - [KCL](https://www.kcl.ac.uk/)
-* **Andrew McIntosh** - *workgroup chair* - [Edinburgh](https://www.ed.ac.uk)
-
-See the [analysis plan](docs/plan.md) for full list of analysts and contributors. 
+* **Andrew McIntosh** - *workgroup chair* - [Edinburgh](https://www.ed.ac.uk) 
 
 ## License
 
@@ -154,4 +150,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) f
 
 ## Acknowledgments
 
-
+The PGC has received funding from the US National Institute of Mental Health (5 U01MH109528-04). Statistical analyses were carried out on the Genetic Cluster Computer (http://www.geneticcluster.org) hosted by SURFsara and financially supported by the Netherlands Scientific Organization (NWO 480-05-003) along with a supplement from the Dutch Brain Foundation and the VU University Amsterdam.
