@@ -4,7 +4,7 @@ output: github_document
 ---
 
 ```{r warning=FALSE, message=FALSE}
-library(rtracklayer)
+library(plyranges)
 library(readxl)
 library(readr)
 library(dplyr)
@@ -13,8 +13,6 @@ library(tidyr)
 library(UpSetR)
 library(genpwr)
 library(ggplot2)
-library(fastman)
-library(microshades)
 ```
 
 
@@ -29,14 +27,13 @@ We ran a [conditional and joint analysis](https://www.nature.com/articles/ng.221
 - Final meta-analysed SNPs from the Ricopili pipeline were used.
 - Ricopili was used for initial clumping with index SNPs identified with $p <$ `r qc$clu_p1` and $r^2 <$ `r qc$clu_r2` within `r qc$clu_kb`kb windows. The extended MHC region was clumped as a single region.
 - Sumstats were filtered for MAF >= `r qc$clu_maf`, INFO > `r qc$clu_info`, and Neff >= 80% of max.
-- Regions with a genome-wide significant SNP (p < 5-e8) were identified from the clumped results. Regions within `r qc$cojo_kb`kb of each other were merged.
-- SNPs from these regions were extracted and filtered to unrelated of self- and genotype-identified European ancestry participants from UK Biobank.
-- A conditional analysis was performed on each region using the filtered sumstats superimposed on the UK Biobank LD structure.
-- Singleton regions (with only one genome-wide significant variant) were separated out.
+- Regions with a genome-wide significant SNP (p < 5-e8) were identified from the clumped results.
+- SNPs from these regions were extracted and filtered to 7500 unrelated of self- and genotype-identified European ancestry participants from UK Biobank.
+- A conditional analysis was performed on with 10MB windows using the filtered sumstats superimposed on the UK Biobank LD structure.
 
 ## Previous sumstats
 
-Variants from [Wray et al 2018](https://www.nature.com/articles/s41588-018-0090-3/tables/2), [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions), [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2), [Giannakopoulou et al 2021](https://jamanetwork.com/journals/jamapsychiatry/article-abstract/2784695), [Als et al 2022](https://www.medrxiv.org/content/10.1101/2022.08.24.22279149v1), and the [GWAS catalog for unipolar depression](https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761). Parse out regions from Wray and Howard and load queried regions for other results
+Variants from [Wray et al 2018](https://www.nature.com/articles/s41588-018-0090-3/tables/2), [Howard et al 2019](https://www.nature.com/articles/s41593-018-%200326-7) (remove first and last rows with table captions), [Levey et al 2021](https://doi.org/10.1038/s41593-021-00860-2), [Giannakopoulou et al 2021](https://jamanetwork.com/journals/jamapsychiatry/article-abstract/2784695), [Als et al 2022](https://www.medrxiv.org/content/10.1101/2022.08.24.22279149v1), [Meng et al 2024](https://www.nature.com/articles/s41588-023-01596-4), and the [GWAS catalog for unipolar depression](https://www.ebi.ac.uk/gwas/efotraits/EFO_0003761). Parse out regions from Wray and Howard and load queried regions for other results
 
 ```{r previous}
 tags <- read_table(snakemake@input$tags)
@@ -61,6 +58,12 @@ mutate(LEFT=if_else(is.na(LEFT), true=as.numeric(POS), false=LEFT),
 	   
 als <- read_excel(snakemake@input$als, sheet=1)
 
+meng <- read_excel(snakemake@input$meng, sheet = 7, skip = 2) |>
+  filter(!is.na(Chr)) |>
+  select(SNP, CHR = Chr, BP = bp) |>
+  left_join(select(tags, SNP, LEFT, RIGHT), by='SNP') |>
+  mutate(LEFT = coalesce(LEFT, BP), RIGHT = coalesce(RIGHT, BP))
+
 gwas_catalog <- read_tsv(snakemake@input$catalog) %>%
 filter(!is.na(CHR_ID)) %>%
 mutate(CHR=if_else(CHR_ID == 'X', true=23, false=as.numeric(CHR_ID)),
@@ -77,17 +80,9 @@ mutate(LEFT=if_else(is.na(LEFT), true=POS, false=LEFT),
 
 ## COJO SNP and region counts
 
-List of clumped and COJO SNPs and regions
-
-```{r log, echo=F, results='asis'}
-cat(paste('- ', readLines(snakemake@input$log)[-1], '\n'))
-```
-
 Load list of COJO SNPs (with multiple or single GW-sig SNPs)
 ```{r cojo}
-cojo_mult <- read_tsv(snakemake@input$cojo)
-cojo_single <- read_tsv(snakemake@input$singleton)
-cojo <- bind_rows(cojo_mult, cojo_single) %>% arrange(CHR, BP)
+cojo <- read_tsv(snakemake@input$cojo)
 ```
 
 ## Clumped results
@@ -103,14 +98,14 @@ rp <- read_table(snakemake@input$rp_clump) %>% filter(P <= 5e-8)
 Construct genomic range objects so that SNPs and regions can be intersected and compared.
 
 ```{r granges}
-cojo_gr <- with(cojo, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=range.right), SNP=SNP))
-rp_gr <- with(rp, GRanges(seqnames=CHR, ranges=IRanges(start=range.left, end=range.right), SNP=SNP))
+cojo_gr <- with(cojo, GRanges(seqnames=CHR, ranges=IRanges(start=Locus.Left, end=Locus.Right), SNP=SNP))
 
 wray_gr <- with(wray, GRanges(seqnames=Chr., ranges=IRanges(start=range.left, end=range.right, SNP=SNP)))
 howard_gr <- with(howard, GRanges(seqnames=Chromosome, ranges=IRanges(start=range.left, end=range.right, SNP=`Marker Name`)))
 levey_gr <- with(levey, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
 giannakopoulou_gr <- with(giannakopoulou, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
 als_gr <- with(als, GRanges(seqnames=CHR, ranges=IRanges(start=range.left.index.SNP, end=range.right.index.SNP)))
+meng_gr <- with(meng, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
 gwas_catalog_gr <- with(gwas_catalog, GRanges(seqnames=CHR, ranges=IRanges(start=LEFT, end=RIGHT)))
 ```
 
@@ -171,7 +166,7 @@ Find overlaps between clumped, COJO, and previous results. Append and then reduc
 
 ```{r all_gr}
 
-all_gr <- reduce(c(cojo_gr, rp_gr, wray_gr, howard_gr, levey_gr, giannakopoulou_gr, als_gr, gwas_catalog_gr))
+all_gr <- reduce_ranges(bind_ranges(cojo_gr, wray_gr, howard_gr, levey_gr, giannakopoulou_gr, als_gr, meng_gr, gwas_catalog_gr))
 
 ```
 
@@ -180,15 +175,15 @@ Find overlaps and make lists for an upset plot. Take the index from the combined
 ```{r upset, fig.width=10, fig.height=8, dpi=300}
 
 hits_upset <- list(MDD3_COJO=unique(findOverlaps(all_gr, cojo_gr)@from),
-                   MDD3_Clump=unique(findOverlaps(all_gr, rp_gr)@from),
                    Wray=unique(findOverlaps(all_gr, wray_gr)@from),
                    Howard=unique(findOverlaps(all_gr, howard_gr)@from),
                    Levey=unique(findOverlaps(all_gr, levey_gr)@from),
                    Giannakopoulou=unique(findOverlaps(all_gr, giannakopoulou_gr)@from),
-				   Als=unique(findOverlaps(all_gr, als_gr)@from),
+				           Als=unique(findOverlaps(all_gr, als_gr)@from),
+                   Meng=unique(findOverlaps(all_gr, meng_gr)@from),
                    Catalog=unique(findOverlaps(all_gr, gwas_catalog_gr)@from))
                    
-upset(fromList(hits_upset), nsets=7, order.by='freq', text.scale=2)
+upset(fromList(hits_upset), nsets=8, order.by='freq', text.scale=2)
 
 ```
 
@@ -221,7 +216,7 @@ levey %>% slice(unique(cojo_levey_overlaps@to)) %>% count()
 Overlaps with previous findings.
 
 ```{r known_overlaps}
-cojo_known_overlaps <- findOverlaps(cojo_gr, reduce(c(wray_gr, howard_gr, levey_gr, giannakopoulou_gr, als_gr, gwas_catalog_gr)))
+cojo_known_overlaps <- findOverlaps(cojo_gr, reduce_ranges(bind_ranges(wray_gr, howard_gr, levey_gr, giannakopoulou_gr, als_gr, meng_gr, gwas_catalog_gr)))
 
 cojo_known <- cojo %>% slice(unique(cojo_known_overlaps@from))
 
@@ -234,8 +229,8 @@ Newly discovered regions
 ```{r cojo_new}
 cojo_new <- cojo %>% slice(unique(-cojo_known_overlaps@from)) %>% arrange(P)
 cojo_new %>%
-select(region, snp_idx, CHR, SNP, BP, P, pJ) %>%
-group_by(region)
+select(Locus, SNP.Index, CHR, SNP, BP, P, pJ) %>%
+group_by(Locus)
 ```
 
 ```{r not_known}
@@ -253,9 +248,11 @@ Calculate power for previous versus current GWAS
 # use sum of effective sample sizes and case rate of 50% rather than sum of cases and controls
 wray_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=405961, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
 
-levey_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=938012, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
+als_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=938012+100100+24274, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
 
-mdd2022_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=2*776935, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
+meng_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=700089, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
+
+mdd3_power <- genpwr.calc(calc='es', model='logistic', ge.interaction=NULL, N=2*1053442, Case.Rate=0.5, k=NULL, MAF=seq(0.005, 0.49, by=0.005), Power=0.8, Alpha=5e-8, True.Model='Additive', Test.Model='Additive')
 
 ```
 
@@ -271,8 +268,9 @@ select(SNP, Association, OR, BETA, FRQ=starts_with('FRQ_U')) %>%
 mutate(MAF=if_else(FRQ <= 0.5, true=FRQ, false=1-FRQ))
 
 power_known_novel <- bind_rows(
-transmute(levey_power, Power='Levey', MAF, OR=`OR_at_Alpha_5e-08`),
-transmute(mdd2022_power, Power='MDD3', MAF, OR=`OR_at_Alpha_5e-08`)
+transmute(als_power, Power='Als', MAF, OR=`OR_at_Alpha_5e-08`),
+transmute(meng_power, Power='Meng', MAF, OR=`OR_at_Alpha_5e-08`),
+transmute(mdd3_power, Power='MDD3', MAF, OR=`OR_at_Alpha_5e-08`)
 )
 
 ggplot(cojo_known_novel, aes(x=MAF, y=exp(abs(BETA)))) + 
@@ -280,45 +278,4 @@ geom_point(aes(color=Association)) +
 geom_line(mapping=aes(y=OR, linetype=Power), data=power_known_novel, size=1) +
 scale_y_continuous('OR', limits=c(1, 1.1))
 
-```
-
-## Manhattan plot
-
-```{r daner, cache=TRUE}
-
-daner <- read_tsv(snakemake@input$daner)
-
-```
-
-```{r mdd3-manhattan, fig.width=8, fig.height=5, dpi=300}
-	
-fastman(daner, maxP=NULL, chrlabs=c(1:22, "X"), suggestiveline=NULL, cex.axis=0.45,
-	col=c("#ca1c20", "#93c4de"))
-
-```
-
-
-```{r mdd3-manhattan-micro, fig.width=8, fig.height=5, dpi=300}
-    
-fastman(daner, maxP=NULL, chrlabs=c(1:22, "X"), suggestiveline=NULL, cex.axis=0.45,
-    col=microshades_palette('micro_cvd_blue', 2, lightest = FALSE))
-
-```
-
-## Table
-
-Format COJO results for supplementary table
-
-```{r table}
-cojo_format <-
-cojo %>%
-arrange(region) %>%
-select(Locus=region, SNP.Index=snp_idx, SNP, CHR, BP, A1, A2,
-    FRQ_A=starts_with('FRQ_A'), FRQ_U=starts_with('FRQ_U'),
-    INFO, OR, SE, P, ngt, Direction,
-    HetISqt, HetPVa, Nca, Nco, Neff_half,
-    bJ, bJ_se, pJ, LD_r,
-    Locus.Left=range.left, Locus.Right=range.right, N.Sig.SNPs=n_sig_snps)
-
-write_tsv(cojo_format, "docs/tables/meta_snps_full_eur.cojo.format.txt")
 ```

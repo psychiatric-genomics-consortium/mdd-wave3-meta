@@ -1,4 +1,5 @@
 library(readr)
+library(readxl)
 library(dplyr)
 library(stringr)
 library(tidyr)
@@ -7,6 +8,10 @@ levey <- read_tsv(snakemake@input$levey, col_types=cols(CHR.BP=col_character()))
 
 giannakopoulou <- read_tsv(snakemake@input$giannakopoulou, col_types=cols('CHR:POS'=col_character())) %>%
 separate(`CHR:POS`, into=c('CHR', 'POS'), convert=TRUE)
+
+meng <- read_excel(snakemake@input$meng, sheet = 7, skip = 2) |>
+  select(SNP, Chr, bp) |>
+  filter(!is.na(SNP))
 
 gwas_catalog <- read_tsv(snakemake@input$catalog) %>%
 filter(!is.na(CHR_ID)) %>%
@@ -21,6 +26,7 @@ previous_snps <-
 bind_rows(
 select(levey, SNP=rsid),
 select(giannakopoulou, SNP),
+select(meng, SNP),
 transmute(gwas_catalog, SNP=paste0('rs', SNP_ID_CURRENT)
 )) %>%
 distinct()

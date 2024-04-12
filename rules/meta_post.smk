@@ -8,7 +8,7 @@
 
 # check Ricopili output for complete rows and duplicates
 rule postimp_rp:
-    input: autosome="results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.gz", xsome="results/meta/X/report_pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.meta.gz"
+    input: autosome="results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.gz", xsome="results/meta/X/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.gz"
     log: "logs/meta/distribution/{analysis}.rp.log"
     conda: "../envs/meta.yaml"
     output: "results/meta/distribution/pgc_mdd_{analysis}/daner_pgc_mdd_{analysis}.rp.gz"
