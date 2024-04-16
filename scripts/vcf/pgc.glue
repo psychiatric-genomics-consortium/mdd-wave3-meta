@@ -12,44 +12,45 @@
 ##imputationReference="Haplotype Reference Consortium v1.1"
 ##analysisProgram="Ricopili 2019_Jun_18.001"
 ##metaAnalysisProgram="Ricopili 2019_Jun_18.001"
-##shortName="pgc-mdd{year}-{cohorts}"
+##shortName="pgc-mdd{year}-{cohorts}-{ancestries}"
 ##version="{analysis_version}"
-##referencePopulation="{ancestries}"
+##referencePopulation="{reference}"
 ##dependentVariable="major depressive disorder"
 ##dependentVariableType="discrete"
 ##model="dependentVariable=SNPi+PC1-PC5"
-##abstract="{abstract}"
-##methodsParagraph="{methods}"
-##acknowledgments="{acknowledgments}"
-##termsOfUse="These data are provided *as is*, and without warranty, for scientific and educational use only. If you download these data, you acknowledge that these data will be used only for non-commercial research purposes; that the investigator is in compliance with all applicable state, local, and federal laws or regulations and institutional policies regarding human subjects and genetics research; that secondary distribution of the data without registration by secondary parties is prohibited; and that the investigator will cite the appropriate publications in any communications or publications arising directly or indirectly from these data."
-{contig}
 ##nCase="{ncase}"
 ##nControl="{ncontrol}"
 ##nEffective="{neff}"
 ##nTrio="{ntrio}"
 ##nCohort="{ncohort}"
+##nVariants={variants}
+##abstract="{abstract}"
+##methodsParagraph="{methods}"
+##acknowledgments="{acknowledgments}"
+##termsOfUse="These data are provided *as is*, and without warranty, for scientific and educational use only. If you download these data, you acknowledge that these data will be used only for non-commercial research purposes; that the investigator is in compliance with all applicable state, local, and federal laws or regulations and institutional policies regarding human subjects and genetics research; that secondary distribution of the data without registration by secondary parties is prohibited; and that the investigator will cite the appropriate publications in any communications or publications arising directly or indirectly from these data."
+{contig}
 ##cohortList="{cohort_list}"
-##sumstatsVersionByCohort="{versions_list}"
-##nCaseByCohort="{cases_by_cohort}"
-##nControlByCohort="{controls_by_cohort}"
-##nEffectiveByCohort="{neff_by_cohort}"
-##nTrioByCohort="{trios_by_cohort}"
-##SNPsPassPostImputeByCohort="{snps_by_cohort}"
-##ProcessedByCoreTeam="{processed_by_core}"
-##INFO=<ID=A1,Number=1,Type=Character,Description="SNP reference allele for freq and ln(OR) (effect allele)">
-##INFO=<ID=A2,Number=1,Type=Character,Description="SNP alternate allele (non-effect allele)">
-##INFO=<ID=BETA,Number=1,Type=Float,Description="ln(OR) of A1">
+##studiesList="{studies_list}"
+##studiesDescriptionList="{descriptions_list}"
+##referenceList="{reference_list}"
+##sumstatsVersionList="{releases_list}"
+##nCaseList="{cases_by_cohort}"
+##nControlList="{controls_by_cohort}"
+##nEffectiveList="{neff_by_cohort}"
+##nTrioList="{trios_by_cohort}"
+##ProcessedByCoreTeamList="{processed_by_core}"
+##INFO=<ID=EA,Number=1,Type=Character,Description="SNP effect allele for freq and ln(OR))">
+##INFO=<ID=NEA,Number=1,Type=Character,Description="SNP non-effect allele">
+##INFO=<ID=BETA,Number=1,Type=Float,Description="ln(OR) of EA">
 ##INFO=<ID=SE,Number=1,Type=Float,Description="standard error of ln(OR)">
 ##INFO=<ID=PVAL,Number=1,Type=Float,Description="P-value, uncorrected">
 ##INFO=<ID=NGT,Number=1,Type=Integer,Description="number of cohorts genotyped">
-##INFO=<ID=FCAS,Number=1,Type=Float,Description="frequency of A1 in cases">
-##INFO=<ID=FCON,Number=1,Type=Float,Description="frequency of A1 in controls">
+##INFO=<ID=FCAS,Number=1,Type=Float,Description="frequency of EA in cases">
+##INFO=<ID=FCON,Number=1,Type=Float,Description="frequency of EA in controls">
 ##INFO=<ID=IMPINFO,Number=1,Type=Float,Description="imputation INFO score">
 ##INFO=<ID=NEFF,Number=1,Type=Float,Description="effective sample size">
 ##INFO=<ID=NCAS,Number=1,Type=Integer,Description="total sample size cases">
 ##INFO=<ID=NCON,Number=1,Type=Integer,Description="total sample size controls">
-##INFO=<ID=DIRE,Number=1,Type=String,Description="direction of effects by cohort. because of how data was processed in stages (genotyped cohorts batched together first, then meta-analysed with sumstats cohorts); contributions of multiple files from some cohorts; and data missingness (X chromosome): the number and order of direction effects do not align with the cohortList">
 ##INFO=<ID=HETI,Number=1,Type=Float,Description="heterogeneity I^2 statistic">
 ##INFO=<ID=HETDF,Number=1,Type=Integer,Description="heterogeneity test degrees-of-freedom">
 ##INFO=<ID=HETPVAL,Number=1,Type=Float,Description="heterogeneity test P-value">
-##nVariants={variants}
