@@ -2,7 +2,7 @@
 
 Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium. See table of included [genotype](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts_geno.eur.txt) and [sumstats](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts.eur.txt) cohorts.
 
-**Current version**: v3.49.24.11 [EUR]
+**Current version**: v3.49.52.01 [DIV]
 
 ![MDD Manhattan plot](docs/cojo_files/figure-gfm/mdd3-manhattan-micro-1.png)
 
