@@ -8,10 +8,6 @@ The next major meta-analysis ("MDD3") by the Major Depressive Disorder Working G
 
 ![MDD Manhattan plot](docs/cojo_files/figure-gfm/mdd3-manhattan-micro-1.png)
 
-## Embargo date
-
-These data are private to MDD Working Group. All results found here cannot be shared, discussed, or presented in any way without explicit permission from the Working Group chairs. 
-
 ## Project overview
 
 Meta-analysis of cohorts for genome-wide association studies of Major Depressive Disorder.
@@ -86,24 +82,6 @@ See more about [adding additional cohorts to the meta-analysis](docs/meta.md). T
 ### Step 5
 
 Prepare for running downstream analysis.
-
-#### For PGC analysts
-
-Fetch the most recent version of the meta-analysis. An authentication token is required in the `config.yaml` file under the `remote : dropbox :` entry. For the full meta-analysis sumstats:
-
-```
-snakemake -j1 downstream_full
-```
-
-will download a daner sumstats file called `results/distribution/daner_pgc_mdd_full_eur_hg19_v3.NN.MM.OO.rp.gz"`
-
-For sumstats excluding a given `COHORT`:
-
-```
-snakemake -j1 downstream_noCOHORT
-```
-
-#### For external analysts
 
 Download the required summary statistics "MDD3 202X excluding 23andMe (European Ancestries)" from the [PGC website](https://www.med.unc.edu/pgc/download-results/mdd/). Move the file into the location
 
