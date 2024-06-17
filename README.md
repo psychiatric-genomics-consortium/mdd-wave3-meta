@@ -1,8 +1,10 @@
 # PGC MDD3 Meta-analysis
 
-Working toward the next meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium. See table of included [genotype](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts_geno.eur.txt) and [sumstats](https://github.com/psychiatric-genomics-consortium/mdd-meta/blob/master/docs/tables/cohorts.eur.txt) cohorts.
+[![Archived software repository](https://zenodo.org/badge/DOI/10.5281/zenodo.11935052.svg)](https://dx.doi.org/10.5281/zenodo.11935052)
 
-**Current version**: v3.49.52.01 [DIV]
+The next major meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium. See table of included [cohorts](https://github.com/psychiatric-genomics-consortium/mdd-wave3-meta/blob/main/docs/tables/cohorts/full_div_v3.49.46.01.txt).
+
+**Current version**: v3.49.52.01 [DIV] 
 
 ![MDD Manhattan plot](docs/cojo_files/figure-gfm/mdd3-manhattan-micro-1.png)
 
@@ -27,7 +29,7 @@ Analysis conducted on [LISA](https://geneticcluster.org).
 Clone the repository
 
 ```
-git clone git@github.com:psychiatric-genomics-consortium/mdd-meta.git
+git clone git@github.com:psychiatric-genomics-consortium/mdd-wave3-meta.git
 cd mdd-meta
 ```
 You will need to ensure you have generated and added SSH keys between your machine (OS/Windows/Linux) and your github account. This [video](https://www.youtube.com/watch?v=H5qNpRGB7Qw) gives instructions for how to do this. 
