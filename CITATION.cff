@@ -24,7 +24,7 @@ references:
     - type: article
       status: preprint
       title: "Genome-wide study of major depression in 685,808 diverse individuals identifies 697 independent associations, infers causal neuronal subtypes and biological targets for novel pharmacotherapies"
-      doi: ""
+      doi: "10.1101/2024.04.29.24306535"
 keywords: 
   - "major depressive disorder"
   - "genome-wide association study"
