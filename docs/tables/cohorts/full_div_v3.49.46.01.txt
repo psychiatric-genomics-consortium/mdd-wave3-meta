@@ -1,0 +1,110 @@
+cohort	release	study_name	study_description	data_type	ancestry	phenotype	N_cases	N_controls
+antpo	sa-qc4	ZNA, POSEIDON	ZNA (Ziekenhuisnetwerk Antwerpen). POSEIDON (Pre-, Peri-, and Postnatal Stress: Epigenetic impact on Depression)	genotype	EUR	Clin	237	338
+bidi1	sr-qc2	BiDirect	BiDirect-Study (Establishing the bidirectional link between subclinical arteriosclerosis and depression)	genotype	EUR	Clin	756	460
+boma	sr-qc	BOMA	Bonn–Mannheim	genotype	EUR	Clin	584	1064
+cardm	sa-qc2	EPAD/CARD3	Early Prediction of Adolescent Depression (EPAD)	genotype	EUR	Clin	129	744
+cof3	sr-qc	COFAMS	Cognition and Mood Study	genotype	EUR	Clin	120	126
+col3	sr-qc	CoLaus¦PsyCoLaus	PsyCoLaus	genotype	EUR	Clin	508	1445
+edi2	sr-qc	UEDIN	Edinburgh	genotype	EUR	Clin	372	285
+emcbp	sa-qc3	EMC, BePS, BRIDGE-S	The Early Medication Change (EMC) - Trial. Berlin Psychosis Study (BePs). Berlin Research Initiative for Diagnostics, Genetics and Environmental Factors (BRIDGE-S)	genotype	EUR	Clin	579	788
+formm	sa-qc2	FOR2107	FOR2107 consortium	genotype	EUR	Clin	821	669
+gens	sr-qc	GenRED	Genetics of Recurrent Early-Onset Depression Phase I (GenRED1)	genotype	EUR	Clin	1018	1345
+gep3	sr-qc	GENPOD/NewMeds	GENetic and clinical Predictors Of treatment response in Depression/NewMeds	genotype	EUR	Clin	481	2835
+grdg	sr-qc	DGN	DepGenesNetwork	genotype	EUR	Clin	471	469
+grnd	sr-qc	GenRED2	Genetics of Recurrent Early-Onset Depression Phase II (GenRED2)	genotype	EUR	Clin	830	472
+gsk2	sr-qc	GSK, MPIP	GSK Max Planck Institute of Psychiatry (MPIP)	genotype	EUR	Clin	876	861
+gsmse	sa-qc2	GSMS	Great Smoky Mountains Study	genotype	EUR	Clin	155	634
+gsrdf	sa-qc3	GSRD, PsyDev controls	TRD3 European Group for the Study of Resistant Depression (GSRD). SCZ Krebs PychChip	genotype	EUR	Clin	305	408
+gsrdg	sa-qc3	GSRD, Gawlik controls	TRD3 European Group for the Study of Resistant Depression (GSRD). SCZ  PychChip Gawlik	genotype	EUR	Clin	509	524
+gsrdi	sa-qc2	GSRD, Serreti controls	TRD3 European Group for the Study of Resistant Depression (GSRD). SCZ  PychChip Serreti	genotype	EUR	Clin	125	216
+gsrdp	sa-qc2	GSRD, Paschou controls	TRD3 European Group for the Study of Resistant Depression (GSRD). T2D PsychChip Paschou	genotype	EUR	Clin	87	318
+i2b3	sr-qc	Harvard i2b2	Harvard i2b2 (i2b2-TRD)	genotype	EUR	Clin	807	1064
+ihseu	sa-qc1	IHS	Intern Health Study	genotype	EUR	Clin	1906	3727
+iruts	sa-qc4	USGRS, IRL-GRey, Smoller controls	Utah Suicide Genetic Research Study. IRL-GRey. Controls from Smoller BIP study	genotype	EUR	EHR	969	689
+janpy	sa-qc3	Janssen	Janssen clinical trials NCT00044681, NCT01640080, and NCT01627782. NINDS Human Genetics Repository controls	genotype	EUR	Clin	709	791
+mazdr	sa-qc2	GeneBaseMDD, Reif controls	GeneBaseMDD. German BIP Reif controls	genotype	EUR	Clin	191	1014
+mmi2	sr-qc	MPIP MARS 650	Max Planck Institute of Psychiatry. Munich Antidepressant Response Signature 650	genotype	EUR	Clin	585	513
+mmo4	sr-qc	MPIP MARS OMNIex	Max Planck Institute of Psychiatry. Munich Antidepressant Response Signature OMNIex	genotype	EUR	Clin	265	374
+mrive	sa-qc2	PISMA-ep	Epidemiological Study on Mental Health in the Autonomous Community of Andalusia (PISMA-ep)	genotype	EUR	Clin	251	1193
+muen2	sr-qc	MUENS	Münster	genotype	EUR	Clin	885	792
+muspc	sa-qc1	MUSPC	Mater University Study of Pregnancy	genotype	EUR	Clin	263	973
+nes1	sr-qc2	NESDA/NTR	The Netherlands Study of Depression and Anxiety (NESDA) / The Netherlands Twin Register (NTR)	genotype	EUR	Clin	1491	1602
+pfm2	sr-qc2	Pfizer	Pfizer clinical trials A050R-0552, A1650112, A1651002, A1651008, A2721002, A2721008, M20200046, M20200047	genotype	EUR	Clin	281	820
+prote	sa-qc2	PROTECT	Platform for Research Online to Investigate Genetics and Cognition in Aging	genotype	EUR	Quest	2199	5989
+qi3c	sr-qc	QIMR I317	QIMR Berghofer Medical Research Institute (QIMR) NC/IRPG (Twins and Spouses), SS1 (SSAGA1), TE (Twin89) and AX (Anxiety and Depression) I317	genotype	EUR	Clin	864	579
+qi6c	sr-qc	QIMR I610	QIMR Berghofer Medical Research Institute (QIMR) NC/IRPG (Twins and Spouses), SS1 (SSAGA1), TE (Twin89) and AX (Anxiety and Depression) I610	genotype	EUR	Clin	499	590
+qio2	sr-qc	QIMR COEX	QIMR Berghofer Medical Research Institute (QIMR) NC/IRPG (Twins and Spouses), SS1 (SSAGA1), TE (Twin89) and AX (Anxiety and Depression) COEX	genotype	EUR	Clin	565	525
+rad3	sr-qc	RADIANT-UK	RADIANT - United Kingdom	genotype	EUR	Clin	1857	1525
+rage	sr-qc	RADIANT-GER	RADIANT - Germany	genotype	EUR	Clin	324	226
+rai2	sr-qc	RADIANT-IRE	RADIANT - Ireland	genotype	EUR	Clin	109	340
+rau2	sr-qc	RADIANT-US	RADIANT - United States	genotype	EUR	Clin	222	375
+rde4	sr-qc2	RADIANT-DEN	RADIANT - Denmark	genotype	EUR	Clin	133	516
+roc3	sr-qc	Roche	Roche (MARIGOLD and ARTDeCo)	genotype	EUR	Clin	273	92
+rot4	sr-qc	Rotterdam	Rotterdam Study (Rotterdam)	genotype	EUR	Clin	240	1029
+shp0	sr-qc	SHIP-LEGEND	Study of Health in Pomerania - Life-Events and Gene-Environment Interaction in Depression (SHIP-LEGEND)	genotype	EUR	Clin	365	1086
+shpt	sr-qc	SHIP-TREND-0	Study of Health in Pomerania - TREND baseline cohort  (SHIP-TREND)	genotype	EUR	Clin	163	486
+stm2	sr-qc	STAR*D	Sequenced Treatment Alternatives to Relieve Depression (STAR*D)	genotype	EUR	Clin	935	933
+topmd	sa-qc2	TOP	TOP study (Tematisk omrade psykoser)	genotype	EUR	Clin	218	1141
+trail	sa-qc2	TRAILS	TRAILS (Tracking Adolescents´ Individual Lives Survey)	genotype	EUR	Clin	200	1118
+twg2	sr-qc	TwinGene	TwinGene	genotype	EUR	Clin	1097	2663
+yapeu	sa-qc1	YAPE	Yale-Penn Study	genotype	EUR	Clin	318	1267
+23andMe	23andMe_AFR	23andMe [AFR]	23andMe Research v7.2	sumstats	AFR	SelfRep	5045	102098
+23andMe	23andMe_EAS	23andMe [EAS]	23andMe Research v7.2	sumstats	EAS	SelfRep	2729	90310
+23andMe	v7_2_202012	23andMe [EUR]	23andMe Research v7.2	sumstats	EUR	SelfRep	112892	1773938
+23andMe	23andMe_HIS	23andMe [HIS]	23andMe Research	sumstats	HIS	SelfRep	17787	325961
+AGDS	202012	AGDS	Australian Genetics of Depression Study	sumstats	EUR	Quest	12123	12684
+Airwave	820	AHMS	Airwave  Health Monitoring Study	sumstats	EUR	SelfRep	2100	15713
+ALSPAC	27022020	ALSPAC	Avon Longitudinal Study of Parents and Children (ALSPAC)	sumstats	EUR	Quest	472	3475
+Army-STARRS	Army-STARRS	Army-STARRS	Army-STARRS. New Soldier Study (NSS) and the Pre/Pst Deployment Study (PPDS).	sumstats	DIV	Quest	1949	13899
+BASIC	202011	BASIC	The Biology, Affect, Stress, Imaging and Cognition (BASIC) study	sumstats	EUR	Quest	1003	1854
+BBJ	BBJ	Biobank Japan	Biobank Japan	sumstats	EAS	EHR	3893	174747
+BHRCS	BHRCS	BHRCS	Brazilian High Risk Study for Mental Conditions (BHRCS)	sumstats	DIV	Clin	684	2731
+BioMe	BioMe_AFR	BioMe [AFR]	BioME - Mount Sinai Health System	sumstats	AFR	EHR	1613	6399
+BioMe	BioMe_EAS	BioMe [EAS]	BioME - Mount Sinai Health System	sumstats	EAS	EHR	60	835
+BioMe	BioMe_HIS	BioMe [HIS]	BioME - Mount Sinai Health System	sumstats	HIS	EHR	95	8553
+BioVU	BioVU_AFR	BioVU [AFR]	Vanderbilt University Medical Center (VUMC) Biobank	sumstats	AFR	EHR	998	4938
+BioVU	NoCov_SAIGE_051821	BioVU [EUR]	Vanderbilt University Medical Center (VUMC) Biobank	sumstats	EUR	EHR	7757	24723
+CKB	CKB	CKB	China Kadoorie Biobank (CKB)	sumstats	EAS	EHR	5376	69998
+Converge	Converge	CONVERGE	China, Oxford and Virginia Commonwealth University Experimental Research on Genetic Epidemiology cohort (CONVERGE)	sumstats	EAS	Clin	5303	5337
+DBDS	FINAL202103	CHB/DBDS	Copenhagen Hospital Biobank (CHB)/Danish Blood Donor Study (DBDS)	sumstats	EUR	EHR	13347	145996
+deCODE	DEPALL_FINAL_WHEAD	deCODE	deCODE genetics	sumstats	EUR	EHR	20340	331329
+DNHS	DNHS	DNHS	Detroit Neighborhood Health Study (DNHS)	sumstats	AFR	Quest	58	436
+eMERGE	eMERGE	eMERGE Network	Electronic Medical Records and Genomics Network (eMERGE)	sumstats	DIV	EHR	296	1891
+ESTBB	EstBB	Estonian Biobank	Estonian Biobank	sumstats	EUR	EHR	35473	91301
+EXCEED	202010	EXCEED	Extended Cohort for E-health, Environment and DNA (EXCEED)	sumstats	EUR	EHR	580	2071
+FinnGen	R5_18032020	FinnGen	FinnGen	sumstats	EUR	EHR	23424	192220
+GenScot	SCID_0721a	GenScot	Generation Scotland: Scottish Family Health Study	sumstats	EUR	Clin	930	5730
+GERA	GERA_DIV	GERA [DIV]	Genetic Epidemiology Research on Aging (GERA)	sumstats	DIV	EHR	1144	10652
+GERA	0915a_mds5	GERA [EUR]	Genetic Epidemiology Research on Aging (GERA)	sumstats	EUR	EHR	7162	38307
+GH	GH	GH	Genes and Health (GH)	sumstats	SAS	EHR	3748	25934
+HCHS	HCHS	HCHS/SOL	Hispanic Community Health Study / Study of Latinos (HCHS/SOL)	sumstats	DIV	Quest	3979	6499
+HELIUS	HELIUS	HELIUS	Healthy Life in an Urban Setting (HELIUS)	sumstats	DIV	Quest	953	9132
+HUNT	gp_hospital_metacarpa_20190625	HUNT	HUNT - The Nord-Trøndelag Health Study	sumstats	EUR	EHR	11658	42535
+IHS	IHS_DIV	IHS	Intern Health Study (IHS)	sumstats	DIV	Clin	830	1501
+iPSYCH	2012_HRC	iPSYCH2012	iPSYCH2012 MDD cohort	sumstats	EUR	EHR	19156	22708
+iPSYCH	2015i_HRC	iPSYCH2015i	iPSYCH2015i MDD cohort	sumstats	EUR	EHR	10002	15434
+JHS	JHS	JHS	Jackson Heart Study (JHS)	sumstats	AFR	Quest	299	990
+lgic2	202011	iCBT	LifeGene.Karolinska Internet Psychiatry Depression (iCBT)	sumstats	EUR	Clin	906	4717
+MAMHS	MAMHS	MAMHS	Mexican Adolescent Mental Health Survey (MAMHS)	sumstats	HIS	Clin	105	996
+MESA	MESA	MESA	Multi-Ethnic Study of Atherosclerosis (MESA)	sumstats	DIV	Quest	423	3802
+MoBa	harvest12	MoBa+HARVEST-12	Norwegian Mother, Father and Child Cohort Study (MoBa) / Better Health By Harvesting Biobanks (HARVEST)	sumstats	EUR	EHR	603	10213
+MoBa	harvest24	MoBa+HARVEST-24	Norwegian Mother, Father and Child Cohort Study (MoBa) / Better Health By Harvesting Biobanks (HARVEST)	sumstats	EUR	EHR	367	6122
+MoBa	rotterdam1	MoBa Rotterdam	Norwegian Mother, Father and Child Cohort Study (MoBa) Rotterdam	sumstats	EUR	EHR	553	8860
+MVP	MVP_DIV	MVP [DIV]	Million Veterans Program	sumstats	DIV	EHR	91792	101644
+MVP	rel4icdDEP_Geno_202109C	MVP [EUR]	Million Veterans Program	sumstats	EUR	EHR	151974	226640
+PBK	2020	Partners Biobank	Partners Biobank	sumstats	EUR	EHR	5607	16080
+PIRC	PIRC	PIRC	Prevention Intervention Research Center (PIRC) 1st Generation Trial	sumstats	AFR	Clin	52	547
+PREFECT	run1	PREFECT	Predictors For ECT (PREFECT)	sumstats	EUR	EHR	1796	3290
+PrOMIS	PrOMIS	PrOMIS	Pregnancy Outcomes, Maternal and Infant Study	sumstats	HIS	Clin	1076	2328
+QIMRB	QIMRB	QIMR	NC/IRPG (Twins and Spouses), SS1 (SSAGA1), TE (Twin89) and AX (Anxiety and Depression)  and the Australian genetics of depression study (AGDS), Qkin Study Controls	sumstats	DIV	Clin	429	268
+SAFR	SAFR	DCHS	Drakenstein Child Health Study (DCHS)	sumstats	AFR	Quest	139	346
+SHARE	godartsshare_842021	SHARE	SHARE - Scottish Health Research Register & Biobank	sumstats	EUR	EHR	1063	1921
+STAGE	MDDdx_saige	STAGE	Swedish Twin Studies of Adults: Genes and Environment (STAGE)	sumstats	EUR	Quest	421	9134
+Taiwan1	Taiwan1	Taiwan Biobank1	Taiwan Depression GREAT study TWB1.0	sumstats	EAS	Clin	988	6075
+Taiwan2	Taiwan2	Taiwan Biobank2	Taiwan Depression GREAT study TWB2.0	sumstats	EAS	Clin	360	2317
+tkda1	run1	Takeda	Takeda vortioxetine cohort	sumstats	EUR	Clin	672	846
+UKBB	UKBB_DIV	UK Biobank	UK Biobank	sumstats	DIV	Quest	3328	5638
+UKBB	MD_glm_202107	UK Biobank [EUR]	UK Biobank	sumstats	EUR	Quest	54669	306461
+WHI	WHI_share_AFR	WHI [AFR]	Women's Health Initiative (WHI)	sumstats	AFR	Quest	1445	6593
+WHI	WHI_DIV	WHI [DIV]	Women's Health Initiative (WHI)	sumstats	DIV	Quest	2771	5930
+WHI	WHI_share_HIS	WHI [HIS]	Women's Health Initiative (WHI)	sumstats	HIS	Quest	864	2565

@@ -1,0 +1,3 @@
+cohort	release	study_name	study_description	data_type	ancestry	phenotype	N_cases	N_controls
+23andMe	v7_2_202012	23andMe [EUR]	23andMe Research v7.2	sumstats	EUR	SelfRep	112892	1773938
+Airwave	820	AHMS	Airwave  Health Monitoring Study	sumstats	EUR	SelfRep	2100	15713

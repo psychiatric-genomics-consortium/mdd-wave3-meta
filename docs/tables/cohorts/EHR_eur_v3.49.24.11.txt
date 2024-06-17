@@ -1,0 +1,19 @@
+cohort	release	study_name	study_description	data_type	ancestry	phenotype	N_cases	N_controls
+iruts	sa-qc4	USGRS, IRL-GRey, Smoller controls	Utah Suicide Genetic Research Study. IRL-GRey. Controls from Smoller BIP study	genotype	EUR	EHR	969	689
+BioVU	NoCov_SAIGE_051821	BioVU [EUR]	Vanderbilt University Medical Center (VUMC) Biobank	sumstats	EUR	EHR	7757	24723
+DBDS	FINAL202103	CHB/DBDS	Copenhagen Hospital Biobank (CHB)/Danish Blood Donor Study (DBDS)	sumstats	EUR	EHR	13347	145996
+deCODE	DEPALL_FINAL_WHEAD	deCODE	deCODE genetics	sumstats	EUR	EHR	20340	331329
+ESTBB	EstBB	Estonian Biobank	Estonian Biobank	sumstats	EUR	EHR	35473	91301
+EXCEED	202010	EXCEED	Extended Cohort for E-health, Environment and DNA (EXCEED)	sumstats	EUR	EHR	580	2071
+FinnGen	R5_18032020	FinnGen	FinnGen	sumstats	EUR	EHR	23424	192220
+GERA	0915a_mds5	GERA [EUR]	Genetic Epidemiology Research on Aging (GERA)	sumstats	EUR	EHR	7162	38307
+HUNT	gp_hospital_metacarpa_20190625	HUNT	HUNT - The Nord-Trøndelag Health Study	sumstats	EUR	EHR	11658	42535
+iPSYCH	2012_HRC	iPSYCH2012	iPSYCH2012 MDD cohort	sumstats	EUR	EHR	19156	22708
+iPSYCH	2015i_HRC	iPSYCH2015i	iPSYCH2015i MDD cohort	sumstats	EUR	EHR	10002	15434
+MoBa	harvest12	MoBa+HARVEST-12	Norwegian Mother, Father and Child Cohort Study (MoBa) / Better Health By Harvesting Biobanks (HARVEST)	sumstats	EUR	EHR	603	10213
+MoBa	harvest24	MoBa+HARVEST-24	Norwegian Mother, Father and Child Cohort Study (MoBa) / Better Health By Harvesting Biobanks (HARVEST)	sumstats	EUR	EHR	367	6122
+MoBa	rotterdam1	MoBa Rotterdam	Norwegian Mother, Father and Child Cohort Study (MoBa) Rotterdam	sumstats	EUR	EHR	553	8860
+MVP	rel4icdDEP_Geno_202109C	MVP [EUR]	Million Veterans Program	sumstats	EUR	EHR	151974	226640
+PBK	2020	Partners Biobank	Partners Biobank	sumstats	EUR	EHR	5607	16080
+PREFECT	run1	PREFECT	Predictors For ECT (PREFECT)	sumstats	EUR	EHR	1796	3290
+SHARE	godartsshare_842021	SHARE	SHARE - Scottish Health Research Register & Biobank	sumstats	EUR	EHR	1063	1921

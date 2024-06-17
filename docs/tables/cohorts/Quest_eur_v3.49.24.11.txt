@@ -1,0 +1,7 @@
+cohort	release	study_name	study_description	data_type	ancestry	phenotype	N_cases	N_controls
+prote	sa-qc2	PROTECT	Platform for Research Online to Investigate Genetics and Cognition in Aging	genotype	EUR	Quest	2199	5989
+AGDS	202012	AGDS	Australian Genetics of Depression Study	sumstats	EUR	Quest	12123	12684
+ALSPAC	27022020	ALSPAC	Avon Longitudinal Study of Parents and Children (ALSPAC)	sumstats	EUR	Quest	472	3475
+BASIC	202011	BASIC	The Biology, Affect, Stress, Imaging and Cognition (BASIC) study	sumstats	EUR	Quest	1003	1854
+STAGE	MDDdx_saige	STAGE	Swedish Twin Studies of Adults: Genes and Environment (STAGE)	sumstats	EUR	Quest	421	9134
+UKBB	MD_glm_202107	UK Biobank [EUR]	UK Biobank	sumstats	EUR	Quest	54669	306461
