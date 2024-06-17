@@ -12,15 +12,20 @@ DBox_dist_public = DropboxRemoteProvider(oauth2_access_token=config["remote"]["d
 
 wildcard_constraints:
     version="[\d.]+"
-    
-# current European ancestries analysis
+
+# current multiple ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count].[Revision]
+analysis_version_div = ["3.49.46.01"]
+  
+# current European ancestries analysis
 analysis_version_eur = ["3.49.24.11"]
 analysis_version = analysis_version_eur
 
 # current East Asian ancestries analysis
 # analysis version format: v3.[PGC Cohorts Count].[Other Cohorts Count].[Revision]
-analysis_version_eas = ["3.00.04"]
+analysis_version_eas = ["3.00.04.01"]
+
+analysis_version = analysis_version_eur
 
 include: "rules/resources.smk"
 include: "rules/ldsc.smk"

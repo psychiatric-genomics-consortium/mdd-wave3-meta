@@ -92,10 +92,10 @@ rule open_gwas_ldsc_log:
 # list all IDs to fetch and run LDSC on, then generate report
 rule open_gwas_rg_all_datasets:
     input: ldsc_full=expand("results/open_gwas/ldsc/full_eur_v{version}_{dataset}.rg.txt",\
-                version=analysis_version,\
+                version=analysis_version_eur,\
                 dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo)),\
             ldsc_noukbb=expand("results/open_gwas/ldsc/noUKBB_eur_v{version}_{dataset}.rg.txt",\
-                version=analysis_version,\
+                version=analysis_version_eur,\
                 dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo)),\
             ldsc_previous=expand("results/open_gwas/ldsc/howard_eur_v2_{dataset}.rg.txt",\
                 dataset=open_gwas_parse_dataset_ids(rules.open_gwas_phewas_lookup.output.gwasinfo)),\

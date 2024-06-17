@@ -135,7 +135,7 @@ rule postimpX:
     
     
 rule postimp_eur_X:
-    input: expand("results/meta/X/full_eur_v{version}.done", version=analysis_version)
+    input: expand("results/meta/X/full_eur_v{version}.done", version=analysis_version_eur)
         
     
 ###
@@ -171,7 +171,7 @@ rule postimp_reclump_top10k:
         info=meta_qc_params['clu10k_info'],
         window=meta_qc_params['clu10k_kb'],
         popname=lambda wildcards: wildcards.ancestries.upper(),
-        pfile="distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.gz",
+        pfile="results/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.gz",
         outname="pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.top10k"
     output: touch("results/meta/{cohorts}_{ancestries}_v{version}.top10k.done")
     shell: """

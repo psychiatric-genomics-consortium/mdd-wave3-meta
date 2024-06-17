@@ -181,7 +181,7 @@ rule cojo_regions_analyse:
     script: "../scripts/meta/cojo.R"
     
 rule cojo_table_eur:
-    input: cojo=expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.cojo", version=analysis_version), singletons=expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.singleton.cojo", version=analysis_version)
+    input: cojo=expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.cojo", version=analysis_version_eur), singletons=expand("results/cojo/pgc_mdd_{{cohorts}}_eur_hg19_v{version}.singleton.cojo", version=analysis_version_eur)
     output: cojo="docs/tables/meta_snps_{cohorts}_eur.cojo.txt", singletons="docs/tables/meta_snps_{cohorts}_eur.cojo.singleton.txt"
     shell: "cp {input.cojo} {output.cojo}; cp {input.singletons} {output.singletons}"
 
@@ -191,7 +191,7 @@ rule cojo_analyse:
     
 # copy COJO log into the repository
 rule cojo_log:
-    input: expand("logs/cojo/pgc_mdd_full_eur_hg19_v{version}.log", version=analysis_version)
+    input: expand("logs/cojo/pgc_mdd_full_eur_hg19_v{version}.log", version=analysis_version_eur)
     output: "docs/objects/meta_snps_full_eur.cojo.log"
     shell: "cp {input} {output}"
     

@@ -1,10 +1,9 @@
 ##fileFormat=PGCv1.0
 ##fileDate="{filedate}"
 ##preparedBy="{analyst}"
-##manuscript=<ID=BIORXIV,REF="{biorxiv}">
 ##manuscript=<ID=PMID,REF="{pmid}">
 ##manuscript=<ID=PMCID,REF="{pmcid}">
-##DOI=<ID=BIORXIV,REF="{biorxiv}">
+##DOI=<ID=MEDRXIV,REF="{medrxiv}">
 ##DOI=<ID=JOURNAL,REF="{doi}">
 ##sumstatsURL=<ID=SUMSTATS,REF="{sumstats_url}">
 ##codeURL=<ID=CODE,REF="{code_url}">
@@ -15,7 +14,7 @@
 ##shortName="pgc-mdd{year}-{cohorts}-{ancestries}"
 ##version="{analysis_version}"
 ##referencePopulation="{reference}"
-##dependentVariable="major depressive disorder"
+##dependentVariable="major depression"
 ##dependentVariableType="discrete"
 ##model="dependentVariable=SNPi+PC1-PC5"
 ##nCase="{ncase}"
@@ -39,9 +38,12 @@
 ##nEffectiveList="{neff_by_cohort}"
 ##nTrioList="{trios_by_cohort}"
 ##ProcessedByCoreTeamList="{processed_by_core}"
+##INFO=<ID=CHR,Number=1,Type=Character,Description="Chromosome">
+##INFO=<ID=BP,Number=1,Type=Character,Description="Base-pair position (GRCh37)">
+##INFO=<ID=SNP,Number=1,Type=Character,Description="Marker ID (reference SNP cluster ID or chromosome-position ID)">
 ##INFO=<ID=EA,Number=1,Type=Character,Description="SNP effect allele for freq and ln(OR))">
 ##INFO=<ID=NEA,Number=1,Type=Character,Description="SNP non-effect allele">
-##INFO=<ID=BETA,Number=1,Type=Float,Description="ln(OR) of EA">
+##INFO=<ID=BETA,Number=1,Type=Float,Description="ln(Odds Ratio) effect of EA">
 ##INFO=<ID=SE,Number=1,Type=Float,Description="standard error of ln(OR)">
 ##INFO=<ID=PVAL,Number=1,Type=Float,Description="P-value, uncorrected">
 ##INFO=<ID=NGT,Number=1,Type=Integer,Description="number of cohorts genotyped">

@@ -54,7 +54,7 @@ rule genes_fastbat:
     
 ## Run fastBAT within GCTA using qc'd summary stats and all geneMatrix gene list (N = 58844)
 rule genes_fastbat_analyse:
-    input: expand("results/fastBAT/pgc_mdd_full_{ancestries}_v{version}.{genes}.fastbat", ancestries=['eur'], version=analysis_version, genes=['protein', 'all'])
+    input: expand("results/fastBAT/pgc_mdd_full_{ancestries}_v{version}.{genes}.fastbat", ancestries=['eur'], version=analysis_version_eur, genes=['protein', 'all'])
 
 ##
 ## PysOPS
@@ -180,7 +180,7 @@ rule genes_sldsc_go_h2:
 
 # Analyse all extracted GO terms
 rule genes_sldsc_go_h2_analyse:
-    input: sldsc=expand("results/go/sldsc/pgc_mdd_full_eur_hg19_v{version}-{geneset}.results", geneset=genes_fuma_genesets, version=analysis_version)
+    input: sldsc=expand("results/go/sldsc/pgc_mdd_full_eur_hg19_v{version}-{geneset}.results", geneset=genes_fuma_genesets, version=analysis_version_eur)
     params: genesets=genes_fuma_genesets
     output: "docs/tables/sldsc/sldsc_go_full_eur.txt"
     conda: "../envs/meta.yaml"

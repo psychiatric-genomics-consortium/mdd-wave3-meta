@@ -32,7 +32,7 @@ rule postimp_clumped:
 
 # inputs for postimp_rp
 rule postimp_rp_cohorts:
-    input: neff=expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.gz", cohorts=cohorts_analyst + cohorts_public, ancestries=['eur'], version=analysis_version), clump=expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc.txt", cohorts=['full'], ancestries=['eur'], version=analysis_version)
+    input: neff=expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.gz", cohorts=cohorts_analyst + cohorts_public, ancestries=['eur'], version=analysis_version_eur), clump=expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.gz.p4.clump.areator.sorted.1mhc.txt", cohorts=['full'], ancestries=['eur'], version=analysis_version)
     
 # add clumped results file to repo
 rule postimp_rp_clumped:
@@ -42,7 +42,7 @@ rule postimp_rp_clumped:
     
 # filter top10k clumped results
 rule postimp_rp_top10k:
-    input: auto="results/meta/pgc_mdd_full_{ancestries}_hg19_v{version}.top10k.clumped.xmhc.gz", allo="results/meta/X/pgc_mdd_full_{ancestries}_hg19_v{version}.neff.top10k.clumped", daner="results/meta/distribution/pgc_mdd_full_{ancestries}_hg19_v{version}/daner_pgc_mdd_full_{ancestries}_hg19_v{version}.rp.gz", cojo="docs/tables/meta_snps_full_{ancestries}.cojo.txt", clump="docs/tables/meta_snps_full_{ancestries}.clump.txt" 
+    input: auto="results/meta/pgc_mdd_full_{ancestries}_hg19_v{version}.top10k.clumped.xmhc.gz", allo="results/meta/X/pgc_mdd_full_{ancestries}_hg19_v{version}.neff.top10k.clumped", daner="results/distribution/daner_pgc_mdd_full_{ancestries}_hg19_v{version}.rp.gz", cojo=expand("docs/tables/meta_snps_full_{ancestries}.cojo.format.txt", ancestries = ['div', 'eur']), clump=expand("docs/tables/meta_snps_full_{ancestries}.clump.txt", ancestries = ['div', 'eur'])
     output: "results/meta/distribution/pgc_mdd_top10k_{ancestries}_hg19_v{version}/daner_pgc_mdd_top10k_{ancestries}_hg19_v{version}.neff.gz"
     conda: "../envs/meta.yaml"
     script: "../scripts/meta/rp_top10k.R"

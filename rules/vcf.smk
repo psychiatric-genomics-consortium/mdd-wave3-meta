@@ -126,9 +126,9 @@ rule vcf:
 # Pull in daner file for sumstats, fai file for genome build info, basic.num file
 # for genotyped and sumstats cohorts with case/control/allele counts
 rule vcf_daner2pgc:
-    input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{analysis}.neff.gz",fasta_fai="resources/fasta/human_grch37.fasta.fai", cohorts="docs/tables/cohorts/{cohorts}_{ancestries}_v{analysis}.txt",  cff="CITATION.cff", header_template="scripts/vcf/pgc.glue"
+    input: daner="results/distribution/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{wave}.{geno}.{sums}.{rev}.neff.gz",fasta_fai="resources/fasta/human_grch37.fasta.fai", cohorts="docs/tables/cohorts/{cohorts}_{ancestries}_v{wave}.{geno}.{sums}.{rev}.txt",  cff="CITATION.cff", header_template="scripts/vcf/pgc.glue"
     conda: "../envs/vcf.yaml"
-    output: temp("results/vcf/pgc-mdd{year}_{cohorts}_{ancestries}_v{analysis}.tsv")
+    output: temp("results/vcf/pgc-mdd{year}_{cohorts}_{ancestries}_v{wave}-{geno}-{sums}-{rev}.tsv")
     script: "../scripts/vcf/pgc.R"
 
 rule vcf_pgc_gz:
@@ -137,4 +137,4 @@ rule vcf_pgc_gz:
     shell: "gzip -c {input} > {output}"  
     
 rule vcf_pgc:
-    input: expand("results/vcf/pgc-mdd{year}_{analysis}.tsv.gz", year=2024, analysis=['full_div_v3.49.52.01', 'full_eur_v3.49.24.11', 'no23andMe_div_v3.49.52.01', 'no23andMe_eur_v3.49.24.11', 'no23andMe-noUKBB_eur_v3.49.24.11', 'Clin_eur_v3.49.24.11', 'EHR_eur_v3.49.24.11', 'Quest_eur_v3.49.24.11', 'SelfRep_eur_v3.49.24.11', 'top10k_eur_v3.49.24.11'])
+    input: expand("results/vcf/pgc-mdd{year}_{analysis}.tsv.gz", year=2024, analysis=['full_div_v3-49-46-01', 'full_eur_v3-49-24-11', 'no23andMe_div_v3-49-46-01', 'no23andMe_eur_v3-49-24-11', 'no23andMe-noUKBB_eur_v3-49-24-11', 'Clin_eur_v3-49-24-11', 'EHR_eur_v3-49-24-11', 'Quest_eur_v3-49-24-11', 'SelfRep_eur_v3-49-24-11', 'top10k_eur_v3-49-24-11'])

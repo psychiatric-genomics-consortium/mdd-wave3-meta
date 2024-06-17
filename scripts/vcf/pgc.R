@@ -19,7 +19,7 @@ analyst <- snakemake@config$analyst
 cff <- read_yaml(snakemake@input$cff)
 
 # manuscript and DOI information
-biorxiv <- cff$references[[3]]$doi
+medrxiv <- cff$references[[3]]$doi
 pmid <- cff$references[[2]]$pmid
 pmcid <- cff$references[[2]]$pmcid
 doi <- cff$doi

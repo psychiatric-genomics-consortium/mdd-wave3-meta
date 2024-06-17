@@ -6,9 +6,8 @@ This project uses the [Snakemake](https://snakemake.readthedocs.io) build system
 
 1. A build system is an explicit way to represent the dependencies between data, code, and results.
 2. Compared with [Make](https://www.gnu.org/software/make), Snakemake offers the flexibility of a scripting language and, as an extension of Python, is easy to read and write. 
-3. Workflow tools like [bpipe](http://docs.bpipe.org) are more structured for defining how input files map on to output files. Bpipe is good for projects where you have a lot of input files that all need to be processed the same way. With Snakemake, the conceptual focus is more heavily on telling the system what *output* files we want, and the workflow automatically determines the dependencies necessary to create those files. While both systems are very flexible, Snakemake's conceptual scope is a better fit for a project where we are primarily concern are the results for a particular analysis (GWAS of MDD). 
+3. Workflow tools like [bpipe](http://docs.bpipe.org) are more structured for defining how input files map on to output files. Bpipe is good for projects where you have a lot of input files that all need to be processed the same way. With Snakemake, the conceptual focus is more heavily on telling the system what *output* files we want, and the workflow automatically determines the dependencies necessary to create those files. While both systems are very flexible, Snakemake's conceptual scope is a better fit for a project where we are primarily concerned with the results for a particular analysis (GWAS of MDD). 
 4. [Snakemake integrates with scripts](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#external-scripts) in the three main open data science languages: [R](https://www.r-project.org), [Python](https://www.r-project.org), and [Julia](https://julialang.org).
-5. As an integrated, scalable platform, [Hail](https://hail.is/) is another good choice for reproducible results, but for this project with contributers from many different groups, Snakemake facilitates workflows running on institutional [clusters](https://snakemake.readthedocs.io/en/stable/executing/cluster.html) in addition to [cloud platforms](https://snakemake.readthedocs.io/en/stable/executing/cloud.html). Some of the workflows need to be run on systems were Spark is not available. 
 
 ## Version control
 
@@ -187,7 +186,7 @@ Once these rules are set up, the whole workflow can by run just by asking for `a
 snakemake -j1 --use-conda analysis
 ```
 
-It's also possible to write a rule that will run on only the most recent version of the summary statistics, rather than all of the versions that have been downloaded. This relies on the `analysis_version` variable defined in the `rules/meta.smk` file. `analysis_version` is a list with the value `["3.N.M"]` and can be used in `expand()` statements:
+It's also possible to write a rule that will run on only the most recent version of the summary statistics, rather than all of the versions that have been downloaded. This relies on the `analysis_version` variable defined in the `rules/meta.smk` file. `analysis_version` is a list with the value `["3.N.M.R"]` and can be used in `expand()` statements:
 
 ```
 rule analysis:
