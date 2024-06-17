@@ -6,29 +6,56 @@ authors:
     family-names: "Adams"
     given-names: "Mark James" 
   -
-    name: "Major Depressive Disorder Working Group of Psychiatric Genomics Consortium"
+    name: "Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium"
 cff-version: "1.1.0"
-doi: "10.1101/2024.04.29.24306535"
+doi: "10.5281/zenodo.11935052"
 abstract: "In a genome-wide association study (GWAS) of 685,808 individuals with major depression (MD) and 4,364,225 controls from 29 countries and across diverse and admixed ancestries, we identify 697 independent associations at 636 genetic loci, 293 of which are novel. Using fine-mapping and functional genomic tools, we find 308 high-confidence gene associations and enrichment of postsynaptic density and receptor clustering. Leveraging new single-cell gene expression data, we conducted a causal neural cell type enrichment analysis that implicated excitatory and inhibitory midbrain and forebrain neurons, peptidergic neurons, and medium spiny neurons in MD. Critically, our findings are enriched for the targets of antidepressants and provide potential antidepressant repurposing opportunities (e.g., pregabalin and modafinil). Polygenic scores (PGS) trained using either European or multi-ancestry data significantly predicted MD case control status across all five diverse ancestries and maximized in PGS from European ancestry studies into European samples, explaining 5.7% of the variance in liability to MD. These findings represent a major advance in our understanding of MD across global populations. We provide evidence that MD GWAS reveals known and novel biological targets that may be used to target and develop pharmacotherapies addressing the considerable unmet need for effective treatment."
 references:
     - type: data
       title: "Genome-wide association study summary statistics for Major Depressive Disorder"
       authors:
         -
-          name: "Major Depressive Disorder Working Group of Psychiatric Genomics Consortium"
+          name: "Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium"
       url: https://www.med.unc.edu/pgc/download-results/
     - type: article
       status: in-preparation
       title: "Genome-wide study of major depression in 685,808 diverse individuals identifies 697 independent associations, infers causal neuronal subtypes and biological targets for novel pharmacotherapies"
       authors:
-      -
-        name: "Major Depressive Disorder Working Group of Psychiatric Genomics Consortium"
+        -
+          family-names: "Adams"
+          given-names: "Mark James"
+        -
+          family-names: "Awasthi"
+          given-names: "Swapnil"
+        - 
+          family-names: "Streit"
+          given-names: "Fabian"
+        -
+          name: "Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium"
+        -
+          family-names: "Ripke"
+          given-names: "Stephan"
+        - family-names: "Wray"
+          given-names: "Naomi R"
+        -
+          family-names: "Lewis"
+          given-names: "Cathryn M"
+        - family-names: "McIntosh"
+          given-names: "Andrew M" 
     - type: article
       status: preprint
       title: "Genome-wide study of major depression in 685,808 diverse individuals identifies 697 independent associations, infers causal neuronal subtypes and biological targets for novel pharmacotherapies"
       authors:
       -
-        name: "Major Depressive Disorder Working Group of Psychiatric Genomics Consortium"
+        family-names: "Adams"
+        given-names: "Mark James"
+      -
+        name: "Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium"
+      -
+        family-names: "Lewis"
+        given-names: "Cathryn M"
+      - family-names: "McIntosh"
+        given-names: "Andrew M" 
       doi: "10.1101/2024.04.29.24306535"
 keywords: 
   - "major depressive disorder"
