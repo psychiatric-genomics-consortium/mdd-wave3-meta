@@ -73,7 +73,7 @@ rule meta_gsem_dataset_eur:
     
 # Ricopili datasets files
 rule meta_gsem_datasets_eur:
-    input: expand("results/meta/gsem/dataset_{cohorts}_eur_v{version}", cohorts=meta_structured_groups_sums.keys(), version=analysis_version)
+    input: expand("results/meta/gsem/dataset_{cohorts}_eur_v{version}", cohorts=meta_structured_groups_sums.keys(), version=analysis_version_eur)
     
 # Ricopili submission
 rule meta_gsem_postimp:
@@ -93,7 +93,7 @@ rule gsem_postimp_rp:
 	script: "../scripts/meta/rp_gsem.R"
 
 rule gsem_postimp_rp_cohorts:
-	input: neff=expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.gz", cohorts=['Clin', 'EHR', 'Quest', 'SelfRep'], ancestries=['eur'], version=analysis_version)
+	input: neff=expand("results/meta/distribution/pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}/daner_pgc_mdd_{cohorts}_{ancestries}_hg19_v{version}.neff.gz", cohorts=['Clin', 'EHR', 'Quest', 'SelfRep'], ancestries=['eur'], version=analysis_version_eur)
 	
 rule install_gsem:
 	output: "resources/ldsc/install_genomicsem.done"

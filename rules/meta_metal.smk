@@ -67,7 +67,7 @@ rule overlap_eur:
 	shell: "{input.metal} {input.script}"
 	
 rule metal_eur_analyze:
-	input: expand("results/meta/overlap/mdd_eur_v{version}_1.tbl", version=analysis_version)
+	input: expand("results/meta/overlap/mdd_eur_v{version}_1.tbl", version=analysis_version_eur)
 	
 # Convert to daner format and merge with Ricopili information
 rule overlap_daner:
@@ -77,4 +77,4 @@ rule overlap_daner:
 	script: "../scripts/meta/metal_daner.R"
 	
 rule overlap_daner_eur:
-	input: expand("results/meta/metal/daner_mdd_full_eur_hg19_v{version}.ov.gz", version=analysis_version)
+	input: expand("results/meta/metal/daner_mdd_full_eur_hg19_v{version}.ov.gz", version=analysis_version_eur)
