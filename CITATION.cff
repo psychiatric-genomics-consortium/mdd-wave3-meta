@@ -16,7 +16,7 @@ references:
       title: "Genome-wide association study summary statistics for Major Depressive Disorder"
       authors:
         -
-          name: "Major Depressive Disorder Working Group of Psychiatric Genomics Consortium"
+          name: "Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium"
       url: https://www.med.unc.edu/pgc/download-results/
       doi: "10.6084/m9.figshare.27061255"
     - type: article
@@ -26,7 +26,7 @@ references:
       doi: "10.1016/j.cell.2024.12.002"
       authors:
         -
-          name: "Major Depressive Disorder Working Group of Psychiatric Genomics Consortium"
+          name: "Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium"
     - type: article
       status: preprint
       title: "Genome-wide study of major depression in 685,808 diverse individuals identifies 697 independent associations, infers causal neuronal subtypes and biological targets for novel pharmacotherapies"
@@ -35,7 +35,7 @@ references:
         family-names: "Adams"
         given-names: "Mark James"
       -
-        name: "Major Depressive Disorder Working Group of Psychiatric Genomics Consortium"
+        name: "Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium"
       -
         family-names: "Lewis"
         given-names: "Cathryn M"
