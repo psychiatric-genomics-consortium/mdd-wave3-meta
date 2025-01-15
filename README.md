@@ -1,8 +1,9 @@
 # PGC MDD3 Meta-analysis
 
-[![Archived software repository](https://zenodo.org/badge/DOI/10.5281/zenodo.11935052.svg)](https://dx.doi.org/10.5281/zenodo.11935052)
+[![Published paper](https://zenodo.org/badge/DOI/10.1016/j.cell.2024.12.002.svg)](https://dx.doi.org/10.1016/j.cell.2024.12.002) [![Summary statistics](https://zenodo.org/badge/DOI/10.6084/m9.figshare.27061255.svg)](https://dx.doi.org/10.6084/m9.figshare.27061255) [![Archived software repository](https://zenodo.org/badge/DOI/10.5281/zenodo.11935052.svg)](https://dx.doi.org/10.5281/zenodo.11935052)  
 
-The next major meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium. See table of included [cohorts](https://github.com/psychiatric-genomics-consortium/mdd-wave3-meta/blob/main/docs/tables/cohorts/full_div_v3.49.46.01.txt).
+
+The wave 3 meta-analysis ("MDD3") by the Major Depressive Disorder Working Group of the Psychiatric Genomics Consortium. See table of included [cohorts](https://github.com/psychiatric-genomics-consortium/mdd-wave3-meta/blob/main/docs/tables/cohorts/full_div_v3.49.46.01.txt).
 
 **Current version**: v3.49.46.01 [DIV] 
 
@@ -12,7 +13,7 @@ The next major meta-analysis ("MDD3") by the Major Depressive Disorder Working G
 
 Meta-analysis of cohorts for genome-wide association studies of Major Depressive Disorder.
 
-Analysis conducted on [LISA](https://geneticcluster.org).
+Analysis conducted on [LISA/Snellius](https://geneticcluster.org).
 
 ## Getting started
 
